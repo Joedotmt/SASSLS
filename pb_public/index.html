@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+
+
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>SASLIB</title>
+   <script src="/js-sdk-0.19.0/dist/pocketbase.umd.js"></script>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+   <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="style.css">
+</head>
+
+
+
+
+
+
+
+<body class="green_dark">
+   <dialog id="sign_in_dialog">
+      <span style="padding-right: 0.2em;scale: 1.2;color: rgb(126 150 94);position: absolute;left: 50%;"
+         class="material-symbols-outlined">login</span>
+      <br>
+      <span
+         style="margin-top: 0.2em; white-space: nowrap; color: rgb(164, 192, 127); font-size: 25px; position: absolute;left: 50%;translate: -50%;">Login
+         as a librarian</span>
+      <hr style="
+				            position: absolute;
+				            width: 100%;
+				            left: 0px;
+				            top: 115px;
+				            border: 1px solid rgb(109 117 98);
+				            ">
+      <div style="
+					            display: grid;
+					            grid-template-columns: 1.5fr 1fr;
+					            grid-template-rows: 1fr;
+					            grid-column-gap: 0px;
+					            grid-row-gap: 0px;
+					            align-items: center;
+					            margin-top: 6em;
+					            ">
+         <input id="email_input" autocomplete="off"
+            style="text-align: right; margin: 0em; border-top-right-radius: 0.1em; border-bottom-right-radius: 0.1em;"
+            type="text" placeholder="Email">
+         <label
+            style="color: rgb(240, 255, 230); font-size: min(3vw, 26px); padding-left: 0.5em;">@sanandrea.edu.mt</label>
+      </div>
+      <br>
+      <input style="width: 96.5%;" id="password_input" type="password" placeholder="Password">
+      <br>
+      <hr style="
+				            position: absolute;
+				            width: 100%;
+				            left: 0px;
+				            bottom: 159px;
+				            border: 1px solid rgb(109 117 98);">
+      <div
+         style="display: grid; user-select: none; grid-template-columns: auto max-content max-content;position: absolute;bottom: 2rem;right: 2rem;">
+         <div></div>
+         <div>
+            <svg class="fancy-button" style="display: inline-block; margin-right: -10.2em; margin-bottom: -3em;"
+               onclick="close_sign_in_modal()">
+               <path
+                  d="M47.05,14.47L47.05,14.47c7.39,4.21,16.45,4.21,23.84,0l0,0c21.27-12.13,44.96,11.56,32.83,32.83l0,0
+								                     c-4.21,7.39-4.21,16.45,0,23.84l0,0c12.13,21.27-11.56,44.96-32.83,32.83l0,0c-7.39-4.21-16.45-4.21-23.84,0l0,0
+								                     C25.78,116.09,2.09,92.41,14.22,71.14l0,0c4.21-7.39,4.21-16.45,0-23.84l0,0C2.09,26.02,25.78,2.34,47.05,14.47z">
+                  <animate attributename="d" dur="1000ms" keysplines="
+								                        0.1 0.8 0.2 1;
+								                        0.1 0.8 0.2 1;
+								                        0.1 0.8 0.2 1;
+								                        0.1 0.8 0.2 1;
+								                        0.1 0.8 0.2 1;
+								                        0.1 0.8 0.2 1" keytimes="0;0.22;0.33;0.55;0.66;0.88;1" calcmode="spline"
+                     begin="mousedown" end="mouseup" to="M32.59,6.22l16.72,9.53c5.99,3.42,13.34,3.42,19.33,0l16.72-9.53c17.24-9.83,36.45,9.37,26.61,26.61l-9.53,16.72
+								                        c-3.42,5.99-3.42,13.34,0,19.33l9.53,16.72c9.83,17.24-9.37,36.45-26.61,26.61l-16.72-9.53c-5.99-3.42-13.34-3.42-19.33,0
+								                        l-16.72,9.53c-17.24,9.83-36.45-9.37-26.61-26.61l9.53-16.72c3.42-5.99,3.42-13.34,0-19.33L5.98,32.83
+								                        C-3.86,15.59,15.35-3.62,32.59,6.22z"></animate>
+               </path>
+            </svg>
+         </div>
+         <div>
+            <div style="display: inline-block; margin-top: 0.3em;" onclick="acceptSigninModal()"
+               class="fancy-button-main">
+               Sign In
+            </div>
+         </div>
+      </div>
+   </dialog>
+
+
+
+   <dialog id="add_book_dialog">
+      <div style="display: grid;
+					            height: inherit;
+					            grid-template-columns: 1fr;
+					            grid-template-rows: 1fr 5fr;
+					            grid-column-gap: 0px;
+					            grid-row-gap: 0px;">
+         <div class="dialog-header-grid">
+            <button style="
+						                  border-radius: 5em;
+						                  width: 50.35px;
+						                  background-color: transparent;" onclick="close_add_book_modal()">
+               <span class="material-symbols-outlined">
+                  close
+               </span>
+            </button>
+            <div style="text-align: center;">
+               <span style="scale: 1.2; color: rgb(164, 192, 127);"
+                  class="material-symbols-outlined">list_alt_add</span>
+               <br>
+               <span
+                  style="margin-top: 0.2em; white-space: nowrap; color: rgb(164, 192, 127); font-size: 25px; left: 50%;">Add
+                  a book</span>
+            </div>
+            <button onclick="create_book()">
+               Add
+            </button>
+         </div>
+         <div style="
+						               overflow-y: auto;
+						               overflow-x: hidden;
+						               background-color: #20211d;
+						               width: 100%;">
+            <div class="book-add-inputs">
+               <input placeholder="Association Number">
+               <input placeholder="ISBN">
+               <input placeholder="Title">
+               <input placeholder="Author">
+               <input placeholder="Description">
+               <input placeholder="Classification Label">
+               <input placeholder="Subject">
+               <input placeholder="Level">
+               <input placeholder="Lost">
+               <input placeholder="Scrapped">
+               <input placeholder="Price">
+               <input placeholder="Date Entered">
+            </div>
+         </div>
+      </div>
+   </dialog>
+
+
+
+   <dialog id="settings_dialog">
+      <div style="display: grid;
+					            height: inherit;
+					            grid-template-columns: 1fr;
+					            grid-template-rows: 1fr 5fr;
+					            grid-column-gap: 0px;
+					            grid-row-gap: 0px;">
+         <div class="dialog-header-grid">
+            <button style="
+						                  border-radius: 5em;
+						                  width: 50.35px;
+						                  background-color: transparent;" onclick="close_settings_modal()">
+               <span class="material-symbols-outlined">
+                  close
+               </span>
+            </button>
+            <div style="text-align: center;">
+               <span style="scale: 1.2; color: rgb(164, 192, 127);" class="material-symbols-outlined">settings</span>
+               <br>
+               <span
+                  style="margin-top: 0.2em; white-space: nowrap; color: rgb(164, 192, 127); font-size: 25px; left: 50%;">Settings</span>
+            </div>
+            <button onclick="">
+               Save
+            </button>
+         </div>
+         <div style="
+						               overflow-y: auto;
+						               overflow-x: hidden;
+						               background-color: #20211d;
+						               width: 100%;">
+            <input type="checkbox">Use compact lists</input>
+            <input type="checkbox">Stetch book covers</input>
+         </div>
+   </dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div class="container">
+      <div class="top_bar">
+         <img src="SASLIB_logo.png" style="height: 3em; opacity: 0.8;" alt="San Andrea School Library">
+         <div style="    align-self: center;
+         font-size: 3em;
+         padding: 0.3em; font-weight: 600;">Library</div>
+         <button onclick="change_dark_light_theme()" >
+            <span id="dark_mode_switcher_icon" class="material-symbols-outlined">
+               dark_mode
+            </span>
+         </button>
+         <div style="width: 100%; display: flex; flex-direction: row-reverse;">
+            <button style="border-width: 0;">
+               <span class="material-symbols-outlined" style="font-size: 3em; z-index: 1;
+               font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
+                  account_circle
+               </span>
+            </button>
+            <select id="collection_select" onchange="collection_change()" style="
+            width: 10em;
+            margin: 0.2em; font-size: 18px;">
+               <option value="books">Books</option>
+               <option value="borrowers">Borrowers</option>
+               <option value="transactions">Transactions</option>
+            </select>
+         </div>
+      </div>
+
+
+
+      <div class="search_area">
+      </div>
+
+
+      <div id="list_area" class="list_area">
+         <div class="list_area_search">
+            <input type="text" style="margin: 10px;" id="search_filter_input" onchange="list_books()">
+         </div>
+         <div class="list_area_list" id="list_area_list"></div>
+      </div>
+
+
+      <div id="display_area" class="display_area"></div>
+
+
+   </div>
+
+   <script src="index.js"></script>
+
+   <!----
+   <img id="imag" src="https://png.pngtree.com/png-clipart/20220111/original/pngtree-cigarette-png-image_7083753.png"
+      style="display: none;"></img>
+   <canvas id="book_cover_canvas" style="display: none;"></canvas>
+   -->
+
+</body>
+
+</html>
