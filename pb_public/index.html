@@ -19,7 +19,13 @@
    <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono">
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
@@ -200,7 +206,18 @@
 
 
 
-
+   <dialog class="account_dialog" id="account_modal">
+      <button class="list_button">
+         <span class="button_icon material-symbols-outlined">
+            settings
+         </span>Settings
+      </button>
+      <button class="button_circle" onclick="change_dark_light_theme()">
+         <span id="dark_mode_switcher_icon" class="material-symbols-outlined">
+            light_mode
+         </span>
+      </button>
+   </dialog>
 
 
 
@@ -208,18 +225,17 @@
 
 
    <div class="container">
-      <div class="top_bar">
-         <img src="SASLIB_logo.png" style="height: 3em; opacity: 0.8;" alt="San Andrea School Library">
-         <div style="    align-self: center;
-         font-size: 3em;
-         padding: 0.3em; font-weight: 600;">Library</div>
-         <button onclick="change_dark_light_theme()" >
-            <span id="dark_mode_switcher_icon" class="material-symbols-outlined">
-               dark_mode
-            </span>
-         </button>
+      <div class="top_bar panel">
+         <div style="display: flex; align-items: center;" class="site_logo">
+            <button class="button_circle" onclick="logo_easter_egg()"
+               style="padding:0; height: auto; width: auto; border-width: 0;">
+               <img src="SASLIB_logo.png" class="logo_image" style="height: 3em; width: 3em; opacity: 0.8;"
+                  alt="SAS Logo">
+            </button>
+            <div style="font-weight: 600;" id="logo_text" class="logo_text">Library</div>
+         </div>
          <div style="width: 100%; display: flex; flex-direction: row-reverse;">
-            <button style="border-width: 0;">
+            <button class="button_circle" id="account_button" onclick="open_account_modal()" style="border-width: 0;">
                <span class="material-symbols-outlined" style="font-size: 3em; z-index: 1;
                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
                   account_circle
@@ -237,11 +253,11 @@
 
 
 
-      <div class="search_area">
+      <div class="search_area panel">
       </div>
 
 
-      <div id="list_area" class="list_area">
+      <div id="list_area" class="list_area panel">
          <div class="list_area_search">
             <input type="text" style="margin: 10px;" id="search_filter_input" onchange="list_books()">
          </div>
@@ -249,7 +265,7 @@
       </div>
 
 
-      <div id="display_area" class="display_area"></div>
+      <div id="display_area" class="display_area panel"></div>
 
 
    </div>
