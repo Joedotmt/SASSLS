@@ -164,7 +164,7 @@ body
     --color-primary-20: #062e6f;
     --color-on-primary: #fff;
     --color-neutral-10: #1f1f1f;
-    --color-neutral-90: #e3e3e3;
+    --color-neutral-90: #dfe2ed;
     --color-primary-container: #d3e3fd;
     --color-on-primary-container: #041e49;
     --color-secondary: #00639b;
@@ -284,6 +284,16 @@ body
     --color-ref-neutral-200: #c7c7c7;
 }
 
+.dialog_button_accept
+{
+    background-color: var(--color-surface-1);
+}
+
+.dialog_button_accept:hover
+{
+    background-color: var(--color-surface-3)
+}
+
 .list_item
 {
     user-select: none;
@@ -291,6 +301,8 @@ body
     background: var(--color-surface-1);
     margin: 0;
     padding: 1em;
+    display: flex;
+    flex-direction: row;
     transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -306,17 +318,19 @@ body
 
 .account_dialog
 {
+    z-index: -1;
     position: absolute;
+    display: flex;
     border-radius: 2.5em;
-    height: 30em;
-    width: 20em;
+    height: 33em;
+    width: 23em;
     right: 4.2em;
-    top: 0.4em;
+    margin-top: 69px;
     margin-right: 0;
     background: var(--color-surface-5);
-    padding: 1em;
+    padding: 0;
     color: var(--color-on-background);
-    transition: none;
+    flex-direction: column;
 }
 
 .account_dialog::backdrop
@@ -330,7 +344,7 @@ dialog[open]
     transform: scale(1);
 }
 
-@media (orientation: landscape)
+@media (min-width:590px)
 {
     dialog
     {
@@ -343,7 +357,7 @@ dialog[open]
         border-radius: 1rem;
         border: black 5em;
         padding: 0;
-        width: 767px;
+        color: var(--color-on-background);
         transition:
             opacity 0.2s ease-in-out,
             transform 0.2s ease-in-out,
@@ -352,21 +366,29 @@ dialog[open]
     }
 }
 
-@media (orientation: portrait)
+input[type="radio"]
+{
+    width: 1.5em;
+    height: 1.5em;
+    box-shadow: none !important;
+}
+
+@media (max-width:590px)
 {
     dialog
     {
         opacity: 0;
-        overflow: hidden;
-        background-color: rgb(42, 45, 38);
+        overflow: auto;
+        background-color: var(--color-surface-5);
         border-radius: 0rem;
         padding: 0;
         border: none;
         margin: 0;
-        width: 100%;
-        max-width: 100%;
-        max-height: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100dvh;
+        max-width: 1000em;
+        max-height: 1000em;
+        color: var(--color-on-background);
         transition: opacity 0.2s ease-in-out,
             transform 0.2s ease-in-out,
             overlay 0.2s ease-in-out allow-discrete,
@@ -383,6 +405,22 @@ dialog[open]
         margin: auto;
         left: 50%;
         translate: -50%;
+        width: min(95vw,23em);
+    }
+}
+@media (max-height:610px)
+{
+    .account_dialog
+    {
+        margin: auto;
+        left: 50%;
+        translate: -50%;
+        width: min(95vw,23em);
+        height: min(95vh,33em);
+    }
+    .account_dialog::backdrop
+    {
+        opacity: 1;
     }
 }
 
@@ -438,7 +476,7 @@ span.ripple
     }
 }
 
-@media (orientation: portrait)
+@media (min-width:550px)
 {
     .book-add-inputs
     {
@@ -452,7 +490,7 @@ span.ripple
     }
 }
 
-@media (orientation: landscape)
+@media (max-width:550px)
 {
     .book-add-inputs
     {
@@ -464,7 +502,7 @@ span.ripple
     }
 }
 
-@media (orientation:landscape)
+@media (min-width:590px)
 {
     .dialog-header-grid
     {
@@ -474,13 +512,19 @@ span.ripple
     }
 }
 
-@media (orientation:portrait)
+@media (max-width:590px)
 {
     .dialog-header-grid
     {
         display: grid;
         grid-template-columns: 1fr 2fr 1fr;
         padding: 1rem;
+    }
+
+    .color_picker
+    {
+        flex-direction: column !important;
+        font-size: 1.5em;
     }
 }
 
@@ -497,8 +541,13 @@ span.ripple
 
 ::placeholder
 {
-    color: var(--color-neutral-90);
+    color: var(--color-on-background);
     opacity: 0.7;
+}
+
+fieldset{
+    border-radius: 10px;
+    background-color: var(--color-surface-1);
 }
 
 input,
@@ -511,7 +560,7 @@ select
     box-shadow: 0px 0px 0px 2px var(--color-neutral-variant60);
     font-family: "Poppins";
     width: 100%;
-    font-size: min(5vw, 23px);
+    font-size: min(4vw, 23px);
     padding: 0.4em;
     border-radius: 0.2em;
     margin: 0;
@@ -520,7 +569,7 @@ select
 
 option
 {
-    color: var(--color-neutral-90);
+    color: var(--color-on-background);
     background-color: var(--color-surface-2);
 }
 
@@ -528,6 +577,24 @@ input:focus,
 select:focus
 {
     box-shadow: 0px 0px 0px 3px var(--color-primary-80);
+}
+
+legend
+{
+    color: white;
+    background-color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 0;
+}
+
+.color_picker
+{
+    font-family: 'Roboto Mono';
+    display: flex;
+    justify-content: center;
+    margin-top: 5em;
+    font-size: 0.8em;
 }
 
 button
@@ -600,15 +667,15 @@ button:active
 
 .container
 {
-    margin: 0.5em;
-    display: grid;
-    grid-template-rows: 0fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
     gap: 0.5em 0.5em;
+    margin-top: 0.5em;
+    height: calc(100dvh - 6.5em);
+}
+
+.main{
+    margin: 0.5em;
     height: calc(100dvh - 1em);
-    grid-template-areas:
-        "top_bar top_bar top_bar"
-        "search_area list_area display_area";
 }
 
 .panel
@@ -675,7 +742,7 @@ a:active
         width: 2em !important;
     }
 
-    .container
+    .main
     {
         gap: 0.3em 0.3em;
         margin: 0.3em;
@@ -688,6 +755,7 @@ a:active
     grid-area: top_bar;
     height: 3em;
     padding: 1em;
+    width: unset;
     display: flex;
     overflow-x: scroll !important;
 }
@@ -749,13 +817,11 @@ a:active
 
 .list_button
 {
-    position: absolute;
-    padding-right: 4em;
-    padding-left: 4em;
-    border-radius: 0;
-    border: none;
-    width: 23em;
-    left: -0.5em;
+    padding-left: 2em;
+    border-radius: 0 !important;
+    border-width: 0;
+    width: 100%;
+    margin: 0;
     display: flex;
     justify-content: flex-start;
 }

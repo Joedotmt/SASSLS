@@ -39,76 +39,29 @@
 
 
 <body class="green_dark">
+
+
+
+
+
    <dialog id="sign_in_dialog">
-      <span style="padding-right: 0.2em;scale: 1.2;color: rgb(126 150 94);position: absolute;left: 50%;"
-         class="material-symbols-outlined">login</span>
-      <br>
-      <span
-         style="margin-top: 0.2em; white-space: nowrap; color: rgb(164, 192, 127); font-size: 25px; position: absolute;left: 50%;translate: -50%;">Login
-         as a librarian</span>
-      <hr style="
-				            position: absolute;
-				            width: 100%;
-				            left: 0px;
-				            top: 115px;
-				            border: 1px solid rgb(109 117 98);
-				            ">
-      <div style="
-					            display: grid;
-					            grid-template-columns: 1.5fr 1fr;
-					            grid-template-rows: 1fr;
-					            grid-column-gap: 0px;
-					            grid-row-gap: 0px;
-					            align-items: center;
-					            margin-top: 6em;
-					            ">
-         <input id="email_input" autocomplete="off"
-            style="text-align: right; margin: 0em; border-top-right-radius: 0.1em; border-bottom-right-radius: 0.1em;"
-            type="text" placeholder="Email">
-         <label
-            style="color: rgb(240, 255, 230); font-size: min(3vw, 26px); padding-left: 0.5em;">@sanandrea.edu.mt</label>
-      </div>
-      <br>
-      <input style="width: 96.5%;" id="password_input" type="password" placeholder="Password">
-      <br>
-      <hr style="
-				            position: absolute;
-				            width: 100%;
-				            left: 0px;
-				            bottom: 159px;
-				            border: 1px solid rgb(109 117 98);">
-      <div
-         style="display: grid; user-select: none; grid-template-columns: auto max-content max-content;position: absolute;bottom: 2rem;right: 2rem;">
-         <div></div>
-         <div>
-            <svg class="fancy-button" style="display: inline-block; margin-right: -10.2em; margin-bottom: -3em;"
-               onclick="close_sign_in_modal()">
-               <path
-                  d="M47.05,14.47L47.05,14.47c7.39,4.21,16.45,4.21,23.84,0l0,0c21.27-12.13,44.96,11.56,32.83,32.83l0,0
-								                     c-4.21,7.39-4.21,16.45,0,23.84l0,0c12.13,21.27-11.56,44.96-32.83,32.83l0,0c-7.39-4.21-16.45-4.21-23.84,0l0,0
-								                     C25.78,116.09,2.09,92.41,14.22,71.14l0,0c4.21-7.39,4.21-16.45,0-23.84l0,0C2.09,26.02,25.78,2.34,47.05,14.47z">
-                  <animate attributename="d" dur="1000ms" keysplines="
-								                        0.1 0.8 0.2 1;
-								                        0.1 0.8 0.2 1;
-								                        0.1 0.8 0.2 1;
-								                        0.1 0.8 0.2 1;
-								                        0.1 0.8 0.2 1;
-								                        0.1 0.8 0.2 1" keytimes="0;0.22;0.33;0.55;0.66;0.88;1" calcmode="spline"
-                     begin="mousedown" end="mouseup" to="M32.59,6.22l16.72,9.53c5.99,3.42,13.34,3.42,19.33,0l16.72-9.53c17.24-9.83,36.45,9.37,26.61,26.61l-9.53,16.72
-								                        c-3.42,5.99-3.42,13.34,0,19.33l9.53,16.72c9.83,17.24-9.37,36.45-26.61,26.61l-16.72-9.53c-5.99-3.42-13.34-3.42-19.33,0
-								                        l-16.72,9.53c-17.24,9.83-36.45-9.37-26.61-26.61l9.53-16.72c3.42-5.99,3.42-13.34,0-19.33L5.98,32.83
-								                        C-3.86,15.59,15.35-3.62,32.59,6.22z"></animate>
-               </path>
-            </svg>
+      <div style="margin: 1em; margin-top: 2em;">
+         <div style="display: flex; margin: 1em;">
+            <input id="email_input" autocomplete="off" type="text" placeholder="Email">
+            <label style="margin: auto; font-size: min(4vw, 1.5em); margin-left: 0.3em;">@sanandrea.edu.mt</label>
          </div>
-         <div>
-            <div style="display: inline-block; margin-top: 0.3em;" onclick="acceptSigninModal()"
-               class="fancy-button-main">
-               Sign In
-            </div>
+         <div style="display: flex; margin: 1em;">
+            <input id="password_input" type="password" placeholder="Password">
+         </div>
+         <div style="display: flex; flex-direction: row-reverse; margin: 2em;">
+            <button class="dialog_button_accept">Sign in</button>
+            <button onclick="sign_in_dialog.close()"
+               style="margin-right: 1em; border-color: transparent;">Cancel</button>
          </div>
       </div>
    </dialog>
+
+
 
 
 
@@ -202,12 +155,155 @@
    </dialog>
 
 
+   <dialog style="font-size: 2.6vw;" onclose="collection_change()" id="theme_dialog">
+      <div style="    background-color: var(--color-surface-1);
+      position: absolute;
+      width: 100%;
+      height: 40px;
+      top: 0;
+      left: 0;
+      "></div>
+
+      <button class="button_circle" onclick="theme_dialog.close()"
+         style="position: absolute; left: 7px; top: 4px; margin:0em; width: 30px; height: 30px; border-color: transparent;">
+         <span class="material-symbols-outlined">
+            done
+         </span>
+      </button>
+
+      <div style="margin-right: 2em; margin-left: 2em;" class="color_picker">
+         <fieldset style="margin: 0.1em; font-size: 1.5em;">
+            <legend>Books</legend>
+
+            <div>
+               <input type="radio" name="books" onclick="books_color = 'green'" checked>
+               <label>Green</label>
+            </div>
+
+            <div>
+               <input type="radio" name="books" onclick="books_color = 'blue'" />
+               <label>Blue</label>
+            </div>
+
+            <div>
+               <input type="radio" name="books" onclick="books_color = 'red'" />
+               <label>Red</label>
+            </div>
+         </fieldset>
+
+         <fieldset style="margin: 0.1em; font-size: 1.5em;">
+            <legend>Borrowers</legend>
+
+            <div>
+               <input type="radio" name="borrowers" onclick="borrowers_color = 'green'" checked />
+               <label>Green</label>
+            </div>
+
+            <div>
+               <input type="radio" name="borrowers" onclick="borrowers_color = 'blue'" />
+               <label>Blue</label>
+            </div>
+
+            <div>
+               <input type="radio" name="borrowers" onclick="borrowers_color = 'red'" />
+               <label>Red</label>
+            </div>
+         </fieldset>
+
+         <fieldset style="margin: 0.1em; font-size: 1.5em;">
+            <legend>Transactions</legend>
+
+            <div>
+               <input type="radio" name="transactions" onclick="transactions_color = 'green'" checked />
+               <label>Green</label>
+            </div>
+
+            <div>
+               <input type="radio" name="transactions" onclick="transactions_color = 'blue'" />
+               <label>Blue</label>
+            </div>
+
+            <div>
+               <input type="radio" name="transactions" onclick="transactions_color = 'red'" />
+               <label>Red</label>
+            </div>
+         </fieldset>
+      </div>
+
+      <div style="display: flex; flex-direction: row-reverse; margin: 1em;">
+
+         <button class="dialog_button_accept" onclick="theme_dialog.close()">
+            Save
+         </button>
+         <button onclick="theme_dialog.close()"
+            style="border-color: transparent; margin-right: 1em;">
+            Save
+         </button>
+
+      </div>
+
+   </dialog>
 
 
 
 
-   <dialog class="account_dialog" id="account_modal">
-      <button class="list_button">
+
+
+
+
+
+
+   <dialog class="account_dialog" id="account_dialog">
+      <button style="
+      margin: 0.7em;
+      border: none;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0;" class="button_circle" onclick="account_dialog.close()">
+         <span class="material-symbols-outlined">
+            close
+         </span>
+      </button>
+
+      <div style="
+          background: var(--color-surface-1);
+         border-radius: 1.5em;
+         margin-top: 0.5em;
+         margin-left: 0.5em;
+         margin-right: 0.5em;
+         margin-bottom: 0.5em;
+         overflow: hidden;
+         height: 18em;
+      ">
+
+         <button class="list_button">
+            <span class="button_icon material-symbols-outlined">
+               settings
+            </span>
+            account settings
+         </button>
+         <button onclick="sign_in_dialog.showModal()" style="
+         background: var(--color-primary-80);
+         border-color: transparent;
+         margin-left: auto;
+         color: black;
+         margin-right: auto;
+         width: 8em;">
+            <span class="button_icon material-symbols-outlined">
+               login
+            </span>
+            Sign in
+         </button>
+      </div>
+
+      <button onclick="document.getElementById('theme_dialog').showModal();" id="theme_dialog_button"
+         class="list_button">
+         <span class="button_icon material-symbols-outlined">
+            palette
+         </span>
+         Theme Colours
+      </button>
+      <button onclick="settings_dialog.showModal()" class="list_button">
          <span class="button_icon material-symbols-outlined">
             settings
          </span>Settings
@@ -223,8 +319,8 @@
 
 
 
+   <div class="main">
 
-   <div class="container">
       <div class="top_bar panel">
          <div style="display: flex; align-items: center;" class="site_logo">
             <button class="button_circle" onclick="logo_easter_egg()"
@@ -235,48 +331,54 @@
             <div style="font-weight: 600;" id="logo_text" class="logo_text">Library</div>
          </div>
          <div style="width: 100%; display: flex; flex-direction: row-reverse;">
-            <button class="button_circle" id="account_button" onclick="open_account_modal()" style="border-width: 0;">
+            <button class="button_circle" id="account_button" onclick="open_account_dialog()" style="border-width: 0;">
                <span class="material-symbols-outlined" style="font-size: 3em; z-index: 1;
-               font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
                   account_circle
                </span>
             </button>
-            <select id="collection_select" onchange="collection_change()" style="
-            width: 10em;
-            margin: 0.2em; font-size: 18px;">
+            <select id="collection_select" onchange="window.location.hash = document.getElementById('collection_select').value" style="
+         width: 10em;
+         margin: 0.2em; font-size: 18px;">
                <option value="books">Books</option>
                <option value="borrowers">Borrowers</option>
+               <option value="prints">Printing</option>
                <option value="transactions">Transactions</option>
             </select>
          </div>
       </div>
 
+      <div class="container">
 
 
-      <div class="search_area panel">
-      </div>
 
 
-      <div id="list_area" class="list_area panel">
-         <div class="list_area_search">
-            <input type="text" style="margin: 10px;" id="search_filter_input" onchange="list_books()">
+         <div class="search_area panel">
          </div>
-         <div class="list_area_list" id="list_area_list"></div>
+
+
+         <div id="list_area" class="list_area panel">
+            <div class="list_area_search">
+               <input type="text" style="margin: 10px;" id="search_filter_input" onchange="list_selected_collection()">
+            </div>
+            <div class="list_area_list" id="list_area_list"></div>
+         </div>
+
+
+         <div id="display_area" class="display_area panel"></div>
+
+
       </div>
 
+      <script src="app.js"></script>
 
-      <div id="display_area" class="display_area panel"></div>
-
-
-   </div>
-
-   <script src="index.js"></script>
-
-   <!----
+      <!----
    <img id="imag" src="https://png.pngtree.com/png-clipart/20220111/original/pngtree-cigarette-png-image_7083753.png"
       style="display: none;"></img>
    <canvas id="book_cover_canvas" style="display: none;"></canvas>
    -->
+
+   </div>
 
 </body>
 

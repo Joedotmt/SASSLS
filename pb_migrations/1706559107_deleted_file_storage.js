@@ -1,0 +1,43 @@
+/// <reference path="../pb_data/types.d.ts" />
+migrate((db) => {
+  const dao = new Dao(db);
+  const collection = dao.findCollectionByNameOrId("d2leu05hyx3km8n");
+
+  return dao.deleteCollection(collection);
+}, (db) => {
+  const collection = new Collection({
+    "id": "d2leu05hyx3km8n",
+    "created": "2024-01-29 20:06:47.252Z",
+    "updated": "2024-01-29 20:06:58.290Z",
+    "name": "file_storage",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "system": false,
+        "id": "n9c9wffe",
+        "name": "file",
+        "type": "file",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "mimeTypes": [],
+          "thumbs": [],
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "protected": false
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "",
+    "viewRule": "",
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  });
+
+  return Dao(db).saveCollection(collection);
+})
