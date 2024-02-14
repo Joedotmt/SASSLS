@@ -3,6 +3,11 @@ const pb = new PocketBase('http://127.0.0.1:8090');
 let books_color = "blue"
 let borrowers_color = "green"
 let transactions_color = "red"
+if (window.location.hash == "")
+{
+    window.location.hash = "books"
+    console.log(window.location.hash)
+}
 let current_page;
 
 collection_change()
@@ -42,6 +47,8 @@ function collection_change()
             break;
         case "prints":
             color = transactions_color;
+        default:
+            color = books_color
     }
     document.body.className = color + light_or_dark
     list_selected_collection()
@@ -90,7 +97,6 @@ function logo_easter_egg()
 function createRipple(event)
 {
     const button = event.currentTarget;
-
     const circle = document.createElement("span");
     const diameter = Math.max(button.clientWidth, button.clientHeight);
     const radius = diameter / 2;
@@ -105,6 +111,8 @@ function createRipple(event)
     }, 1000);
     button.appendChild(circle);
 }
+
+
 
 function open_account_dialog()
 {
@@ -126,12 +134,28 @@ function open_account_dialog()
     );
 }
 
-const buttons = document.getElementsByTagName("button");
-for (const button of buttons)
+const all_buttons = document.getElementsByTagName("button");
+for (const button of all_buttons)
 {
     button.addEventListener("mousedown", createRipple);
 }
 
+function generate_unique_book_id(record_id, text)
+{
+    try
+    {
+        let randInt = Math.floor(Math.random() * 1679615) * 4
+        let generated_id = text.substring(randInt, randInt + 4)
+        const data_new = { "book_id": generated_id };
+        pb.collection('books').update(record_id, data_new);
+    } catch (err)
+    {
+        if (err.data.data.book_id.code == "validation_not_unique")
+        {
+            generate_unique_book_id(record_id, text);
+        }
+    }
+}
 async function list_books()
 {
     let enteredVal = search_filter_input.value;
@@ -168,30 +192,36 @@ async function list_books()
     list_area_list.appendChild(create_template_list_item)
     for (const rec of records)
     {
+
+        // If record has no ID assign it one
         if (rec.book_id == "")
         {
             fetch("book_id_list_length_4.txt")
                 .then((res) => res.text())
                 .then((text) =>
                 {
-                    let generated_id = text.substring(parseInt(rec.legacy_book_id) * 4, (parseInt(rec.legacy_book_id) * 4) + 4)
-                    let data_new = {
-                        "book_id": generated_id,
-                    };
-                    pb.collection('books').update(rec.id, data_new);
+                    generate_unique_book_id(rec.id, text)
                 })
                 .catch((e) => console.error(e));
+            list_selected_collection()
+            return
         }
 
-        let list_item = document.createElement("div");
+        let list_item = document.createElement("button");
         list_item.innerHTML = `<img style="height: 2.8em; width: 1.8em; object-fit: cover;
             padding: 0em;
             margin: 0em;
+            pointer-events: none;
             background-color: white;
             border: solid aliceblue 1px;
-            border-radius: 2px;" src=https://covers.openlibrary.org/b/isbn/${rec.isbn}-L.jpg><div style="pointer-events:none; display: flex; flex-direction: column">Title: ${rec.title}<label style="font-family:'Roboto Mono'">${rec.legacy_book_id} ${rec.book_id}</label>`;
-        list_item.className = "list_item";
+            border-radius: 2px;" src=https://covers.openlibrary.org/b/isbn/${rec.isbn}-L.jpg><div style="    pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;">Title: ${rec.title}<label style="font-family:'Roboto Mono'">${rec.legacy_book_id} ${rec.book_id}</label>`;
+        list_item.className = "list_button list_item";
         list_item.dataset.id = rec.id;
+        list_area_list.appendChild(list_item);
+        list_item.addEventListener("mousedown", createRipple);
         list_item.onclick = function (list_area)
         {
             display_area.innerHTML = `
@@ -199,32 +229,13 @@ async function list_books()
             <div 
                 style=
                 "
+                    margin: 1em;
                     position: relative; 
                     width: fit-content; 
                     height: fit-content
                 "
             >
-                
-                <img 
-                    style=
-                    "
-                        height: 3em;
-                        padding: 0.2em;
-                        background-color: #FFFFFF;
-                        margin: 0.5em;
-                        position: absolute;
-                        z-index: 1;
-                        bottom: 0.4em;
-                        margin-right: -6em;
-                        border: solid black 2px;
-                        border-radius: 4px;
-                    " 
-                    src=
-                    "
-                        https://barcode.tec-it.com/barcode.ashx?data=${rec.book_id}
-                    "
-                >
-            
+                <img class="barcode_image" onclick="navigator.clipboard.writeText('${rec.book_id}');"style="bottom: 0.4em; right: 0em;" src="https://barcode.tec-it.com/barcode.ashx?data=${rec.book_id}">
                 <img 
                     style=
                     "
@@ -249,8 +260,12 @@ async function list_books()
             list_area_list.querySelectorAll(".list_item").forEach(function (i)
             {
                 i.style.background = "";
+                i.style.borderRadius = "";
+                i.style.margin = "";
+                i.style.padding = "";
             })
-            clickedOne.style.background = "var(--color-secondary-container)";
+            //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
+            clickedOne.style.cssText = "background: var(--color-on-surface-2);";
             let idClicked = clickedOne.dataset.id;
             console.log(idClicked);
             let subset = records.filter((s) =>
@@ -260,10 +275,26 @@ async function list_books()
 
             console.log(subset);
         };
-        list_area_list.appendChild(list_item);
-
     }
 
+}
+
+function generate_unique_borrower_id(record_id, text)
+{
+    try
+    {
+        let randInt = Math.floor(Math.random() * 46655) * 3
+        console.log(text)
+        let generated_id = text.substring(randInt, randInt + 3)
+        const data_new = { "borrower_id": generated_id };
+        pb.collection('borrowers').update(record_id, data_new);
+    } catch (err)
+    {
+        if (err.data.data.borrower_id.code == "validation_not_unique")
+        {
+            generate_unique_borrower_id(record_id, text);
+        }
+    }
 }
 
 async function list_borrowers()
@@ -292,7 +323,7 @@ async function list_borrowers()
         });
     list_area_list.innerHTML = ""
     let create_template_list_item = document.createElement("div");
-    create_template_list_item.innerHTML = `+ Create Book`;
+    create_template_list_item.innerHTML = `+ Create Borrower`;
     create_template_list_item.className = "list_item";
     create_template_list_item.style.cssText = `border: 2px dashed var(--color-on-background);
     background-color: initial;
@@ -303,15 +334,33 @@ async function list_borrowers()
     console.log(records)
     for (const rec of records)
     {
+
+        // If record has no ID assign it one
+        if (rec.borrower_id == "")
+        {
+            fetch("borrowers_id_list_length_3.txt")
+                .then((res) => res.text())
+                .then((text) =>
+                {
+                    generate_unique_borrower_id(rec.id, text)
+                })
+                .catch((e) => console.error(e));
+            list_borrowers()
+            return
+        }
+
+
         let list_item = document.createElement("div");
         list_item.innerHTML = `<img style="height: 2.8em; width: 1.8em; object-fit: cover;
             padding: 0em;
+            pointer-events: none;
             margin: 0em;
             background-color: white;
             border: solid aliceblue 1px;
             border-radius: 2px;" src=https://covers.openlibrary.org/b/isbn/${"img"}-L.jpg> ID: ${rec.borrower_id} Name: ${rec.name} ${rec.surname}<br>${rec.group}`;
         list_item.className = "list_item";
         list_item.dataset.id = rec.id;
+        
         list_item.onclick = function (list_area)
         {
             display_area.innerHTML = `
@@ -360,22 +409,19 @@ async function list_borrowers()
                     "
                 >
             </div>
-            ${rec.legacy_book_id} ${rec.title} ${rec.isbn}`
-
-            let clickedOne = list_area.target;
+            ${rec.borrower_id} ${rec.email} ${rec.name}`
+            let clicked_item = list_area.target.closest(`.list_item`)
             list_area_list.querySelectorAll(".list_item").forEach(function (i)
             {
                 i.style.background = "";
             })
-            clickedOne.style.background = "var(--color-secondary-container)";
-            let idClicked = clickedOne.dataset.id;
-            console.log(idClicked);
+            clicked_item.style.background = "var(--color-secondary-container)";
+            let idClicked = clicked_item.dataset.id;
             let subset = records.filter((s) =>
             {
                 return s.id === idClicked;
             })
-
-            console.log(subset);
+            console.log("Subset:",subset[0]);
         };
         list_area_list.appendChild(list_item);
     }
