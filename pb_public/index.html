@@ -156,22 +156,29 @@
 
 
    <dialog style="font-size: 2.6vw;" onclose="collection_change()" id="theme_dialog">
-      <div style="    background-color: var(--color-surface-1);
+      <div style="background-color: var(--color-surface-1);width: 100%;height: 3.4em;">
+         <div style="display: flex;">
+            <button class="button_circle" onclick="theme_dialog.close()" style="    width: 40px;
+         height: 40px;
+         border-color: transparent;
+         position: relative;
+         top: 0.3em;
+         left: 0.3em;">
+               <span class="material-symbols-outlined">
+                  done
+               </span>
+            </button>
+            <div style="    margin: 8.4px;
+            font-size: 1.4em;">Change Theme</div>
+         </div>
+      </div>
+
+      <div style="    display: flex;
+      flex-direction: row-reverse;
+      margin: 1em;
       position: absolute;
-      width: 100%;
-      height: 40px;
-      top: 0;
-      left: 0;
-      "></div>
-
-      <button class="button_circle" onclick="theme_dialog.close()"
-         style="position: absolute; left: 7px; top: 4px; margin:0em; width: 30px; height: 30px; border-color: transparent;">
-         <span class="material-symbols-outlined">
-            done
-         </span>
-      </button>
-
-      <div style="display: flex; flex-direction: row-reverse; margin: 1em;">
+      bottom: 0;
+      right: 0;">
 
          <button class="dialog_button_accept" onclick="theme_dialog.close()">
             Save
@@ -307,29 +314,31 @@
 
 
          <div id="display_area" class="display_area panel">
-               <div style="display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
-                  <button style="    margin: 5px;
+            <div
+               style="display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
+               <button style="    margin: 5px;
                   border: 0;
                   height: 40px;
                   width: 40px;" class="button_circle">
-                     <span class="material-symbols-outlined">arrow_back</span>
-                  </button>
-                  <button style="margin: 5px; margin-right: 0; margin-left: auto; --active-border-radius: 11px">Return</button>
-                  <button style="margin: 5px; margin-right: 5px; --active-border-radius: 11px">Edit</button>
-               </div>
+                  <span class="material-symbols-outlined">arrow_back</span>
+               </button>
+               <button
+                  style="margin: 5px; margin-right: 0; margin-left: auto; --active-border-radius: 11px">Return</button>
+               <button style="margin: 5px; margin-right: 5px; --active-border-radius: 11px">Edit</button>
+            </div>
 
-               <div>
-                  isbn
-               </div>
-               <div>
-                  author
-               </div>
-               <div>
-                  +
-               </div>
-               <div>
-                  group
-               </div>
+            <div>
+               isbn
+            </div>
+            <div>
+               author
+            </div>
+            <div>
+               +
+            </div>
+            <div>
+               group
+            </div>
          </div>
 
 
