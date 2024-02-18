@@ -3,6 +3,7 @@ const pb = new PocketBase('http://127.0.0.1:8090');
 let books_color = "blue"
 let borrowers_color = "green"
 let transactions_color = "red"
+var all_book_records;
 if (window.location.hash == "")
 {
     window.location.hash = "books"
@@ -175,22 +176,19 @@ async function list_books()
     console.log(pbFilter);
 
     // you can also fetch all records at once via getFullList
-    const records = await pb.collection('books').getFullList(
+    all_book_records = await pb.collection('books').getFullList(
         {
             sort: '-created',
             filter: pbFilter
         });
     list_area_list.innerHTML = ""
-    let create_template_list_item = document.createElement("div");
+    let create_template_list_item = document.createElement("button");
     create_template_list_item.innerHTML = `+ Create Book`;
-    create_template_list_item.className = "list_item";
-    create_template_list_item.style.cssText = `border: 2px dashed var(--color-on-background);
-    background-color: initial;
-    border-radius: 1em;
-    margin: 0.9em;
-    margin-bottom: 0;`
+    create_template_list_item.className = "list_button list_item";
+    create_template_list_item.style.borderBottom = `2px dashed var(--color-neutral-variant60)`
+    create_template_list_item.addEventListener("mousedown", createRipple);
     list_area_list.appendChild(create_template_list_item)
-    for (const rec of records)
+    for (const rec of all_book_records)
     {
 
         // If record has no ID assign it one
@@ -208,75 +206,44 @@ async function list_books()
         }
 
         let list_item = document.createElement("button");
-        list_item.innerHTML = `<img style="height: 2.8em; width: 1.8em; object-fit: cover;
-            padding: 0em;
-            margin: 0em;
-            pointer-events: none;
-            background-color: white;
-            border: solid aliceblue 1px;
-            border-radius: 2px;" src=https://covers.openlibrary.org/b/isbn/${rec.isbn}-L.jpg><div style="    pointer-events: none;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;">Title: ${rec.title}<label style="font-family:'Roboto Mono'">${rec.legacy_book_id} ${rec.book_id}</label>`;
         list_item.className = "list_button list_item";
         list_item.dataset.id = rec.id;
         list_area_list.appendChild(list_item);
         list_item.addEventListener("mousedown", createRipple);
-        list_item.onclick = function (list_area)
-        {
-            display_area.innerHTML = `
-            
-            <div 
-                style=
-                "
-                    margin: 1em;
-                    position: relative; 
-                    width: fit-content; 
-                    height: fit-content
-                "
-            >
-                <img class="barcode_image" onclick="navigator.clipboard.writeText('${rec.book_id}');"style="bottom: 0.4em; right: 0em;" src="https://barcode.tec-it.com/barcode.ashx?data=${rec.book_id}">
-                <img 
-                    style=
-                    "
-                        object-fit: stretch;
-                        padding: 0.2em;
-                        background-color: white;
-                        border: solid aliceblue 2px;
-                        border-radius: 12px;
-                        width: 11em;
-                        aspect-ratio: 16 / 23;
-                    "
-
-                    src=
-                    "
-                        https://covers.openlibrary.org/b/isbn/${rec.isbn}-L.jpg
-                    "
-                > 
-            </div>
-            ${rec.legacy_book_id} ${rec.title} ${rec.isbn}`
-
-            let clickedOne = list_area.target;
-            list_area_list.querySelectorAll(".list_item").forEach(function (i)
-            {
-                i.style.background = "";
-                i.style.borderRadius = "";
-                i.style.margin = "";
-                i.style.padding = "";
-            })
-            //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
-            clickedOne.style.cssText = "background: var(--color-on-surface-2);";
-            let idClicked = clickedOne.dataset.id;
-            console.log(idClicked);
-            let subset = records.filter((s) =>
-            {
-                return s.id === idClicked;
-            })
-
-            console.log(subset);
-        };
+        list_item.onclick = clickHandler;
+        
+        let preview_image = document.createElement("img");
+        preview_image.className = "preview_image";
+        preview_image.setAttribute("src",`https://covers.openlibrary.org/b/isbn/${rec.isbn}-L.jpg`);
+        let info_div = document.createElement("div");
+        info_div.className = "list_item_info_text";
+        info_div.innerHTML = `Title: ${rec.title} 
+                                <label style="font-family:'Roboto Mono'">
+                                    ${rec.legacy_book_id} ${rec.book_id}
+                                </label>`;
+        list_item.appendChild(preview_image);
+        list_item.appendChild(info_div);
     }
 
+}
+
+function clickHandler(ev)
+{
+    let useid = ev.srcElement.dataset.id;
+    let book = all_book_records.find((s) =>
+    {
+        return s.id === useid;
+    })
+    let clickedOne = ev.srcElement;
+    list_area_list.querySelectorAll(".list_item").forEach(function (i)
+    {
+        i.style.background = "";
+        //i.style.borderRadius = "";
+        //i.style.margin = "";
+        //i.style.padding = "";
+    })
+    //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
+    clickedOne.style.background = "var(--color-on-surface-2)";
 }
 
 function generate_unique_borrower_id(record_id, text)
@@ -360,7 +327,7 @@ async function list_borrowers()
             border-radius: 2px;" src=https://covers.openlibrary.org/b/isbn/${"img"}-L.jpg> ID: ${rec.borrower_id} Name: ${rec.name} ${rec.surname}<br>${rec.group}`;
         list_item.className = "list_item";
         list_item.dataset.id = rec.id;
-        
+
         list_item.onclick = function (list_area)
         {
             display_area.innerHTML = `
@@ -421,7 +388,7 @@ async function list_borrowers()
             {
                 return s.id === idClicked;
             })
-            console.log("Subset:",subset[0]);
+            console.log("Subset:", subset[0]);
         };
         list_area_list.appendChild(list_item);
     }

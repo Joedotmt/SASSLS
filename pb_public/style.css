@@ -321,6 +321,28 @@ body
     background: var(--color-surface-3);
 }
 
+.preview_image
+{
+    height: 2.8em;
+    width: 1.8em;
+    object-fit: cover;
+    padding: 0em;
+    margin: 0em;
+    pointer-events: none;
+    background-color: white;
+    border: solid aliceblue 1px;
+    border-radius: 2px;
+}
+
+.list_item_info_text
+{
+    text-wrap: nowrap;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .account_dialog
 {
     z-index: -1;
@@ -552,12 +574,6 @@ span.ripple
     opacity: 0.7;
 }
 
-fieldset
-{
-    border-radius: 10px;
-    background-color: var(--color-surface-1);
-}
-
 input,
 select
 {
@@ -585,24 +601,6 @@ input:focus,
 select:focus
 {
     box-shadow: 0px 0px 0px 3px var(--color-primary-80);
-}
-
-legend
-{
-    color: white;
-    background-color: black;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 0;
-}
-
-.color_picker
-{
-    font-family: 'Roboto Mono';
-    display: flex;
-    justify-content: center;
-    margin-top: 5em;
-    font-size: 0.8em;
 }
 
 button
@@ -636,7 +634,8 @@ button:hover
 
 button:active
 {
-    border-radius: 5px;
+    --active-border-radius: 5px;
+    border-radius: var(--active-border-radius);
 }
 
 .button_circle:hover
@@ -753,6 +752,7 @@ a:active
 {
     height: 5.7em;
 }
+
 .barcode_image:active
 {
     scale: 0.9;
@@ -851,9 +851,10 @@ a:active
     grid-template-columns: 1fr;
     grid-template-rows: 0fr 1fr;
     gap: 0.4em 0px;
+    width: fit-content;
+    flex-shrink: 0;
     overflow: hidden;
-    grid-template-areas:
-        "list_area_search"
+    grid-template-areas: "list_area_search"
         "list_area_list";
     grid-area: list_area;
 }

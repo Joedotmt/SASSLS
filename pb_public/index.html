@@ -171,72 +171,12 @@
          </span>
       </button>
 
-      <div style="margin-right: 2em; margin-left: 2em;" class="color_picker">
-         <fieldset style="margin: 0.1em; font-size: 1.5em;">
-            <legend>Books</legend>
-
-            <div>
-               <input type="radio" name="books" onclick="books_color = 'green'" checked>
-               <label>Green</label>
-            </div>
-
-            <div>
-               <input type="radio" name="books" onclick="books_color = 'blue'" />
-               <label>Blue</label>
-            </div>
-
-            <div>
-               <input type="radio" name="books" onclick="books_color = 'red'" />
-               <label>Red</label>
-            </div>
-         </fieldset>
-
-         <fieldset style="margin: 0.1em; font-size: 1.5em;">
-            <legend>Borrowers</legend>
-
-            <div>
-               <input type="radio" name="borrowers" onclick="borrowers_color = 'green'" checked />
-               <label>Green</label>
-            </div>
-
-            <div>
-               <input type="radio" name="borrowers" onclick="borrowers_color = 'blue'" />
-               <label>Blue</label>
-            </div>
-
-            <div>
-               <input type="radio" name="borrowers" onclick="borrowers_color = 'red'" />
-               <label>Red</label>
-            </div>
-         </fieldset>
-
-         <fieldset style="margin: 0.1em; font-size: 1.5em;">
-            <legend>Transactions</legend>
-
-            <div>
-               <input type="radio" name="transactions" onclick="transactions_color = 'green'" checked />
-               <label>Green</label>
-            </div>
-
-            <div>
-               <input type="radio" name="transactions" onclick="transactions_color = 'blue'" />
-               <label>Blue</label>
-            </div>
-
-            <div>
-               <input type="radio" name="transactions" onclick="transactions_color = 'red'" />
-               <label>Red</label>
-            </div>
-         </fieldset>
-      </div>
-
       <div style="display: flex; flex-direction: row-reverse; margin: 1em;">
 
          <button class="dialog_button_accept" onclick="theme_dialog.close()">
             Save
          </button>
-         <button onclick="theme_dialog.close()"
-            style="border-color: transparent; margin-right: 1em;">
+         <button onclick="theme_dialog.close()" style="border-color: transparent; margin-right: 1em;">
             Save
          </button>
 
@@ -337,7 +277,8 @@
                   account_circle
                </span>
             </button>
-            <select id="collection_select" onchange="window.location.hash = document.getElementById('collection_select').value" style="
+            <select id="collection_select"
+               onchange="window.location.hash = document.getElementById('collection_select').value" style="
          width: 10em;
          margin: 0.2em; font-size: 18px;">
                <option value="books">Books</option>
@@ -365,12 +306,34 @@
          </div>
 
 
-         <div id="display_area" class="display_area panel"></div>
+         <div id="display_area" class="display_area panel">
+               <div style="display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
+                  <button style="    margin: 5px;
+                  border: 0;
+                  height: 40px;
+                  width: 40px;" class="button_circle">
+                     <span class="material-symbols-outlined">arrow_back</span>
+                  </button>
+                  <button style="margin: 5px; margin-right: 0; margin-left: auto; --active-border-radius: 11px">Return</button>
+                  <button style="margin: 5px; margin-right: 5px; --active-border-radius: 11px">Edit</button>
+               </div>
+
+               <div>
+                  isbn
+               </div>
+               <div>
+                  author
+               </div>
+               <div>
+                  +
+               </div>
+               <div>
+                  group
+               </div>
+         </div>
 
 
       </div>
-
-      <embed src="https://ps.agendatextbooks.com/system/media/images/books/9789990913699.jpg"></embed>
 
       <script src="app.js"></script>
 
