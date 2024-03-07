@@ -344,9 +344,9 @@
                     border-radius: 0.6em;" src="https://covers.openlibrary.org/b/isbn/978-0-330-40436-5-M.jpg">
                </div>
                <div style="    padding: 0.5em;
-               font-size: 1.1em;
-               display: flex;
-               flex-direction: column;">
+                              font-size: 1.1em;
+                              display: flex;
+                              flex-direction: column; width: 100%;">
                   <div style="font-weight: bold; font-size: min(7vw, 2em);">The 13 Storey Treehouse</div>
                   <div style="    display: grid;
                      grid-template-columns: 1fr 1fr;
@@ -354,32 +354,48 @@
                      <div>by Terry Denton</div>
                      <div style="justify-self: end;">423.4 ASE</div>
                   </div>
-                  <div style="    background-color: var(--color-surface-1);
-                  margin-top: 0.2em;
-                  padding: 0.2em;
-                  border-radius: 0.4em;
-                  text-align: center;
-                  flex-grow: 1;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;">
-                     <div id="isbn_to_be_copied" style="user-select: none; font-size: min(4vw,1em);">9780330404365</div>
-                     <div class="tooltip">
-                        <span style="translate: 0 2px;" class="material-symbols-outlined copy_icon"
-                           onclick="copy_isbn()">
-                           content_copy
-                        </span>
-                        <span id="copy_isbn_tooltip" class="tooltiptext">Copy</span>
+
+                  <div class="e00j430985t">
+                     <div style="    background-color: var(--color-surface-1);
+                                    margin-top: 0.2em;
+                                    margin-right: 0.2em;
+                                    padding: 0.2em;
+                                    border-radius: 0.4em;
+                                    text-align: center;
+                                    flex-grow: 1;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;">
+                        <div id="isbn_to_be_copied" style="user-select: none; font-size: min(4vw,1em);">9780330404365
+                        </div>
+                        <div class="tooltip">
+                           <span style="translate: 0 2px;" class="material-symbols-outlined copy_icon"
+                              onclick="copy_isbn()">
+                              content_copy
+                           </span>
+                           <span id="copy_isbn_tooltip" class="tooltiptext">Copy</span>
+                        </div>
+                     </div>
+                     <div style="background-color: var(--color-surface-5);
+                                 padding: 0.5em;
+                                 flex-grow: 1;
+                                 border-radius: 0.5em;
+                                 margin-top: 0.2em;
+                                 font-family: 'roboto mono';
+                                 display: flex;
+                                 flex-direction: column;
+                                 justify-content: center;">
+
+                        <div>ID: 4xe4</div>
+                        <div>IDL: 32429</div>
+
                      </div>
                   </div>
-                  <div
-                     style="    background-color: var(--color-surface-5);
-                  padding: 0.5em;
-                  border-radius: 0.5em; margin-top: 0.2em; font-family: 'roboto mono'; display: flex; flex-direction: column;">
-                     <div>ID: 4xe4</div>
-                     <div>IDL: 32429</div>
-                  </div>
+
+
                </div>
+
+
             </div>
 
 
@@ -414,38 +430,41 @@
                display: flex;
                flex-direction: column;
                justify-content: center;">
- 
-                  <div style="font-weight: bold; font-size: min(5vw, 1.3em); flex-direction: row; display: flex;">Joe Esposito<div style="font-weight: lighter;">&nbsp11.4</div></div>
-                  
+
+                  <div style="font-weight: bold; font-size: min(5vw, 1.3em); flex-direction: row; display: flex;">Joe
+                     Esposito<div style="font-weight: lighter;">&nbsp11.4</div>
+                  </div>
+
                   <div style="
                   width: fit-content;
-                  background-color: var(--color-surface-1);
-                  padding: 0.2em;
+                  background-color: var(--color-surface-5);
+                  padding: 0.4em;
                   border-radius: 0.4em; font-family: 'roboto mono'">
-                  
-                  <div class="tooltip">
-                     <div style="    user-select: none;
+
+                     <div class="tooltip">
+                        <div style="    user-select: none;
                      display: flex;
                      font-size: min(4vw,1em);
                      align-items: center;">
-                        <div>ID:&nbsp</div>
-                        <button style="height: 2em; width: 4em;" onclick="copy_borrower_id_from_books()" id="id_to_be_copied_from_books">t2m</button>
+                           <div>ID: t2m</div>
+                        </div>
+                        <span id="copy_borrower_book_tooltip" class="tooltiptext">Copy</span>
                      </div>
-                     <span id="copy_borrower_book_tooltip" class="tooltiptext">Copy</span>
-                  </div>
-                  
+
                   </div>
                </div>
             </div>
-            
+
             <div style="margin: 0.8em; margin-top: 0.5em;">
                Note
-               <div style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(--color-surface-1);">
+               <div
+                  style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(--color-surface-1);">
                   I HATE THIS BOOK
                </div>
             </div>
             <div style="margin: 0.8em; margin-top: 0.5em;">
-               <div style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
+               <div
+                  style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
                   <span style="translate: 0 5px;" class="material-symbols-outlined">
                      warning
                   </span>&nbsp Book marked as lost/scrapped

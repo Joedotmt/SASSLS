@@ -925,6 +925,20 @@ a:active
     background-color: var(--color-surface-1);
 }
 
+.e00j430985t
+{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+@media (max-width:580px)
+{
+    .e00j430985t
+    {
+        flex-direction: column;
+    }
+}
+
 .button_icon
 {
     padding-right: 0.2em;
