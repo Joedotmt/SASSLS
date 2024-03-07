@@ -351,8 +351,8 @@ body
     border-radius: 2.5em;
     height: 33em;
     width: 23em;
-    right: 4.2em;
-    margin-top: 69px;
+    right: 3em;
+    margin-top: 50px;
     margin-right: 0;
     background: var(--color-surface-5);
     padding: 0;
@@ -363,6 +363,38 @@ body
 .account_dialog::backdrop
 {
     opacity: 0;
+}
+
+
+.display_panel_book_general
+{
+    display: flex;
+    margin: 0.2em;
+    flex-direction: row;
+}
+@media (max-width:270px)
+{
+    .display_panel_book_general{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.copy_icon
+{
+    font-size: 1em;
+    margin-left: 0.1em;
+    opacity: 0.4;
+    user-select: none;
+    cursor: pointer;
+}
+.copy_icon:hover
+{
+    opacity: 0.9;
+}
+.copy_icon:active
+{
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 dialog[open]
@@ -678,6 +710,8 @@ button:active
     gap: 0.5em 0.5em;
     margin-top: 0.5em;
     height: calc(100dvh - 6.5em);
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .main
@@ -693,9 +727,10 @@ button:active
     background-color: var(--color-background);
     border-radius: 1em;
     min-width: 1em;
-    width: 100em;
     translate: 0px 0px;
     opacity: 1;
+    flex-shrink: 0;
+    width: 94%;
 }
 
 .logo_text
@@ -758,6 +793,9 @@ a:active
     scale: 0.9;
 }
 
+
+
+
 .tooltip
 {
     position: relative;
@@ -767,7 +805,8 @@ a:active
 .tooltip .tooltiptext
 {
     visibility: hidden;
-    background-color: #3C4043;
+    font-family: 'roboto mono';
+    background-color: #131414;
     color: #fff;
     text-align: center;
     text-wrap: nowrap;
@@ -775,7 +814,7 @@ a:active
     padding: 5px 10px;
     position: absolute;
     z-index: 10;
-    bottom: 60%;
+    bottom: -510%;
     scale: 0;
     left: 50%;
     translate: -50%;
@@ -790,7 +829,7 @@ a:active
     opacity: 1;
     scale: 1;
     bottom: 125%;
-    transition: 1.5s cubic-bezier(0, 1, 0, 1), 0.2s opacity cubic-bezier(1, 0, 1, 1);
+    transition: 0.5s cubic-bezier(0, 1, 0, 1), 0.2s opacity cubic-bezier(1, 0, 1, 1);
     transition-delay: 0.5s;
 }
 
@@ -826,8 +865,8 @@ a:active
 .top_bar
 {
     grid-area: top_bar;
-    height: 3em;
-    padding: 1em;
+    height: 2.7em;
+    padding: 0.8em;
     width: unset;
     display: flex;
     overflow-x: scroll !important;
@@ -837,11 +876,14 @@ a:active
 {
     display: none;
 }
+.container::-webkit-scrollbar
+{
+    display: none;
+}
 
 .search_area
 {
     grid-area: search_area;
-    width: 1em;
 }
 
 .list_area
@@ -851,7 +893,6 @@ a:active
     grid-template-columns: 1fr;
     grid-template-rows: 0fr 1fr;
     gap: 0.4em 0px;
-    width: fit-content;
     flex-shrink: 0;
     overflow: hidden;
     grid-template-areas: "list_area_search"
@@ -862,6 +903,7 @@ a:active
 .display_area
 {
     grid-area: display_area;
+    overflow-y: scroll;
 }
 
 .list_area_search
@@ -904,25 +946,25 @@ a:active
 /* width */
 ::-webkit-scrollbar
 {
-    width: 10px;
+    width: 8px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track
 {
-    background: var(--color-surface-2);
+    background: var(--color-surface-1);
     border-radius: 4px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb
 {
-    background: var(--color-surface-4);
+    background: var(--color-surface-2);
     border-radius: 4px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover
 {
-    background: var(--color-surface-5);
+    background: var(--color-surface-3);
 }

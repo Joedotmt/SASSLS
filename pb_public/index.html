@@ -277,10 +277,14 @@
             </button>
             <div style="font-weight: 600;" id="logo_text" class="logo_text">Library</div>
          </div>
-         <div style="width: 100%; display: flex; flex-direction: row-reverse;">
+         <div style="    width: 100%;
+         display: flex;
+         flex-direction: row-reverse;
+         align-items: center;">
             <button class="button_circle" id="account_button" onclick="open_account_dialog()" style="border-width: 0;">
-               <span class="material-symbols-outlined" style="font-size: 3em; z-index: 1;
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
+               <span class="material-symbols-outlined" style="    font-size: 2.8em;
+               z-index: 1;
+               font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
                   account_circle
                </span>
             </button>
@@ -327,17 +331,140 @@
                <button style="margin: 5px; margin-right: 5px; --active-border-radius: 11px">Edit</button>
             </div>
 
-            <div>
-               isbn
+            <div class="display_panel_book_general">
+               <div style="    margin: 0.5em;
+               display: flex;
+               flex-direction: column;
+               justify-content: center;">
+                  <img style="    object-fit: cover;
+                    padding: 0.2em;
+                    width: min(8em,30vw);
+                    height: 100%;
+                    background-color: var(--color-inverse-surface);
+                    border-radius: 0.6em;" src="https://covers.openlibrary.org/b/isbn/978-0-330-40436-5-M.jpg">
+               </div>
+               <div style="    padding: 0.5em;
+               font-size: 1.1em;
+               display: flex;
+               flex-direction: column;">
+                  <div style="font-weight: bold; font-size: min(7vw, 2em);">The 13 Storey Treehouse</div>
+                  <div style="    display: grid;
+                     grid-template-columns: 1fr 1fr;
+                     grid-template-rows: 1fr;font-size: 0.9em;">
+                     <div>by Terry Denton</div>
+                     <div style="justify-self: end;">423.4 ASE</div>
+                  </div>
+                  <div style="    background-color: var(--color-surface-1);
+                  margin-top: 0.2em;
+                  padding: 0.2em;
+                  border-radius: 0.4em;
+                  text-align: center;
+                  flex-grow: 1;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;">
+                     <div id="isbn_to_be_copied" style="user-select: none; font-size: min(4vw,1em);">9780330404365</div>
+                     <div class="tooltip">
+                        <span style="translate: 0 2px;" class="material-symbols-outlined copy_icon"
+                           onclick="copy_isbn()">
+                           content_copy
+                        </span>
+                        <span id="copy_isbn_tooltip" class="tooltiptext">Copy</span>
+                     </div>
+                  </div>
+                  <div
+                     style="    background-color: var(--color-surface-5);
+                  padding: 0.5em;
+                  border-radius: 0.5em; margin-top: 0.2em; font-family: 'roboto mono'; display: flex; flex-direction: column;">
+                     <div>ID: 4xe4</div>
+                     <div>IDL: 32429</div>
+                  </div>
+               </div>
             </div>
-            <div>
-               author
+
+
+            <div style="    display: flex;
+            margin: 0.2em;
+            border: 3px solid var(--color-surface-1);
+            border-left: 0;
+            border-right: 0;">
+               <div style="    margin: 0.5em;
+               display: flex;
+               flex-direction: column;
+               justify-content: center;">
+                  <button style="
+                          object-fit: cover;
+    padding: 0.2em;
+    width: min(8.4em,31.7vw);
+    height: 5em;
+    border: 0.2em dashed var(--color-inverse-surface);
+    border-radius: 0.6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+                  ">
+                     <span style="user-select: none; font-size: 2em;" class="material-symbols-outlined">
+                        person_add
+                     </span>
+                  </button>
+               </div>
+               <div style="
+               padding: 0.5em;
+               font-size: 1.1em;
+               display: flex;
+               flex-direction: column;
+               justify-content: center;">
+ 
+                  <div style="font-weight: bold; font-size: min(5vw, 1.3em); flex-direction: row; display: flex;">Joe Esposito<div style="font-weight: lighter;">&nbsp11.4</div></div>
+                  
+                  <div style="
+                  width: fit-content;
+                  background-color: var(--color-surface-1);
+                  padding: 0.2em;
+                  border-radius: 0.4em; font-family: 'roboto mono'">
+                  
+                  <div class="tooltip">
+                     <div style="    user-select: none;
+                     display: flex;
+                     font-size: min(4vw,1em);
+                     align-items: center;">
+                        <div>ID:&nbsp</div>
+                        <button style="height: 2em; width: 4em;" onclick="copy_borrower_id_from_books()" id="id_to_be_copied_from_books">t2m</button>
+                     </div>
+                     <span id="copy_borrower_book_tooltip" class="tooltiptext">Copy</span>
+                  </div>
+                  
+                  </div>
+               </div>
             </div>
-            <div>
-               +
+            
+            <div style="margin: 0.8em; margin-top: 0.5em;">
+               Note
+               <div style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(--color-surface-1);">
+                  I HATE THIS BOOK
+               </div>
             </div>
-            <div>
-               group
+            <div style="margin: 0.8em; margin-top: 0.5em;">
+               <div style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
+                  <span style="translate: 0 5px;" class="material-symbols-outlined">
+                     warning
+                  </span>&nbsp Book marked as lost/scrapped
+               </div>
+            </div>
+            <div style="margin: 0.8em; margin-top: 0.5em;">
+               Price: 5 EUR
+            </div>
+            <div style="margin: 0.8em; margin-top: 0.5em;">
+               Date Created: 07/03/2024
+            </div>
+            <div style="margin: 0.8em; margin-top: 0.5em;">
+               Date Updated: 08/04/2025
+            </div>
+            <div style="margin: 0.8em; margin-top: 0.5em; opacity: 0.2;">
+               SYS_ID: 129rylmnyv0q0kk
+            </div>
+            <div style="margin: 0.8em; margin-top: 0.5em; opacity: 0.2;">
+               SYS_DATE_CREATED: 2023-11-05 16:50:13 UTC
             </div>
          </div>
 
@@ -353,7 +480,6 @@
    -->
 
    </div>
-
 </body>
 
 </html>
