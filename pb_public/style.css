@@ -804,6 +804,7 @@ a:active
 
 .tooltip .tooltiptext
 {
+    pointer-events: none;
     visibility: hidden;
     font-family: 'roboto mono';
     background-color: #131414;

@@ -120,7 +120,7 @@ function copy_isbn()
 {
     copy_isbn_tooltip.innerHTML = `Copied!`
     setInterval(function () {copy_isbn_tooltip.innerHTML = `Copy`},5000)
-    var copyText = document.getElementById("isbn_to_be_copied").innerHTML;
+    var copyText = document.getElementById("display_panel_book_isbn").innerHTML;
     navigator.clipboard.writeText(copyText)
 }
 function copy_borrower_id_from_books()
@@ -250,6 +250,42 @@ function clickHandler(ev)
     {
         return s.id === useid;
     })
+    console.log(book)
+
+/////////DISPLAY PANEL NONSENCE/////////////////////////////////////
+    display_panel_book_system_id.innerHTML = "SYS_ID: "+book.id
+    display_panel_book_book_id.innerHTML = "ID: "+book.book_id
+    display_panel_book_legacy_book_id.innerHTML = "IDL: "+book.legacy_book_id
+    display_panel_book_title.innerHTML = book.title
+    display_panel_book_author.innerHTML = "by "+book.author
+    display_panel_book_isbn.innerHTML = book.isbn
+    display_panel_book_cover.src = `https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`
+    display_panel_book_description.innerHTML = book.description
+    display_panel_book_classification_label.innerHTML = book.classification_label
+    //display_panel_book_subject.innerHTML = book.subject
+    //display_panel_book_level.innerHTML = book.level
+    display_panel_book_lost.style.display = book.lost ? "block" : "none"
+    display_panel_book_scrapped.style.display = book.lost ? "block" : "none"
+    if (book.price > 0)
+    {
+        display_panel_book_price.style.display = "block"
+        display_panel_book_price.innerHTML = "Price: "+book.price+" EUR"
+    }
+    
+    if (book.legacy_date_entered == "")
+    {
+        display_panel_book_created.innerHTML = "Created: "+book.created
+    }
+    else
+    {
+        display_panel_book_created.innerHTML = "Legacy Created: "+book.legacy_date_entered
+        display_panel_book_system_created.innerHTML = "SYS_CREATED: "+book.created
+    }
+    display_panel_book_updated.innerHTML = "Updated: "+book.updated
+///////////////////////////////////////////////////////////
+
+
+
     let clickedOne = ev.srcElement;
     list_area_list.querySelectorAll(".list_item").forEach(function (i)
     {

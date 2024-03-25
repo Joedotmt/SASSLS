@@ -336,7 +336,7 @@
                display: flex;
                flex-direction: column;
                justify-content: center;">
-                  <img style="    object-fit: cover;
+                  <img id="display_panel_book_cover" style="    object-fit: cover;
                     padding: 0.2em;
                     width: min(8em,30vw);
                     height: 100%;
@@ -347,12 +347,12 @@
                               font-size: 1.1em;
                               display: flex;
                               flex-direction: column; width: 100%;">
-                  <div style="font-weight: bold; font-size: min(7vw, 2em);">The 13 Storey Treehouse</div>
+                  <div id="display_panel_book_title" style="font-weight: bold; font-size: min(7vw, 2em);">The 13 Storey Treehouse</div>
                   <div style="    display: grid;
                      grid-template-columns: 1fr 1fr;
                      grid-template-rows: 1fr;font-size: 0.9em;">
-                     <div>by Terry Denton</div>
-                     <div style="justify-self: end;">423.4 ASE</div>
+                     <div id="display_panel_book_author" >by Terry Denton</div>
+                     <div id="display_panel_book_classification_label" style="justify-self: end;">423.4 ASE</div>
                   </div>
 
                   <div class="e00j430985t">
@@ -366,7 +366,7 @@
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;">
-                        <div id="isbn_to_be_copied" style="user-select: none; font-size: min(4vw,1em);">9780330404365
+                        <div id="display_panel_book_isbn" style="user-select: none; font-size: min(4vw,1em);">9780330404365
                         </div>
                         <div class="tooltip">
                            <span style="translate: 0 2px;" class="material-symbols-outlined copy_icon"
@@ -386,8 +386,8 @@
                                  flex-direction: column;
                                  justify-content: center;">
 
-                        <div>ID: 4xe4</div>
-                        <div>IDL: 32429</div>
+                        <div id="display_panel_book_book_id">ID: 4xe4</div>
+                        <div id="display_panel_book_legacy_book_id">IDL: 32429</div>
 
                      </div>
                   </div>
@@ -456,34 +456,42 @@
             </div>
 
             <div style="margin: 0.8em; margin-top: 0.5em;">
-               Note
-               <div
+               Description
+               <div id="display_panel_book_description"
                   style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(--color-surface-1);">
                   I HATE THIS BOOK
                </div>
             </div>
-            <div style="margin: 0.8em; margin-top: 0.5em;">
+            <div id="display_panel_book_lost" style="display:none; margin: 0.8em; margin-top: 0.5em;">
                <div
                   style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
                   <span style="translate: 0 5px;" class="material-symbols-outlined">
                      warning
-                  </span>&nbsp Book marked as lost/scrapped
+                  </span>&nbsp Book marked as lost
                </div>
             </div>
-            <div style="margin: 0.8em; margin-top: 0.5em;">
+            <div id="display_panel_book_scrapped" style="display:none; margin: 0.8em; margin-top: 0.5em;">
+               <div
+                  style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
+                  <span style="translate: 0 5px;" class="material-symbols-outlined">
+                     warning
+                  </span>&nbsp Book marked as scrapped
+               </div>
+            </div>
+            <div id="display_panel_book_price" style="display: none; margin: 0.8em; margin-top: 0.5em;">
                Price: 5 EUR
             </div>
-            <div style="margin: 0.8em; margin-top: 0.5em;">
-               Date Created: 07/03/2024
+            <div id="display_panel_book_updated" style="margin: 0.8em; margin-top: 0.5em;">
+               Updated: 2023-11-05 16:50:13 UTC
             </div>
-            <div style="margin: 0.8em; margin-top: 0.5em;">
-               Date Updated: 08/04/2025
+            <div id="display_panel_book_created" style="margin: 0.8em; margin-top: 0.5em;">
+               Legacy Created: 02/20/2024
             </div>
-            <div style="margin: 0.8em; margin-top: 0.5em; opacity: 0.2;">
+            <div id="display_panel_book_system_created" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
+               SYS_CREATED: 2023-11-05 16:50:13 UTC
+            </div>
+            <div id="display_panel_book_system_id" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
                SYS_ID: 129rylmnyv0q0kk
-            </div>
-            <div style="margin: 0.8em; margin-top: 0.5em; opacity: 0.2;">
-               SYS_DATE_CREATED: 2023-11-05 16:50:13 UTC
             </div>
          </div>
 
