@@ -290,6 +290,49 @@ body
     --color-ref-neutral-200: #c7c7c7;
 }
 
+.input-container
+{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input_placeholder
+{
+    position: absolute;
+    margin: 0.6rem;
+    font-size: min(4vw, 23px);
+    opacity: 0.7;
+    pointer-events: none;
+    color: var(--color-on-background);
+    transition: translate 0.4s cubic-bezier(0.075, 0.82, 0.165, 1), color 0.4s cubic-bezier(0.075, 0.82, 0.165, 1), font-size 0.4s cubic-bezier(0.075, 0.82, 0.165, 1), background-color 0s;
+    border-radius: 4px;
+    padding: 5px;
+    padding-bottom: 0;
+    padding-top: 0;
+    background-color: transparent;
+
+}
+
+.input-container input:focus+.input_placeholder
+{
+    font-size: calc(min(4vw, 23px)*0.6);
+    translate: 0px -2.05em;
+    background-color: var(--color-surface-0);
+    opacity: 1;
+    transition-delay: 0s;
+    color: var(--color-primary-80)
+}
+
+.infni04fjif
+{
+    font-size: calc(min(4vw, 23px)*0.6);
+    translate: 0px -27px;
+    background-color: var(--color-surface-0);
+    opacity: 1;
+    transition-delay: 0s;
+}
+
 .dialog_button_accept
 {
     background-color: var(--color-surface-1);
@@ -372,9 +415,11 @@ body
     margin: 0.2em;
     flex-direction: row;
 }
+
 @media (max-width:270px)
 {
-    .display_panel_book_general{
+    .display_panel_book_general
+    {
         flex-direction: column;
         align-items: center;
     }
@@ -388,10 +433,12 @@ body
     user-select: none;
     cursor: pointer;
 }
+
 .copy_icon:hover
 {
     opacity: 0.9;
 }
+
 .copy_icon:active
 {
     font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -443,7 +490,7 @@ input[type="radio"]
         padding: 0;
         border: none;
         margin: 0;
-        width: 100vw;
+        width: -webkit-fill-available;
         height: 100dvh;
         max-width: 1000em;
         max-height: 1000em;
@@ -451,7 +498,7 @@ input[type="radio"]
         transition: opacity 0.2s ease-in-out,
             transform 0.2s ease-in-out,
             overlay 0.2s ease-in-out allow-discrete,
-            display 0.2s ease-in-out allow-discrete,
+            display 0.2s ease-in-out allow-discrete, ;
     }
 
     .account_dialog::backdrop
@@ -615,7 +662,7 @@ select
     border: none;
     box-shadow: 0px 0px 0px 2px var(--color-neutral-variant60);
     font-family: "Poppins";
-    width: 100%;
+    width: calc(100% - 0.8em);
     font-size: min(4vw, 23px);
     padding: 0.4em;
     border-radius: 0.2em;
@@ -709,7 +756,7 @@ button:active
     display: flex;
     gap: 0.5em 0.5em;
     margin-top: 0.5em;
-    height: calc(100dvh - 6.5em);
+    height: calc(100dvh - 5.8em);
     overflow-x: scroll;
     overflow-y: hidden;
 }
@@ -730,7 +777,26 @@ button:active
     translate: 0px 0px;
     opacity: 1;
     flex-shrink: 0;
-    width: 94%;
+    width: calc(100% - 2em);
+}
+
+@media (min-width:751px)
+{
+    .panel
+    {
+        flex: 1;
+    }
+    .display_area
+    {
+        flex-basis: 8em;
+    }
+}
+@media (max-width:750px)
+{
+    .display_area
+    {
+        flex-basis: auto !important;
+    }
 }
 
 .logo_text
@@ -793,9 +859,6 @@ a:active
     scale: 0.9;
 }
 
-
-
-
 .tooltip
 {
     position: relative;
@@ -821,7 +884,7 @@ a:active
     translate: -50%;
     opacity: 0;
     transition: 0.4s cubic-bezier(1, 0, 1, 0), 0.2s opacity cubic-bezier(1, 0, 1, 1);
-    transition-delay: 0.5s;
+    transition-delay: 0s;
 }
 
 .tooltip:hover .tooltiptext
@@ -831,7 +894,7 @@ a:active
     scale: 1;
     bottom: 125%;
     transition: 0.5s cubic-bezier(0, 1, 0, 1), 0.2s opacity cubic-bezier(1, 0, 1, 1);
-    transition-delay: 0.5s;
+    transition-delay: 0s;
 }
 
 
@@ -861,6 +924,12 @@ a:active
         margin: 0.3em;
         height: calc(100dvh - 0.6em);
     }
+    .container
+    {
+        gap: 0.3em 0.3em;
+        margin-top: 0.3em;
+        height: calc(100dvh - 5.2em);
+    }
 }
 
 .top_bar
@@ -877,6 +946,7 @@ a:active
 {
     display: none;
 }
+
 .container::-webkit-scrollbar
 {
     display: none;
@@ -905,7 +975,9 @@ a:active
 {
     grid-area: display_area;
     overflow-y: scroll;
+    flex-basis: 8em;
 }
+
 
 .list_area_search
 {
@@ -931,13 +1003,7 @@ a:active
     display: flex;
     flex-direction: row;
     height: 100%;
-}
-@media (max-width:580px)
-{
-    .e00j430985t
-    {
-        flex-direction: column;
-    }
+    flex-direction: column;
 }
 
 .button_icon

@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
-
-
-
-
-
-
-
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,11 +10,9 @@
    <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono">
-
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
-
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,51 +21,69 @@
    <link rel="stylesheet" href="style.css">
 </head>
 
-
-
-
-
-
-
 <body class="green_dark">
 
+   <dialog id="migration_id_confirmation_dialog">
+      <div style="    padding: 3vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: fit-content;
+      height: fit-content;
+      margin: auto;
+      border-radius: 1em;">
+         <img style="height: calc(100vh - 13em);
+      width: calc(100vw - 3em);
+      margin-bottom: 1em;" id="ir040jr098" src="3429jr9.svg"></img>
+         <div style="display: flex;">
+            <button onclick="migration_id_confirmation_dialog.close()" style="margin-right: 0.5em;">Cancel</button>
+            <button style="margin-right: 1em;" class="dialog_button_accept">Migrate</button>
+         </div>
+      </div>
+   </dialog>
 
-
-
-
-   <dialog id="sign_in_dialog">
-      <div style="margin: 1em; margin-top: 2em;">
-         <div style="display: flex; margin: 1em;">
-            <input id="email_input" autocomplete="off" type="text" placeholder="Email">
+   <dialog style="height: fit-content;
+   width: min(93vw, 60em);
+   margin: auto;
+   border-radius: 2em; padding: 1vw;" id="sign_in_dialog">
+      <div style="margin: 3vw;">
+         <img src="SASLIB_logo.png" class="logo_image" style="height: 5em; width: 5em; opacity: 0.8;" alt="SAS Logo">
+         <h1 style="margin: 0;">Sign in</h1>
+         <h4 style="margin: 0; margin-bottom: 3em; font-weight: normal;">with your school email</h4>
+         <div style="display: flex; margin: 0;">
+            <div class="input-container">
+               <input class="input-google" id="email_input" autocomplete="off" type="text">
+               <label style="background-color: var(--color-surface-5);" class="input_placeholder">Email</label>
+            </div>
             <label style="margin: auto; font-size: min(4vw, 1.5em); margin-left: 0.3em;">@sanandrea.edu.mt</label>
          </div>
-         <div style="display: flex; margin: 1em;">
-            <input id="password_input" type="password" placeholder="Password">
+         <div style="display: flex; margin-top: 1em;">
+            <div class="input-container">
+               <input class="input-google" id="password_input" type="password">
+               <label style="background-color: var(--color-surface-5);" class="input_placeholder">Password</label>
+            </div>
          </div>
-         <div style="display: flex; flex-direction: row-reverse; margin: 2em;">
+         <div style="    display: flex;
+         flex-direction: row-reverse;
+         margin-top: 1em;">
             <button class="dialog_button_accept">Sign in</button>
             <button onclick="sign_in_dialog.close()"
                style="margin-right: 1em; border-color: transparent;">Cancel</button>
          </div>
       </div>
    </dialog>
-
-
-
-
-
    <dialog id="add_book_dialog">
       <div style="display: grid;
-					            height: inherit;
-					            grid-template-columns: 1fr;
-					            grid-template-rows: 1fr 5fr;
-					            grid-column-gap: 0px;
-					            grid-row-gap: 0px;">
+				height: inherit;
+				grid-template-columns: 1fr;
+				grid-template-rows: 1fr 5fr;
+				grid-column-gap: 0px;
+				grid-row-gap: 0px;">
          <div class="dialog-header-grid">
             <button style="
-						                  border-radius: 5em;
-						                  width: 50.35px;
-						                  background-color: transparent;" onclick="close_add_book_modal()">
+						border-radius: 5em;
+						width: 50.35px;
+						background-color: transparent;" onclick="close_add_book_modal()">
                <span class="material-symbols-outlined">
                   close
                </span>
@@ -94,10 +101,10 @@
             </button>
          </div>
          <div style="
-						               overflow-y: auto;
-						               overflow-x: hidden;
-						               background-color: #20211d;
-						               width: 100%;">
+					overflow-y: auto;
+					overflow-x: hidden;
+					background-color: #20211d;
+					width: 100%;">
             <div class="book-add-inputs">
                <input placeholder="Association Number">
                <input placeholder="ISBN">
@@ -115,21 +122,18 @@
          </div>
       </div>
    </dialog>
-
-
-
    <dialog id="settings_dialog">
       <div style="display: grid;
-					            height: inherit;
-					            grid-template-columns: 1fr;
-					            grid-template-rows: 1fr 5fr;
-					            grid-column-gap: 0px;
-					            grid-row-gap: 0px;">
+				height: inherit;
+				grid-template-columns: 1fr;
+				grid-template-rows: 1fr 5fr;
+				grid-column-gap: 0px;
+				grid-row-gap: 0px;">
          <div class="dialog-header-grid">
             <button style="
-						                  border-radius: 5em;
-						                  width: 50.35px;
-						                  background-color: transparent;" onclick="close_settings_modal()">
+					border-radius: 5em;
+					width: 50.35px;
+					background-color: transparent;" onclick="close_settings_modal()">
                <span class="material-symbols-outlined">
                   close
                </span>
@@ -145,84 +149,69 @@
             </button>
          </div>
          <div style="
-						               overflow-y: auto;
-						               overflow-x: hidden;
-						               background-color: #20211d;
-						               width: 100%;">
+				overflow-y: auto;
+				overflow-x: hidden;
+				background-color: #20211d;
+				width: 100%;">
             <input type="checkbox">Use compact lists</input>
             <input type="checkbox">Stetch book covers</input>
          </div>
    </dialog>
-
-
    <dialog style="font-size: 2.6vw;" onclose="collection_change()" id="theme_dialog">
       <div style="background-color: var(--color-surface-1);width: 100%;height: 3.4em;">
          <div style="display: flex;">
             <button class="button_circle" onclick="theme_dialog.close()" style="    width: 40px;
-         height: 40px;
-         border-color: transparent;
-         position: relative;
-         top: 0.3em;
-         left: 0.3em;">
+						height: 40px;
+						border-color: transparent;
+						position: relative;
+						top: 0.3em;
+						left: 0.3em;">
                <span class="material-symbols-outlined">
                   done
                </span>
             </button>
             <div style="    margin: 8.4px;
-            font-size: 1.4em;">Change Theme</div>
+						font-size: 1.4em;">Change Theme</div>
          </div>
       </div>
 
-      <div style="    display: flex;
-      flex-direction: row-reverse;
-      margin: 1em;
-      position: absolute;
-      bottom: 0;
-      right: 0;">
 
+
+      <div style="    display: flex;
+				flex-direction: row-reverse;
+				margin: 1em;
+				position: absolute;
+				bottom: 0;
+				right: 0;">
          <button class="dialog_button_accept" onclick="theme_dialog.close()">
             Save
          </button>
          <button onclick="theme_dialog.close()" style="border-color: transparent; margin-right: 1em;">
             Save
          </button>
-
       </div>
-
    </dialog>
-
-
-
-
-
-
-
-
-
-
    <dialog class="account_dialog" id="account_dialog">
       <button style="
-      margin: 0.7em;
-      border: none;
-      width: 40px;
-      height: 40px;
-      margin-bottom: 0;" class="button_circle" onclick="account_dialog.close()">
+				margin: 0.7em;
+				border: none;
+				width: 40px;
+				height: 40px;
+				margin-bottom: 0;" class="button_circle" onclick="account_dialog.close()">
          <span class="material-symbols-outlined">
             close
          </span>
       </button>
-
       <div style="
-          background: var(--color-surface-1);
-         border-radius: 1.5em;
-         margin-top: 0.5em;
-         margin-left: 0.5em;
-         margin-right: 0.5em;
-         margin-bottom: 0.5em;
-         overflow: hidden;
-         height: 18em;
-      ">
-
+				background: var(--color-surface-1);
+				border-radius: 1.5em;
+				margin-top: 0.5em;
+				margin-left: 0.5em;
+				margin-right: 0.5em;
+				margin-bottom: 0.5em;
+				overflow: hidden;
+				height: 18em;
+				">
          <button class="list_button">
             <span class="button_icon material-symbols-outlined">
                settings
@@ -230,19 +219,18 @@
             account settings
          </button>
          <button onclick="sign_in_dialog.showModal()" style="
-         background: var(--color-primary-80);
-         border-color: transparent;
-         margin-left: auto;
-         color: black;
-         margin-right: auto;
-         width: 8em;">
+					background: var(--color-primary-80);
+					border-color: transparent;
+					margin-left: auto;
+					color: black;
+					margin-right: auto;
+					width: 8em;">
             <span class="button_icon material-symbols-outlined">
                login
             </span>
             Sign in
          </button>
       </div>
-
       <button onclick="document.getElementById('theme_dialog').showModal();" id="theme_dialog_button"
          class="list_button">
          <span class="button_icon material-symbols-outlined">
@@ -261,13 +249,7 @@
          </span>
       </button>
    </dialog>
-
-
-
-
-
    <div class="main">
-
       <div class="top_bar panel">
          <div style="display: flex; align-items: center;" class="site_logo">
             <button class="button_circle" onclick="logo_easter_egg()"
@@ -278,20 +260,20 @@
             <div style="font-weight: 600;" id="logo_text" class="logo_text">Library</div>
          </div>
          <div style="    width: 100%;
-         display: flex;
-         flex-direction: row-reverse;
-         align-items: center;">
-            <button class="button_circle" id="account_button" onclick="open_account_dialog()" style="border-width: 0;">
-               <span class="material-symbols-outlined" style="    font-size: 2.8em;
-               z-index: 1;
-               font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
+					display: flex;
+					flex-direction: row-reverse;
+					align-items: center;">
+            <button class="button_circle" id="account_button" onclick="open_account_dialog()" style="padding: 0; border-width: 0;">
+               <span class="material-symbols-outlined" style="font-size: 2.8em;
+						z-index: 1;
+						font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
                   account_circle
                </span>
             </button>
             <select id="collection_select"
                onchange="window.location.hash = document.getElementById('collection_select').value" style="
-         width: 10em;
-         margin: 0.2em; font-size: 18px;">
+						width: 10em;
+						margin: 0.2em; font-size: 18px;">
                <option value="books">Books</option>
                <option value="borrowers">Borrowers</option>
                <option value="prints">Printing</option>
@@ -299,213 +281,223 @@
             </select>
          </div>
       </div>
-
       <div class="container">
-
-
-
-
-         <div class="search_area panel">
+         <div style="display: none;" class="search_area panel">
          </div>
-
-
          <div id="list_area" class="list_area panel">
             <div class="list_area_search">
-               <input type="text" style="margin: 10px;" id="search_filter_input" onchange="list_selected_collection()">
+               <input type="text" style="margin: 7px;" id="search_filter_input" onchange="list_selected_collection()">
             </div>
             <div class="list_area_list" id="list_area_list"></div>
          </div>
-
-
          <div id="display_area" class="display_area panel">
+
             <div
                style="display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
                <button style="    margin: 5px;
-                  border: 0;
-                  height: 40px;
-                  width: 40px;" class="button_circle">
+							border: 0;
+							height: 40px;
+							width: 40px;" class="button_circle">
                   <span class="material-symbols-outlined">arrow_back</span>
                </button>
-               <button
-                  style="margin: 5px; margin-right: 0; margin-left: auto; --active-border-radius: 11px">Return</button>
-               <button style="margin: 5px; margin-right: 5px; --active-border-radius: 11px">Edit</button>
+               <button style="margin: 5px; margin-right: 0; margin-left: auto;">Return</button>
+               <button style="margin: 5px; margin-right: 5px;">Edit</button>
             </div>
 
-            <div class="display_panel_book_general">
-               <div style="    margin: 0.5em;
-               display: flex;
-               flex-direction: column;
-               justify-content: center;">
-                  <img id="display_panel_book_cover" style="    object-fit: cover;
-                    padding: 0.2em;
-                    width: min(8em,30vw);
-                    height: 100%;
-                    background-color: var(--color-inverse-surface);
-                    border-radius: 0.6em;" src="https://covers.openlibrary.org/b/isbn/978-0-330-40436-5-M.jpg">
+            <div style="display: block; padding: 2em;" id="display_panel_edit_details">
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input type="text" class="input-google">
+                  <label class="input_placeholder">Title</label>
                </div>
-               <div style="    padding: 0.5em;
-                              font-size: 1.1em;
-                              display: flex;
-                              flex-direction: column; width: 100%;">
-                  <div id="display_panel_book_title" style="font-weight: bold; font-size: min(7vw, 2em);">The 13 Storey Treehouse</div>
-                  <div style="    display: grid;
-                     grid-template-columns: 1fr 1fr;
-                     grid-template-rows: 1fr;font-size: 0.9em;">
-                     <div id="display_panel_book_author" >by Terry Denton</div>
-                     <div id="display_panel_book_classification_label" style="justify-self: end;">423.4 ASE</div>
-                  </div>
-
-                  <div class="e00j430985t">
-                     <div style="    background-color: var(--color-surface-1);
-                                    margin-top: 0.2em;
-                                    margin-right: 0.2em;
-                                    padding: 0.2em;
-                                    border-radius: 0.4em;
-                                    text-align: center;
-                                    flex-grow: 1;
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;">
-                        <div id="display_panel_book_isbn" style="user-select: none; font-size: min(4vw,1em);">9780330404365
-                        </div>
-                        <div class="tooltip">
-                           <span style="translate: 0 2px;" class="material-symbols-outlined copy_icon"
-                              onclick="copy_isbn()">
-                              content_copy
-                           </span>
-                           <span id="copy_isbn_tooltip" class="tooltiptext">Copy</span>
-                        </div>
-                     </div>
-                     <div style="background-color: var(--color-surface-5);
-                                 padding: 0.5em;
-                                 flex-grow: 1;
-                                 border-radius: 0.5em;
-                                 margin-top: 0.2em;
-                                 font-family: 'roboto mono';
-                                 display: flex;
-                                 flex-direction: column;
-                                 justify-content: center;">
-
-                        <div id="display_panel_book_book_id">ID: 4xe4</div>
-                        <div id="display_panel_book_legacy_book_id">IDL: 32429</div>
-
-                     </div>
-                  </div>
-
-
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input type="text" class="input-google">
+                  <label class="input_placeholder">Author</label>
                </div>
 
 
-            </div>
-
-
-            <div style="    display: flex;
-            margin: 0.2em;
-            border: 3px solid var(--color-surface-1);
-            border-left: 0;
-            border-right: 0;">
-               <div style="    margin: 0.5em;
-               display: flex;
-               flex-direction: column;
-               justify-content: center;">
-                  <button style="
-                          object-fit: cover;
-    padding: 0.2em;
-    width: min(8.4em,31.7vw);
-    height: 5em;
-    border: 0.2em dashed var(--color-inverse-surface);
-    border-radius: 0.6em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-                  ">
-                     <span style="user-select: none; font-size: 2em;" class="material-symbols-outlined">
-                        person_add
-                     </span>
-                  </button>
-               </div>
-               <div style="
+               <div style="    background-color: var(--color-surface-5);
                padding: 0.5em;
-               font-size: 1.1em;
+               flex-grow: 1;
+               border-radius: 0.5em;
+               margin-top: 0.2em;
+               font-family: 'roboto mono';
                display: flex;
-               flex-direction: column;
-               justify-content: center;">
-
-                  <div style="font-weight: bold; font-size: min(5vw, 1.3em); flex-direction: row; display: flex;">Joe
-                     Esposito<div style="font-weight: lighter;">&nbsp11.4</div>
+               flex-direction: row;
+               justify-content: space-between;">
+                  <div style="    display: flex;
+                  flex-direction: column;
+                  justify-content: center;">
+                     <div id="display_panel_book_book_id_editing">ID: ----</div>
+                     <div id="display_panel_book_legacy_book_id_editing">IDL: 00000</div>
                   </div>
+                  <button onclick="migration_id_confirmation_dialog.showModal()"
+                     style="width: fit-content; margin: 0.5em;">Migrate to New ID</button>
+               </div>
 
-                  <div style="
-                  width: fit-content;
-                  background-color: var(--color-surface-5);
-                  padding: 0.4em;
-                  border-radius: 0.4em; font-family: 'roboto mono'">
+            </div>
 
-                     <div class="tooltip">
-                        <div style="    user-select: none;
-                     display: flex;
-                     font-size: min(4vw,1em);
-                     align-items: center;">
-                           <div>ID: t2m</div>
-                        </div>
-                        <span id="copy_borrower_book_tooltip" class="tooltiptext">Copy</span>
+            <div style="display: none;" id="display_panel_details">
+               <div class="display_panel_book_general">
+                  <div style="    margin: 0.5em;
+							display: flex;
+							flex-direction: column;
+							justify-content: center;">
+                     <img id="display_panel_book_cover" style="    object-fit: cover;
+								padding: 0.2em;
+								width: min(8em,30vw);
+								height: 100%;
+								background-color: var(--color-inverse-surface);
+								border-radius: 0.6em;" src="https://covers.openlibrary.org/b/isbn/978-0-330-40rr436-5-M.jpg">
+                  </div>
+                  <div style="    padding: 0.5em;
+							font-size: 1.1em;
+							display: flex;
+							flex-direction: column; width: 100%;">
+                     <div id="display_panel_book_title" style="font-weight: bold; font-size: min(7vw, 2em);">----------
                      </div>
-
+                     <div style="    display: grid;
+								grid-template-columns: 1fr 1fr;
+								grid-template-rows: 1fr;font-size: 0.9em;">
+                        <div id="display_panel_book_author">by -----</div>
+                        <div id="display_panel_book_classification_label" style="justify-self: end;">000.0 ---</div>
+                     </div>
+                     <div class="e00j430985t">
+                        <div style="    background-color: var(--color-surface-1);
+									margin-top: 0.2em;
+									margin-right: 0.2em;
+									padding: 0.2em;
+									border-radius: 0.4em;
+									text-align: center;
+									flex-grow: 1;
+									display: flex;
+									justify-content: center;
+									align-items: center;">
+                           <div id="display_panel_book_isbn" style="user-select: none; font-size: min(4vw,1em);">
+                              0000000000000
+                           </div>
+                           <div class="tooltip">
+                              <span style="translate: 0 2px;" class="material-symbols-outlined copy_icon"
+                                 onclick="copy_isbn()">
+                                 content_copy
+                              </span>
+                              <span id="copy_isbn_tooltip" class="tooltiptext">Copy</span>
+                           </div>
+                        </div>
+                        <div style="background-color: var(--color-surface-5);
+									padding: 0.5em;
+									flex-grow: 1;
+									border-radius: 0.5em;
+									margin-top: 0.2em;
+									font-family: 'roboto mono';
+									display: flex;
+									flex-direction: column;
+									justify-content: center;">
+                           <div id="display_panel_book_book_id">ID: ----</div>
+                           <div id="display_panel_book_legacy_book_id">IDL: 00000</div>
+                        </div>
+                     </div>
                   </div>
                </div>
-            </div>
-
-            <div style="margin: 0.8em; margin-top: 0.5em;">
-               Description
-               <div id="display_panel_book_description"
-                  style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(--color-surface-1);">
-                  I HATE THIS BOOK
+               <div style="    display: flex;
+						margin: 0.2em;
+						border: 3px solid var(--color-surface-1);
+						border-left: 0;
+						border-right: 0;">
+                  <div style="    margin: 0.5em;
+							display: flex;
+							flex-direction: column;
+							justify-content: center;">
+                     <button style="
+								object-fit: cover;
+								padding: 0.2em;
+								width: min(8.4em,31.7vw);
+								height: 5em;
+								border: 0.2em dashed var(--color-inverse-surface);
+								border-radius: 0.6em;
+								display: flex;
+								justify-content: center;
+								align-items: center;
+								">
+                        <span style="user-select: none; font-size: 2em;" class="material-symbols-outlined">
+                           person_add
+                        </span>
+                     </button>
+                  </div>
+                  <div style="
+							padding: 0.5em;
+							font-size: 1.1em;
+							display: flex;
+							flex-direction: column;
+							justify-content: center;">
+                     <div style="font-weight: bold; font-size: min(5vw, 1.3em); flex-direction: row; display: flex;">
+                        Joe
+                        Esposito
+                        <div style="font-weight: lighter;">&nbsp11.4</div>
+                     </div>
+                     <div style="
+								width: fit-content;
+								background-color: var(--color-surface-5);
+								padding: 0.4em;
+								border-radius: 0.4em; font-family: 'roboto mono'">
+                        <div class="tooltip">
+                           <div style="    user-select: none;
+										display: flex;
+										font-size: min(4vw,1em);
+										align-items: center;">
+                              <div>ID: t2m</div>
+                           </div>
+                           <span id="copy_borrower_book_tooltip" class="tooltiptext">Copy</span>
+                        </div>
+                     </div>
+                  </div>
                </div>
-            </div>
-            <div id="display_panel_book_lost" style="display:none; margin: 0.8em; margin-top: 0.5em;">
-               <div
-                  style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
-                  <span style="translate: 0 5px;" class="material-symbols-outlined">
-                     warning
-                  </span>&nbsp Book marked as lost
+               <div style="margin: 0.8em; margin-top: 0.5em;">
+                  Description
+                  <div id="display_panel_book_description"
+                     style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(--color-surface-1);">
+                     ---------------
+                  </div>
                </div>
-            </div>
-            <div id="display_panel_book_scrapped" style="display:none; margin: 0.8em; margin-top: 0.5em;">
-               <div
-                  style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
-                  <span style="translate: 0 5px;" class="material-symbols-outlined">
-                     warning
-                  </span>&nbsp Book marked as scrapped
+               <div id="display_panel_book_lost" style="display:none; margin: 0.8em; margin-top: 0.5em;">
+                  <div
+                     style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
+                     <span style="translate: 0 5px;" class="material-symbols-outlined">
+                        warning
+                     </span>&nbsp Book marked as lost
+                  </div>
                </div>
-            </div>
-            <div id="display_panel_book_price" style="display: none; margin: 0.8em; margin-top: 0.5em;">
-               Price: 5 EUR
-            </div>
-            <div id="display_panel_book_updated" style="margin: 0.8em; margin-top: 0.5em;">
-               Updated: 2023-11-05 16:50:13 UTC
-            </div>
-            <div id="display_panel_book_created" style="margin: 0.8em; margin-top: 0.5em;">
-               Legacy Created: 02/20/2024
-            </div>
-            <div id="display_panel_book_system_created" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
-               SYS_CREATED: 2023-11-05 16:50:13 UTC
-            </div>
-            <div id="display_panel_book_system_id" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
-               SYS_ID: 129rylmnyv0q0kk
+               <div id="display_panel_book_scrapped" style="display:none; margin: 0.8em; margin-top: 0.5em;">
+                  <div
+                     style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
+                     <span style="translate: 0 5px;" class="material-symbols-outlined">
+                        warning
+                     </span>&nbsp Book marked as scrapped
+                  </div>
+               </div>
+               <div id="display_panel_book_price" style="display: none; margin: 0.8em; margin-top: 0.5em;">
+                  Price: 5 EUR
+               </div>
+               <div id="display_panel_book_updated" style="margin: 0.8em; margin-top: 0.5em;">
+                  Updated: 0000-00-00 00:00:00.000Z
+               </div>
+               <div id="display_panel_book_created" style="margin: 0.8em; margin-top: 0.5em;">
+                  Legacy Created: 00/00/0000
+               </div>
+               <div id="display_panel_book_system_created" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
+                  SYS_CREATED: 0000-00-00 00:00:00.000Z
+               </div>
+               <div id="display_panel_book_system_id" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
+                  SYS_ID: ---------------
+               </div>
             </div>
          </div>
-
-
       </div>
-
       <script src="app.js"></script>
-
       <!----
-   <img id="imag" src="https://png.pngtree.com/png-clipart/20220111/original/pngtree-cigarette-png-image_7083753.png"
-      style="display: none;"></img>
-   <canvas id="book_cover_canvas" style="display: none;"></canvas>
-   -->
-
+				<img id="imag" src="https://png.pngtree.com/png-clipart/20220111/original/pngtree-cigarette-png-image_7083753.png"
+				   style="display: none;"></img>
+				<canvas id="book_cover_canvas" style="display: none;"></canvas>
+				-->
    </div>
 </body>
 

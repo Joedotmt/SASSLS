@@ -25,6 +25,30 @@ window.addEventListener(
     false,
 );
 
+let input_elementsArray = document.querySelectorAll(".input-google");
+
+input_elementsArray.forEach(function(elem) {
+    elem.addEventListener("focusout", (event) => {
+        if (elem.value != "")
+        {
+            try {
+                elem.nextElementSibling.classList.add("infni04fjif")
+            } catch (error) {
+                
+            }
+            
+        }
+        else
+        {
+            try {
+                elem.nextElementSibling.classList.remove("infni04fjif")
+            } catch (error) {
+    
+            }
+        }
+    });
+});
+
 function collection_change()
 {
     collection_select.value = window.location.hash.substring(1)
@@ -81,10 +105,12 @@ function change_dark_light_theme()
 {
     let new_string = document.body.className.replace("light", "dark")
     dark_mode_switcher_icon.innerHTML = "light_mode"
+    ir040jr098.src = "3429jr9.svg"
     if (new_string == document.body.className)
     {
         new_string = document.body.className.replace("dark", "light")
         dark_mode_switcher_icon.innerHTML = "dark_mode"
+        ir040jr098.src = "4598ggrtg.svg"
     }
     document.body.className = new_string;
 }
@@ -233,10 +259,23 @@ async function list_books()
         preview_image.setAttribute("src", `https://covers.openlibrary.org/b/isbn/${rec.isbn}-S.jpg`);
         let info_div = document.createElement("div");
         info_div.className = "list_item_info_text";
-        info_div.innerHTML = `Title: ${rec.title} 
-                                <label style="font-family:'Roboto Mono'">
-                                    ${rec.legacy_book_id} ${rec.book_id}
-                                </label>`;
+        
+        if (rec.legacy_book_id.match("DEPRECATED_"))
+        {
+            info_div.innerHTML = `${rec.title} 
+            <label style="font-family:'Roboto Mono'">
+                ${rec.book_id}
+            </label>`;
+        }
+        else
+        {
+            info_div.innerHTML = `${rec.title} 
+            <label style="font-family:'Roboto Mono'">
+                ${rec.legacy_book_id} ${rec.book_id}
+            </label>`;
+        }
+
+
         list_item.appendChild(preview_image);
         list_item.appendChild(info_div);
     }
@@ -252,10 +291,18 @@ function clickHandler(ev)
     })
     console.log(book)
 
+    display_panel_details.style.display = "block"
 /////////DISPLAY PANEL NONSENCE/////////////////////////////////////
     display_panel_book_system_id.innerHTML = "SYS_ID: "+book.id
     display_panel_book_book_id.innerHTML = "ID: "+book.book_id
-    display_panel_book_legacy_book_id.innerHTML = "IDL: "+book.legacy_book_id
+    if (book.legacy_book_id.match("DEPRECATED_"))
+    {
+        display_panel_book_legacy_book_id.innerHTML = ""
+    }
+    else
+    {
+        display_panel_book_legacy_book_id.innerHTML = "IDL: "+book.legacy_book_id
+    }
     display_panel_book_title.innerHTML = book.title
     display_panel_book_author.innerHTML = "by "+book.author
     display_panel_book_isbn.innerHTML = book.isbn
