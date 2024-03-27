@@ -43,28 +43,34 @@
    </dialog>
 
    <dialog style="height: fit-content;
-   width: min(93vw, 100em);
+   width: min(93vw, 60em);
    margin: auto;
    border-radius: 2em; padding: 1vw;" id="sign_in_dialog">
-      <div style="margin: 3vw;">
-         <div>
-         <img src="SASLIB_logo.png" class="logo_image" style="height: 5em; width: 5em; opacity: 0.8;" alt="SAS Logo">
-         <h1 style="margin: 0;">Sign in</h1>
-         <h4 style="margin: 0; margin-bottom: 3em; font-weight: normal;">with your school email</h4>
-         <div style="display: flex; margin: 0;">
-         </div>
-            <div class="input-container">
-               <input class="input-google" id="email_input" autocomplete="off" type="text">
-               <label style="background-color: var(--color-surface-5);" class="input_placeholder">Email</label>
+      <div style="margin: min(3vw,1em);">
+         <div class="h9854h45g">
+            <div>
+               <img src="SASLIB_logo.png" class="logo_image" style="height: 5em; width: 5em; opacity: 0.8;"
+                  alt="SAS Logo">
+               <h1 style="margin: 0;">Sign in</h1>
+               <h4 style="margin: 0; margin-bottom: 3em; font-weight: normal;">with your school email</h4>
             </div>
-            <label style="margin: auto; font-size: min(4vw, 1.5em); margin-left: 0.3em;">@sanandrea.edu.mt</label>
-         </div>
-         <div style="display: flex; margin-top: 1em;">
-            <div class="input-container">
-               <input class="input-google" id="password_input" type="password">
-               <label style="background-color: var(--color-surface-5);" class="input_placeholder">Password</label>
+            <div>
+               <div style="display: flex; margin: 0;">
+                  <div class="input-container">
+                     <input class="input-google" id="email_input" autocomplete="off" type="text">
+                     <label style="background-color: var(--color-surface-5);" class="input_placeholder">Email</label>
+                  </div>
+                  <label style="margin: auto; font-size: min(2vw, 1.5em); margin-left: 0.3em;">@sanandrea.edu.mt</label>
+               </div>
+               <div style="display: flex; margin-top: 1em;">
+                  <div class="input-container">
+                     <input class="input-google" id="password_input" type="password">
+                     <label style="background-color: var(--color-surface-5);" class="input_placeholder">Password</label>
+                  </div>
+               </div>
             </div>
          </div>
+
          <div style="    display: flex;
          flex-direction: row-reverse;
          margin-top: 1em;">
@@ -265,7 +271,8 @@
 					display: flex;
 					flex-direction: row-reverse;
 					align-items: center;">
-            <button class="button_circle" id="account_button" onclick="open_account_dialog()" style="padding: 0; border-width: 0;">
+            <button class="button_circle" id="account_button" onclick="open_account_dialog()"
+               style="padding: 0; border-width: 0;">
                <span class="material-symbols-outlined" style="font-size: 2.8em;
 						z-index: 1;
 						font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
@@ -284,8 +291,35 @@
          </div>
       </div>
       <div class="container">
-         <div style="display: none;" class="search_area panel">
+
+
+
+         <div id="search_area" style="padding: 1em; display: none;" class="search_area panel">
+            <div style="margin-bottom: 1em;" class="input-container">
+               <input type="text" class="input-google">
+               <label class="input_placeholder">Title</label>
+            </div>
+            <div style="margin-bottom: 1em;" class="input-container">
+               <input type="text" class="input-google">
+               <label class="input_placeholder">Author</label>
+            </div>
+            <div style="margin-bottom: 1em;" class="input-container">
+               <input type="text" class="input-google">
+               <label class="input_placeholder">ID</label>
+            </div>
+            <div style="margin-bottom: 1em;" class="input-container">
+               <select type="text" class="input-google">
+                  <option>Both</option>
+                  <option>New</option>
+                  <option>Legacy</option>
+               </select>
+               <label class="input_placeholder infni04fjif">ID Type</label>
+            </div>
          </div>
+
+
+
+
          <div id="list_area" class="list_area panel">
             <div class="list_area_search">
                <input type="text" style="margin: 7px;" id="search_filter_input" onchange="list_selected_collection()">
@@ -296,7 +330,7 @@
 
             <div
                style="display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
-               <button style="    margin: 5px;
+               <button onclick="show_search_view()" style="    margin: 5px;
 							border: 0;
 							height: 40px;
 							width: 40px;" class="button_circle">

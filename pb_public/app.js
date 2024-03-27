@@ -27,27 +27,63 @@ window.addEventListener(
 
 let input_elementsArray = document.querySelectorAll(".input-google");
 
-input_elementsArray.forEach(function(elem) {
-    elem.addEventListener("focusout", (event) => {
+input_elementsArray.forEach(function (elem)
+{
+    elem.addEventListener("focusout", (event) =>
+    {
         if (elem.value != "")
         {
-            try {
+            try
+            {
                 elem.nextElementSibling.classList.add("infni04fjif")
-            } catch (error) {
-                
+            } catch (error)
+            {
+
             }
-            
+
         }
         else
         {
-            try {
+            try
+            {
                 elem.nextElementSibling.classList.remove("infni04fjif")
-            } catch (error) {
-    
+            } catch (error)
+            {
+
             }
         }
     });
 });
+
+function show_search_view(){
+    if (window.matchMedia("(max-width: 1130px)"))
+    {
+        display_area.style.translate = "110% 0"
+        display_area.style.display = "none"
+        search_area.style.display = "block"
+        display_area.style.opacity = "1"
+    }
+}
+function hide_search_view(){
+    if (window.matchMedia("(max-width: 1130px)"))
+    {
+        display_area.style.translate = "0 0em"
+        display_area.style.display = "block"
+        search_area.style.display = "none"
+        display_area.style.opacity = "1"
+    }
+}
+
+
+search_filter_input.addEventListener("focus", (event) =>
+{
+    show_search_view()
+});
+search_filter_input.addEventListener("focusout", (event) =>
+{
+
+});
+
 
 function collection_change()
 {
@@ -145,14 +181,14 @@ function createRipple(event)
 function copy_isbn()
 {
     copy_isbn_tooltip.innerHTML = `Copied!`
-    setInterval(function () {copy_isbn_tooltip.innerHTML = `Copy`},5000)
+    setInterval(function () { copy_isbn_tooltip.innerHTML = `Copy` }, 5000)
     var copyText = document.getElementById("display_panel_book_isbn").innerHTML;
     navigator.clipboard.writeText(copyText)
 }
 function copy_borrower_id_from_books()
 {
     copy_borrower_book_tooltip.innerHTML = `Copied!`
-    setInterval(function () {copy_borrower_book_tooltip.innerHTML = `Copy`},5000)
+    setInterval(function () { copy_borrower_book_tooltip.innerHTML = `Copy` }, 5000)
     var copyText = document.getElementById("id_to_be_copied_from_books").innerHTML;
     navigator.clipboard.writeText(copyText)
 }
@@ -259,7 +295,7 @@ async function list_books()
         preview_image.setAttribute("src", `https://covers.openlibrary.org/b/isbn/${rec.isbn}-S.jpg`);
         let info_div = document.createElement("div");
         info_div.className = "list_item_info_text";
-        
+
         if (rec.legacy_book_id.match("DEPRECATED_"))
         {
             info_div.innerHTML = `${rec.title} 
@@ -292,19 +328,19 @@ function clickHandler(ev)
     console.log(book)
 
     display_panel_details.style.display = "block"
-/////////DISPLAY PANEL NONSENCE/////////////////////////////////////
-    display_panel_book_system_id.innerHTML = "SYS_ID: "+book.id
-    display_panel_book_book_id.innerHTML = "ID: "+book.book_id
+    /////////DISPLAY PANEL NONSENCE/////////////////////////////////////
+    display_panel_book_system_id.innerHTML = "SYS_ID: " + book.id
+    display_panel_book_book_id.innerHTML = "ID: " + book.book_id
     if (book.legacy_book_id.match("DEPRECATED_"))
     {
         display_panel_book_legacy_book_id.innerHTML = ""
     }
     else
     {
-        display_panel_book_legacy_book_id.innerHTML = "IDL: "+book.legacy_book_id
+        display_panel_book_legacy_book_id.innerHTML = "IDL: " + book.legacy_book_id
     }
     display_panel_book_title.innerHTML = book.title
-    display_panel_book_author.innerHTML = "by "+book.author
+    display_panel_book_author.innerHTML = "by " + book.author
     display_panel_book_isbn.innerHTML = book.isbn
     display_panel_book_cover.src = `https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`
     display_panel_book_description.innerHTML = book.description
@@ -316,20 +352,20 @@ function clickHandler(ev)
     if (book.price > 0)
     {
         display_panel_book_price.style.display = "block"
-        display_panel_book_price.innerHTML = "Price: "+book.price+" EUR"
+        display_panel_book_price.innerHTML = "Price: " + book.price + " EUR"
     }
-    
+
     if (book.legacy_date_entered == "")
     {
-        display_panel_book_created.innerHTML = "Created: "+book.created
+        display_panel_book_created.innerHTML = "Created: " + book.created
     }
     else
     {
-        display_panel_book_created.innerHTML = "Legacy Created: "+book.legacy_date_entered
-        display_panel_book_system_created.innerHTML = "SYS_CREATED: "+book.created
+        display_panel_book_created.innerHTML = "Legacy Created: " + book.legacy_date_entered
+        display_panel_book_system_created.innerHTML = "SYS_CREATED: " + book.created
     }
-    display_panel_book_updated.innerHTML = "Updated: "+book.updated
-///////////////////////////////////////////////////////////
+    display_panel_book_updated.innerHTML = "Updated: " + book.updated
+    ///////////////////////////////////////////////////////////
 
 
 
@@ -343,6 +379,8 @@ function clickHandler(ev)
     })
     //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
     clickedOne.style.background = "var(--color-on-surface-2)";
+
+    hide_search_view()
 }
 
 function generate_unique_borrower_id(record_id, text)

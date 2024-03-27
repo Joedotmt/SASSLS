@@ -300,7 +300,7 @@ body
 .input_placeholder
 {
     position: absolute;
-    margin: 0.6rem;
+    margin: 0.3em;
     font-size: min(4vw, 23px);
     opacity: 0.7;
     pointer-events: none;
@@ -327,7 +327,7 @@ body
 .infni04fjif
 {
     font-size: calc(min(4vw, 23px)*0.6);
-    translate: 0px -27px;
+    translate: 0px -2em;
     background-color: var(--color-surface-0);
     opacity: 1;
     transition-delay: 0s;
@@ -448,6 +448,21 @@ dialog[open]
 {
     opacity: 1;
     transform: scale(1);
+}
+
+.h9854h45g
+{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+@media (max-width:750px)
+{
+    .h9854h45g
+    {
+        flex-direction: column;
+    }
 }
 
 @media (min-width:590px)
@@ -778,6 +793,19 @@ button:active
     opacity: 1;
     flex-shrink: 0;
     width: calc(100% - 2em);
+    transition: translate 0.1s linear, opacity 0.1s linear;
+}
+
+@media (min-width:950px)
+{
+    .panel
+    {
+
+    }
+    .search_area
+    {
+        display: block !important;
+    }
 }
 
 @media (min-width:751px)
@@ -786,11 +814,13 @@ button:active
     {
         flex: 1;
     }
+
     .display_area
     {
         flex-basis: 8em;
     }
 }
+
 @media (max-width:750px)
 {
     .display_area
@@ -924,6 +954,7 @@ a:active
         margin: 0.3em;
         height: calc(100dvh - 0.6em);
     }
+
     .container
     {
         gap: 0.3em 0.3em;
