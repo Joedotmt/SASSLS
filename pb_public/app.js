@@ -156,7 +156,7 @@ function logo_easter_egg()
     logo_text.style.fontWeight = parseInt(logo_text.style.fontWeight) + 50
     if (logo_text.style.fontWeight > 900)
     {
-        logo_text.innerHTML = `Made by <a target="_blank" rel="external" href="https://permanentlink.github.io/#saslib">Joe Gringinu Esposito</a>`
+        logo_text.innerHTML = `Made by <a target="_blank" rel="external" href="https://permanentlink.github.io/#saslib">Joe Esposito</a>`
     }
 }
 

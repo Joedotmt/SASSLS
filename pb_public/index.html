@@ -294,7 +294,7 @@
 
 
 
-         <div id="search_area" style="padding: 1em; display: none;" class="search_area panel">
+         <div id="search_area" style="padding: 1em; display: none; overflow-y: scroll;" class="search_area panel">
             <div style="margin-bottom: 1em;" class="input-container">
                <input type="text" class="input-google">
                <label class="input_placeholder">Title</label>
@@ -303,18 +303,64 @@
                <input type="text" class="input-google">
                <label class="input_placeholder">Author</label>
             </div>
+            <div style="display: flex;">
+               <div style="margin-bottom: 1em; margin-right: 0.5em;" class="input-container">
+                  <input type="text" class="input-google">
+                  <label class="input_placeholder">ID</label>
+               </div>
+               <div style="margin-bottom: 1em; flex-basis: 8em;" class="input-container">
+                  <select style="width: 100%;" type="text" class="input-google">
+                     <option>Both</option>
+                     <option>New</option>
+                     <option>Old</option>
+                  </select>
+                  <label class="input_placeholder infni04fjif">ID Type</label>
+               </div>
+            </div>
             <div style="margin-bottom: 1em;" class="input-container">
                <input type="text" class="input-google">
-               <label class="input_placeholder">ID</label>
+               <label class="input_placeholder">ISBN</label>
             </div>
             <div style="margin-bottom: 1em;" class="input-container">
-               <select type="text" class="input-google">
-                  <option>Both</option>
-                  <option>New</option>
-                  <option>Legacy</option>
-               </select>
-               <label class="input_placeholder infni04fjif">ID Type</label>
+               <input type="text" class="input-google">
+               <label class="input_placeholder">Description</label>
             </div>
+            <div style="margin-bottom: 1em;" class="input-container">
+               <input type="text" class="input-google">
+               <label class="input_placeholder">Classification Label</label>
+            </div>
+            <div style="margin-bottom: 1em;" class="input-container">
+               <input type="text" class="input-google">
+               <label class="input_placeholder">Subject</label>
+            </div>
+            <div style="margin-bottom: 1em;" class="input-container">
+               <input type="text" class="input-google">
+               <label class="input_placeholder">Level</label>
+            </div>
+            <div style="margin-bottom: 1em;" class="input-container">
+               <input type="text" class="input-google">
+               <label class="input_placeholder">Lost</label>
+            </div>
+            <div style="margin-bottom: 1em;" class="input-container">
+               <input type="text" class="input-google">
+               <label class="input_placeholder">Scrapped</label>
+            </div>
+
+            <div style="margin-bottom: 1em; flex-basis: 8em;" class="input-container">
+               <select style="width: 100%;" type="text" class="input-google">
+                  <option>Created</option>
+                  <option>Name</option>
+                  <option>Updated</option>
+                  <option>Price</option>
+               </select>
+               <label class="input_placeholder infni04fjif">Sort by</label>
+            </div>
+            <select multiple>               
+               <option value="books">Books</option>
+               <option value="borrowers">Borrowers</option>
+               <option value="prints">Printing</option>
+               <option value="transactions">Transactions</option>
+            </select>
          </div>
 
 
@@ -322,7 +368,11 @@
 
          <div id="list_area" class="list_area panel">
             <div class="list_area_search">
-               <input type="text" style="margin: 7px;" id="search_filter_input" onchange="list_selected_collection()">
+               <input type="text" style="    margin: 7px;
+               height: 1em;" id="search_filter_input" onchange="list_selected_collection()">
+               <button style="margin: 7px 7px 7px 0px; width: 9em;"><span style="translate: 0; padding: 0;" class="material-symbols-outlined button_icon">
+                  tune
+                  </span>Filter</button>
             </div>
             <div class="list_area_list" id="list_area_list"></div>
          </div>
