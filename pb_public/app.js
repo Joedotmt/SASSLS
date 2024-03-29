@@ -1,5 +1,68 @@
 const pb = new PocketBase('http://127.0.0.1:8090');
 
+const book_level_colors = "Brown, Yellow, Blue, Green, Red"
+
+
+set_book_subjects_lists()
+set_book_levels_lists()
+function set_book_levels_lists()
+{
+    const color_array = book_level_colors.split(", ");
+    color_array.forEach(color =>
+    {
+        let optionelement = document.createElement("option");
+        optionelement.value = color
+        optionelement.innerText = color
+
+
+        book_level_search_select.appendChild(optionelement)
+
+        clone5 = optionelement.cloneNode(true)
+        display_panel_book_level_editing.appendChild(clone5)
+    });
+
+
+}
+
+async function set_book_subjects_lists()
+{
+    let optionelement = document.createElement("option");
+    optionelement.value = "all"
+    optionelement.innerText = "All"
+    optionelement.style.fontSize = "1.2rem"
+
+    kej0f4jj05.appendChild(optionelement)
+
+    clone1 = optionelement.cloneNode(true)
+    kej0f4jj05___2.appendChild(clone1)
+
+    const book_subject_collection = await pb.collection('books_subjects').getFullList({
+        sort: '+created',
+    });
+    for (const book_subject of book_subject_collection)
+    {
+        let optionelement = document.createElement("option");
+        optionelement.value = book_subject.id
+        optionelement.innerText = book_subject.subject
+        optionelement.style.fontSize = "1rem"
+        if (book_subject.resource)
+        {
+            nv9tuni9.appendChild(optionelement)
+
+            clone2 = optionelement.cloneNode(true)
+            nv9tuni9_2.appendChild(clone2)
+        }
+        else
+        {
+            kj0f4jj05.appendChild(optionelement)
+
+            clone3 = optionelement.cloneNode(true)
+            kj0f4jj05__2.appendChild(clone3)
+        }
+    }
+}
+
+
 localStorage.setItem("theme_settings", "blue green red");
 console.log(localStorage.getItem("theme_settings"))
 
@@ -47,6 +110,7 @@ input_elementsArray.forEach(function (elem)
             try
             {
                 elem.nextElementSibling.classList.remove("infni04fjif")
+                elem.nextElementSibling.classList.remove("infni04fjif_textarea")
             } catch (error)
             {
 
@@ -55,7 +119,8 @@ input_elementsArray.forEach(function (elem)
     });
 });
 
-function show_search_view(){
+function show_search_view()
+{
     if (window.matchMedia("(max-width: 1130px)"))
     {
         display_area.style.translate = "110% 0"
@@ -64,7 +129,8 @@ function show_search_view(){
         display_area.style.opacity = "1"
     }
 }
-function hide_search_view(){
+function hide_search_view()
+{
     if (window.matchMedia("(max-width: 1130px)"))
     {
         display_area.style.translate = "0 0em"
@@ -79,11 +145,6 @@ search_filter_input.addEventListener("focus", (event) =>
 {
     show_search_view()
 });
-search_filter_input.addEventListener("focusout", (event) =>
-{
-
-});
-
 
 function collection_change()
 {
@@ -213,10 +274,90 @@ function open_account_dialog()
     );
 }
 
+function segmented_button_thing(event)
+{
+    ele = (event.srcElement)
+
+    if (ele.dataset.state === "true")
+    {
+        ele.dataset.state = false;
+        ele.style.backgroundColor = 'transparent'
+        ele.style.width = '9em'
+        ele.parentElement.dataset.value = 'none'
+        console.log("none")
+    }
+    else
+    {
+        let false_element
+        let truth_element
+        for (const thingydongy of ele.parentElement.children)
+        {
+            thingydongy.dataset.state = false
+            thingydongy.style.backgroundColor = 'transparent'
+            thingydongy.style.width = '9em'
+            if (thingydongy.dataset.value == 'true')
+            {
+                truth_element = thingydongy
+            }
+            if (thingydongy.dataset.value == 'false')
+            {
+                false_element = thingydongy
+            }
+        }
+
+        ele.dataset.state = true;
+        ele.style.backgroundColor = 'color-mix(in hsl, var(--color-primary-30), #00000000 5%)'
+        ele.style.width = '10em'
+
+        if (truth_element.dataset.state == 'true' && false_element.dataset.state == 'false')
+        {
+            ele.parentElement.dataset.value = 'false'
+        }
+        if (truth_element.dataset.state == 'false' && false_element.dataset.state == 'true')
+        {
+            ele.parentElement.dataset.value = 'true'
+        }
+    }
+}
+
+let display_area_edit_mode = false
+function swap_display_area_mode()
+{
+    if (display_area_edit_mode)
+    {
+        display_panel_edit_details.style.display = "none"
+        display_panel_details.style.display = "block"
+
+        n5goiu.innerText = "Edit"
+        n5goiu.style.color = ""
+        hju8h8h8e.style.backgroundColor = ""
+        hju8h8h8e.style.border = ""
+        returntextjinfo4.innerText = "Return"
+        returnbutton54985t8.onclick = null
+        display_area_edit_mode = false
+    }
+    else
+    {
+        display_panel_edit_details.style.display = "block"
+        display_panel_details.style.display = "none"
+
+        n5goiu.innerText = "Save"
+        n5goiu.style.color = "var(--color-background)"
+        hju8h8h8e.style.backgroundColor = "var(--color-primary)"
+        hju8h8h8e.style.border = "none"
+        returntextjinfo4.innerText = "Cancel"
+        returnbutton54985t8.onclick = swap_display_area_mode
+        display_area_edit_mode = true
+    }
+}
+
 const all_buttons = document.getElementsByTagName("button");
 for (const button of all_buttons)
 {
-    button.addEventListener("mousedown", createRipple);
+    if (!button.classList.contains("segmented_button_button"))
+    {
+        button.addEventListener("mousedown", createRipple);
+    }
 }
 
 function generate_unique_book_id(record_id, text)
@@ -235,6 +376,36 @@ function generate_unique_book_id(record_id, text)
         }
     }
 }
+
+function search_sortby_ascending_book_change()
+{
+    if (search_sortby_ascending_book.dataset.ascending == "+")
+    {
+        search_sortby_ascending_book.dataset.ascending = "-"
+        on4ir4r0943.style.rotate = "360deg"
+        timeout_uofrrofi = setTimeout(function ()
+        {
+            on4ir4r0943.style.transitionDuration = "0s"
+            on4ir4r0943.style.rotate = "0deg"
+        }, 200);
+    }
+    else
+    {
+        try
+        {
+            clearTimeout(timeout_uofrrofi)
+        } catch (error)
+        {
+
+        }
+        search_sortby_ascending_book.dataset.ascending = "+"
+        on4ir4r0943.style.transitionDuration = "0.2s"
+        on4ir4r0943.style.rotate = "180deg"
+    }
+    list_books();
+}
+
+
 async function list_books()
 {
     let enteredVal = search_filter_input.value;
@@ -242,21 +413,57 @@ async function list_books()
     console.log(enteredTokens);
     let pbFilter = "";
     let operand = "";
+
     for (const enteredToken of enteredTokens)
     {
         let cleanToken = enteredToken.trim();
         if (cleanToken !== "")
         {
-            pbFilter += `${operand} (legacy_book_id = "${cleanToken}" || book_id = "${cleanToken}" || title  ~ "%${cleanToken}%" || isbn = "${cleanToken}")`;
+            pbFilter += `(${operand} (legacy_book_id = "${cleanToken}" || book_id = "${cleanToken}" || title  ~ "%${cleanToken}%" || isbn = "${cleanToken}"))`;
             operand = " && ";
         }
     }
-    console.log(pbFilter);
+    if (book_search_selector_lost_thing.dataset.value != "none")
+    {
+        if (pbFilter != "")
+        {
+            pbFilter += " && "
+        }
+        pbFilter += "lost = " + book_search_selector_lost_thing.dataset.value + ""
+    }
+    if (book_search_selector_scrapped_thing.dataset.value != "none")
+    {
+        if (pbFilter != "")
+        {
+            pbFilter += " && "
+        }
+        pbFilter += "scrapped = " + book_search_selector_scrapped_thing.dataset.value + ""
+    }
+    if (book_level_search_select.value != "all")
+    {
+        if (pbFilter != "")
+        {
+            pbFilter += " && "
+        }
+        pbFilter += "level = '" + book_level_search_select.value + "'"
+    }
+    if (subject_search_select_shadow.value != "all")
+    {
+        if (pbFilter != "")
+        {
+            pbFilter += " && "
+        }
+        pbFilter += "subject = '" + subject_search_select_shadow.value + "'"
+    }
+    console.log("pbfilter: ", pbFilter);
 
     // you can also fetch all records at once via getFullList
+    pbSort = search_sortby_ascending_book.dataset.ascending + j54f9954j.value
+
+
     all_book_records = await pb.collection('books').getFullList(
         {
-            sort: '-created',
+            sort: pbSort,
             filter: pbFilter
         });
     list_area_list.innerHTML = ""
@@ -318,7 +525,7 @@ async function list_books()
 
 }
 
-function clickHandler(ev)
+async function clickHandler(ev)
 {
     let useid = ev.srcElement.dataset.id;
     let book = all_book_records.find((s) =>
@@ -345,8 +552,13 @@ function clickHandler(ev)
     display_panel_book_cover.src = `https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`
     display_panel_book_description.innerHTML = book.description
     display_panel_book_classification_label.innerHTML = book.classification_label
-    //display_panel_book_subject.innerHTML = book.subject
-    //display_panel_book_level.innerHTML = book.level
+
+
+    const book_subject_jr8r04 = await pb.collection('books_subjects').getOne(book.subject, {});
+    display_panel_book_subject.innerHTML = "Subject: " + book_subject_jr8r04.subject
+
+
+    display_panel_book_level.innerHTML = "Level: " + book.level
     display_panel_book_lost.style.display = book.lost ? "block" : "none"
     display_panel_book_scrapped.style.display = book.lost ? "block" : "none"
     if (book.price > 0)
@@ -366,6 +578,39 @@ function clickHandler(ev)
     }
     display_panel_book_updated.innerHTML = "Updated: " + book.updated
     ///////////////////////////////////////////////////////////
+
+
+
+    display_panel_book_title_editing.value = book.title
+    display_panel_book_author_editing.value = book.author
+    display_panel_book_book_id_editing.innerText = "ID: " + book.book_id
+
+    if (book.legacy_book_id.match("DEPRECATED_"))
+    {
+        display_panel_book_legacy_book_id_editing.innerText = ""
+        j5498.style.display = 'none'
+    }
+    else
+    {
+        display_panel_book_legacy_book_id_editing.innerText = "IDL: " + book.legacy_book_id
+        j5498.style.display = 'flex'
+    }
+
+    display_panel_book_isbn_editing.value = book.isbn
+    display_panel_book_description_editing.value = book.description
+    display_panel_book_classification_label_editing.value = book.classification_label
+    display_panel_book_level_editing.value = book.level
+    display_panel_book_subject_editing.value = book.subject
+    display_panel_book_lost_editing.value = book.lost
+    display_panel_book_scrapped_editing.value = book.scrapped
+    display_panel_book_price_editing.value = book.price
+
+
+
+
+
+
+
 
 
 
@@ -755,37 +1000,3 @@ function close_settings_modal()
 {
     settings_dialog.close();
 }
-/*
-const ctx = document.getElementById("book_cover_canvas").getContext("2d");
-const book_cover_canvas = document.getElementById("book_cover_canvas");
-book_cover_canvas.style.width = "1000px";
-book_cover_canvas.style.height = "1000px";
-book_cover_canvas.width = 1000;
-book_cover_canvas.height = 1000;
-ctx.fillStyle = "#FFFFFF";
-ctx.fillRect(0, 0, 270, 420);
-ctx.fillStyle = "#000000";
-ctx.font = "30px poppinss    "
-ctx.fillText("lung cancer", 10, 30)
-ctx.font = "15px serif"
-ctx.fillText("by Gringinu Deposits", 10, 60)
-ctx.drawImage(document.getElementById("imag"), -40, 100, 340, 250)
-ctx.fillText("(tutorial)", 10, 405)
-
-javascript:
-var elementsToKeep = document.querySelectorAll('img');
-document.body.remove();
-document.head.remove();
-document.body = document.createElement("body");
-document.head = document.createElement("head");
-document.body.style.backgroundColor = 'rgb(26, 28, 24)';
-var newImage = new Image();
-newImage.src = elementsToKeep[4].currentSrc;
-document.body.appendChild(newImage);
-import PocketBase from 'pocketbase';
-const pb = new PocketBase('http://127.0.0.1:8090');
-const data = {
-    "isbn": "test"
-};
-const record = await pb.collection('book_covers').create(data);*/
-

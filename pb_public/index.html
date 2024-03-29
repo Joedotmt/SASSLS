@@ -56,11 +56,21 @@
             </div>
             <div>
                <div style="display: flex; margin: 0;">
-                  <div class="input-container">
-                     <input class="input-google" id="email_input" autocomplete="off" type="text">
+                  <div style="width: 100%" class="input-container">
+                     <input style="    text-align: right;
+                     padding-right: 9.9em;
+                     margin-right: 0;
+                     width: 100%;" class="input-google" id="email_input" autocomplete="off" type="text">
                      <label style="background-color: var(--color-surface-5);" class="input_placeholder">Email</label>
                   </div>
-                  <label style="margin: auto; font-size: min(2vw, 1.5em); margin-left: 0.3em;">@sanandrea.edu.mt</label>
+                  <label style="    margin: auto;
+                  margin-left: 0em;
+                  font-size: 1.3em;
+                  width: 0px;
+                  position: relative;
+                  left: -11em;
+                  color: var(--color-on-background);
+                  opacity: 0.7;">@sanandrea.edu.mt</label>
                </div>
                <div style="display: flex; margin-top: 1em;">
                   <div class="input-container">
@@ -295,19 +305,7 @@
 
 
          <div id="search_area" style="padding: 1em; display: none; overflow-y: scroll;" class="search_area panel">
-            <div style="margin-bottom: 1em;" class="input-container">
-               <input type="text" class="input-google">
-               <label class="input_placeholder">Title</label>
-            </div>
-            <div style="margin-bottom: 1em;" class="input-container">
-               <input type="text" class="input-google">
-               <label class="input_placeholder">Author</label>
-            </div>
             <div style="display: flex;">
-               <div style="margin-bottom: 1em; margin-right: 0.5em;" class="input-container">
-                  <input type="text" class="input-google">
-                  <label class="input_placeholder">ID</label>
-               </div>
                <div style="margin-bottom: 1em; flex-basis: 8em;" class="input-container">
                   <select style="width: 100%;" type="text" class="input-google">
                      <option>Both</option>
@@ -317,50 +315,59 @@
                   <label class="input_placeholder infni04fjif">ID Type</label>
                </div>
             </div>
-            <div style="margin-bottom: 1em;" class="input-container">
-               <input type="text" class="input-google">
-               <label class="input_placeholder">ISBN</label>
+            <div style="margin-bottom: 1em; flex-basis: 8em;" class="input-container">
+               <select onchange="list_books()" id="subject_search_select_shadow" style="width: 100%;" type="text"
+                  class="input-google">
+                  <optgroup style="font-size: 0;" id="kej0f4jj05" label=""></optgroup>
+                  <optgroup style="font-size: 1px;" id="kj0f4jj05" label=""></optgroup>
+                  <optgroup id="nv9tuni9" label="Resources"></optgroup>
+               </select>
+               <label class="input_placeholder infni04fjif">Subject</label>
             </div>
             <div style="margin-bottom: 1em;" class="input-container">
-               <input type="text" class="input-google">
-               <label class="input_placeholder">Description</label>
-            </div>
-            <div style="margin-bottom: 1em;" class="input-container">
-               <input type="text" class="input-google">
-               <label class="input_placeholder">Classification Label</label>
-            </div>
-            <div style="margin-bottom: 1em;" class="input-container">
-               <input type="text" class="input-google">
-               <label class="input_placeholder">Subject</label>
-            </div>
-            <div style="margin-bottom: 1em;" class="input-container">
-               <input type="text" class="input-google">
-               <label class="input_placeholder">Level</label>
-            </div>
-            <div style="margin-bottom: 1em;" class="input-container">
-               <input type="text" class="input-google">
-               <label class="input_placeholder">Lost</label>
-            </div>
-            <div style="margin-bottom: 1em;" class="input-container">
-               <input type="text" class="input-google">
-               <label class="input_placeholder">Scrapped</label>
+               <select onchange="list_books()" style="width: 100%;" id="book_level_search_select" type="text"
+                  class="input-google">
+                  <option value="all">All</option>
+               </select>
+               <label class="input_placeholder infni04fjif">Level</label>
             </div>
 
-            <div style="margin-bottom: 1em; flex-basis: 8em;" class="input-container">
-               <select style="width: 100%;" type="text" class="input-google">
-                  <option>Created</option>
-                  <option>Name</option>
-                  <option>Updated</option>
-                  <option>Price</option>
-               </select>
-               <label class="input_placeholder infni04fjif">Sort by</label>
+
+            <div id="book_search_selector_lost_thing" data-value="none" style="display: flex; margin-bottom: 0.5em;">
+               <button data-value="false" data-state="false" class="segmented_button_button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Lost</button>
+               <button data-value="true" data-state="false" class="segmented_button_button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">Not Lost</button>
             </div>
-            <select multiple>               
-               <option value="books">Books</option>
-               <option value="borrowers">Borrowers</option>
-               <option value="prints">Printing</option>
-               <option value="transactions">Transactions</option>
-            </select>
+
+            <div id="book_search_selector_scrapped_thing" data-value="none" style="display: flex; margin-bottom: 0.5em;">
+               <button data-value="false" data-state="false" class="segmented_button_button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Scrapped</button>
+               <button data-value="true" data-state="false" class="segmented_button_button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">Not Scrapped</button>
+            </div>
+
+            <div data-value="none" style="display: flex; margin-bottom: 1.3em;">
+               <button data-value="false" data-state="false" class="segmented_button_button" onclick="segmented_button_thing(event)" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Borrowing</button>
+               <button data-value="true" data-state="false" class="segmented_button_button" onclick="segmented_button_thing(event)" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">In Shelf</button>
+            </div>
+
+
+            <div style="display: flex;">
+               <div class="input-container">
+                  <select onchange="list_books()" id="j54f9954j" style="width: 100%;" type="text" class="input-google">
+                     <option value="created">Created</option>
+                     <option value="title">Title</option>
+                     <option value="updated">Updated</option>
+                     <option value="price">Price</option>
+                  </select>
+                  <label class="input_placeholder infni04fjif">Sort by</label>
+               </div>
+               <button id="search_sortby_ascending_book" data-ascending="-"
+                  onclick="search_sortby_ascending_book_change()" style="border-radius: 0.4em;
+                              margin: 0px 0px 0px 0.5em;
+                              height: auto;
+                              width: 3em;" class="button_circle">
+                  <span id="on4ir4r0943" style="rotate: 0deg; transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);"
+                     class="material-symbols-outlined">arrow_upward</span>
+               </button>
+            </div>
          </div>
 
 
@@ -370,8 +377,9 @@
             <div class="list_area_search">
                <input type="text" style="    margin: 7px;
                height: 1em;" id="search_filter_input" onchange="list_selected_collection()">
-               <button style="margin: 7px 7px 7px 0px; width: 9em;"><span style="translate: 0; padding: 0;" class="material-symbols-outlined button_icon">
-                  tune
+               <button style="margin: 7px 7px 7px 0px; width: 9em;"><span style="translate: 0; padding: 0;"
+                     class="material-symbols-outlined button_icon">
+                     tune
                   </span>Filter</button>
             </div>
             <div class="list_area_list" id="list_area_list"></div>
@@ -386,39 +394,86 @@
 							width: 40px;" class="button_circle">
                   <span class="material-symbols-outlined">arrow_back</span>
                </button>
-               <button style="margin: 5px; margin-right: 0; margin-left: auto;">Return</button>
-               <button style="margin: 5px; margin-right: 5px;">Edit</button>
+               <button id="returnbutton54985t8" style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"><div id="returntextjinfo4">Return</div></button>
+               <button id="hju8h8h8e" onclick="swap_display_area_mode()" style="margin: 5px; margin-right: 5px;"><div id="n5goiu">Edit</div></button>
             </div>
 
-            <div style="display: block; padding: 2em;" id="display_panel_edit_details">
+            <div style="display: none; padding: 2em;" id="display_panel_edit_details">
                <div style="margin-bottom: 1em;" class="input-container">
-                  <input type="text" class="input-google">
-                  <label class="input_placeholder">Title</label>
+                  <input id="display_panel_book_title_editing" type="text" class="input-google">
+                  <label class="input_placeholder infni04fjif">Title</label>
                </div>
                <div style="margin-bottom: 1em;" class="input-container">
-                  <input type="text" class="input-google">
-                  <label class="input_placeholder">Author</label>
+                  <input id="display_panel_book_author_editing" type="text" class="input-google">
+                  <label class="input_placeholder infni04fjif">Author</label>
                </div>
-
 
                <div style="    background-color: var(--color-surface-5);
-               padding: 0.5em;
-               flex-grow: 1;
-               border-radius: 0.5em;
-               margin-top: 0.2em;
-               font-family: 'roboto mono';
-               display: flex;
-               flex-direction: row;
-               justify-content: space-between;">
-                  <div style="    display: flex;
-                  flex-direction: column;
-                  justify-content: center;">
+                              padding: 0.5em;
+                              flex-grow: 1;
+                              font-size: 1.2em;
+                              border-radius: 0.5em;
+                              margin-top: 0.2em;
+                              font-family: 'roboto mono';
+                              display: flex;
+                              flex-direction: row;
+                              justify-content: space-between; margin-bottom: 1em;">
+                  <div style="display: flex;flex-direction: column;justify-content: center;">
                      <div id="display_panel_book_book_id_editing">ID: ----</div>
                      <div id="display_panel_book_legacy_book_id_editing">IDL: 00000</div>
                   </div>
-                  <button onclick="migration_id_confirmation_dialog.showModal()"
-                     style="width: fit-content; margin: 0.5em;">Migrate to New ID</button>
+                  <button id="j5498" onclick="migration_id_confirmation_dialog.showModal()"
+                     style="width: fit-content; margin: 0.5em;">
+                     Migrate to New ID
+                  </button>
                </div>
+
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_isbn_editing" type="text" class="input-google">
+                  <label class="input_placeholder infni04fjif">ISBN</label>
+               </div>
+               <div style="margin-bottom: 1em; align-items: normal;" class="input-container">
+                  <textarea style="resize:none; font-size: 1.2em; height: 100px;" id="display_panel_book_description_editing" type="text" class="input-google"></textarea>
+                  <label style="--translateamount: -1.15em;" class="input_placeholder infni04fjif">Description</label>
+               </div>
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_classification_label_editing" type="text" class="input-google">
+                  <label class="input_placeholder infni04fjif">Classification Label</label>
+               </div>
+
+
+
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <select onchange="list_books()" style="width: 100%;" id="display_panel_book_level_editing" type="text"
+                     class="input-google">
+                     <option value="all">All</option>
+                  </select>
+                  <label class="input_placeholder infni04fjif">Level</label>
+               </div>
+
+               
+               <div style="margin-bottom: 1em; flex-basis: 8em;" class="input-container">
+                  <select id="display_panel_book_subject_editing" style="width: 100%;" type="text"
+                     class="input-google">
+                     <optgroup style="font-size: 0;" id="kej0f4jj05___2" label=""></optgroup>
+                     <optgroup style="font-size: 1px;" id="kj0f4jj05__2" label=""></optgroup>
+                     <optgroup id="nv9tuni9_2" label="Resources"></optgroup>
+                  </select>
+                  <label class="input_placeholder infni04fjif">Subject</label>
+               </div>
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_lost_editing" type="text" class="input-google">
+                  <label class="input_placeholder infni04fjif">Lost</label>
+               </div>
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_scrapped_editing" type="text" class="input-google">
+                  <label class="input_placeholder infni04fjif">Scrapped</label>
+               </div>
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_price_editing" type="text" class="input-google">
+                  <label class="input_placeholder infni04fjif">Price</label>
+               </div>
+
 
             </div>
 
@@ -562,6 +617,12 @@
                </div>
                <div id="display_panel_book_price" style="display: none; margin: 0.8em; margin-top: 0.5em;">
                   Price: 5 EUR
+               </div>
+               <div id="display_panel_book_subject" style="margin: 0.8em; margin-top: 0.5em;">
+                  Non-Feeection
+               </div>
+               <div id="display_panel_book_level" style="margin: 0.8em; margin-top: 0.5em;">
+                  Greeeeen
                </div>
                <div id="display_panel_book_updated" style="margin: 0.8em; margin-top: 0.5em;">
                   Updated: 0000-00-00 00:00:00.000Z

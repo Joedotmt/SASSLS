@@ -323,11 +323,30 @@ body
     transition-delay: 0s;
     color: var(--color-primary-80)
 }
+.input-container select:focus+.input_placeholder
+{
+    font-size: calc(min(4vw, 23px)*0.6);
+    translate: 0px -2.05em;
+    background-color: var(--color-surface-0);
+    opacity: 1;
+    transition-delay: 0s;
+    color: var(--color-primary-80)
+}
+.input-container textarea:focus+.input_placeholder
+{
+    font-size: calc(min(4vw, 23px)*0.6);
+    translate: 0px -1.15em;
+    background-color: var(--color-surface-0);
+    opacity: 1;
+    transition-delay: 0s;
+    color: var(--color-primary-80)
+}
 
 .infni04fjif
 {
+    --translateamount: -2em;
     font-size: calc(min(4vw, 23px)*0.6);
-    translate: 0px -2em;
+    translate: 0px var(--translateamount);
     background-color: var(--color-surface-0);
     opacity: 1;
     transition-delay: 0s;
@@ -669,7 +688,8 @@ span.ripple
 }
 
 input,
-select
+select,
+textarea
 {
     color: var(--color-on-background);
     background-color: transparent;
@@ -692,7 +712,8 @@ option
 }
 
 input:focus,
-select:focus
+select:focus,
+textarea:focus
 {
     box-shadow: 0px 0px 0px 3px var(--color-primary-80);
 }
@@ -798,14 +819,15 @@ button:active
 
 @media (min-width:950px)
 {
-    .panel
-    {
-
-    }
     .search_area
     {
         display: block !important;
     }
+}
+
+.segmented_button_button
+{
+    width: 9em;
 }
 
 @media (min-width:751px)
@@ -1035,6 +1057,17 @@ a:active
     flex-direction: row;
     height: 100%;
     flex-direction: column;
+}
+
+optgroup{
+    background: var(--color-background);
+}
+
+input[type="checkbox"]
+{
+    margin-bottom: 20px;
+    height: 1em;
+    width: 1em;
 }
 
 .button_icon
