@@ -1,5 +1,5 @@
-//const pb = new PocketBase('http://127.0.0.1:8090');
-const pb = new PocketBase('https://library.pockethost.io');
+const pb = new PocketBase('http://127.0.0.1:8090');
+//const pb = new PocketBase('https://library.pockethost.io');
 
 const book_level_colors = "Brown, Yellow, Blue, Green, Red"
 const borrower_groups = "Teacher, Admin, Maintenance, LSE, 8.1, 8.2, 8.3, 8.4, 9.1, 9.2, 9.3, 9.4, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 12.1, 12.2, 12.3, 12.4"
@@ -18,7 +18,7 @@ console.log(localStorage.getItem("theme_settings"))
 let books_color = "green"
 let borrowers_color = "blue"
 let transactions_color = "red"
-var all_book_records;
+var loaded_book_records;
 if (window.location.hash == "")
 {
     window.location.hash = "books"
@@ -277,11 +277,11 @@ function swap_search_view()
 }
 function collection_change()
 {
+    turn_lend_view_into_book_view()
 
     swap_display_area_mode_borrower_to_none()
 
-    display_panel_edit_details.style.display = "none";
-    display_panel_details.style.display = "none";
+    swap_display_area_mode_to_none()
 
 
 
@@ -346,8 +346,8 @@ async function save_changes_handler_book(event)
             "classification_label": display_panel_book_classification_label_editing.value,
             "level": display_panel_book_level_editing.value,
             "subject": display_panel_book_subject_editing.value,
-            "lost": display_panel_book_lost_editing.value,
-            "scrapped": display_panel_book_scrapped_editing.value,
+            "lost": display_panel_book_lost_editing.dataset.value,
+            "scrapped": display_panel_book_scrapped_editing.dataset.value,
             "price": display_panel_book_price_editing.value,
         };
         console.log("UPDATING BOOK RECORD WITH DATA: ", data);
@@ -473,13 +473,12 @@ function segmented_button_thing(event)
 {
     ele = (event.srcElement)
 
-    if (ele.dataset.state === "true")
+    if (ele.dataset.state === "true" && ele.parentElement.dataset.onlyone != "true")
     {
         ele.dataset.state = false;
         ele.style.backgroundColor = 'transparent'
         ele.style.width = '9em'
         ele.parentElement.dataset.value = 'none'
-        console.log("none")
     }
     else
     {
@@ -561,6 +560,13 @@ function swap_display_area_mode_borrower_to_none()
     display_panel_details_borrower.style.display = "none"
     display_panel_edit_details_borrower.style.display = "none"
 }
+function swap_display_area_mode_to_none()
+{
+    returnbutton54985t8.style.display = "none";
+    book_edit_button.style.display = "none";
+    display_panel_details.style.display = "none";
+    display_panel_edit_details.style.display = "none";
+}
 function swap_display_area_mode()
 {
     if (display_area_edit_mode)
@@ -606,17 +612,35 @@ function j5498jr95_borrower()
 {
     close_unsaved_borrower.showModal();
 }
-function generate_unique_book_id(text)
+function create_random_string(length)
 {
-    try
-    {
-        let randInt = Math.floor(Math.random() * 1679615) * 4
-        return generated_id = text.substring(randInt, randInt + 4)
-    } catch (err)
-    {
-        if (err.data.data.book_id.code == "validation_not_unique")
-        {
-            generate_unique_book_id(text);
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
+async function generate_unique_book_id()
+{
+    generated_id = "";
+    for (let i = 0; i < 1000; i++) {
+        try {
+            if (i == 0)
+            {
+                generated_id = "j033"
+            }
+            else
+            {
+                generated_id = create_random_string(4)
+            }
+            await pb.collection('books').getFirstListItem(`book_id="${generated_id}"`);
+            console.error("trying to generate a book id again because of collisions")
+        } catch (err) {
+            if (err.data.code == '404')
+            {
+                return generated_id;
+            }
         }
     }
 }
@@ -727,16 +751,19 @@ async function list_books()
     }
     console.log("pbfilter: ", pbFilter);
 
-    // you can also fetch all records at once via getFullList
+
     pbSort = search_sortby_ascending_book.dataset.ascending + j54f9954j.value
 
 
-    all_book_records = await pb.collection('books').getFullList(
-    {
-        sort: pbSort,
-        filter: pbFilter
-    });
+    query_response = await pb.collection('books').getList(page_number_changer_books.dataset.pagenumber, 100, {sort: pbSort, filter: pbFilter});
+    tttttttt112.innerText = `Page ${page_number_changer_books.dataset.pagenumber} of ${query_response.totalPages}`
+    page_number_changer_books.dataset.maxpages = query_response.totalPages
 
+    loaded_book_records = query_response.items
+    console.log(query_response)
+
+    page_number_changer_books.style.display = "none"
+    search_area.appendChild(page_number_changer_books);
     if (current_page == "books")
     {
         list_area_list.innerHTML =
@@ -752,7 +779,7 @@ async function list_books()
         list_area_list.innerHTML = ""
     }
     
-    for (const rec of all_book_records)
+    for (const rec of loaded_book_records)
     {
         let list_item = document.createElement("button");
         list_item.className = "list_button list_item";
@@ -795,7 +822,8 @@ async function list_books()
         list_item.appendChild(preview_image);
         list_item.appendChild(info_div);
     }
-
+    list_area_list.appendChild(page_number_changer_books);
+    page_number_changer_books.style.display = "flex"
 }
 function playOpenSound()
 {
@@ -809,15 +837,28 @@ async function clickHandler(ARGUMENT_ID)
 {
     playOpenSound()
     let useid = ARGUMENT_ID//ev.srcElement.dataset.id;
-    let book = all_book_records.find((s) =>
+    let book = loaded_book_records.find((s) =>
     {
         return s.id == useid;
     })
     console.log(book)
 
+    let clickedOne = list_area_list.querySelector(`button[data-id="${useid}"]`);
+    list_area_list.querySelectorAll(".list_item").forEach(function (i)
+    {
+        i.style.background = "";
+        //i.style.borderRadius = "";
+        //i.style.margin = "";
+        //i.style.padding = "";
+    })
+    //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
+    clickedOne.style.background = "var(--color-on-surface-2)";
+
+    display_panel_book_cover.src = ""
+
     book_edit_button.dataset.currentid = book.id
 
-    display_panel_details.style.display = "block"
+    swap_display_area_mode_to_display()
 
     display_panel_edit_details.querySelectorAll(".input_placeholder").forEach(reee =>
     {
@@ -899,26 +940,11 @@ async function clickHandler(ARGUMENT_ID)
     display_panel_book_classification_label_editing.value = book.classification_label
     display_panel_book_level_editing.value = book.level
     display_panel_book_subject_editing.value = book.subject
-    display_panel_book_lost_editing.value = book.lost
-    display_panel_book_scrapped_editing.value = book.scrapped
+    display_panel_book_lost_editing.dataset.value = book.lost
+    display_panel_book_scrapped_editing.dataset.value = book.scrapped
     display_panel_book_price_editing.value = book.price
 
 
-
-
-
-
-
-    let clickedOne = list_area_list.querySelector(`button[data-id="${useid}"]`);
-    list_area_list.querySelectorAll(".list_item").forEach(function (i)
-    {
-        i.style.background = "";
-        //i.style.borderRadius = "";
-        //i.style.margin = "";
-        //i.style.padding = "";
-    })
-    //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
-    clickedOne.style.background = "var(--color-on-surface-2)";
 }
 async function clickHandler_create()
 {
@@ -929,13 +955,10 @@ async function clickHandler_create()
     //delete_borrower_forever.style.display = "none"
     book_edit_button.dataset.currentid = "creation"
 
-    await fetch("book_id_list_length_4.txt")
-        .then((res) => res.text())
-        .then((text) =>
-        {
-            generatedid_book = generate_unique_book_id(text)
-        })
-        .catch((e) => console.error(e));
+
+
+    generatedid_book = generate_unique_book_id()
+
 
     display_panel_book_title_editing.value = ""
     display_panel_book_author_editing.value = ""
