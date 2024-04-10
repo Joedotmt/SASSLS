@@ -105,10 +105,6 @@ document.addEventListener('contextmenu', event => {
     event.preventDefault();
 });
 
-setInterval(() => {
-    console.log(window.ontouchstart !== undefined)
-}, 50);
-
 function isTouchDevice() {
     return 'ontouchstart' in window || navigator.msMaxTouchPoints;
 }
