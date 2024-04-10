@@ -86,6 +86,10 @@
                         {
                            clickHandler_borrower(edit_button_borrower.dataset.currentid);
                         }
+                        else if (nextid_borrower == 'creation')
+                        {
+                           clickHandler_borrower_create();
+                        }
                         else
                         {
                            clickHandler_borrower(nextid_borrower);
@@ -118,21 +122,23 @@
                <h1 style="margin: 0;">Sign in</h1>
                <h4 style="margin: 0; margin-bottom: 3em; font-weight: normal;">with your school email</h4>
             </div>
-            <div>
+            <form>
                <div style="display: flex; margin: 0;">
-                  <div style="width: 100%" class="input-container"> <input
+                  <div style="width: 100%" class="input-container"> 
+                     <input
                         style=" text-align: right; padding-right: 9.9em; margin-right: 0; width: 100%;"
-                        class="input-google" id="email_input" autocomplete="off" type="text"> <label
+                        class="input-google" id="email_input" autocomplete="email" type="email"> <label
                         style="background-color: var(--color-surface-5);" class="input_placeholder">Email</label> </div>
                   <label
                      style=" margin: auto; margin-left: 0em; font-size: 1.3em; width: 0px; position: relative; left: -11em; color: var(--color-on-background); opacity: 0.7;">@sanandrea.edu.mt</label>
                </div>
                <div style="display: flex; margin-top: 1em;">
-                  <div class="input-container"> <input class="input-google" id="password_input" type="password"> <label
-                        style="background-color: var(--color-surface-5);" class="input_placeholder">Password</label>
+                  <div class="input-container"> 
+                     <input class="input-google" id="password_input" autocomplete="current-password" type="password"> 
+                     <label style="background-color: var(--color-surface-5);" class="input_placeholder">Password</label>
                   </div>
                </div>
-            </div>
+            </form>
          </div>
          <div style=" display: flex; flex-direction: row-reverse; margin-top: 1em;"> <button
                class="dialog_button_accept">Sign in</button> <button onclick="sign_in_dialog.close()"
@@ -347,11 +353,10 @@
                   ID</button>
             </div>
 
-            <div data-pagenumber="1" id="page_number_changer_books"
-               style="display: none; align-items: center; margin: 1em; background-color: var(--color-surface-0); border-radius: 0.5em; padding: 1em;">
+            <div data-pagenumber="1" id="page_number_changer_books" class="page_number_changer" style="display: none;">
                <button
                   onclick="if (page_number_changer_books.dataset.pagenumber - 1 >= 1) {page_number_changer_books.dataset.pagenumber -= 1; list_books();}"
-                  class="button_circle" style="font-size: 1.5em;">
+                  class="button_circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
                   <span class="material-symbols-outlined">
                      chevron_left
                   </span>
@@ -361,7 +366,7 @@
                   Page 0 of 0</div>
                <button
                   onclick="if (page_number_changer_books.dataset.maxpages >= parseInt(page_number_changer_books.dataset.pagenumber)+1) {page_number_changer_books.dataset.pagenumber = parseInt(page_number_changer_books.dataset.pagenumber)+1; list_books();}"
-                  class="button_circle" style="font-size: 1.5em;">
+                  class="button_circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
                   <span class="material-symbols-outlined">
                      navigate_next
                   </span>
@@ -412,7 +417,7 @@
                </div>
                <div
                   style=" background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
-                  <div style="display: flex;flex-direction: column;justify-content: center;">
+                  <div style="display: flex;flex-direction: column;justify-content: center; font-family: 'roboto mono';">
                      <div id="display_panel_book_book_id_editing">ID: ----</div>
                      <div id="display_panel_book_legacy_book_id_editing">IDL: 00000</div>
                   </div>
@@ -473,7 +478,7 @@
                <div class="display_panel_book_general">
                   <div style=" margin: 0.5em; display: flex; flex-direction: column; justify-content: center;"> <img
                         id="display_panel_book_cover"
-                        style=" object-fit: fill; padding: 0.2em; width: min(8em,30vw); height: 10em; background-color: var(--color-inverse-surface); border-radius: 0.6em;"
+                        style=" object-fit: fill; padding: 0.2em; width: min(8em,30vw); height: -webkit-fill-available; background-color: var(--color-inverse-surface); border-radius: 0.6em;"
                         src="https://covers.openlibrary.org/b/isbn/978-0-330-40rr436-5-M.jpg"> </div>
                   <div style=" padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; width: 100%;">
                      <div id="display_panel_book_title" style="font-weight: bold; font-size: min(7vw, 2em);"> ----------
@@ -671,7 +676,7 @@
                </div>
                <div
                   style=" background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
-                  <div style="display: flex; flex-direction: column;justify-content: center;">
+                  <div style="font-family: 'roboto mono'; display: flex; flex-direction: column;justify-content: center;">
                      <div id="display_panel_borrower_borrower_id_editing">ID: </div>
                   </div>
                </div>

@@ -365,7 +365,7 @@ body
     background-color: var(--color-surface-1);
 }
 
-.dialog_button_accept:hover
+body.hasHover .dialog_button_accept:hover
 {
     background-color: var(--color-surface-3)
 }
@@ -386,7 +386,9 @@ body
     transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), 0s margin, 0s padding;
 }
 
-.list_item:hover
+
+
+body.hasHover .list_item:hover
 {
     background: var(--color-surface-3);
 }
@@ -452,6 +454,30 @@ body
     }
 }
 
+.page_number_changer
+{
+    display: flex;
+    align-items: center;
+    margin: 1em;
+    background-color: var(--color-surface-0);
+    border-radius: 0.5em;
+    padding: 1em;
+    --button-size: 50px
+}
+@media (max-width:1124px)
+{
+    .page_number_changer
+    {
+        margin: 0.5em;
+        padding: 0.5em;
+        --button-size: 40px;
+    }
+    #tttttttt112
+    {
+        font-size: 1.2em !important;
+    }
+}
+
 .copy_icon
 {
     font-size: 1em;
@@ -461,7 +487,7 @@ body
     cursor: pointer;
 }
 
-.copy_icon:hover
+body.hasHover .copy_icon:hover
 {
     opacity: 0.9;
 }
@@ -565,7 +591,7 @@ input[type="radio"]
     box-shadow: 0px 0px 0px 0em rgb(255 76 76);
 }
 
-.delete_forever_button:hover
+body.hasHover .delete_forever_button:hover
 {
     background-color: rgb(100, 7, 7);
     box-shadow: 0px 0px 0px 0.5em rgb(255 76 76);
@@ -743,7 +769,7 @@ span.ripple
     background: rgba(51, 58, 46, 0);
 }
 
-.text-only:hover
+body.hasHover .text-only:hover
 {
     background: rgba(69, 79, 62, 0.1);
     box-shadow: 0px 0px 0 2px #343a2e;
@@ -810,7 +836,7 @@ button
     transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), background 0.05s;
 }
 
-button:hover
+body.hasHover button:hover
 {
     background-color: var(--color-surface-variant);
 }
@@ -821,7 +847,7 @@ button:active
     border-radius: var(--active-border-radius);
 }
 
-.button_circle:hover
+body.hasHover .button_circle:hover
 {
     font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
@@ -834,6 +860,7 @@ button:active
 
 .button_circle
 {
+    padding: 0;
     width: 50px;
     height: 50px;
     flex-shrink: 0;
@@ -940,7 +967,7 @@ a
     transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-a:hover
+body.hasHover a:hover
 {
     color: lightblue;
     font-weight: 600;
@@ -969,7 +996,7 @@ a:active
     transition: 0.3s cubic-bezier(0.42, 0, 0.18, 0.99);
 }
 
-.barcode_image:hover
+body.hasHover .barcode_image:hover
 {
     height: 5.7em;
 }
@@ -1007,7 +1034,7 @@ a:active
     transition-delay: 0s;
 }
 
-.tooltip:hover .tooltiptext
+body.hasHover .tooltip:hover .tooltiptext
 {
     visibility: visible;
     opacity: 1;
@@ -1202,7 +1229,7 @@ input[type="checkbox"]
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover
+body.hasHover ::-webkit-scrollbar-thumb:hover
 {
     background: var(--color-surface-3);
 }

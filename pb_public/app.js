@@ -80,7 +80,7 @@ for (const button of all_buttons)
 {
     if (!button.classList.contains("segmented_button_button") && !button.classList.contains("no_ripple"))
     {
-        button.addEventListener("mousedown", createRipple);
+        button.addEventListener("pointerdown", createRipple);
     }
 }
 add_book_to_borrow_dialog.addEventListener('cancel', (event) =>
@@ -90,7 +90,7 @@ add_book_to_borrow_dialog.addEventListener('cancel', (event) =>
 });
 
 jfjjfjf98 = false;
-delete_borrower_forever.addEventListener("mousedown", function ()
+delete_borrower_forever.addEventListener("pointerdown", function ()
 {
     navigator.vibrate([5,5,5,5,5,5,2,2,2,2,2,2,2,1,1,1,1,1,1,1]);
     iooi43iiore94 = setTimeout(() =>
@@ -101,7 +101,50 @@ delete_borrower_forever.addEventListener("mousedown", function ()
     }, 2800);
     delete_borrower_forever.classList.add("ririirriire")
 });
-delete_borrower_forever.addEventListener("mouseup", function ()
+document.addEventListener('contextmenu', event => {
+    event.preventDefault();
+});
+
+setInterval(() => {
+    console.log(window.ontouchstart !== undefined)
+}, 50);
+
+function isTouchDevice() {
+    return 'ontouchstart' in window || navigator.msMaxTouchPoints;
+}
+
+function watchForHover() {
+    // lastTouchTime is used for ignoring emulated mousemove events
+    // that are fired after touchstart events. Since they're
+    // indistinguishable from real events, we use the fact that they're
+    // fired a few milliseconds after touchstart to filter them.
+    let lastTouchTime = 0
+  
+    function enableHover() {
+      if (new Date() - lastTouchTime < 500) return
+      document.body.classList.add('hasHover')
+    }
+  
+    function disableHover() {
+      document.body.classList.remove('hasHover')
+    }
+  
+    function updateLastTouchTime() {
+      lastTouchTime = new Date()
+    }
+  
+    document.addEventListener('touchstart', updateLastTouchTime, true)
+    document.addEventListener('touchstart', disableHover, true)
+    document.addEventListener('mousemove', enableHover, true)
+  
+    enableHover()
+}
+watchForHover()
+
+if (!("ontouchstart" in document.documentElement)) {
+    document.documentElement.className += " no-touch";
+}
+delete_borrower_forever.addEventListener("pointerup", function ()
 {
     clearTimeout(iooi43iiore94)
     navigator.vibrate([0]);
@@ -469,9 +512,17 @@ function open_account_dialog()
     })
     );
 }
-function segmented_button_thing(event)
+function segmented_button_thing(event,element = '')
 {
-    ele = (event.srcElement)
+    if (element != '')
+    {
+        ele = element
+    }
+    else
+    {
+        ele = (event.srcElement)
+    }
+console.log("ele",ele)
 
     if (ele.dataset.state === "true" && ele.parentElement.dataset.onlyone != "true")
     {
@@ -580,16 +631,18 @@ function swap_display_area_mode()
 }
 function swap_display_area_mode_to_display()
 {
-    display_panel_edit_details.style.display = "none"
-    display_panel_details.style.display = "block"
+        display_panel_edit_details.style.display = "none"
+        display_panel_details.style.display = "block"
 
-    n5goiu.innerText = "Edit"
-    n5goiu.style.color = ""
-    book_edit_button.style.backgroundColor = ""
-    book_edit_button.style.border = ""
-    returntextjinfo4.innerText = "Return"
-    returnbutton54985t8.onclick = null
-    display_area_edit_mode = false
+    if (current_page == "books") {
+        n5goiu.innerText = "Edit"
+        n5goiu.style.color = ""
+        book_edit_button.style.backgroundColor = ""
+        book_edit_button.style.border = ""
+        returntextjinfo4.innerText = "Return"
+        returnbutton54985t8.onclick = null
+        display_area_edit_mode = false
+    }
 }
 function swap_display_area_mode_to_edit()
 {
@@ -755,9 +808,14 @@ async function list_books()
     pbSort = search_sortby_ascending_book.dataset.ascending + j54f9954j.value
 
 
+
     query_response = await pb.collection('books').getList(page_number_changer_books.dataset.pagenumber, 100, {sort: pbSort, filter: pbFilter});
     tttttttt112.innerText = `Page ${page_number_changer_books.dataset.pagenumber} of ${query_response.totalPages}`
     page_number_changer_books.dataset.maxpages = query_response.totalPages
+    if (page_number_changer_books.dataset.pagenumber > query_response.totalPages)
+    {
+        page_number_changer_books.dataset.pagenumber = query_response.totalPages;
+    }
 
     loaded_book_records = query_response.items
     console.log(query_response)
@@ -772,7 +830,7 @@ async function list_books()
                 + Create Book
             </button>
         `
-        list_area_list.querySelector("button").addEventListener("mousedown", createRipple)
+        list_area_list.querySelector("button").addEventListener("pointerdown", createRipple)
     }
     else
     {
@@ -786,7 +844,7 @@ async function list_books()
         list_item.dataset.id = rec.id;
         list_item.setAttribute("onclick", "clickHandler(event.srcElement.dataset.id)");
         list_area_list.appendChild(list_item);
-        list_item.addEventListener("mousedown", createRipple);
+        list_item.addEventListener("pointerdown", createRipple);
 
         let preview_image = document.createElement("img");
         preview_image.className = "preview_image";
@@ -833,6 +891,8 @@ function playOpenSound()
     audio.play();
     
 }
+
+
 async function clickHandler(ARGUMENT_ID)
 {
     playOpenSound()
@@ -851,7 +911,7 @@ async function clickHandler(ARGUMENT_ID)
         //i.style.margin = "";
         //i.style.padding = "";
     })
-    //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
+    //clickedOne.style.cssText = "border-radius: 1em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
     clickedOne.style.background = "var(--color-on-surface-2)";
 
     display_panel_book_cover.src = ""
@@ -898,7 +958,7 @@ async function clickHandler(ARGUMENT_ID)
 
     display_panel_book_level.innerHTML = "Level: " + book.level
     display_panel_book_lost.style.display = book.lost ? "block" : "none"
-    display_panel_book_scrapped.style.display = book.lost ? "block" : "none"
+    display_panel_book_scrapped.style.display = book.scrapped ? "block" : "none"
     if (book.price > 0)
     {
         display_panel_book_price.style.display = "block"
@@ -940,24 +1000,57 @@ async function clickHandler(ARGUMENT_ID)
     display_panel_book_classification_label_editing.value = book.classification_label
     display_panel_book_level_editing.value = book.level
     display_panel_book_subject_editing.value = book.subject
-    display_panel_book_lost_editing.dataset.value = book.lost
-    display_panel_book_scrapped_editing.dataset.value = book.scrapped
+
+    if (book.lost)
+    {
+        display_panel_book_lost_editing.querySelectorAll("button[data-value=true]").forEach(element => {
+            element.dataset.state = "true"
+            segmented_button_thing("",element)
+        });
+    }
+    else
+    {
+        display_panel_book_lost_editing.querySelectorAll("button[data-value=false]").forEach(element => {
+            element.dataset.state = "false"
+            segmented_button_thing("",element)
+        });
+    }
+
+    if (book.scrapped)
+    {
+        display_panel_book_scrapped_editing.querySelectorAll("button[data-value=true]").forEach(element => {
+            element.dataset.state = "true"
+            segmented_button_thing("",element)
+        });
+    }
+    else
+    {
+        display_panel_book_scrapped_editing.querySelectorAll("button[data-value=false]").forEach(element => {
+            element.dataset.state = "false"
+            segmented_button_thing("",element)
+        });
+    }
+
+
+    //display_panel_book_lost_editing.dataset.value = book.lost
+    //display_panel_book_scrapped_editing.dataset.value = book.scrapped
     display_panel_book_price_editing.value = book.price
 
 
 }
 async function clickHandler_create()
 {
-    console.log("eieomkjei")
     playOpenSound()
-    swap_display_area_mode_to_edit()
+    
 
     //delete_borrower_forever.style.display = "none"
     book_edit_button.dataset.currentid = "creation"
 
 
-
-    generatedid_book = generate_unique_book_id()
+    await generate_unique_book_id().then(generated_id_response =>
+    {
+        generatedid_book = generated_id_response
+    });
 
 
     display_panel_book_title_editing.value = ""
@@ -973,8 +1066,8 @@ async function clickHandler_create()
     display_panel_book_classification_label_editing.value = ""
     display_panel_book_level_editing.value = ""
     display_panel_book_subject_editing.value = ""
-    display_panel_book_lost_editing.value = ""
-    display_panel_book_scrapped_editing.value = ""
+    //display_panel_book_lost_editing.value = ""
+    //display_panel_book_scrapped_editing.value = ""
     display_panel_book_price_editing.value = ""
 
 
@@ -995,6 +1088,8 @@ async function clickHandler_create()
     })
     //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
     clickedOne.style.background = "var(--color-on-surface-2)";
+
+    swap_display_area_mode_to_edit()
 }
 async function list_borrowers()
 {
@@ -1034,7 +1129,7 @@ async function list_borrowers()
             + Create Borrower
         </button>
     `
-    list_area_list_borrower.querySelector("button").addEventListener("mousedown", createRipple)
+    list_area_list_borrower.querySelector("button").addEventListener("pointerdown", createRipple)
 
 
 
@@ -1046,7 +1141,7 @@ async function list_borrowers()
             list_item.className = "list_button list_item";
             list_item.dataset.id = rec.id;
             list_area_list_borrower.appendChild(list_item);
-            list_item.addEventListener("mousedown", createRipple);
+            list_item.addEventListener("pointerdown", createRipple);
             list_item.setAttribute("onclick", "clickHandler_borrower(event.srcElement.dataset.id)");
             let preview_image = document.createElement("img");
             preview_image.className = "preview_image";
@@ -1362,10 +1457,22 @@ async function return_book(id, person)
     await pb.collection('transactions').update(id, { "returned": true });
     clickHandler_borrower(person)
 }
-async function clickHandler_borrower_create()
+async function clickHandler_borrower_create(exused_from_dialog = false)
 {
+    if (display_area_edit_mode_borrower && !exused_from_dialog)
+    {
+        stringthing = display_panel_borrower_name_editing.value + display_panel_borrower_surname_editing.value + display_panel_borrower_group_editing.value
+        if (stringthing != "")
+        {
+            nextid_borrower = "creation"
+            console.log(nextid_borrower)
+            j5498jr95_borrower()
+            return
+        }
+    }
+
     playOpenSound()
-    swap_display_area_mode_borrower_to_edit()
+    
 
     delete_borrower_forever.style.display = "none"
     edit_button_borrower.dataset.currentid = "creation"
@@ -1401,6 +1508,7 @@ async function clickHandler_borrower_create()
     })
     //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
     clickedOne.style.background = "var(--color-on-surface-2)";
+    swap_display_area_mode_borrower_to_edit()
 }
 function generate_unique_borrower_id(text)
 {
