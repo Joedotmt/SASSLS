@@ -1,6 +1,11 @@
 const pb = new PocketBase('http://127.0.0.1:8090');
 //const pb = new PocketBase('https://library.pockethost.io');
 
+function p(t)
+{
+    p(t)
+}
+
 const book_level_colors = "Brown, Yellow, Blue, Green, Red"
 const borrower_groups = "Teacher, Admin, Maintenance, LSE, 8.1, 8.2, 8.3, 8.4, 9.1, 9.2, 9.3, 9.4, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 12.1, 12.2, 12.3, 12.4"
 
@@ -13,7 +18,7 @@ set_book_levels_lists()
 
 
 localStorage.setItem("theme_settings", "blue green red");
-console.log(localStorage.getItem("theme_settings"))
+p(localStorage.getItem("theme_settings"))
 
 let books_color = "green"
 let borrowers_color = "blue"
@@ -22,7 +27,7 @@ var loaded_book_records;
 if (window.location.hash == "")
 {
     window.location.hash = "books"
-    console.log(window.location.hash)
+    p(window.location.hash)
 }
 let current_page;
 
@@ -166,6 +171,7 @@ delete_borrower_forever.addEventListener("mouseout", function ()
 });
 nextid_borrower = "";
 generatedid_borrower = "Error";
+generatedid_book = "Error";
 var username = "";
 var password = "";
 document.getElementById("sign_in_dialog").addEventListener("close", (event) =>
@@ -376,23 +382,59 @@ async function save_changes_handler_book(event)
 {
     if (display_area_edit_mode)
     {
-        const data = {
-            "title": display_panel_book_title_editing.value,
-            "author": display_panel_book_author_editing.value,
-            "preview_url_override": display_panel_book_preview_url_override_editing.value,
-            "isbn": display_panel_book_isbn_editing.value,
-            "description": display_panel_book_description_editing.value,
-            "classification_label": display_panel_book_classification_label_editing.value,
-            "level": display_panel_book_level_editing.value,
-            "subject": display_panel_book_subject_editing.value,
-            "lost": display_panel_book_lost_editing.dataset.value,
-            "scrapped": display_panel_book_scrapped_editing.dataset.value,
-            "price": display_panel_book_price_editing.value,
-        };
-        console.log("UPDATING BOOK RECORD WITH DATA: ", data);
-        await pb.collection('books').update(book_edit_button.dataset.currentid, data);
-        await list_books()
-        await clickHandler(book_edit_button.dataset.currentid)
+        if (book_edit_button.dataset.currentid == 'creation')
+        {
+            const data = {
+                "book_id":generatedid_book,
+                "legacy_book_id":"DEPRECATED_",
+                "title": display_panel_book_title_editing.value,
+                "author": display_panel_book_author_editing.value,
+                "preview_url_override": display_panel_book_preview_url_override_editing.value,
+                "isbn": display_panel_book_isbn_editing.value,
+                "description": display_panel_book_description_editing.value,
+                "classification_label": display_panel_book_classification_label_editing.value,
+                "level": display_panel_book_level_editing.value,
+                "subject": display_panel_book_subject_editing.value,
+                "lost": display_panel_book_lost_editing.dataset.value,
+                "scrapped": display_panel_book_scrapped_editing.dataset.value,
+                "price": display_panel_book_price_editing.value,
+            };
+            p("CREATING BOOK RECORD WITH DATA: ", data);
+            try {
+                await pb.collection('books').create(data);
+            } catch (error) {
+                console.error(error.data);
+                let issue_string = "";
+
+                for (let index = 0; index < Object.keys(error.data.data).length; index++) {
+                    issue_string += `\n${Object.keys(error.data.data)[index]}: ${Object.values(error.data.data)[index].message}`
+                }
+                alert(`Error code: ${error.data.code}\nMessage: ${error.data.message}\n\nIssues:${issue_string}`)
+            }
+            
+            await list_books()
+            await clickHandler_create(book_edit_button.dataset.currentid)
+        }
+        else
+        {
+            const data = {
+                "title": display_panel_book_title_editing.value,
+                "author": display_panel_book_author_editing.value,
+                "preview_url_override": display_panel_book_preview_url_override_editing.value,
+                "isbn": display_panel_book_isbn_editing.value,
+                "description": display_panel_book_description_editing.value,
+                "classification_label": display_panel_book_classification_label_editing.value,
+                "level": display_panel_book_level_editing.value,
+                "subject": display_panel_book_subject_editing.value,
+                "lost": display_panel_book_lost_editing.dataset.value,
+                "scrapped": display_panel_book_scrapped_editing.dataset.value,
+                "price": display_panel_book_price_editing.value,
+            };
+            p("UPDATING BOOK RECORD WITH DATA: ", data);
+            await pb.collection('books').update(book_edit_button.dataset.currentid, data);
+            await list_books()
+            await clickHandler(book_edit_button.dataset.currentid)
+        }
     }
     swap_display_area_mode()
 }
@@ -406,7 +448,7 @@ async function save_changes_handler_borrower(event)
             alert("only letters allowed")
             return
         }
-        console.log("egg")
+        p("egg")
         if (edit_button_borrower.dataset.currentid == "creation")
         {
             const data = {
@@ -415,8 +457,8 @@ async function save_changes_handler_borrower(event)
                 "surname": display_panel_borrower_surname_editing.value,
                 "group": display_panel_borrower_group_editing.value
             };
-            console.log("CREATING BORROWER RECORD WITH DATA: ", data);
-            console.log("ekekk",await pb.collection('borrowers').create(data));
+            p("CREATING BORROWER RECORD WITH DATA: ", data);
+            p("ekekk",await pb.collection('borrowers').create(data));
         }
         else
         {
@@ -425,7 +467,7 @@ async function save_changes_handler_borrower(event)
                 "surname": display_panel_borrower_surname_editing.value,
                 "group": display_panel_borrower_group_editing.value
             };
-            console.log("UPDATING BORROWER RECORD WITH DATA: ", data);
+            p("UPDATING BORROWER RECORD WITH DATA: ", data);
             await pb.collection('borrowers').update(edit_button_borrower.dataset.currentid, data);
         }
         await list_borrowers()
@@ -518,7 +560,6 @@ function segmented_button_thing(event,element = '')
     {
         ele = (event.srcElement)
     }
-console.log("ele",ele)
 
     if (ele.dataset.state === "true" && ele.parentElement.dataset.onlyone != "true")
     {
@@ -675,14 +716,7 @@ async function generate_unique_book_id()
     generated_id = "";
     for (let i = 0; i < 1000; i++) {
         try {
-            if (i == 0)
-            {
-                generated_id = "j033"
-            }
-            else
-            {
-                generated_id = create_random_string(4)
-            }
+            generated_id = create_random_string(4)
             await pb.collection('books').getFirstListItem(`book_id="${generated_id}"`);
             console.error("trying to generate a book id again because of collisions")
         } catch (err) {
@@ -722,7 +756,7 @@ function search_sortby_ascending_book_change()
 }
 async function deprecate_book_id(id)
 {
-    console.log("decrapating: ", id)
+    p("decrapating: ", id)
     const rec = await pb.collection('books').getOne(id, {
   
     });
@@ -736,7 +770,7 @@ async function list_books()
 
     let enteredVal = search_filter_input.value;
     let enteredTokens = enteredVal.split(" ");
-    console.log(enteredTokens);
+    p(enteredTokens);
     let pbFilter = "";
     let operand = "";
 
@@ -798,7 +832,7 @@ async function list_books()
             pbFilter += `legacy_book_id ~ 'DEPRECATED_'`
         }
     }
-    console.log("pbfilter: ", pbFilter);
+    p("pbfilter: ", pbFilter);
 
 
     pbSort = search_sortby_ascending_book.dataset.ascending + j54f9954j.value
@@ -814,7 +848,7 @@ async function list_books()
     }
 
     loaded_book_records = query_response.items
-    console.log(query_response)
+    p(query_response)
 
     page_number_changer_books.style.display = "none"
     search_area.appendChild(page_number_changer_books);
@@ -897,7 +931,7 @@ async function clickHandler(ARGUMENT_ID)
     {
         return s.id == useid;
     })
-    console.log(book)
+    p(book)
 
     let clickedOne = list_area_list.querySelector(`button[data-id="${useid}"]`);
     list_area_list.querySelectorAll(".list_item").forEach(function (i)
@@ -997,7 +1031,7 @@ async function clickHandler(ARGUMENT_ID)
     display_panel_book_level_editing.value = book.level
     display_panel_book_subject_editing.value = book.subject
 
-    if (book.lost)
+    if (!book.lost)
     {
         display_panel_book_lost_editing.querySelectorAll("button[data-value=true]").forEach(element => {
             element.dataset.state = "true"
@@ -1012,7 +1046,7 @@ async function clickHandler(ARGUMENT_ID)
         });
     }
 
-    if (book.scrapped)
+    if (!book.scrapped)
     {
         display_panel_book_scrapped_editing.querySelectorAll("button[data-value=true]").forEach(element => {
             element.dataset.state = "true"
@@ -1089,12 +1123,11 @@ async function clickHandler_create()
 }
 async function list_borrowers()
 {
-
     container_borrower.style.display = "flex"
 
     let enteredVal = search_filter_input_borrower.value;
     let enteredTokens = enteredVal.split(" ");
-    console.log(enteredTokens);
+    p(enteredTokens);
     let pbFilter = "";
     let operand = "";
 
@@ -1107,7 +1140,7 @@ async function list_borrowers()
             operand = " && ";
         }
     }
-    console.log("pbfilter: ", pbFilter);
+    p("pbfilter: ", pbFilter);
 
     pbSort = "-created"
     //pbSort = search_sortby_ascending_book.dataset.ascending + j54f9954j.value
@@ -1141,13 +1174,35 @@ async function list_borrowers()
             list_item.setAttribute("onclick", "clickHandler_borrower(event.srcElement.dataset.id)");
             let preview_image = document.createElement("img");
             preview_image.className = "preview_image";
-            preview_image.setAttribute("src", ``);
+            switch (rec.group) {
+                case "Teacher":
+                    image_group = "figure_one_purple.png"
+                    break;
+                case "Admin":
+                    image_group = "figure_one_green.png"
+                    break;
+                case "Admin":
+                    image_group = "figure_one_yellow.png"
+                    break;
+                case "LSE":
+                    image_group = "figure_one_red.png"
+                    break;
+                case "Maintenance":
+                    image_group = "figure_one_white.png"
+                    break;
+                default:
+                    image_group = "figure_one_blue.png"
+                    break;
+            }
+            preview_image.setAttribute("src", image_group);
+            preview_image.style.background = "transparent"
+            preview_image.style.border = "transparent"
             preview_image.style.marginRight = "0.5em"
             let info_div = document.createElement("div");
             info_div.className = "list_item_info_text";
 
             info_div.innerHTML = `${rec.name} ${rec.surname} 
-            <label style="    font-family: var(--the-font);
+            <label style="  font-family: var(--the-font);
                             display: flex;
                             width: 100%;
                             justify-content: space-between;">
@@ -1162,7 +1217,6 @@ async function list_borrowers()
             list_item.appendChild(info_div);
         }
     }
-
 }
 function close_lend_book_dialog()
 {
@@ -1233,7 +1287,7 @@ function add_borrower_book_button_handler(event)
     turn_book_view_into_lend_view()
 
 
-    console.log(zeBOX)
+    p(zeBOX)
 
 
     finaltargetWidth = add_book_to_borrow_dialog.getBoundingClientRect().width;
@@ -1302,7 +1356,7 @@ async function lend_book_to_borrower(bookid, borrowerid)
         "book": bookid,
         "returned": false
     };
-    console.log("TRANSACTION CREATION: ", data)
+    p("TRANSACTION CREATION: ", data)
     await pb.collection('transactions').create(data);
     clickHandler_borrower(borrowerid)
 }
@@ -1325,7 +1379,7 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID, exused_from_dialog = 
 {
     if (ARGUMENT_BORROWER_ID == "" || ARGUMENT_BORROWER_ID == "creation")
     {
-        console.log("argument_borrower_id is rong")
+        p("argument_borrower_id is rong")
         return;
     }
     playOpenSound()
@@ -1408,12 +1462,12 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID, exused_from_dialog = 
                 ${transaction.expand.book.title}
             </div>
             <div
-                style="margin-bottom: 0.3em; padding: 0.3em; border-radius: 0.3em; background-color: var(--color-surface-3);">
-                <label style="font-family:var(--the-font)">
+                style="margin-bottom: 0.3em; padding: 0.3em; border-radius: 0.3em; font-size:1.1em; background-color: var(--color-surface-3);">
+                <label style="font-family:var(--the-robo-font)">
                     ID: ${transaction.expand.book.book_id} 
                 </label> 
                 <br> 
-                <label style="font-family:var(--the-font)"> 
+                <label style="font-family:var(--the-robo-font)"> 
                     ISBN: ${transaction.expand.book.isbn} 
                 </label>
             </div>
@@ -1461,7 +1515,7 @@ async function clickHandler_borrower_create(exused_from_dialog = false)
         if (stringthing != "")
         {
             nextid_borrower = "creation"
-            console.log(nextid_borrower)
+            p(nextid_borrower)
             j5498jr95_borrower()
             return
         }
@@ -1511,7 +1565,7 @@ function generate_unique_borrower_id(text)
     try
     {
         let randInt = Math.floor(Math.random() * 46655) * 3
-        console.log(text)
+        p(text)
         return generated_id = text.substring(randInt, randInt + 3)
         //const data_new = { "borrower_id": generated_id };
         //pb.collection('borrowers').update(record_id, data_new);
@@ -1527,7 +1581,7 @@ async function list_prints()
 {
     let enteredVal = search_filter_input.value;
     let enteredTokens = enteredVal.split(" ");
-    console.log(enteredTokens);
+    p(enteredTokens);
     let pbFilter = "";
     let operand = "";
     for (const enteredToken of enteredTokens)
@@ -1539,7 +1593,7 @@ async function list_prints()
             operand = " && ";
         }
     }
-    console.log(pbFilter);
+    p(pbFilter);
 
     // you can also fetch all records at once via getFullList
     const records = await pb.collection('prints').getFullList(
@@ -1549,7 +1603,7 @@ async function list_prints()
             expand: 'user'
         });
 
-    console.log(records)
+    p(records)
     list_area_list.innerHTML = ""
     for (const rec of records)
     {
@@ -1616,13 +1670,13 @@ async function list_prints()
                 })
                 clickedOne.style.background = "var(--color-secondary-container)";
                 let idClicked = clickedOne.dataset.id;
-                console.log(idClicked);
+                p(idClicked);
                 let subset = records.filter((s) =>
                 {
                     return s.id === idClicked;
                 })
 
-                console.log(subset);
+                p(subset);
             };
             list_area_list.appendChild(list_item);
         }

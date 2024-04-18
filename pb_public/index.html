@@ -332,7 +332,7 @@
                   style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">Not
                   Scrapped</button>
             </div>
-            <div data-value="none" style="background-color: black; display: flex; margin-bottom: 0.5em;"> <button
+            <div data-value="none" style="border-bottom: 2px dashed red; display: flex; margin-bottom: 0.5em;"> <button
                   data-value="false" data-state="false" class="segmented_button_button"
                   onclick="segmented_button_thing(event)"
                   style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Borrowing</button>
@@ -411,10 +411,6 @@
                <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_author_editing"
                      type="text" class="input-google"> <label class="input_placeholder infni04fjif">Author</label>
                </div>
-               <div style="margin-bottom: 1em;" class="input-container"> <input
-                     id="display_panel_book_preview_url_override_editing" type="text" class="input-google"> <label
-                     class="input_placeholder infni04fjif">Preview Image URL</label>
-               </div>
                <div
                   style=" background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
                   <div style="display: flex;flex-direction: column;justify-content: center; font-family: 'roboto mono';">
@@ -468,11 +464,18 @@
                      style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
                      Not Scrapped
                   </button>
-
+                  
                </div>
 
                <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_price_editing"
-                     type="number" min="0" autocomplete="off" class="input-google"> <label class="input_placeholder infni04fjif">Price (EUR)</label> </div>
+                     type="number" min="0" autocomplete="off" class="input-google"> <label class="input_placeholder infni04fjif">Price (EUR)</label> 
+               </div>
+
+               <div style="margin-bottom: 1em;" class="input-container"> <input
+                  id="display_panel_book_preview_url_override_editing" type="text" class="input-google"> <label
+                  class="input_placeholder infni04fjif">Preview Image URL</label>
+               </div>
+
             </div>
             <div style="display: none;" id="display_panel_details">
                <div class="display_panel_book_general">
@@ -634,8 +637,8 @@
                <div style="    background-color: var(--color-surface-3);
                                                       border-radius: 0.4em;
                                                       padding: 0.5em;
-                                                      font-size: 1em;
-                                                      font-family: var(--the-font);">
+                                                      font-size: 1.2em;
+                                                      font-family: var(--the-robo-font);">
                   <div id="dpdb_group"></div>
                   <div id="dpdb_borrower_id"></div>
                </div>
