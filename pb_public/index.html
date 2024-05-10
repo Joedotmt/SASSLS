@@ -19,11 +19,11 @@
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="fresh.css">
    <link rel="icon" type="image/x-icon" href="SASLIB_logo.png">
 </head>
 
-<body class="green_dark">
-
+<body class="green_light">
    <button id="dpdb_add_button_FAKE" class="iriiririr9">
       <div style="transform: scaleX(1) scaleY(1); display: flex; transition: 0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97);"
          id="iirirri9i49">
@@ -124,17 +124,17 @@
             </div>
             <form>
                <div style="display: flex; margin: 0;">
-                  <div style="width: 100%" class="input-container"> 
-                     <input
-                        style=" text-align: right; padding-right: 9.9em; margin-right: 0; width: 100%;"
+                  <div style="width: 100%" class="input-container">
+                     <input style=" text-align: right; padding-right: 9.9em; margin-right: 0; width: 100%;"
                         class="input-google" id="email_input" autocomplete="email" type="email"> <label
-                        style="background-color: var(--color-surface-5);" class="input_placeholder">Email</label> </div>
+                        style="background-color: var(--color-surface-5);" class="input_placeholder">Email</label>
+                  </div>
                   <label
                      style=" margin: auto; margin-left: 0em; font-size: 1.3em; width: 0px; position: relative; left: -11em; color: var(--color-on-background); opacity: 0.7;">@sanandrea.edu.mt</label>
                </div>
                <div style="display: flex; margin-top: 1em;">
-                  <div class="input-container"> 
-                     <input class="input-google" id="password_input" autocomplete="current-password" type="password"> 
+                  <div class="input-container">
+                     <input class="input-google" id="password_input" autocomplete="current-password" type="password">
                      <label style="background-color: var(--color-surface-5);" class="input_placeholder">Password</label>
                   </div>
                </div>
@@ -185,29 +185,47 @@
       <button class="button_circle" onclick="change_dark_light_theme()"> <span id="dark_mode_switcher_icon"
             class="material-symbols-outlined"> light_mode </span> </button>
    </dialog>
-   <div id="mainthing" class="main">
-      <div class="top_bar panel">
-         <div style="display: flex; align-items: center;" class="site_logo">
-            <button class="button_circle" onclick="logo_easter_egg()"
-               style="padding:0; height: auto; width: auto; border-width: 0;"> <img src="SASLIB_logo.png"
-                  class="logo_image" style="height: 3em; width: 3em; opacity: 0.8;" alt="SAS Logo"> </button>
-            <div style="font-weight: 600;" id="logo_text" class="logo_text">Library</div>
-         </div>
-         <div style=" width: 100%; display: flex; flex-direction: row-reverse; align-items: center;">
-            <button class="button_circle" id="account_button" onclick="open_account_dialog()"
-               style="padding: 0; border-width: 0;"> <span class="material-symbols-outlined"
-                  style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
-                  account_circle </span> </button>
-            <select id="collection_select"
-               onchange="window.location.hash = document.getElementById('collection_select').value"
-               style=" width: 10em; margin: 0.2em; font-size: 18px;">
-               <option value="books">Books</option>
-               <option value="borrowers">Borrowers</option>
-               <option value="prints">Printing</option>
-               <option value="transactions">Transactions</option>
-            </select>
-         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div class="top_bar panel">
+      <div style="display: flex; align-items: center;" class="site_logo">
+         <button class="button_circle" onclick="logo_easter_egg()"
+            style="padding:0; height: auto; width: auto; border-width: 0;"> <img src="SASLIB_logo.png"
+               class="logo_image" style="height: 3em; width: 3em; opacity: 0.8;" alt="SAS Logo"> </button>
+         <div style="font-weight: 600;" id="logo_text" class="logo_text">Library</div>
       </div>
+      <div style=" width: 100%; display: flex; flex-direction: row-reverse; align-items: center;">
+         <button class="button_circle" id="account_button" onclick="open_account_dialog()"
+            style="padding: 0; border-width: 0;"> <span class="material-symbols-outlined"
+               style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
+               account_circle </span> </button>
+         <select id="collection_select"
+            onchange="window.location.hash = document.getElementById('collection_select').value"
+            style=" width: 10em; margin: 0.2em; font-size: 18px;">
+            <option value="books">Books</option>
+            <option value="borrowers">Borrowers</option>
+            <option value="prints">Printing</option>
+            <option value="transactions">Transactions</option>
+         </select>
+      </div>
+   </div>
 
 
 
@@ -277,431 +295,489 @@
 
 
 
-      <div style="display: none;" id="container_book" class="container">
-         <div id="search_area"
-            style=" padding: 1em; display: block; overflow-y: scroll; width: 18em; flex: 0 0 auto; position: relative; right: 0px; transition: all 0.6s cubic-bezier(0.42, -0.02, 0, 1) 0s; margin-right: 0.5em; overflow: hidden;"
-            class="search_area panel">
-            <div style="display: flex;">
-               <div class="input-container">
-                  <select onchange="list_books()" id="j54f9954j" style="width: 100%;" type="text" class="input-google">
-                     <option value="created">Created</option>
-                     <option value="title">Title</option>
-                     <option value="updated">Updated</option>
-                     <option value="price">Price</option>
-                  </select>
-                  <label class="input_placeholder infni04fjif">Sort by</label>
-               </div>
-               <button id="search_sortby_ascending_book" data-ascending="-"
-                  onclick="search_sortby_ascending_book_change()"
-                  style="border-radius: 0.4em; margin: 0px 0px 0px 0.5em; height: auto; width: 3em;"
-                  class="button_circle"> <span id="on4ir4r0943"
-                     style="rotate: 0deg; transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);"
-                     class="material-symbols-outlined">arrow_upward</span> </button>
-            </div>
-            <div style="margin-bottom: 1em; flex-basis: 8em; margin-top: 1em;" class="input-container">
-               <select onchange="list_books()" id="subject_search_select_shadow" style="width: 100%;" type="text"
-                  class="input-google">
-                  <optgroup style="font-size: 0;" id="kej0f4jj05" label=""></optgroup>
-                  <optgroup style="font-size: 1px;" id="kj0f4jj05" label=""></optgroup>
-                  <optgroup id="nv9tuni9" label="Resources"></optgroup>
+   <div style="display: none;" id="container_book" class="container">
+      <div id="search_area" class="search_area panel">
+
+         <div style="height: 2.8em;" class="accordian">
+            <button data-open="false" onclick="
+               if (this.dataset.open == 'true')
+               {
+                  this.dataset.open = 'false'
+                  this.parentElement.style.height = '2.8em'
+                  this.style.background = 'transparent';
+                  this.childNodes[3].style.rotate = '0deg';
+               }
+               else
+               {
+                  this.dataset.open = 'true'
+                  this.parentElement.style.height = '20em'
+                  this.style.background = 'var(--color-ref-neutral-100)';
+                  this.childNodes[3].style.rotate = '180deg';
+               }
+               " class="accordian_button">
+               <div>Subject</div>
+               <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
+                  class="material-symbols-outlined">
+                  expand_more
+               </span>
+            </button>
+            <div style="margin: 1em;">
+               <select style="margin-bottom: 1em;"
+                  onchange="if (book_lost_chip.value == 'any') {book_lost_chip.selectedIndex = 0; book_lost_chip.style.background = 'transparent';} else {book_lost_chip.style.background = 'var(--color-primary-80)';}"
+                  name="test_chip" id="book_lost_chip" class="chip_dropdown">
+                  <option value="any" selected disabled hidden>Lostness</option>
+                  <option value="any">All</option>
+                  <option value="true">Lost</option>
+                  <option value="false">Not Lost</option>
                </select>
-               <label class="input_placeholder infni04fjif">Subject</label>
+               <select
+                  onchange="if (book_scrapped_chip.value == 'any') {book_scrapped_chip.selectedIndex = 0; book_scrapped_chip.style.background = 'transparent';} else {book_scrapped_chip.style.background = 'var(--color-primary-80)';}"
+                  style="margin-bottom: 1em;" name="test_chip" id="book_scrapped_chip" class="chip_dropdown">
+                  <option value="any" selected disabled hidden>Scrappedness</option>
+                  <option value="any">All</option>
+                  <option value="true">Scrapped</option>
+                  <option value="false">Not Scrapped</option>
+               </select>
+               <select style="margin-bottom: 1em; background: var(--color-primary-80); box-shadow: none;" onchange=""
+                  name="book_sort_chip" id="test_chip" class="chip_dropdown">
+                  <option value="created">Created</option>
+                  <option value="title">Title</option>
+                  <option value="updated">Updated</option>
+                  <option value="price">Price</option>
+               </select>
             </div>
+         </div>
+
+
+
+         <div style="display: flex;">
+            <div class="input-container">
+               <select onchange="list_books()" id="j54f9954j" style="width: 100%;" type="text" class="input-google">
+                  <option value="created">Created</option>
+                  <option value="title">Title</option>
+                  <option value="updated">Updated</option>
+                  <option value="price">Price</option>
+               </select>
+               <label class="input_placeholder infni04fjif">Sort by</label>
+            </div>
+            <button id="search_sortby_ascending_book" data-ascending="-" onclick="search_sortby_ascending_book_change()"
+               style="border-radius: 0.4em; margin: 0px 0px 0px 0.5em; height: auto; width: 3em;" class="button_circle">
+               <span id="on4ir4r0943" style="rotate: 0deg; transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);"
+                  class="material-symbols-outlined">arrow_upward</span> </button>
+         </div>
+         <div style="margin-bottom: 1em; flex-basis: 8em; margin-top: 1em;" class="input-container">
+            <select onchange="list_books()" id="subject_search_select_shadow" style="width: 100%;" type="text"
+               class="input-google">
+               <optgroup style="font-size: 0;" id="kej0f4jj05" label=""></optgroup>
+               <optgroup style="font-size: 1px;" id="kj0f4jj05" label=""></optgroup>
+               <optgroup id="nv9tuni9" label="Resources"></optgroup>
+            </select>
+            <label class="input_placeholder infni04fjif">Subject</label>
+         </div>
+         <div style="margin-bottom: 1em;" class="input-container">
+            <select onchange="list_books()" style="width: 100%;" id="book_level_search_select" type="text"
+               class="input-google">
+               <option value="all">All</option>
+            </select>
+            <label class="input_placeholder infni04fjif">Level</label>
+         </div>
+         <div id="book_search_selector_lost_thing" data-value="none" style="display: flex; margin-bottom: 0.5em;">
+            <button data-value="false" data-state="false" class="segmented_button_button"
+               onclick="segmented_button_thing(event); list_books();"
+               style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Lost</button>
+            <button data-value="true" data-state="false" class="segmented_button_button"
+               onclick="segmented_button_thing(event); list_books();"
+               style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">Not
+               Lost</button>
+         </div>
+         <div id="book_search_selector_scrapped_thing" data-value="none" style="display: flex; margin-bottom: 0.5em;">
+            <button data-value="false" data-state="false" class="segmented_button_button"
+               onclick="segmented_button_thing(event); list_books();"
+               style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Scrapped</button>
+            <button data-value="true" data-state="false" class="segmented_button_button"
+               onclick="segmented_button_thing(event); list_books();"
+               style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">Not
+               Scrapped</button>
+         </div>
+         <div data-value="none" style="border-bottom: 2px dashed red; display: flex; margin-bottom: 0.5em;"> <button
+               data-value="false" data-state="false" class="segmented_button_button"
+               onclick="segmented_button_thing(event)"
+               style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Borrowing</button>
+            <button data-value="true" data-state="false" class="segmented_button_button"
+               onclick="segmented_button_thing(event)"
+               style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">In
+               Shelf</button>
+         </div>
+
+         <div data-value="none" style="display: flex; margin-bottom: 1.3em;" id="search_books_id_type_select">
+            <button data-value="false" data-state="false" class="segmented_button_button"
+               onclick="segmented_button_thing(event); list_books();"
+               style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Old
+               ID</button>
+            <button data-value="true" data-state="false" class="segmented_button_button"
+               onclick="segmented_button_thing(event); list_books()"
+               style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">New
+               ID</button>
+         </div>
+
+         <div data-pagenumber="1" id="page_number_changer_books" class="page_number_changer" style="display: none;">
+            <button
+               onclick="if (page_number_changer_books.dataset.pagenumber - 1 >= 1) {page_number_changer_books.dataset.pagenumber -= 1; list_books();}"
+               class="button_circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
+               <span class="material-symbols-outlined">
+                  chevron_left
+               </span>
+            </button>
+            <div id="tttttttt112"
+               style="width: max-content; text-wrap: nowrap; margin: 0em auto; height: fit-content; font-size: 1.5em;">
+               Page 0 of 0</div>
+            <button
+               onclick="if (page_number_changer_books.dataset.maxpages >= parseInt(page_number_changer_books.dataset.pagenumber)+1) {page_number_changer_books.dataset.pagenumber = parseInt(page_number_changer_books.dataset.pagenumber)+1; list_books();}"
+               class="button_circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
+               <span class="material-symbols-outlined">
+                  navigate_next
+               </span>
+            </button>
+         </div>
+
+      </div>
+      <div id="list_area" class="list_area panel">
+         <div class="list_area_search">
+            <div style="display: flex;">
+               <input type="text" style=" margin: 7px;" placeholder="Search Books" id="search_filter_input"
+                  onchange="list_books()">
+               <button onclick="tune_button_press_handler()" class="filter_button">
+                  <span style="translate: 0; padding: 0;" class="material-symbols-outlined button_icon">
+                     <div id="j5498j85t4954j9">tune</div>
+                  </span>
+               </button>
+            </div>
+            <div
+               style=" height: 0em; overflow: hidden; transition: all 0.4s cubic-bezier(0.86, 0, 0, 1) 0s; background: var(--color-surface-1); border-radius: 0.5em; display: flex; justify-content: center; --color-surface-0: var(--color-surface-1); align-items: center;"
+               id="list_area_search_filters">
+               <button onclick="book_filter_picker.show()">Add Filter</button>
+               <dialog id="book_filter_picker" style="height: 16.6em; width: 15em; top: 8.6em;">
+                  <button></button>
+               </dialog>
+            </div>
+         </div>
+         <div class="list_area_list" id="list_area_list"></div>
+      </div>
+      <div id="display_area" class="display_area panel">
+         <div
+            style="display: flex; display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
+            <button onclick="" style=" margin: 5px; border: 0; height: 40px; width: 40px;" class="button_circle">
+               <span class="material-symbols-outlined">
+                  arrow_back
+               </span>
+            </button>
+            <div id="i9i9i9i9i9i9i9" style="display: flex; margin-left: auto;">
+
+            </div>
+         </div>
+
+
+         <div style="display: none; padding: 2em;" id="display_panel_edit_details">
+            <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_title_editing"
+                  type="text" class="input-google"> <label class="input_placeholder infni04fjif">Title</label> </div>
+            <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_author_editing"
+                  type="text" class="input-google"> <label class="input_placeholder infni04fjif">Author</label>
+            </div>
+            <div
+               style=" background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
+               <div style="display: flex;flex-direction: column;justify-content: center; font-family: 'roboto mono';">
+                  <div id="display_panel_book_book_id_editing">ID: ----</div>
+                  <div id="display_panel_book_legacy_book_id_editing">IDL: 00000</div>
+               </div>
+               <button id="j5498" onclick="migration_id_confirmation_dialog.showModal()"
+                  style="width: fit-content; margin: 0.5em;"> Migrate to New ID </button>
+            </div>
+            <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_isbn_editing"
+                  type="text" class="input-google"> <label class="input_placeholder infni04fjif">ISBN</label> </div>
+            <div style="margin-bottom: 1em; align-items: normal;" class="input-container"> <textarea
+                  style="resize:none; font-size: 1.2em; height: 100px;" id="display_panel_book_description_editing"
+                  type="text" class="input-google"></textarea> <label style="--translateamount: -1.15em;"
+                  class="input_placeholder infni04fjif">Description</label> </div>
+            <div style="margin-bottom: 1em;" class="input-container"> <input
+                  id="display_panel_book_classification_label_editing" type="text" class="input-google"> <label
+                  class="input_placeholder infni04fjif">Classification Label</label> </div>
             <div style="margin-bottom: 1em;" class="input-container">
-               <select onchange="list_books()" style="width: 100%;" id="book_level_search_select" type="text"
+               <select onchange="list_books()" style="width: 100%;" id="display_panel_book_level_editing" type="text"
                   class="input-google">
-                  <option value="all">All</option>
                </select>
                <label class="input_placeholder infni04fjif">Level</label>
             </div>
-            <div id="book_search_selector_lost_thing" data-value="none" style="display: flex; margin-bottom: 0.5em;">
+            <div style="margin-bottom: 1em; flex-basis: 8em;" class="input-container">
+               <select id="display_panel_book_subject_editing" style="width: 100%;" type="text" class="input-google">
+                  <optgroup style="font-size: 0;" id="kej0f4jj05___2" label=""></optgroup>
+                  <optgroup style="font-size: 1px;" id="kj0f4jj05__2" label=""></optgroup>
+                  <optgroup id="nv9tuni9_2" label="Resources"></optgroup>
+               </select>
+               <label class="input_placeholder infni04fjif">Subject</label>
+            </div>
+
+            <div data-onlyone="true" id="display_panel_book_lost_editing" data-value="none"
+               style="display: flex; margin-bottom: 0.5em;">
                <button data-value="false" data-state="false" class="segmented_button_button"
-                  onclick="segmented_button_thing(event); list_books();"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Lost</button>
-               <button data-value="true" data-state="false" class="segmented_button_button"
-                  onclick="segmented_button_thing(event); list_books();"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">Not
-                  Lost</button>
-            </div>
-            <div id="book_search_selector_scrapped_thing" data-value="none"
-               style="display: flex; margin-bottom: 0.5em;"> <button data-value="false" data-state="false"
-                  class="segmented_button_button" onclick="segmented_button_thing(event); list_books();"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Scrapped</button>
-               <button data-value="true" data-state="false" class="segmented_button_button"
-                  onclick="segmented_button_thing(event); list_books();"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">Not
-                  Scrapped</button>
-            </div>
-            <div data-value="none" style="border-bottom: 2px dashed red; display: flex; margin-bottom: 0.5em;"> <button
-                  data-value="false" data-state="false" class="segmented_button_button"
                   onclick="segmented_button_thing(event)"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Borrowing</button>
+                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em; width: 100%;">
+                  Lost
+               </button>
                <button data-value="true" data-state="false" class="segmented_button_button"
                   onclick="segmented_button_thing(event)"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">In
-                  Shelf</button>
+                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
+                  Not Lost
+               </button>
             </div>
 
-            <div data-value="none" style="display: flex; margin-bottom: 1.3em;" id="search_books_id_type_select">
+            <div id="display_panel_book_scrapped_editing" data-onlyone="true" data-value="none"
+               style="display: flex; margin-bottom: 1em;">
                <button data-value="false" data-state="false" class="segmented_button_button"
-                  onclick="segmented_button_thing(event); list_books();"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Old
-                  ID</button>
+                  onclick="segmented_button_thing(event)"
+                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em; width: 100%;">
+                  Scrapped
+               </button>
                <button data-value="true" data-state="false" class="segmented_button_button"
-                  onclick="segmented_button_thing(event); list_books()"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">New
-                  ID</button>
-            </div>
-
-            <div data-pagenumber="1" id="page_number_changer_books" class="page_number_changer" style="display: none;">
-               <button
-                  onclick="if (page_number_changer_books.dataset.pagenumber - 1 >= 1) {page_number_changer_books.dataset.pagenumber -= 1; list_books();}"
-                  class="button_circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
-                  <span class="material-symbols-outlined">
-                     chevron_left
-                  </span>
+                  onclick="segmented_button_thing(event)"
+                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
+                  Not Scrapped
                </button>
-               <div id="tttttttt112"
-                  style="width: max-content; text-wrap: nowrap; margin: 0em auto; height: fit-content; font-size: 1.5em;">
-                  Page 0 of 0</div>
-               <button
-                  onclick="if (page_number_changer_books.dataset.maxpages >= parseInt(page_number_changer_books.dataset.pagenumber)+1) {page_number_changer_books.dataset.pagenumber = parseInt(page_number_changer_books.dataset.pagenumber)+1; list_books();}"
-                  class="button_circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
-                  <span class="material-symbols-outlined">
-                     navigate_next
-                  </span>
-               </button>
+
             </div>
 
-         </div>
-         <div id="list_area" class="list_area panel">
-            <div class="list_area_search">
-               <div style="display: flex;">
-                  <input type="text" style=" margin: 7px;" placeholder="Search Books" id="search_filter_input"
-                     onchange="list_books()">
-                  <button onclick="tune_button_press_handler()" class="filter_button">
-                     <span style="translate: 0; padding: 0;" class="material-symbols-outlined button_icon">
-                        <div id="j5498j85t4954j9">tune</div>
-                     </span>
-                  </button>
-               </div>
-               <div
-                  style=" height: 0em; overflow: hidden; transition: all 0.4s cubic-bezier(0.86, 0, 0, 1) 0s; background: var(--color-surface-1); border-radius: 0.5em; display: flex; justify-content: center; --color-surface-0: var(--color-surface-1); align-items: center;"
-                  id="list_area_search_filters"> </div>
-            </div>
-            <div class="list_area_list" id="list_area_list"></div>
-         </div>
-         <div id="display_area" class="display_area panel">
-            <div
-               style="display: flex; display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
-               <button onclick="" style=" margin: 5px; border: 0; height: 40px; width: 40px;" class="button_circle">
-                  <span class="material-symbols-outlined">
-                     arrow_back
-                  </span>
-               </button>
-               <div id="i9i9i9i9i9i9i9" style="display: flex; margin-left: auto;">
-
-               </div>
+            <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_price_editing"
+                  type="number" min="0" autocomplete="off" class="input-google"> <label
+                  class="input_placeholder infni04fjif">Price (EUR)</label>
             </div>
 
-
-            <div style="display: none; padding: 2em;" id="display_panel_edit_details">
-               <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_title_editing"
-                     type="text" class="input-google"> <label class="input_placeholder infni04fjif">Title</label> </div>
-               <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_author_editing"
-                     type="text" class="input-google"> <label class="input_placeholder infni04fjif">Author</label>
-               </div>
-               <div
-                  style=" background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
-                  <div style="display: flex;flex-direction: column;justify-content: center; font-family: 'roboto mono';">
-                     <div id="display_panel_book_book_id_editing">ID: ----</div>
-                     <div id="display_panel_book_legacy_book_id_editing">IDL: 00000</div>
-                  </div>
-                  <button id="j5498" onclick="migration_id_confirmation_dialog.showModal()"
-                     style="width: fit-content; margin: 0.5em;"> Migrate to New ID </button>
-               </div>
-               <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_isbn_editing"
-                     type="text" class="input-google"> <label class="input_placeholder infni04fjif">ISBN</label> </div>
-               <div style="margin-bottom: 1em; align-items: normal;" class="input-container"> <textarea
-                     style="resize:none; font-size: 1.2em; height: 100px;" id="display_panel_book_description_editing"
-                     type="text" class="input-google"></textarea> <label style="--translateamount: -1.15em;"
-                     class="input_placeholder infni04fjif">Description</label> </div>
-               <div style="margin-bottom: 1em;" class="input-container"> <input
-                     id="display_panel_book_classification_label_editing" type="text" class="input-google"> <label
-                     class="input_placeholder infni04fjif">Classification Label</label> </div>
-               <div style="margin-bottom: 1em;" class="input-container">
-                  <select onchange="list_books()" style="width: 100%;" id="display_panel_book_level_editing" type="text"
-                     class="input-google">
-                  </select>
-                  <label class="input_placeholder infni04fjif">Level</label>
-               </div>
-               <div style="margin-bottom: 1em; flex-basis: 8em;" class="input-container">
-                  <select id="display_panel_book_subject_editing" style="width: 100%;" type="text" class="input-google">
-                     <optgroup style="font-size: 0;" id="kej0f4jj05___2" label=""></optgroup>
-                     <optgroup style="font-size: 1px;" id="kj0f4jj05__2" label=""></optgroup>
-                     <optgroup id="nv9tuni9_2" label="Resources"></optgroup>
-                  </select>
-                  <label class="input_placeholder infni04fjif">Subject</label>
-               </div>
-
-               <div data-onlyone="true" id="display_panel_book_lost_editing" data-value="none" style="display: flex; margin-bottom: 0.5em;">
-                  <button data-value="false" data-state="false" class="segmented_button_button" onclick="segmented_button_thing(event)"
-                     style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em; width: 100%;">
-                     Lost
-                  </button>
-                  <button data-value="true" data-state="false" class="segmented_button_button" onclick="segmented_button_thing(event)"
-                     style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
-                     Not Lost
-                  </button>
-               </div>
-
-               <div id="display_panel_book_scrapped_editing" data-onlyone="true" data-value="none" style="display: flex; margin-bottom: 1em;">
-                  <button data-value="false" data-state="false" class="segmented_button_button" onclick="segmented_button_thing(event)"
-                     style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em; width: 100%;">
-                     Scrapped
-                  </button>
-                  <button data-value="true" data-state="false" class="segmented_button_button" onclick="segmented_button_thing(event)"
-                     style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
-                     Not Scrapped
-                  </button>
-                  
-               </div>
-
-               <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_price_editing"
-                     type="number" min="0" autocomplete="off" class="input-google"> <label class="input_placeholder infni04fjif">Price (EUR)</label> 
-               </div>
-
-               <div style="margin-bottom: 1em;" class="input-container"> <input
+            <div style="margin-bottom: 1em;" class="input-container"> <input
                   id="display_panel_book_preview_url_override_editing" type="text" class="input-google"> <label
                   class="input_placeholder infni04fjif">Preview Image URL</label>
-               </div>
-
             </div>
-            <div style="display: none;" id="display_panel_details">
-               <div class="display_panel_book_general">
-                  <div style=" margin: 0.5em; display: flex; flex-direction: column; justify-content: center;"> <img
-                        id="display_panel_book_cover"
-                        style=" object-fit: fill; padding: 0.2em; width: min(8em,30vw); height: -webkit-fill-available; background-color: var(--color-inverse-surface); border-radius: 0.6em;"
-                        src="https://covers.openlibrary.org/b/isbn/978-0-330-40rr436-5-M.jpg"> </div>
-                  <div style=" padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; width: 100%;">
-                     <div id="display_panel_book_title" style="font-weight: bold; font-size: min(7vw, 2em);"> ----------
+
+         </div>
+         <div style="display: none;" id="display_panel_details">
+            <div class="display_panel_book_general">
+               <div style=" margin: 0.5em; display: flex; flex-direction: column; justify-content: center;"> <img
+                     id="display_panel_book_cover"
+                     style=" object-fit: fill; padding: 0.2em; width: min(8em,30vw); height: -webkit-fill-available; background-color: var(--color-inverse-surface); border-radius: 0.6em;"
+                     src="https://covers.openlibrary.org/b/isbn/978-0-330-40rr436-5-M.jpg"> </div>
+               <div style=" padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; width: 100%;">
+                  <div id="display_panel_book_title" style="font-weight: bold; font-size: min(7vw, 2em);"> ----------
+                  </div>
+                  <div
+                     style=" display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr;font-size: 0.9em;">
+                     <div id="display_panel_book_author">by -----</div>
+                     <div id="display_panel_book_classification_label" style="justify-self: end;">000.0 ---</div>
+                  </div>
+                  <div class="e00j430985t">
+                     <div
+                        style=" background-color: var(--color-surface-1); margin-top: 0.2em; margin-right: 0.2em; padding: 0.2em; border-radius: 0.4em; text-align: center; flex-grow: 1; display: flex; justify-content: center; align-items: center;">
+                        <div id="display_panel_book_isbn" style="user-select: none; font-size: min(4vw,1em);">
+                           0000000000000
+                        </div>
+                        <div class="tooltip"> <span style="translate: 0 2px;"
+                              class="material-symbols-outlined copy_icon" onclick="copy_isbn()"> content_copy </span>
+                           <span id="copy_isbn_tooltip" class="tooltiptext">Copy</span>
+                        </div>
                      </div>
                      <div
-                        style=" display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr;font-size: 0.9em;">
-                        <div id="display_panel_book_author">by -----</div>
-                        <div id="display_panel_book_classification_label" style="justify-self: end;">000.0 ---</div>
-                     </div>
-                     <div class="e00j430985t">
-                        <div
-                           style=" background-color: var(--color-surface-1); margin-top: 0.2em; margin-right: 0.2em; padding: 0.2em; border-radius: 0.4em; text-align: center; flex-grow: 1; display: flex; justify-content: center; align-items: center;">
-                           <div id="display_panel_book_isbn" style="user-select: none; font-size: min(4vw,1em);">
-                              0000000000000
-                           </div>
-                           <div class="tooltip"> <span style="translate: 0 2px;"
-                                 class="material-symbols-outlined copy_icon" onclick="copy_isbn()"> content_copy </span>
-                              <span id="copy_isbn_tooltip" class="tooltiptext">Copy</span>
-                           </div>
-                        </div>
-                        <div
-                           style="background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: column; justify-content: center;">
-                           <div id="display_panel_book_book_id">ID: ----</div>
-                           <div id="display_panel_book_legacy_book_id">IDL: 00000</div>
-                        </div>
+                        style="background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: column; justify-content: center;">
+                        <div id="display_panel_book_book_id">ID: ----</div>
+                        <div id="display_panel_book_legacy_book_id">IDL: 00000</div>
                      </div>
                   </div>
+               </div>
+            </div>
+            <div
+               style=" display: flex; display: none; margin: 0.2em; border: 3px solid var(--color-surface-1); border-left: 0; border-right: 0;">
+               <div style=" margin: 0.5em; display: flex; flex-direction: column; justify-content: center;"> <button
+                     style=" object-fit: fill; padding: 0.2em; width: min(8.4em,31.7vw); height: 5em; border: 0.2em dashed var(--color-inverse-surface); border-radius: 0.6em; display: flex; justify-content: center; align-items: center; ">
+                     <span style="user-select: none; font-size: 2em;" class="material-symbols-outlined"> person_add
+                     </span> </button>
                </div>
                <div
-                  style=" display: flex; display: none; margin: 0.2em; border: 3px solid var(--color-surface-1); border-left: 0; border-right: 0;">
-                  <div style=" margin: 0.5em; display: flex; flex-direction: column; justify-content: center;"> <button
-                        style=" object-fit: fill; padding: 0.2em; width: min(8.4em,31.7vw); height: 5em; border: 0.2em dashed var(--color-inverse-surface); border-radius: 0.6em; display: flex; justify-content: center; align-items: center; ">
-                        <span style="user-select: none; font-size: 2em;" class="material-symbols-outlined"> person_add
-                        </span> </button>
+                  style="padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; justify-content: center;">
+                  <div style="font-weight: bold; font-size: min(5vw, 1.3em); flex-direction: row; display: flex;">
+                     Joe Esposito
+                     <div style="font-weight: lighter;">&nbsp11.4</div>
                   </div>
                   <div
-                     style="padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; justify-content: center;">
-                     <div style="font-weight: bold; font-size: min(5vw, 1.3em); flex-direction: row; display: flex;">
-                        Joe Esposito
-                        <div style="font-weight: lighter;">&nbsp11.4</div>
-                     </div>
-                     <div
-                        style=" width: fit-content; background-color: var(--color-surface-5); padding: 0.4em; border-radius: 0.4em; font-family: var(--the-font)">
-                        <div class="tooltip">
-                           <div
-                              style=" user-select: none; display: flex; font-size: min(4vw,1em); align-items: center;">
-                              <div>ID: t2m</div>
-                           </div>
-                           <span id="copy_borrower_book_tooltip" class="tooltiptext">Copy</span>
+                     style=" width: fit-content; background-color: var(--color-surface-5); padding: 0.4em; border-radius: 0.4em; font-family: var(--the-font)">
+                     <div class="tooltip">
+                        <div style=" user-select: none; display: flex; font-size: min(4vw,1em); align-items: center;">
+                           <div>ID: t2m</div>
                         </div>
+                        <span id="copy_borrower_book_tooltip" class="tooltiptext">Copy</span>
                      </div>
                   </div>
                </div>
-               <div style="margin: 0.8em; margin-top: 0.5em;">
-                  Description
-                  <div id="display_panel_book_description"
-                     style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(--color-surface-1);">
-                     ---------------
-                  </div>
-               </div>
-               <div id="display_panel_book_lost"
-                  style="display:none; margin: 0.8em; margin-top: 0.5em; margin-bottom: 0.3em;">
-                  <div
-                     style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
-                     <span style="translate: 0 5px;" class="material-symbols-outlined"> warning </span>&nbsp Book marked
-                     as lost
-                  </div>
-               </div>
-               <div id="display_panel_book_scrapped" style="display:none; margin: 0.8em; margin-top: 0em;">
-                  <div
-                     style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
-                     <span style="translate: 0 5px;" class="material-symbols-outlined"> warning </span>&nbsp Book marked
-                     as scrapped
-                  </div>
-               </div>
-               <div id="display_panel_book_price" style="display: none; margin: 0.8em; margin-top: 0.5em;"> Price: 5 EUR
-               </div>
-               <div id="display_panel_book_subject" style="margin: 0.8em; margin-top: 0.5em;"> Non-Feeection </div>
-               <div id="display_panel_book_level" style="margin: 0.8em; margin-top: 0.5em;"> Greeeeen </div>
-               <div id="display_panel_book_updated" style="margin: 0.8em; margin-top: 0.5em;"> Updated: 0000-00-00
-                  00:00:00.000Z
-               </div>
-               <div id="display_panel_book_created" style="margin: 0.8em; margin-top: 0.5em;"> Legacy Created:
-                  00/00/0000
-               </div>
-               <div id="display_panel_book_system_created" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
-                  SYS_CREATED: 0000-00-00 00:00:00.000Z
-               </div>
-               <div id="display_panel_book_system_id" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;"> SYS_ID:
+            </div>
+            <div style="margin: 0.8em; margin-top: 0.5em;">
+               Description
+               <div id="display_panel_book_description"
+                  style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(--color-surface-1);">
                   ---------------
                </div>
             </div>
+            <div id="display_panel_book_lost"
+               style="display:none; margin: 0.8em; margin-top: 0.5em; margin-bottom: 0.3em;">
+               <div
+                  style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
+                  <span style="translate: 0 5px;" class="material-symbols-outlined"> warning </span>&nbsp Book marked
+                  as lost
+               </div>
+            </div>
+            <div id="display_panel_book_scrapped" style="display:none; margin: 0.8em; margin-top: 0em;">
+               <div
+                  style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
+                  <span style="translate: 0 5px;" class="material-symbols-outlined"> warning </span>&nbsp Book marked
+                  as scrapped
+               </div>
+            </div>
+            <div id="display_panel_book_price" style="display: none; margin: 0.8em; margin-top: 0.5em;"> Price: 5 EUR
+            </div>
+            <div id="display_panel_book_subject" style="margin: 0.8em; margin-top: 0.5em;"> Non-Feeection </div>
+            <div id="display_panel_book_level" style="margin: 0.8em; margin-top: 0.5em;"> Greeeeen </div>
+            <div id="display_panel_book_updated" style="margin: 0.8em; margin-top: 0.5em;"> Updated: 0000-00-00
+               00:00:00.000Z
+            </div>
+            <div id="display_panel_book_created" style="margin: 0.8em; margin-top: 0.5em;"> Legacy Created:
+               00/00/0000
+            </div>
+            <div id="display_panel_book_system_created" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
+               SYS_CREATED: 0000-00-00 00:00:00.000Z
+            </div>
+            <div id="display_panel_book_system_id" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;"> SYS_ID:
+               ---------------
+            </div>
          </div>
-         <!---- <img id="imag" src="https://png.pngtree.com/png-clipart/20220111/original/pngtree-cigarette-png-image_7083753.png" style="display: none;"></img> <canvas id="book_cover_canvas" style="display: none;"></canvas> -->
+      </div>
+      <!---- <img id="imag" src="https://png.pngtree.com/png-clipart/20220111/original/pngtree-cigarette-png-image_7083753.png" style="display: none;"></img> <canvas id="book_cover_canvas" style="display: none;"></canvas> -->
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <div style="display: none;" id="container_borrower" class="container">
+      <div id="list_area" class="list_area panel">
+         <div class="list_area_search">
+            <div style="display: flex;">
+               <input type="text" style=" margin: 7px;" placeholder="Search Borrowers" id="search_filter_input_borrower"
+                  onchange="list_borrowers()">
+            </div>
+         </div>
+         <div class="list_area_list" id="list_area_list_borrower"></div>
       </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <div style="display: none;" id="container_borrower" class="container">
-         <div id="list_area" class="list_area panel">
-            <div class="list_area_search">
-               <div style="display: flex;">
-                  <input type="text" style=" margin: 7px;" placeholder="Search Borrowers"
-                     id="search_filter_input_borrower" onchange="list_borrowers()">
-               </div>
-            </div>
-            <div class="list_area_list" id="list_area_list_borrower"></div>
+      <div id="display_area_borrower" class="display_area panel">
+         <div style="display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
+            <button onclick="swap_display_area_mode_borrower_to_none()"
+               style=" margin: 5px; border: 0; height: 40px; width: 40px;" class="button_circle"> <span
+                  class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <button id="returnbutton54985t8_borrower"
+               style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;">
+               <div id="returntextjinfo4_borrower">Return All</div>
+            </button>
+            <button id="edit_button_borrower" onclick="save_changes_handler_borrower(event)"
+               style="margin: 5px; margin-right: 5px;">
+               <div style="pointer-events: none;" id="edit_button_borrower_label">Edit</div>
+            </button>
          </div>
 
 
-         <div id="display_area_borrower" class="display_area panel">
-            <div
-               style="display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
-               <button onclick="swap_display_area_mode_borrower_to_none()"
-                  style=" margin: 5px; border: 0; height: 40px; width: 40px;" class="button_circle"> <span
-                     class="material-symbols-outlined">arrow_back</span>
-               </button>
-               <button id="returnbutton54985t8_borrower"
-                  style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;">
-                  <div id="returntextjinfo4_borrower">Return All</div>
-               </button>
-               <button id="edit_button_borrower" onclick="save_changes_handler_borrower(event)"
-                  style="margin: 5px; margin-right: 5px;">
-                  <div style="pointer-events: none;" id="edit_button_borrower_label">Edit</div>
-               </button>
+         <div style="display: none; margin: 1em;" id="display_panel_details_borrower">
+
+            <div style="display: flex; font-size: 2em; font-weight: bold;">
+               <div id="dpdb_name"></div>
+               <div id="dpdb_surname"></div>
             </div>
 
-
-            <div style="display: none; margin: 1em;" id="display_panel_details_borrower">
-
-               <div style="display: flex; font-size: 2em; font-weight: bold;">
-                  <div id="dpdb_name"></div>
-                  <div id="dpdb_surname"></div>
-               </div>
-
-               <div style="    background-color: var(--color-surface-3);
+            <div style="    background-color: var(--color-surface-3);
                                                       border-radius: 0.4em;
                                                       padding: 0.5em;
                                                       font-size: 1.2em;
                                                       font-family: var(--the-robo-font);">
-                  <div id="dpdb_group"></div>
-                  <div id="dpdb_borrower_id"></div>
-               </div>
-
-
-               <div style="font-size: 1.3em; font-weight:bold; margin-top: 0.5em;">Currently borrowing books: </div>
-
-               <div id="jfi4fijfifi54ijfi4"></div>
-
-               <div style="border-top: solid var(--color-surface-5) 2px; display: flex; width: 100%;">
-                  <button id="dpdb_add_button" onclick="add_borrower_book_button_handler(event);"
-                     style="width: fit-content; height: 2.6em; padding: 1.2em; margin-top: 0.4em;">
-                     <span style="user-select: none; font-size: 1.5em; margin: 0.2em;"
-                        class="button_icon material-symbols-outlined">
-                        library_add
-                     </span>
-                     <div>
-                        Lend book
-                     </div>
-                  </button>
-               </div>
-
-               <div style="margin-top: 100%;" id="dpdb_created"></div>
-               <div id="dpdb_updated"></div>
-               <div id="dpdb_id" style="opacity: 0.5;"></div>
+               <div id="dpdb_group"></div>
+               <div id="dpdb_borrower_id"></div>
             </div>
 
-            <div style="display: none; padding: 2em;" id="display_panel_edit_details_borrower">
-               <div style="margin-bottom: 1em;" class="input-container">
-                  <input id="display_panel_borrower_name_editing" type="text" class="input-google">
-                  <label class="input_placeholder infni04fjif">Name</label>
-               </div>
-               <div style="margin-bottom: 1em;" class="input-container">
-                  <input id="display_panel_borrower_surname_editing" type="text" class="input-google">
-                  <label class="input_placeholder infni04fjif">
-                     Surname
-                  </label>
-               </div>
-               <div
-                  style=" background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
-                  <div style="font-family: 'roboto mono'; display: flex; flex-direction: column;justify-content: center;">
-                     <div id="display_panel_borrower_borrower_id_editing">ID: </div>
-                  </div>
-               </div>
-               <div style="margin-bottom: 1em;" class="input-container">
-                  <select style="width: 100%;" id="display_panel_borrower_group_editing" type="text"
-                     class="input-google">
-                     <option> </option>
-                  </select>
-                  <label class="input_placeholder infni04fjif">Group</label>
-               </div>
-               <button class="delete_forever_button no_ripple" id="delete_borrower_forever"
-                  style="border-radius: 100em; border: 0; width: fit-content; padding: 0.5em 1em;">
-                  <span class="button_icon material-symbols-outlined">
-                     delete_forever
+
+            <div style="font-size: 1.3em; font-weight:bold; margin-top: 0.5em;">Currently borrowing books: </div>
+
+            <div id="jfi4fijfifi54ijfi4"></div>
+
+            <div style="border-top: solid var(--color-surface-5) 2px; display: flex; width: 100%;">
+               <button id="dpdb_add_button" onclick="add_borrower_book_button_handler(event);"
+                  style="width: fit-content; height: 2.6em; padding: 1.2em; margin-top: 0.4em;">
+                  <span style="user-select: none; font-size: 1.5em; margin: 0.2em;"
+                     class="button_icon material-symbols-outlined">
+                     library_add
                   </span>
-                  <div id="jfifi99">
-                     Delete Record</div>
+                  <div>
+                     Lend book
+                  </div>
                </button>
             </div>
+
+            <div style="margin-top: 100%;" id="dpdb_created"></div>
+            <div id="dpdb_updated"></div>
+            <div id="dpdb_id" style="opacity: 0.5;"></div>
+         </div>
+
+         <div style="display: none; padding: 2em;" id="display_panel_edit_details_borrower">
+            <div style="margin-bottom: 1em;" class="input-container">
+               <input id="display_panel_borrower_name_editing" type="text" class="input-google">
+               <label class="input_placeholder infni04fjif">Name</label>
+            </div>
+            <div style="margin-bottom: 1em;" class="input-container">
+               <input id="display_panel_borrower_surname_editing" type="text" class="input-google">
+               <label class="input_placeholder infni04fjif">
+                  Surname
+               </label>
+            </div>
+            <div
+               style=" background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
+               <div style="font-family: 'roboto mono'; display: flex; flex-direction: column;justify-content: center;">
+                  <div id="display_panel_borrower_borrower_id_editing">ID: </div>
+               </div>
+            </div>
+            <div style="margin-bottom: 1em;" class="input-container">
+               <select style="width: 100%;" id="display_panel_borrower_group_editing" type="text" class="input-google">
+                  <option> </option>
+               </select>
+               <label class="input_placeholder infni04fjif">Group</label>
+            </div>
+            <button class="delete_forever_button no_ripple" id="delete_borrower_forever"
+               style="border-radius: 100em; border: 0; width: fit-content; padding: 0.5em 1em;">
+               <span class="button_icon material-symbols-outlined">
+                  delete_forever
+               </span>
+               <div id="jfifi99">
+                  Delete Record</div>
+            </button>
          </div>
       </div>
-      <script src="app.js"></script>
+   </div>
+   <script src="app.js"></script>
 </body>
 
 </html>

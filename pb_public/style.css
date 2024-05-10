@@ -1,15 +1,16 @@
 body
 {
-    margin: 0;
+    margin: 0.3em;
+    margin-top: 0.4em;
     padding: 0;
     background-color: var(--color-surface-5);
     color: var(--color-on-background);
     --j95r4ji5r-opacity: 1;
-    
+    overflow: hidden;
     --the-font: "Poppins";
     --the-robo-font: "Roboto Mono";
     font-family: var(--the-font);
-    
+
 }
 
 html,
@@ -58,7 +59,7 @@ body
     --color-utility-on-error: #680003;
     --color-utility-outline: #8d9286;
 
-    
+
 }
 
 .green_light
@@ -464,6 +465,7 @@ body.hasHover .list_item:hover
     padding: 1em;
     --button-size: 50px
 }
+
 @media (max-width:1124px)
 {
     .page_number_changer
@@ -472,6 +474,7 @@ body.hasHover .list_item:hover
         padding: 0.5em;
         --button-size: 40px;
     }
+
     #tttttttt112
     {
         font-size: 1.2em !important;
@@ -504,14 +507,10 @@ dialog[open]
 }
 
 dialog[open]::backdrop
-{
-
-}
+{}
 
 dialog[open]
-{
-    
-}
+{}
 
 .bigdialog[open]::backdrop
 {
@@ -519,9 +518,7 @@ dialog[open]
 }
 
 .bigdialog[open]
-{
-
-}
+{}
 
 @keyframes dialog-show
 {
@@ -885,26 +882,19 @@ body.hasHover .button_circle:hover
 .container
 {
     display: flex;
-    gap: 0.5em 0;
-    margin-top: 0.5em;
-    height: calc(100dvh - 5.8em);
+    height: calc(100dvh - 5em);
     overflow-x: scroll;
     overflow-y: hidden;
 }
 
-.main
-{
-    margin: 0.5em;
-    height: calc(100dvh - 1em);
-}
-
 .panel
 {
+    margin: 0.15em;
     flex: 1;
     border: 0px solid var(--color-utility-outline);
     overflow: hidden;
     background-color: var(--color-background);
-    border-radius: 1em;
+    border-radius: 0.8em;
     min-width: 1em;
     translate: 0px 0px;
     opacity: 1;
@@ -913,18 +903,18 @@ body.hasHover .button_circle:hover
     transition: translate 0.1s linear, opacity 0.1s linear;
 }
 
-@media (min-width:950px)
-{
-    .search_area
-    {
-        /*display: block !important;*/
-    }
-}
-
 .search_area
 {
-    background-color: transparent;
     width: 100%;
+    padding: 1em;
+    display: block;
+    overflow-y: scroll;
+    width: 18em;
+    flex: 0 0 auto;
+    position: relative;
+    right: 0px;
+    transition: all 0.6s cubic-bezier(0.42, -0.02, 0, 1) 0s;
+    overflow: hidden;
 }
 
 .segmented_button_button
@@ -934,17 +924,11 @@ body.hasHover .button_circle:hover
 
 @media (min-width:751px)
 {
-    .panel
-    {}
-
     .display_area
     {
         flex-basis: 8em;
     }
 }
-
-@media (max-width:750px)
-{}
 
 .logo_text
 {
@@ -1044,14 +1028,6 @@ body.hasHover .tooltip:hover .tooltiptext
     transition-delay: 0s;
 }
 
-@media (min-width:550px)
-{
-    .display_area
-    {
-        margin-left: 0.5em !important;
-    }
-}
-
 @media (max-width:550px)
 {
     .logo_text
@@ -1072,18 +1048,11 @@ body.hasHover .tooltip:hover .tooltiptext
         width: 2em !important;
     }
 
-    .main
-    {
-        gap: 0.3em 0.3em;
-        margin: 0.3em;
-        height: calc(100dvh - 0.6em);
-    }
-
     .container
     {
-        gap: 0.3em 0;
+        gap: 0.3em 0.3em;
         margin-top: 0.3em;
-        height: calc(100dvh - 5.2em);
+        height: calc(100dvh - 4.8em);
     }
 
     .panel
@@ -1129,7 +1098,6 @@ body.hasHover .tooltip:hover .tooltiptext
 
 .list_area
 {
-    margin: 0 0 0 0;
     padding: 0.5em;
     display: grid;
     grid-template-columns: 1fr;
@@ -1258,7 +1226,28 @@ body.hasHover ::-webkit-scrollbar-thumb:hover
     margin: 0;
     position: absolute;
 }
+
 .j95r4ji5r::backdrop
 {
     opacity: var(--j95r4ji5r-opacity);
+}
+
+.chip_dropdown{
+    font-size: 1.1em;
+    width: fit-content;
+    padding: 2px;
+    text-align: center;
+}
+
+.accordian{
+    overflow: hidden;
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    border-radius: 0.1em;
+    margin: 0.1em;
+}
+.accordian_button{
+    width: 100%;
+    justify-content: left;
+    border-radius: 0.5em;
+    border: 0;
 }

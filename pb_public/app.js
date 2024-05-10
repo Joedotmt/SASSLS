@@ -3,7 +3,7 @@ const pb = new PocketBase('http://127.0.0.1:8090');
 
 function p(t)
 {
-    p(t)
+    console.log(t)
 }
 
 const book_level_colors = "Brown, Yellow, Blue, Green, Red"
@@ -338,14 +338,18 @@ function collection_change()
     let str = document.body.className
     light_or_dark = "_" + str.substring(str.indexOf("_") + 1)
 
+    container_book.style.display = "none"
+    container_borrower.style.display = "none"
+
     switch (current_page)
     {
         case "books":
-            mainthing.appendChild(container_book)
+            container_book.style.display = "flex"
             turn_lend_view_into_book_view()
             color = books_color;
             break;
         case "borrowers":
+            container_borrower.style.display = "flex"
             color = borrowers_color;
             break;
         case "transactions":
@@ -361,8 +365,6 @@ function collection_change()
 }
 function list_selected_collection()
 {
-    container_book.style.display = "none"
-    container_borrower.style.display = "none"
     switch (current_page)
     {
         case "books":
@@ -550,6 +552,7 @@ function open_account_dialog()
     })
     );
 }
+
 function segmented_button_thing(event,element = '')
 {
     if (element != '')
@@ -588,7 +591,7 @@ function segmented_button_thing(event,element = '')
         }
 
         ele.dataset.state = true;
-        ele.style.backgroundColor = 'color-mix(in hsl, var(--color-primary-30), #00000000 5%)'
+        ele.style.backgroundColor = 'color-mix(in hsl, var(--color-primary-container), #00000000 5%)'
         ele.style.width = '10em'
 
         if (truth_element.dataset.state == 'true' && false_element.dataset.state == 'false')
@@ -766,8 +769,6 @@ async function deprecate_book_id(id)
 }
 async function list_books()
 {
-    container_book.style.display = "flex"
-
     let enteredVal = search_filter_input.value;
     let enteredTokens = enteredVal.split(" ");
     p(enteredTokens);
@@ -1123,8 +1124,6 @@ async function clickHandler_create()
 }
 async function list_borrowers()
 {
-    container_borrower.style.display = "flex"
-
     let enteredVal = search_filter_input_borrower.value;
     let enteredTokens = enteredVal.split(" ");
     p(enteredTokens);
