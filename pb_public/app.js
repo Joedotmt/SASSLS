@@ -33,6 +33,27 @@ let current_page;
 
 collection_change()
 
+document.querySelectorAll(".toggle_chip").forEach(ele =>
+{
+    ele.addEventListener("click", function ()
+    {
+        if (ele.dataset.value == 'true')
+        {
+            ele.firstChild.remove()
+            ele.dataset.value = 'false'
+        }
+        else
+        {
+            check = document.createElement('span')
+            check.className = "material-symbols-outlined"
+            check.innerText = 'check'
+            ele.insertBefore(check, ele.firstChild)
+            ele.dataset.value = 'true'
+        }
+
+    });
+});
+
 window.addEventListener(
     "hashchange",
     () =>
@@ -41,6 +62,33 @@ window.addEventListener(
     },
     false,
 );
+
+function add_book_filter(type)
+{
+    switch (type)
+    {
+        case "lost":
+
+            break;
+        case "":
+
+            break;
+        case "lost":
+
+            break;
+        case "":
+
+            break;
+        case "lost":
+
+            break;
+        case "":
+
+            break;
+        default:
+            break;
+    }
+}
 
 let input_elementsArray = document.querySelectorAll(".input-google");
 
@@ -97,7 +145,7 @@ add_book_to_borrow_dialog.addEventListener('cancel', (event) =>
 jfjjfjf98 = false;
 delete_borrower_forever.addEventListener("pointerdown", function ()
 {
-    navigator.vibrate([5,5,5,5,5,5,2,2,2,2,2,2,2,1,1,1,1,1,1,1]);
+    navigator.vibrate([5, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1]);
     iooi43iiore94 = setTimeout(() =>
     {
         navigator.vibrate([50]);
@@ -106,43 +154,50 @@ delete_borrower_forever.addEventListener("pointerdown", function ()
     }, 2800);
     delete_borrower_forever.classList.add("ririirriire")
 });
-document.addEventListener('contextmenu', event => {
+document.addEventListener('contextmenu', event =>
+{
     event.preventDefault();
 });
 
-function isTouchDevice() {
+function isTouchDevice()
+{
     return 'ontouchstart' in window || navigator.msMaxTouchPoints;
 }
 
-function watchForHover() {
+function watchForHover()
+{
     // lastTouchTime is used for ignoring emulated mousemove events
     // that are fired after touchstart events. Since they're
     // indistinguishable from real events, we use the fact that they're
     // fired a few milliseconds after touchstart to filter them.
     let lastTouchTime = 0
-  
-    function enableHover() {
-      if (new Date() - lastTouchTime < 500) return
-      document.body.classList.add('hasHover')
+
+    function enableHover()
+    {
+        if (new Date() - lastTouchTime < 500) return
+        document.body.classList.add('hasHover')
     }
-  
-    function disableHover() {
-      document.body.classList.remove('hasHover')
+
+    function disableHover()
+    {
+        document.body.classList.remove('hasHover')
     }
-  
-    function updateLastTouchTime() {
-      lastTouchTime = new Date()
+
+    function updateLastTouchTime()
+    {
+        lastTouchTime = new Date()
     }
-  
+
     document.addEventListener('touchstart', updateLastTouchTime, true)
     document.addEventListener('touchstart', disableHover, true)
     document.addEventListener('mousemove', enableHover, true)
-  
+
     enableHover()
 }
 watchForHover()
 
-if (!("ontouchstart" in document.documentElement)) {
+if (!("ontouchstart" in document.documentElement))
+{
     document.documentElement.className += " no-touch";
 }
 delete_borrower_forever.addEventListener("pointerup", function ()
@@ -170,6 +225,7 @@ delete_borrower_forever.addEventListener("mouseout", function ()
     delete_borrower_forever.classList.remove("ririirriire")
 });
 nextid_borrower = "";
+nextid_book = "";
 generatedid_borrower = "Error";
 generatedid_book = "Error";
 var username = "";
@@ -333,8 +389,6 @@ function collection_change()
     collection_select.value = window.location.hash.substring(1)
     current_page = window.location.hash.substring(1)
 
-    list_selected_collection()
-
     let str = document.body.className
     light_or_dark = "_" + str.substring(str.indexOf("_") + 1)
 
@@ -387,8 +441,8 @@ async function save_changes_handler_book(event)
         if (book_edit_button.dataset.currentid == 'creation')
         {
             const data = {
-                "book_id":generatedid_book,
-                "legacy_book_id":"DEPRECATED_",
+                "book_id": generatedid_book,
+                "legacy_book_id": "DEPRECATED_",
                 "title": display_panel_book_title_editing.value,
                 "author": display_panel_book_author_editing.value,
                 "preview_url_override": display_panel_book_preview_url_override_editing.value,
@@ -402,20 +456,24 @@ async function save_changes_handler_book(event)
                 "price": display_panel_book_price_editing.value,
             };
             p("CREATING BOOK RECORD WITH DATA: ", data);
-            try {
+            try
+            {
                 await pb.collection('books').create(data);
-            } catch (error) {
+            } catch (error)
+            {
                 console.error(error.data);
                 let issue_string = "";
 
-                for (let index = 0; index < Object.keys(error.data.data).length; index++) {
+                for (let index = 0; index < Object.keys(error.data.data).length; index++)
+                {
                     issue_string += `\n${Object.keys(error.data.data)[index]}: ${Object.values(error.data.data)[index].message}`
                 }
                 alert(`Error code: ${error.data.code}\nMessage: ${error.data.message}\n\nIssues:${issue_string}`)
             }
-            
+
             await list_books()
             await clickHandler_create(book_edit_button.dataset.currentid)
+            swap_display_area_mode_to_display()
         }
         else
         {
@@ -436,9 +494,13 @@ async function save_changes_handler_book(event)
             await pb.collection('books').update(book_edit_button.dataset.currentid, data);
             await list_books()
             await clickHandler(book_edit_button.dataset.currentid)
+            swap_display_area_mode_to_display()
         }
     }
-    swap_display_area_mode()
+    else
+    {
+        swap_display_area_mode_to_edit()
+    }
 }
 async function save_changes_handler_borrower(event)
 {
@@ -460,7 +522,7 @@ async function save_changes_handler_borrower(event)
                 "group": display_panel_borrower_group_editing.value
             };
             p("CREATING BORROWER RECORD WITH DATA: ", data);
-            p("ekekk",await pb.collection('borrowers').create(data));
+            p("ekekk", await pb.collection('borrowers').create(data));
         }
         else
         {
@@ -553,7 +615,7 @@ function open_account_dialog()
     );
 }
 
-function segmented_button_thing(event,element = '')
+function segmented_button_thing(event, element = '')
 {
     if (element != '')
     {
@@ -671,10 +733,11 @@ function swap_display_area_mode()
 }
 function swap_display_area_mode_to_display()
 {
-        display_panel_edit_details.style.display = "none"
-        display_panel_details.style.display = "block"
+    display_panel_edit_details.style.display = "none"
+    display_panel_details.style.display = "block"
 
-    if (current_page == "books") {
+    if (current_page == "books")
+    {
         n5goiu.innerText = "Edit"
         n5goiu.style.color = ""
         book_edit_button.style.backgroundColor = ""
@@ -709,20 +772,24 @@ function create_random_string(length)
 {
     const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
-    for (let i = 0; i < length; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    for (let i = 0; i < length; i++)
+    {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return result;
 }
 async function generate_unique_book_id()
 {
     generated_id = "";
-    for (let i = 0; i < 1000; i++) {
-        try {
+    for (let i = 0; i < 1000; i++)
+    {
+        try
+        {
             generated_id = create_random_string(4)
             await pb.collection('books').getFirstListItem(`book_id="${generated_id}"`);
             console.error("trying to generate a book id again because of collisions")
-        } catch (err) {
+        } catch (err)
+        {
             if (err.data.code == '404')
             {
                 return generated_id;
@@ -761,9 +828,9 @@ async function deprecate_book_id(id)
 {
     p("decrapating: ", id)
     const rec = await pb.collection('books').getOne(id, {
-  
+
     });
-    await pb.collection('books').update(id, {"legacy_book_id": "DEPRECATED_"+rec.legacy_book_id});
+    await pb.collection('books').update(id, { "legacy_book_id": "DEPRECATED_" + rec.legacy_book_id });
     await list_books()
     await clickHandler(rec.id)
 }
@@ -840,7 +907,7 @@ async function list_books()
 
 
 
-    query_response = await pb.collection('books').getList(page_number_changer_books.dataset.pagenumber, 100, {sort: pbSort, filter: pbFilter});
+    query_response = await pb.collection('books').getList(page_number_changer_books.dataset.pagenumber, 100, { sort: pbSort, filter: pbFilter });
     tttttttt112.innerText = `Page ${page_number_changer_books.dataset.pagenumber} of ${query_response.totalPages}`
     page_number_changer_books.dataset.maxpages = query_response.totalPages
     if (page_number_changer_books.dataset.pagenumber > query_response.totalPages)
@@ -856,7 +923,7 @@ async function list_books()
     if (current_page == "books")
     {
         list_area_list.innerHTML =
-        `
+            `
             <button id="create_book_button" onclick="clickHandler_create()" style="border-bottom: 2px dashed var(--color-neutral-variant60);" class="list_button list_item">
                 + Create Book
             </button>
@@ -867,7 +934,7 @@ async function list_books()
     {
         list_area_list.innerHTML = ""
     }
-    
+
     for (const rec of loaded_book_records)
     {
         let list_item = document.createElement("button");
@@ -920,11 +987,11 @@ function playOpenSound()
     let audio = new Audio('sfx/' + randomInteger + '.mp3');
     audio.volume = 0.3
     audio.play();
-    
+
 }
 
 
-async function clickHandler(ARGUMENT_ID)
+async function clickHandler(ARGUMENT_ID, excused_from_dialog = false)
 {
     playOpenSound()
     let useid = ARGUMENT_ID//ev.srcElement.dataset.id;
@@ -932,7 +999,15 @@ async function clickHandler(ARGUMENT_ID)
     {
         return s.id == useid;
     })
-    p(book)
+
+    if (display_area_edit_mode && !excused_from_dialog)
+    {
+        nextid_book = book.id
+        j5498jr95()
+        return
+    }
+    nextid_book = ''
+
 
     let clickedOne = list_area_list.querySelector(`button[data-id="${useid}"]`);
     list_area_list.querySelectorAll(".list_item").forEach(function (i)
@@ -968,7 +1043,7 @@ async function clickHandler(ARGUMENT_ID)
     }
     display_panel_book_title.innerHTML = book.title
     display_panel_book_author.innerHTML = "by " + book.author
-    display_panel_book_isbn.innerHTML = book.isbn
+    display_panel_book_isbn.innerHTML = "ISBN: " + book.isbn
 
     if (book.preview_url_override == "")
     {
@@ -980,14 +1055,14 @@ async function clickHandler(ARGUMENT_ID)
     }
 
     display_panel_book_description.innerHTML = book.description
-    display_panel_book_classification_label.innerHTML = book.classification_label
+    display_panel_book_classification_label.innerHTML = 'CLL: ' + book.classification_label
 
 
     const book_subject_jr8r04 = await pb.collection('books_subjects').getOne(book.subject, {});
+
     display_panel_book_subject.innerHTML = "Subject: " + book_subject_jr8r04.subject
-
-
     display_panel_book_level.innerHTML = "Level: " + book.level
+
     display_panel_book_lost.style.display = book.lost ? "block" : "none"
     display_panel_book_scrapped.style.display = book.scrapped ? "block" : "none"
     if (book.price > 0)
@@ -1034,31 +1109,35 @@ async function clickHandler(ARGUMENT_ID)
 
     if (!book.lost)
     {
-        display_panel_book_lost_editing.querySelectorAll("button[data-value=true]").forEach(element => {
+        display_panel_book_lost_editing.querySelectorAll("button[data-value=true]").forEach(element =>
+        {
             element.dataset.state = "true"
-            segmented_button_thing("",element)
+            segmented_button_thing("", element)
         });
     }
     else
     {
-        display_panel_book_lost_editing.querySelectorAll("button[data-value=false]").forEach(element => {
+        display_panel_book_lost_editing.querySelectorAll("button[data-value=false]").forEach(element =>
+        {
             element.dataset.state = "false"
-            segmented_button_thing("",element)
+            segmented_button_thing("", element)
         });
     }
 
     if (!book.scrapped)
     {
-        display_panel_book_scrapped_editing.querySelectorAll("button[data-value=true]").forEach(element => {
+        display_panel_book_scrapped_editing.querySelectorAll("button[data-value=true]").forEach(element =>
+        {
             element.dataset.state = "true"
-            segmented_button_thing("",element)
+            segmented_button_thing("", element)
         });
     }
     else
     {
-        display_panel_book_scrapped_editing.querySelectorAll("button[data-value=false]").forEach(element => {
+        display_panel_book_scrapped_editing.querySelectorAll("button[data-value=false]").forEach(element =>
+        {
             element.dataset.state = "false"
-            segmented_button_thing("",element)
+            segmented_button_thing("", element)
         });
     }
 
@@ -1069,14 +1148,20 @@ async function clickHandler(ARGUMENT_ID)
 
 
 }
-async function clickHandler_create()
+async function clickHandler_create(excused_from_dialog = false)
 {
     playOpenSound()
-    
+
+    if (display_area_edit_mode && !excused_from_dialog)
+    {
+        nextid_book = "creation"
+        j5498jr95()
+        return
+    }
+
 
     //delete_borrower_forever.style.display = "none"
     book_edit_button.dataset.currentid = "creation"
-
 
     await generate_unique_book_id().then(generated_id_response =>
     {
@@ -1173,7 +1258,8 @@ async function list_borrowers()
             list_item.setAttribute("onclick", "clickHandler_borrower(event.srcElement.dataset.id)");
             let preview_image = document.createElement("img");
             preview_image.className = "preview_image";
-            switch (rec.group) {
+            switch (rec.group)
+            {
                 case "Teacher":
                     image_group = "figure_one_purple.png"
                     break;
@@ -1242,8 +1328,9 @@ function close_lend_book_dialog()
 }
 function turn_book_view_into_lend_view()
 {
+    add_book_to_borrow_dialog_container.appendChild(container_book)
     i9i9i9i9i9i9i9.innerHTML =
-    `
+        `
     <button id="book_edit_button" onclick="lend_book_to_borrower(event.srcElement.dataset.currentid,edit_button_borrower.dataset.currentid); close_lend_book_dialog(); display_panel_details.style.display = 'none'" style="    margin: 5px;
     border: none;
     background-color: var(--color-primary);
@@ -1253,12 +1340,13 @@ function turn_book_view_into_lend_view()
             Lend book to borrower
         </div>
     </button>
-    `    
+    `
 }
 function turn_lend_view_into_book_view()
 {
+    document.body.appendChild(container_book)
     i9i9i9i9i9i9i9.innerHTML =
-    `
+        `
         <button id="returnbutton54985t8" style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;">
             <div id="returntextjinfo4">
                 Return
@@ -1277,7 +1365,6 @@ function add_borrower_book_button_handler(event)
     add_book_to_borrow_dialog.style = null
     add_book_to_borrow_dialog.style.display = "flex"
     add_book_to_borrow_dialog.showModal();
-    add_book_to_borrow_dialog_container.appendChild(container_book)
     container_book.style.display = "flex"
     list_books();
 
@@ -1374,7 +1461,7 @@ async function delete_borrower(id)
     await pb.collection('borrowers').delete(id);
     list_borrowers();
 }
-async function clickHandler_borrower(ARGUMENT_BORROWER_ID, exused_from_dialog = false)
+async function clickHandler_borrower(ARGUMENT_BORROWER_ID, excused_from_dialog = false)
 {
     if (ARGUMENT_BORROWER_ID == "" || ARGUMENT_BORROWER_ID == "creation")
     {
@@ -1391,7 +1478,7 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID, exused_from_dialog = 
     })
 
 
-    if (display_area_edit_mode_borrower && !exused_from_dialog)
+    if (display_area_edit_mode_borrower && !excused_from_dialog)
     {
         stringthing = display_panel_borrower_name_editing.value + display_panel_borrower_surname_editing.value + display_panel_borrower_group_editing.value
         if (stringthing != "")
@@ -1435,7 +1522,7 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID, exused_from_dialog = 
 
     document.querySelectorAll(".ri9ri49ir9ri49").forEach(bookview => { bookview.remove() })
 
-    
+
 
     transaction_list.forEach(transaction =>
     {
@@ -1506,9 +1593,9 @@ async function return_book(id, person)
     await pb.collection('transactions').update(id, { "returned": true });
     clickHandler_borrower(person)
 }
-async function clickHandler_borrower_create(exused_from_dialog = false)
+async function clickHandler_borrower_create(excused_from_dialog = false)
 {
-    if (display_area_edit_mode_borrower && !exused_from_dialog)
+    if (display_area_edit_mode_borrower && !excused_from_dialog)
     {
         stringthing = display_panel_borrower_name_editing.value + display_panel_borrower_surname_editing.value + display_panel_borrower_group_editing.value
         if (stringthing != "")
@@ -1521,7 +1608,7 @@ async function clickHandler_borrower_create(exused_from_dialog = false)
     }
 
     playOpenSound()
-    
+
 
     delete_borrower_forever.style.display = "none"
     edit_button_borrower.dataset.currentid = "creation"

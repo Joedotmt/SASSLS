@@ -59,10 +59,39 @@
    <dialog style="padding: 1em;" id="close_unsaved">
       <div style="padding: 1rem 11rem 3rem 1rem; font-size: 1.2em;">Discard draft?</div>
       <div style=" display: flex; justify-content: flex-end;"> <button onclick="close_unsaved.close()"
-            style="margin-right: 0.1em; border: 0;">Cancel</button> <button
-            onclick="swap_display_area_mode(); close_unsaved.close(); clickHandler(book_edit_button.dataset.currentid)"
-            style="border: 0;">Discard</button> </div>
+            style="margin-right: 0.1em; border: 0;">Cancel</button> <button onclick="
+                     swap_display_area_mode_to_display(); 
+                     close_unsaved.close(); 
+                     if (book_edit_button.dataset.currentid == 'creation') 
+                     {
+                        if (nextid_book == '')
+                        {
+                           swap_display_area_mode_to_none()
+                           create_button.style.background = ''
+                        }
+                        else
+                        {
+                           clickHandler(nextid_book);
+                        }
+                     } 
+                     else 
+                     {
+                        if (nextid_book == '')
+                        {
+                           clickHandler(book_edit_button.dataset.currentid);
+                        }
+                        else if (nextid_book == 'creation')
+                        {
+                           clickHandler_create();
+                        }
+                        else
+                        {
+                           clickHandler(nextid_book);
+                        }
+                     }" style="border: 0;">Discard</button> </div>
    </dialog>
+
+
    <dialog style="padding: 1em;" id="close_unsaved_borrower">
       <div style="padding: 1rem 11rem 3rem 1rem; font-size: 1.2em;">Discard draft?</div>
       <div style=" display: flex; justify-content: flex-end;"> <button onclick="close_unsaved_borrower.close()"
@@ -298,13 +327,29 @@
    <div style="display: none;" id="container_book" class="container">
       <div id="search_area" class="search_area panel">
 
+         <button style="width: fit-content;" onclick="filter_select_dialog.show()">Add Filter</button>
+         <dialog
+            style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
+            id="filter_select_dialog">
+            <div style="margin: 0.6em; width: 11em;">
+               Filter by:
+               <hr>
+            </div>
+            <button onclick="add_book_filter('lost')" class="dropdown_button">Lost</button>
+            <button onclick="add_book_filter('scrapped')" class="dropdown_button">Scrapped</button>
+            <button onclick="add_book_filter('location')" class="dropdown_button">Location</button>
+            <button onclick="add_book_filter('id')" class="dropdown_button">Id Type</button>
+            <button onclick="add_book_filter('subject')" class="dropdown_button">Subject</button>
+            <button onclick="add_book_filter('level')" class="dropdown_button">Level</button>
+         </dialog>
+
          <div style="height: 2.8em;" class="accordian">
             <button data-open="false" onclick="
                if (this.dataset.open == 'true')
                {
                   this.dataset.open = 'false'
                   this.parentElement.style.height = '2.8em'
-                  this.style.background = 'transparent';
+                  this.style.background = '';
                   this.childNodes[3].style.rotate = '0deg';
                }
                else
@@ -315,21 +360,25 @@
                   this.childNodes[3].style.rotate = '180deg';
                }
                " class="accordian_button">
-               <div>Subject</div>
+               <div>States</div>
                <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
                   class="material-symbols-outlined">
                   expand_more
                </span>
             </button>
             <div style="margin: 1em;">
-               <select style="margin-bottom: 1em;"
-                  onchange="if (book_lost_chip.value == 'any') {book_lost_chip.selectedIndex = 0; book_lost_chip.style.background = 'transparent';} else {book_lost_chip.style.background = 'var(--color-primary-80)';}"
+
+               <button class="toggle_chip">Lost</button>
+
+
+
+               <select style="margin-bottom: 1em; background-color: var(--color-primary-80); box-shadow: none;"
                   name="test_chip" id="book_lost_chip" class="chip_dropdown">
-                  <option value="any" selected disabled hidden>Lostness</option>
-                  <option value="any">All</option>
                   <option value="true">Lost</option>
                   <option value="false">Not Lost</option>
+                  <option value="false">Clear</option>
                </select>
+               <!-- 
                <select
                   onchange="if (book_scrapped_chip.value == 'any') {book_scrapped_chip.selectedIndex = 0; book_scrapped_chip.style.background = 'transparent';} else {book_scrapped_chip.style.background = 'var(--color-primary-80)';}"
                   style="margin-bottom: 1em;" name="test_chip" id="book_scrapped_chip" class="chip_dropdown">
@@ -344,7 +393,7 @@
                   <option value="title">Title</option>
                   <option value="updated">Updated</option>
                   <option value="price">Price</option>
-               </select>
+               </select>Write your comments here -->
             </div>
          </div>
 
@@ -444,8 +493,14 @@
       <div id="list_area" class="list_area panel">
          <div class="list_area_search">
             <div style="display: flex;">
-               <input type="text" style=" margin: 7px;" placeholder="Search Books" id="search_filter_input"
+
+               <span style="position: absolute; top: 0.55em; left: 0.6em; opacity: 0.7;"
+                  class="material-symbols-outlined">search</span>
+               <input type="text" class="main_search_bar" placeholder="Search Books" id="search_filter_input"
                   onchange="list_books()">
+
+
+
                <button onclick="tune_button_press_handler()" class="filter_button">
                   <span style="translate: 0; padding: 0;" class="material-symbols-outlined button_icon">
                      <div id="j5498j85t4954j9">tune</div>
@@ -568,22 +623,12 @@
                   <div
                      style=" display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr;font-size: 0.9em;">
                      <div id="display_panel_book_author">by -----</div>
-                     <div id="display_panel_book_classification_label" style="justify-self: end;">000.0 ---</div>
                   </div>
                   <div class="e00j430985t">
-                     <div
-                        style=" background-color: var(--color-surface-1); margin-top: 0.2em; margin-right: 0.2em; padding: 0.2em; border-radius: 0.4em; text-align: center; flex-grow: 1; display: flex; justify-content: center; align-items: center;">
-                        <div id="display_panel_book_isbn" style="user-select: none; font-size: min(4vw,1em);">
-                           0000000000000
-                        </div>
-                        <div class="tooltip"> <span style="translate: 0 2px;"
-                              class="material-symbols-outlined copy_icon" onclick="copy_isbn()"> content_copy </span>
-                           <span id="copy_isbn_tooltip" class="tooltiptext">Copy</span>
-                        </div>
-                     </div>
-                     <div
-                        style="background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: column; justify-content: center;">
-                        <div id="display_panel_book_book_id">ID: ----</div>
+                     <div style="background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: column; justify-content: center;">
+                        <div id="display_panel_book_classification_label" style="justify-self: end;">000.0 ---</div>
+                        <div id="display_panel_book_isbn">ISBN: 0000000000000</div>
+                        <div id="display_panel_book_book_id"> ID: ----</div>
                         <div id="display_panel_book_legacy_book_id">IDL: 00000</div>
                      </div>
                   </div>
@@ -679,8 +724,10 @@
       <div id="list_area" class="list_area panel">
          <div class="list_area_search">
             <div style="display: flex;">
-               <input type="text" style=" margin: 7px;" placeholder="Search Borrowers" id="search_filter_input_borrower"
-                  onchange="list_borrowers()">
+               <span style="position: absolute; top: 0.55em; left: 0.6em; opacity: 0.7;"
+                  class="material-symbols-outlined">search</span>
+               <input type="text" class="main_search_bar" placeholder="Search Borrowers"
+                  id="search_filter_input_borrower" onchange="list_borrowers()">
             </div>
          </div>
          <div class="list_area_list" id="list_area_list_borrower"></div>
