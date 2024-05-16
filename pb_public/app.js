@@ -9,9 +9,8 @@ function p(t)
 const book_level_colors = "Brown, Yellow, Blue, Green, Red"
 const borrower_groups = "Teacher, Admin, Maintenance, LSE, 8.1, 8.2, 8.3, 8.4, 9.1, 9.2, 9.3, 9.4, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 12.1, 12.2, 12.3, 12.4"
 
+
 set_borrower_levels_lists();
-
-
 set_book_subjects_lists()
 set_book_levels_lists()
 
@@ -254,11 +253,65 @@ function set_book_levels_lists()
 
 
 }
+
+let book_filters = { location: new Set([]), subject: new Set([]), level: new Set([]), id_type: new Set([]) }
+let filtertobedeletedbook = null
+function add_book_filter(field, value)
+{
+    if (field == "location")
+    {
+        book_filters[field] = value
+    }
+    else
+    {
+        book_filters[field].add(value)
+    }
+    p(book_filters)
+    select_book_level_dialog_search.close()
+    filter_select_dialog_location.close()
+    filter_select_dialog.close()
+
+
+    //this has to be before the other one btw.
+    document.querySelectorAll(".delete_after_filter_refresh_books_change").forEach(element =>
+    {
+        
+        book_filters.level.delete(element.dataset.value)
+    });
+
+    document.querySelectorAll(".delete_after_filter_refresh_books").forEach(element =>
+    {
+        element.remove()
+    });
+
+
+    book_filters.level.forEach(element =>
+    {
+        filter = document.createElement("button")
+        filter.classList.add("chip_dropdown")
+        filter.classList.add("delete_after_filter_refresh_books")
+        filter.style.background = "var(--color-primary-80)"
+        filter.style.border = "none"
+        filter.style.paddingLeft = "8px"
+        filter.dataset.value = element;
+        filter.onclick = function () { select_book_level_dialog_search.show(); this.classList.add("delete_after_filter_refresh_books_change") }
+        filter.innerHTML = `
+        ${element}
+        <span class="material-symbols-outlined">
+            arrow_drop_down
+        </span>
+        `
+        search_area.insertBefore(filter, search_area.firstChild)
+    });
+}
+
+
+
 async function set_book_subjects_lists()
 {
     let optionelement = document.createElement("option");
     optionelement.value = "all"
-    optionelement.innerText = "All"
+    optionelement.innerText = "Any"
     optionelement.style.fontSize = "1.2rem"
 
     kej0f4jj05.appendChild(optionelement)
@@ -409,9 +462,10 @@ function list_selected_collection()
 }
 
 const book_state = {
-    filters:[],
-    add_filter: function (filter) {
-        
+    filters: [],
+    add_filter: function (filter)
+    {
+
     }
 }
 
@@ -1269,8 +1323,8 @@ async function list_borrowers()
             let info_div = document.createElement("div");
             info_div.className = "list_item_info_text";
 
-            info_div.innerHTML = 
-            `
+            info_div.innerHTML =
+                `
             ${rec.name} ${rec.surname} 
             <label style="font-family: var(--the-font); display: flex; width: 100%; justify-content: space-between;">
                 ${rec.group}

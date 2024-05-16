@@ -37,6 +37,93 @@
       </div>
    </button>
 
+
+   <dialog
+      style="display: flex; border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
+      id="select_subject_dialog">
+      <div style="margin: 0.6em; width: 11em;">
+         Subjects:
+         <hr>
+      </div>
+
+      <div>
+         <button onclick="select_subject_dialog.dataset.value = 'Non-Fiction'"
+            class="dropdown_button">Non-Fiction</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Melitensia'"
+            class="dropdown_button">Melitensia</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Reference'" class="dropdown_button">Reference</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Poetry and Plays'" class="dropdown_button">Poetry and
+            Plays</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Graphic Novels'" class="dropdown_button">Graphic
+            Novels</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Fiction'" class="dropdown_button">Fiction</button>
+      </div>
+
+      <div>
+         <button onclick="select_subject_dialog.dataset.value = 'Spanish RES'" class="dropdown_button">Spanish
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Social Sciences RES'" class="dropdown_button">Social
+            Sciences RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Religion RES'" class="dropdown_button">Religion
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Phydics RES'" class="dropdown_button">Phydics
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'PE RES'" class="dropdown_button">PE RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Maths RES'" class="dropdown_button">Maths RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Malti RES'" class="dropdown_button">Malti RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Italian RES'" class="dropdown_button">Italian
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Hospitality RES'" class="dropdown_button">Hospitality
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'History RES'" class="dropdown_button">History
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Geography RES'" class="dropdown_button">Geography
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'General Science RES'" class="dropdown_button">General
+            Science RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'French RES'" class="dropdown_button">French
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'English RES'" class="dropdown_button">English
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Education RES'" class="dropdown_button">Education
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Economics RES'" class="dropdown_button">Economics
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Drama RES'" class="dropdown_button">Drama RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Design & Technology RES'"
+            class="dropdown_button">Design & Technology RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Computing RES'" class="dropdown_button">Computing
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Chemistry RES'" class="dropdown_button">Chemistry
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Art RES'" class="dropdown_button">Art RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Accounts RES'" class="dropdown_button">Accounts
+            RES</button>
+         <button onclick="select_subject_dialog.dataset.value = 'Biology RES'" class="dropdown_button">Biology
+            RES</button>
+      </div>
+   </dialog>
+
+
+
+   <dialog
+      style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
+      id="select_book_level_dialog">
+      <div style="margin: 0.6em; width: 11em;">
+         Levels:
+         <hr>
+      </div>
+
+      <button onclick="select_level_dialog.dataset.value = 'Red'" class="dropdown_button">Red</button>
+      <button onclick="select_level_dialog.dataset.value = 'Green'" class="dropdown_button">Green</button>
+      <button onclick="select_level_dialog.dataset.value = 'Blue'" class="dropdown_button">Blue</button>
+      <button onclick="select_level_dialog.dataset.value = 'Yellow'" class="dropdown_button">Yellow</button>
+      <button onclick="select_level_dialog.dataset.value = 'Brown'" class="dropdown_button">Brown</button>
+   </dialog>
+
+
+
+
    <dialog class="j95r4ji5r bigdialog" id="add_book_to_borrow_dialog">
       <div style="    display: flex;
       height: 100%;
@@ -327,7 +414,7 @@
    <div style="display: none;" id="container_book" class="container">
       <div id="search_area" class="search_area panel">
 
-         <!--
+
          <dialog
             style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
             id="filter_select_dialog">
@@ -336,14 +423,47 @@
                <hr>
             </div>
 
-            <button onclick="" class="dropdown_button">Location</button>
-
-            <button onclick="add_book_filter('subject')" class="dropdown_button">Subject</button>
-            <button onclick="add_book_filter('level')" class="dropdown_button">Level</button>
-            <button onclick="add_book_filter('id')" class="dropdown_button">Id Type</button>
+            <button onclick="filter_select_dialog_location.show()" class="dropdown_button">Location</button>
+            <button onclick="select_subject_dialog.show()" class="dropdown_button">Subject</button>
+            <button onclick="select_book_level_dialog_search.show()" class="dropdown_button">Level</button>
+            <button onclick="filter_select_dialog_id_type.show()" class="dropdown_button">Id Type</button>
          </dialog>
-         <button style="width: fit-content; margin-bottom: 10em;" onclick="filter_select_dialog.show()">Add Filter</button>
+         <button style="width: fit-content; margin-bottom: 10em;" onclick="filter_select_dialog.show()">Add
+            Filter
+         </button>
 
+
+         <dialog
+            style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
+            id="filter_select_dialog_location">
+            <div style="margin: 0.6em; width: 11em;">
+               Locations:
+               <hr>
+            </div>
+
+            <button onclick="add_book_filter('location','shelf')" class="dropdown_button">In Shelf</button>
+            <button onclick="add_book_filter('location','borrowing')" class="dropdown_button">Borrowing</button>
+            <button onclick="add_book_filter('location','lost')" class="dropdown_button">Lost</button>
+            <button onclick="add_book_filter('location','scrapped')" class="dropdown_button">Scrapped</button>
+         </dialog>
+
+         <dialog
+            style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
+            id="select_book_level_dialog_search">
+            <div style="margin: 0.6em; width: 11em;">
+               Levels:
+               <hr>
+            </div>
+
+            <button onclick="add_book_filter('level','Red');" class="dropdown_button">Red</button>
+            <button onclick="add_book_filter('level','Green');" class="dropdown_button">Green</button>
+            <button onclick="add_book_filter('level','Blue');" class="dropdown_button">Blue</button>
+            <button onclick="add_book_filter('level','Yellow');" class="dropdown_button">Yellow</button>
+            <button onclick="add_book_filter('level','Brown');" class="dropdown_button">Brown</button>
+         </dialog>
+
+
+         <!-- 
          
          <select style="margin-bottom: 1em; background-color: var(--color-primary-80); box-shadow: none;" name="test_chip" id="book_lost_chip" class="chip_dropdown">
             <option value="any">Any</option>
@@ -360,7 +480,8 @@
             <option value="true">Borrowing</option>
             <option value="false">In Shelf</option>
          </select>
--->
+
+      
 
          <div style="height: 2.8em;" class="accordian">
             <button data-open="false" onclick="
@@ -392,7 +513,7 @@
                <button class="toggle_chip">Borrowing</button>
             </div>
          </div>
-      
+      -->
 
          <div style="display: flex;">
             <div class="input-container">
