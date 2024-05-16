@@ -427,6 +427,15 @@ body.hasHover .list_item:hover
     width: 100%;
 }
 
+.display_area_quick_buttons{
+    display: flex;
+    z-index: 5;
+    border-bottom: 1px solid var(--color-neutral-variant60);
+    position: sticky;
+    top: 0;
+    background: var(--color-background);
+}
+
 .account_dialog
 {
     z-index: -1;
@@ -1233,6 +1242,7 @@ body.hasHover ::-webkit-scrollbar-thumb:hover
 .chip_dropdown{
     font-size: 1.1em;
     width: fit-content;
+    border-radius: 6px;
     padding: 2px;
     text-align: center;
 }

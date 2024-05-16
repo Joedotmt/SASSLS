@@ -61,7 +61,7 @@
       <div style=" display: flex; justify-content: flex-end;"> <button onclick="close_unsaved.close()"
             style="margin-right: 0.1em; border: 0;">Cancel</button> <button onclick="
                      swap_display_area_mode_to_display(); 
-                     close_unsaved.close(); 
+                     close_unsaved.close();
                      if (book_edit_button.dataset.currentid == 'creation') 
                      {
                         if (nextid_book == '')
@@ -327,7 +327,7 @@
    <div style="display: none;" id="container_book" class="container">
       <div id="search_area" class="search_area panel">
 
-         <button style="width: fit-content;" onclick="filter_select_dialog.show()">Add Filter</button>
+         <!--
          <dialog
             style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
             id="filter_select_dialog">
@@ -335,13 +335,32 @@
                Filter by:
                <hr>
             </div>
-            <button onclick="add_book_filter('lost')" class="dropdown_button">Lost</button>
-            <button onclick="add_book_filter('scrapped')" class="dropdown_button">Scrapped</button>
-            <button onclick="add_book_filter('location')" class="dropdown_button">Location</button>
-            <button onclick="add_book_filter('id')" class="dropdown_button">Id Type</button>
+
+            <button onclick="" class="dropdown_button">Location</button>
+
             <button onclick="add_book_filter('subject')" class="dropdown_button">Subject</button>
             <button onclick="add_book_filter('level')" class="dropdown_button">Level</button>
+            <button onclick="add_book_filter('id')" class="dropdown_button">Id Type</button>
          </dialog>
+         <button style="width: fit-content; margin-bottom: 10em;" onclick="filter_select_dialog.show()">Add Filter</button>
+
+         
+         <select style="margin-bottom: 1em; background-color: var(--color-primary-80); box-shadow: none;" name="test_chip" id="book_lost_chip" class="chip_dropdown">
+            <option value="any">Any</option>
+            <option value="true">Lost</option>
+            <option value="false">Not Lost</option>
+         </select>
+         <select style="margin-bottom: 1em; background-color: var(--color-primary-80); box-shadow: none;" id="book_lost_chip" class="chip_dropdown">
+            <option value="any">Any</option>
+            <option value="true">Scrapped</option>
+            <option value="false">Not Scrapped</option>
+         </select>
+         <select style="margin-bottom: 1em; background-color: var(--color-primary-80); box-shadow: none;" name="test_chip" id="book_lost_chip" class="chip_dropdown">
+            <option value="any">Any</option>
+            <option value="true">Borrowing</option>
+            <option value="false">In Shelf</option>
+         </select>
+-->
 
          <div style="height: 2.8em;" class="accordian">
             <button data-open="false" onclick="
@@ -360,44 +379,20 @@
                   this.childNodes[3].style.rotate = '180deg';
                }
                " class="accordian_button">
-               <div>States</div>
+               <div>Location</div>
                <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
                   class="material-symbols-outlined">
                   expand_more
                </span>
             </button>
             <div style="margin: 1em;">
-
                <button class="toggle_chip">Lost</button>
-
-
-
-               <select style="margin-bottom: 1em; background-color: var(--color-primary-80); box-shadow: none;"
-                  name="test_chip" id="book_lost_chip" class="chip_dropdown">
-                  <option value="true">Lost</option>
-                  <option value="false">Not Lost</option>
-                  <option value="false">Clear</option>
-               </select>
-               <!-- 
-               <select
-                  onchange="if (book_scrapped_chip.value == 'any') {book_scrapped_chip.selectedIndex = 0; book_scrapped_chip.style.background = 'transparent';} else {book_scrapped_chip.style.background = 'var(--color-primary-80)';}"
-                  style="margin-bottom: 1em;" name="test_chip" id="book_scrapped_chip" class="chip_dropdown">
-                  <option value="any" selected disabled hidden>Scrappedness</option>
-                  <option value="any">All</option>
-                  <option value="true">Scrapped</option>
-                  <option value="false">Not Scrapped</option>
-               </select>
-               <select style="margin-bottom: 1em; background: var(--color-primary-80); box-shadow: none;" onchange=""
-                  name="book_sort_chip" id="test_chip" class="chip_dropdown">
-                  <option value="created">Created</option>
-                  <option value="title">Title</option>
-                  <option value="updated">Updated</option>
-                  <option value="price">Price</option>
-               </select>Write your comments here -->
+               <button class="toggle_chip">Scrapped</button>
+               <button class="toggle_chip">In Shelf</button>
+               <button class="toggle_chip">Borrowing</button>
             </div>
          </div>
-
-
+      
 
          <div style="display: flex;">
             <div class="input-container">
@@ -426,10 +421,19 @@
          <div style="margin-bottom: 1em;" class="input-container">
             <select onchange="list_books()" style="width: 100%;" id="book_level_search_select" type="text"
                class="input-google">
-               <option value="all">All</option>
+               <option value="all">Any</option>
             </select>
             <label class="input_placeholder infni04fjif">Level</label>
          </div>
+
+         <div style="margin-bottom: 1em;" class="input-container">
+            <select onchange="list_books()" style="width: 100%;" id="book_location_search_select" type="text"
+               class="input-google">
+               <option value="all">Any</option>
+            </select>
+            <label class="input_placeholder infni04fjif">Location</label>
+         </div>
+
          <div id="book_search_selector_lost_thing" data-value="none" style="display: flex; margin-bottom: 0.5em;">
             <button data-value="false" data-state="false" class="segmented_button_button"
                onclick="segmented_button_thing(event); list_books();"
@@ -519,15 +523,13 @@
          <div class="list_area_list" id="list_area_list"></div>
       </div>
       <div id="display_area" class="display_area panel">
-         <div
-            style="display: flex; display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
+         <div class="display_area_quick_buttons">
             <button onclick="" style=" margin: 5px; border: 0; height: 40px; width: 40px;" class="button_circle">
                <span class="material-symbols-outlined">
                   arrow_back
                </span>
             </button>
             <div id="i9i9i9i9i9i9i9" style="display: flex; margin-left: auto;">
-
             </div>
          </div>
 
@@ -625,7 +627,8 @@
                      <div id="display_panel_book_author">by -----</div>
                   </div>
                   <div class="e00j430985t">
-                     <div style="background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: column; justify-content: center;">
+                     <div
+                        style="background-color: var(--color-surface-1); padding: 0.5em; flex-grow: 1; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: column; justify-content: center;">
                         <div id="display_panel_book_classification_label" style="justify-self: end;">000.0 ---</div>
                         <div id="display_panel_book_isbn">ISBN: 0000000000000</div>
                         <div id="display_panel_book_book_id"> ID: ----</div>
@@ -735,7 +738,7 @@
 
 
       <div id="display_area_borrower" class="display_area panel">
-         <div style="display: flex; border-bottom: 1px solid; border-bottom: 1px solid var(--color-neutral-variant60);">
+         <div class="display_area_quick_buttons">
             <button onclick="swap_display_area_mode_borrower_to_none()"
                style=" margin: 5px; border: 0; height: 40px; width: 40px;" class="button_circle"> <span
                   class="material-symbols-outlined">arrow_back</span>

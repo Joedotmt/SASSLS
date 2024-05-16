@@ -63,33 +63,6 @@ window.addEventListener(
     false,
 );
 
-function add_book_filter(type)
-{
-    switch (type)
-    {
-        case "lost":
-
-            break;
-        case "":
-
-            break;
-        case "lost":
-
-            break;
-        case "":
-
-            break;
-        case "lost":
-
-            break;
-        case "":
-
-            break;
-        default:
-            break;
-    }
-}
-
 let input_elementsArray = document.querySelectorAll(".input-google");
 
 input_elementsArray.forEach(function (elem)
@@ -434,6 +407,16 @@ function list_selected_collection()
             list_prints();
     }
 }
+
+const book_state = {
+    filters:[],
+    add_filter: function (filter) {
+        
+    }
+}
+
+
+
 async function save_changes_handler_book(event)
 {
     if (display_area_edit_mode)
@@ -1286,16 +1269,16 @@ async function list_borrowers()
             let info_div = document.createElement("div");
             info_div.className = "list_item_info_text";
 
-            info_div.innerHTML = `${rec.name} ${rec.surname} 
-            <label style="  font-family: var(--the-font);
-                            display: flex;
-                            width: 100%;
-                            justify-content: space-between;">
-                ${rec.group} <div style="    text-align: right;
-                                            background: var(--color-surface-5);
-                                            padding: 0.1em 0.3em;
-                                            border-radius: 8px; font-family: var(--the-robo-font)">${rec.borrower_id}</div>
-            </label>`;
+            info_div.innerHTML = 
+            `
+            ${rec.name} ${rec.surname} 
+            <label style="font-family: var(--the-font); display: flex; width: 100%; justify-content: space-between;">
+                ${rec.group}
+                <div style="text-align: right; background: var(--color-surface-5); padding: 0.1em 0.3em; border-radius: 8px; font-family: var(--the-robo-font)">
+                    ${rec.borrower_id}
+                </div>
+            </label>
+            `;
 
 
             list_item.appendChild(preview_image);
