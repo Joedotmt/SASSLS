@@ -38,6 +38,8 @@
    </button>
 
 
+   <!--
+
    <dialog
       style="display: flex; border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
       id="select_subject_dialog">
@@ -121,7 +123,7 @@
       <button onclick="select_level_dialog.dataset.value = 'Brown'" class="dropdown_button">Brown</button>
    </dialog>
 
-
+-->
 
 
    <dialog class="j95r4ji5r bigdialog" id="add_book_to_borrow_dialog">
@@ -414,106 +416,7 @@
    <div style="display: none;" id="container_book" class="container">
       <div id="search_area" class="search_area panel">
 
-
-         <dialog
-            style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
-            id="filter_select_dialog">
-            <div style="margin: 0.6em; width: 11em;">
-               Filter by:
-               <hr>
-            </div>
-
-            <button onclick="filter_select_dialog_location.show()" class="dropdown_button">Location</button>
-            <button onclick="select_subject_dialog.show()" class="dropdown_button">Subject</button>
-            <button onclick="select_book_level_dialog_search.show()" class="dropdown_button">Level</button>
-            <button onclick="filter_select_dialog_id_type.show()" class="dropdown_button">Id Type</button>
-         </dialog>
-         <button style="width: fit-content; margin-bottom: 10em;" onclick="filter_select_dialog.show()">Add
-            Filter
-         </button>
-
-
-         <dialog
-            style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
-            id="filter_select_dialog_location">
-            <div style="margin: 0.6em; width: 11em;">
-               Locations:
-               <hr>
-            </div>
-
-            <button onclick="add_book_filter('location','shelf')" class="dropdown_button">In Shelf</button>
-            <button onclick="add_book_filter('location','borrowing')" class="dropdown_button">Borrowing</button>
-            <button onclick="add_book_filter('location','lost')" class="dropdown_button">Lost</button>
-            <button onclick="add_book_filter('location','scrapped')" class="dropdown_button">Scrapped</button>
-         </dialog>
-
-         <dialog
-            style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
-            id="select_book_level_dialog_search">
-            <div style="margin: 0.6em; width: 11em;">
-               Levels:
-               <hr>
-            </div>
-
-            <button onclick="add_book_filter('level','Red');" class="dropdown_button">Red</button>
-            <button onclick="add_book_filter('level','Green');" class="dropdown_button">Green</button>
-            <button onclick="add_book_filter('level','Blue');" class="dropdown_button">Blue</button>
-            <button onclick="add_book_filter('level','Yellow');" class="dropdown_button">Yellow</button>
-            <button onclick="add_book_filter('level','Brown');" class="dropdown_button">Brown</button>
-         </dialog>
-
-
-         <!-- 
-         
-         <select style="margin-bottom: 1em; background-color: var(--color-primary-80); box-shadow: none;" name="test_chip" id="book_lost_chip" class="chip_dropdown">
-            <option value="any">Any</option>
-            <option value="true">Lost</option>
-            <option value="false">Not Lost</option>
-         </select>
-         <select style="margin-bottom: 1em; background-color: var(--color-primary-80); box-shadow: none;" id="book_lost_chip" class="chip_dropdown">
-            <option value="any">Any</option>
-            <option value="true">Scrapped</option>
-            <option value="false">Not Scrapped</option>
-         </select>
-         <select style="margin-bottom: 1em; background-color: var(--color-primary-80); box-shadow: none;" name="test_chip" id="book_lost_chip" class="chip_dropdown">
-            <option value="any">Any</option>
-            <option value="true">Borrowing</option>
-            <option value="false">In Shelf</option>
-         </select>
-
-      
-
-         <div style="height: 2.8em;" class="accordian">
-            <button data-open="false" onclick="
-               if (this.dataset.open == 'true')
-               {
-                  this.dataset.open = 'false'
-                  this.parentElement.style.height = '2.8em'
-                  this.style.background = '';
-                  this.childNodes[3].style.rotate = '0deg';
-               }
-               else
-               {
-                  this.dataset.open = 'true'
-                  this.parentElement.style.height = '20em'
-                  this.style.background = 'var(--color-ref-neutral-100)';
-                  this.childNodes[3].style.rotate = '180deg';
-               }
-               " class="accordian_button">
-               <div>Location</div>
-               <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
-                  class="material-symbols-outlined">
-                  expand_more
-               </span>
-            </button>
-            <div style="margin: 1em;">
-               <button class="toggle_chip">Lost</button>
-               <button class="toggle_chip">Scrapped</button>
-               <button class="toggle_chip">In Shelf</button>
-               <button class="toggle_chip">Borrowing</button>
-            </div>
-         </div>
-      -->
+   
 
          <div style="display: flex;">
             <div class="input-container">
