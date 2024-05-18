@@ -23,7 +23,7 @@
    <link rel="icon" type="image/x-icon" href="SASLIB_logo.png">
 </head>
 
-<body class="green_light">
+<body class="green_dark">
    <button id="dpdb_add_button_FAKE" class="iriiririr9">
       <div style="transform: scaleX(1) scaleY(1); display: flex; transition: 0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97);"
          id="iirirri9i49">
@@ -219,8 +219,8 @@
 
    <dialog id="migration_id_confirmation_dialog">
       <div
-         style=" padding: 3vw; display: flex; flex-direction: column; align-items: center; width: fit-content; height: fit-content; margin: auto; border-radius: 1em;">
-         <img style="height: calc(100vh - 13em); width: calc(100vw - 3em); margin-bottom: 1em;" id="ir040jr098"
+         style="background: var(--color-surface-1); padding: 3vw; display: flex; flex-direction: column; align-items: center; width: fit-content; height: fit-content; margin: auto; border-radius: 1em;">
+         <img style="height: calc(100vh - 13em); width: auto; margin-bottom: 1em;" id="ir040jr098"
             src="3429jr9.svg"></img>
          <div style="display: flex;"> <button onclick="migration_id_confirmation_dialog.close();"
                style="margin-right: 0.5em;">Cancel</button>
@@ -416,7 +416,112 @@
    <div style="display: none;" id="container_book" class="container">
       <div id="search_area" class="search_area panel">
 
-   
+
+
+         <div style="height: 2.8em;" class="accordian">
+            <button data-open="false" onclick="
+               if (this.dataset.open == 'true')
+               {
+                  this.dataset.open = 'false'
+                  this.parentElement.style.height = '2.8em'
+                  this.style.background = '';
+                  this.childNodes[3].style.rotate = '0deg';
+               }
+               else
+               {
+                  this.dataset.open = 'true'
+                  this.parentElement.style.height = '11em'
+                  this.style.background = 'var(--color-ref-neutral-100)';
+                  this.childNodes[3].style.rotate = '180deg';
+               }
+               " class="accordian_button">
+               <div>Location</div>
+               <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
+                  class="material-symbols-outlined">
+                  expand_more
+               </span>
+            </button>
+            <div style="margin: 1em;     margin: 1em;
+            display: flex;
+            flex-wrap: wrap;">
+               <button class="toggle_chip">Lost</button>
+               <button class="toggle_chip">Scrapped</button>
+               <button class="toggle_chip">In Shelf</button>
+               <button class="toggle_chip">Borrowing</button>
+            </div>
+         </div>
+
+         <div style="height: 2.8em;" class="accordian">
+            <button data-open="false" onclick="
+               if (this.dataset.open == 'true')
+               {
+                  this.dataset.open = 'false'
+                  this.parentElement.style.height = '2.8em'
+                  this.style.background = '';
+                  this.childNodes[3].style.rotate = '0deg';
+               }
+               else
+               {
+                  this.dataset.open = 'true'
+                  this.parentElement.style.height = '11em'
+                  this.style.background = 'var(--color-ref-neutral-100)';
+                  this.childNodes[3].style.rotate = '180deg';
+               }
+               " class="accordian_button">
+               <div>Level</div>
+               <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
+                  class="material-symbols-outlined">
+                  expand_more
+               </span>
+            </button>
+            <div style="margin: 1em;     margin: 1em;
+            display: flex;
+            flex-wrap: wrap;">
+               <button class="toggle_chip">Brown</button>
+               <button class="toggle_chip">Yellow</button>
+               <button class="toggle_chip">Blue</button>
+               <button class="toggle_chip">Green</button>
+               <button class="toggle_chip">Red</button>
+            </div>
+         </div>
+
+         <div style="height: 2.8em; margin-bottom: 2em;" class="accordian">
+            <button data-open="false" onclick="
+               if (this.dataset.open == 'true')
+               {
+                  this.dataset.open = 'false'
+                  this.parentElement.style.height = '2.8em'
+                  this.style.background = '';
+                  this.childNodes[3].style.rotate = '0deg';
+               }
+               else
+               {
+                  this.dataset.open = 'true'
+                  this.parentElement.style.height = '20em'
+                  this.style.background = 'var(--color-ref-neutral-100)';
+                  this.childNodes[3].style.rotate = '180deg';
+               }
+               " class="accordian_button">
+               <div>Subject</div>
+               <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
+                  class="material-symbols-outlined">
+                  expand_more
+               </span>
+            </button>
+            <div class="book_subject_accordian"
+               style="    overflow-y: scroll;
+               overflow-x: hidden;
+               margin: 1em;
+               height: 15em;
+               width: fit-content;
+               display: flex;
+               flex-wrap: wrap;">
+
+            </div>
+         </div>
+
+
+
 
          <div style="display: flex;">
             <div class="input-container">
@@ -454,6 +559,10 @@
             <select onchange="list_books()" style="width: 100%;" id="book_location_search_select" type="text"
                class="input-google">
                <option value="all">Any</option>
+               <option value="all">Lost</option>
+               <option value="all">Scrapped</option>
+               <option value="all">In Shelf</option>
+               <option value="all">Borrowing</option>
             </select>
             <label class="input_placeholder infni04fjif">Location</label>
          </div>
@@ -565,13 +674,13 @@
                   type="text" class="input-google"> <label class="input_placeholder infni04fjif">Author</label>
             </div>
             <div
-               style=" background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
-               <div style="display: flex;flex-direction: column;justify-content: center; font-family: 'roboto mono';">
-                  <div id="display_panel_book_book_id_editing">ID: ----</div>
-                  <div id="display_panel_book_legacy_book_id_editing">IDL: 00000</div>
+               style=" background-color: var(--color-surface-1); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
+               <div style="margin-right: 1em; display: flex;flex-direction: column;justify-content: center; font-family: 'roboto mono';">
+                  <div style="text-wrap: nowrap;" id="display_panel_book_book_id_editing">ID: ----</div>
+                  <div style="text-wrap: nowrap;" id="display_panel_book_legacy_book_id_editing">IDL: 00000</div>
                </div>
                <button id="j5498" onclick="migration_id_confirmation_dialog.showModal()"
-                  style="width: fit-content; margin: 0.5em;"> Migrate to New ID </button>
+                  style="width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;"> Migrate to New ID </button>
             </div>
             <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_isbn_editing"
                   type="text" class="input-google"> <label class="input_placeholder infni04fjif">ISBN</label> </div>
@@ -597,6 +706,18 @@
                <label class="input_placeholder infni04fjif">Subject</label>
             </div>
 
+            <div style="margin-bottom: 0.8em; font-size: 1.4em;">
+               <div style="display: flex; margin-bottom: 0.5em;">
+                  <input onclick="display_panel_book_lost_scrapped_editing_handle()" id="display_panel_book_scrapped_editing" type="checkbox">
+                  <label style="margin-left: 0.3em;">Scrapped</label>
+               </div>
+               <div style="display: flex; margin-bottom: 0.5em;">
+                  <input onclick="display_panel_book_lost_scrapped_editing_handle()" id="display_panel_book_lost_editing" type="checkbox">
+                  <label style="margin-left: 0.3em;">Lost</label>
+               </div>
+            </div>
+
+<!--
             <div data-onlyone="true" id="display_panel_book_lost_editing" data-value="none"
                style="display: flex; margin-bottom: 0.5em;">
                <button data-value="false" data-state="false" class="segmented_button_button"
@@ -624,7 +745,7 @@
                   Not Scrapped
                </button>
 
-            </div>
+            </div> -->
 
             <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_price_editing"
                   type="number" min="0" autocomplete="off" class="input-google"> <label
@@ -633,7 +754,7 @@
 
             <div style="margin-bottom: 1em;" class="input-container"> <input
                   id="display_panel_book_preview_url_override_editing" type="text" class="input-google"> <label
-                  class="input_placeholder infni04fjif">Preview Image URL</label>
+                  class="input_placeholder infni04fjif">Cover Image URL</label>
             </div>
 
          </div>

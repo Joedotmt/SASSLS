@@ -32,6 +32,64 @@ let current_page;
 
 collection_change()
 
+function display_panel_book_lost_scrapped_editing_handle()
+{
+    if (display_panel_book_scrapped_editing.checked)
+    {
+        display_panel_book_lost_editing.disabled = true
+    }
+    else
+    {
+        display_panel_book_lost_editing.disabled = false
+    }
+    if (display_panel_book_lost_editing.checked)
+    {
+        display_panel_book_scrapped_editing.disabled = true
+    }
+    else
+    {
+        display_panel_book_scrapped_editing.disabled = false
+    }
+}
+
+
+document.querySelectorAll(".book_subject_accordian").forEach(ele =>
+{
+    ele.innerHTML =
+        `
+        <button class="toggle_chip">Fiction</button>
+        <button class="toggle_chip">Non-Fiction</button>
+        <button class="toggle_chip">Poetry & Plays</button>
+        <button class="toggle_chip">Graphic Novels</button>
+        <button class="toggle_chip">Reference</button>
+        <button class="toggle_chip">Melitensia</button>
+
+        <button class="toggle_chip">Spanish RES</button>
+        <button class="toggle_chip">Social Sciences RES</button>
+        <button class="toggle_chip">Religion RES</button>
+        <button class="toggle_chip">Physics RES</button>
+        <button class="toggle_chip">PE RES</button>
+        <button class="toggle_chip">Maths RES</button>
+        <button class="toggle_chip">Malti RES</button>
+        <button class="toggle_chip">Italian RES</button>
+        <button class="toggle_chip">Hospitality RES</button>
+        <button class="toggle_chip">History RES</button>
+        <button class="toggle_chip">Geography RES</button>
+        <button class="toggle_chip">General Science RES</button>
+        <button class="toggle_chip">French RES</button>
+        <button class="toggle_chip">English RES</button>
+        <button class="toggle_chip">Education RES</button>
+        <button class="toggle_chip">Economics RES</button>
+        <button class="toggle_chip">Drama RES</button>
+        <button class="toggle_chip">Design & Technology RES</button>
+        <button class="toggle_chip">Computing RES</button>
+        <button class="toggle_chip">Chemistry RES</button>
+        <button class="toggle_chip">Art RES</button>
+        <button class="toggle_chip">Accounts RES</button>
+        <button class="toggle_chip">Biology RES</button>
+    `;
+});
+
 document.querySelectorAll(".toggle_chip").forEach(ele =>
 {
     ele.addEventListener("click", function ()
@@ -68,7 +126,7 @@ input_elementsArray.forEach(function (elem)
 {
     elem.addEventListener("focusout", (event) =>
     {
-        if (elem.value != "")
+        if (elem.value != "" || elem.placeholder != "")
         {
             try
             {
@@ -254,6 +312,9 @@ function set_book_levels_lists()
 
 }
 
+
+
+
 let book_filters = { location: new Set([]), subject: new Set([]), level: new Set([]), id_type: new Set([]) }
 let filtertobedeletedbook = null
 function add_book_filter(field, value)
@@ -275,7 +336,7 @@ function add_book_filter(field, value)
     //this has to be before the other one btw.
     document.querySelectorAll(".delete_after_filter_refresh_books_change").forEach(element =>
     {
-        
+
         book_filters.level.delete(element.dataset.value)
     });
 
@@ -580,6 +641,8 @@ async function save_changes_handler_borrower(event)
         swap_display_area_mode_borrower_to_edit()
     }
 }
+
+change_dark_light_theme()
 function change_dark_light_theme()
 {
     let new_string = document.body.className.replace("light", "dark")
@@ -1124,7 +1187,17 @@ async function clickHandler(ARGUMENT_ID, excused_from_dialog = false)
 
     display_panel_book_title_editing.value = book.title
     display_panel_book_author_editing.value = book.author
-    display_panel_book_preview_url_override_editing.value = book.preview_url_override
+
+    if (book.preview_url_override == "")
+    { 
+        display_panel_book_preview_url_override_editing.placeholder = "Automatic"
+    }
+    else
+    {
+        display_panel_book_preview_url_override_editing.value = book.preview_url_override
+    }
+
+
     display_panel_book_book_id_editing.innerText = "ID: " + book.book_id
 
     if (book.legacy_book_id.match("DEPRECATED_"))
