@@ -316,54 +316,47 @@ function set_book_levels_lists()
 
 
 let book_filters = { location: new Set([]), subject: new Set([]), level: new Set([]), id_type: new Set([]) }
-let filtertobedeletedbook = null
 function add_book_filter(field, value)
 {
-    if (field == "location")
-    {
-        book_filters[field] = value
-    }
-    else
-    {
-        book_filters[field].add(value)
-    }
-    p(book_filters)
+    book_filters[field].add(value)
     select_book_level_dialog_search.close()
     filter_select_dialog_location.close()
-    filter_select_dialog.close()
-
-
-    //this has to be before the other one btw.
-    document.querySelectorAll(".delete_after_filter_refresh_books_change").forEach(element =>
-    {
-
-        book_filters.level.delete(element.dataset.value)
-    });
-
-    document.querySelectorAll(".delete_after_filter_refresh_books").forEach(element =>
+    search_filter_select_dialog.close()
+    display_book_filters()
+}
+function remove_book_filter(field, value)
+{
+    book_filters[field].delete(value)
+    display_book_filters()
+}
+function display_book_filters()
+{
+    p(book_filters)
+    document.querySelectorAll(".book_filter_chip").forEach(element =>
     {
         element.remove()
     });
 
-
-    book_filters.level.forEach(element =>
-    {
-        filter = document.createElement("button")
-        filter.classList.add("chip_dropdown")
-        filter.classList.add("delete_after_filter_refresh_books")
-        filter.style.background = "var(--color-primary-80)"
-        filter.style.border = "none"
-        filter.style.paddingLeft = "8px"
-        filter.dataset.value = element;
-        filter.onclick = function () { select_book_level_dialog_search.show(); this.classList.add("delete_after_filter_refresh_books_change") }
-        filter.innerHTML = `
-        ${element}
-        <span class="material-symbols-outlined">
-            arrow_drop_down
-        </span>
-        `
-        search_area.insertBefore(filter, search_area.firstChild)
-    });
+    for (let index = 0; index < Object.keys(book_filters).length; index++) {
+        const element = [Object.keys(book_filters)[index], Object.values(book_filters)[index]];
+        element[1].forEach(ele =>
+        {
+            filter = document.createElement("button")
+            filter.classList.add("chip_dropdown")
+            filter.classList.add("book_filter_chip")
+            filter.style.background = "var(--color-primary-80)"
+            filter.style.border = "none"
+            filter.style.paddingLeft = "8px"
+            filter.onclick = function () { remove_book_filter(element[0], ele) }
+            filter.innerHTML = `
+                                ${ele}
+                                <span class="material-symbols-outlined">
+                                    close
+                                </span>
+                                `
+            search_area.insertBefore(filter, search_area.firstChild)
+        });
+    }
 }
 
 
@@ -1189,7 +1182,7 @@ async function clickHandler(ARGUMENT_ID, excused_from_dialog = false)
     display_panel_book_author_editing.value = book.author
 
     if (book.preview_url_override == "")
-    { 
+    {
         display_panel_book_preview_url_override_editing.placeholder = "Automatic"
     }
     else

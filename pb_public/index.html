@@ -416,8 +416,56 @@
    <div style="display: none;" id="container_book" class="container">
       <div id="search_area" class="search_area panel">
 
+         <dialog
+            style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
+            id="search_filter_select_dialog">
+            <div style="margin: 0.6em; width: 11em;">
+               Filter by:
+               <hr>
+            </div>
+
+            <button onclick="filter_select_dialog_location.show()" class="dropdown_button">Location</button>
+            <button onclick="select_subject_dialog.show()" class="dropdown_button">Subject</button>
+            <button onclick="select_book_level_dialog_search.show()" class="dropdown_button">Level</button>
+            <button onclick="filter_select_dialog_id_type.show()" class="dropdown_button">Id Type</button>
+         </dialog>
+
+         <dialog
+            style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
+            id="filter_select_dialog_location">
+            <div style="margin: 0.6em; width: 11em;">
+               Locations:
+               <hr>
+            </div>
+
+            <button onclick="add_book_filter('location','shelf')" class="dropdown_button">In Shelf</button>
+            <button onclick="add_book_filter('location','borrowing')" class="dropdown_button">Borrowing</button>
+            <button onclick="add_book_filter('location','lost')" class="dropdown_button">Lost</button>
+            <button onclick="add_book_filter('location','scrapped')" class="dropdown_button">Scrapped</button>
+         </dialog>
+
+         <dialog
+            style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
+            id="select_book_level_dialog_search">
+            <div style="margin: 0.6em; width: 11em;">
+               Levels:
+               <hr>
+            </div>
+
+            <button onclick="add_book_filter('level','Red');" class="dropdown_button">Red</button>
+            <button onclick="add_book_filter('level','Green');" class="dropdown_button">Green</button>
+            <button onclick="add_book_filter('level','Blue');" class="dropdown_button">Blue</button>
+            <button onclick="add_book_filter('level','Yellow');" class="dropdown_button">Yellow</button>
+            <button onclick="add_book_filter('level','Brown');" class="dropdown_button">Brown</button>
+         </dialog>
+
+         <button style="width: fit-content; margin-bottom: 10em;" onclick="search_filter_select_dialog.show()">Add
+            Filter
+         </button>
 
 
+         <div style="margin-bottom: 10em;"></div>
+         <!--
          <div style="height: 2.8em;" class="accordian">
             <button data-open="false" onclick="
                if (this.dataset.open == 'true')
@@ -518,7 +566,7 @@
                flex-wrap: wrap;">
 
             </div>
-         </div>
+         </div>-->
 
 
 
@@ -675,12 +723,14 @@
             </div>
             <div
                style=" background-color: var(--color-surface-1); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
-               <div style="margin-right: 1em; display: flex;flex-direction: column;justify-content: center; font-family: 'roboto mono';">
+               <div
+                  style="margin-right: 1em; display: flex;flex-direction: column;justify-content: center; font-family: 'roboto mono';">
                   <div style="text-wrap: nowrap;" id="display_panel_book_book_id_editing">ID: ----</div>
                   <div style="text-wrap: nowrap;" id="display_panel_book_legacy_book_id_editing">IDL: 00000</div>
                </div>
                <button id="j5498" onclick="migration_id_confirmation_dialog.showModal()"
-                  style="width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;"> Migrate to New ID </button>
+                  style="width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;">
+                  Migrate to New ID </button>
             </div>
             <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_isbn_editing"
                   type="text" class="input-google"> <label class="input_placeholder infni04fjif">ISBN</label> </div>
@@ -708,16 +758,18 @@
 
             <div style="margin-bottom: 0.8em; font-size: 1.4em;">
                <div style="display: flex; margin-bottom: 0.5em;">
-                  <input onclick="display_panel_book_lost_scrapped_editing_handle()" id="display_panel_book_scrapped_editing" type="checkbox">
+                  <input onclick="display_panel_book_lost_scrapped_editing_handle()"
+                     id="display_panel_book_scrapped_editing" type="checkbox">
                   <label style="margin-left: 0.3em;">Scrapped</label>
                </div>
                <div style="display: flex; margin-bottom: 0.5em;">
-                  <input onclick="display_panel_book_lost_scrapped_editing_handle()" id="display_panel_book_lost_editing" type="checkbox">
+                  <input onclick="display_panel_book_lost_scrapped_editing_handle()"
+                     id="display_panel_book_lost_editing" type="checkbox">
                   <label style="margin-left: 0.3em;">Lost</label>
                </div>
             </div>
 
-<!--
+            <!--
             <div data-onlyone="true" id="display_panel_book_lost_editing" data-value="none"
                style="display: flex; margin-bottom: 0.5em;">
                <button data-value="false" data-state="false" class="segmented_button_button"
