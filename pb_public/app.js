@@ -565,7 +565,7 @@ async function save_changes_handler_book(event)
                 .collection("books")
                 .update(book_edit_button.dataset.currentid, data);
             await list_books();
-            await display_book(book_edit_button.dataset.currentid);
+            await book_display(book_edit_button.dataset.currentid);
             swap_display_area_mode_to_display();
         }
     } else
@@ -589,16 +589,16 @@ function borrower_close_unsaved_discard_click_handler()
             create_borrower_button.style.background = "";
         } else
         {
-            clickHandler_borrower(nextid_borrower);
+            borrower_display(nextid_borrower);
         }
     } else
     {
         if (nextid_borrower == "")
         {
-            clickHandler_borrower(edit_button_borrower.dataset.currentid);
+            borrower_display(edit_button_borrower.dataset.currentid);
         } else
         {
-            clickHandler_borrower(nextid_borrower);
+            borrower_display(nextid_borrower);
         }
     }
 }
@@ -614,19 +614,19 @@ function book_close_unsaved_discard_click_handler()
             create_button.style.background = "";
         } else
         {
-            display_book(nextid_book);
+            book_display(nextid_book);
         }
     } else
     {
         if (nextid_book == "")
         {
-            display_book(book_edit_button.dataset.currentid);
+            book_display(book_edit_button.dataset.currentid);
         } else if (nextid_book == "creation")
         {
             clickHandler_create();
         } else
         {
-            display_book(nextid_book);
+            book_display(nextid_book);
         }
     }
 }
@@ -671,7 +671,7 @@ async function save_changes_handler_borrower(event)
                 .update(edit_button_borrower.dataset.currentid, data);
         }
         await list_borrowers();
-        await clickHandler_borrower(
+        await borrower_display(
             edit_button_borrower.dataset.currentid,
             true
         );
@@ -985,7 +985,7 @@ async function deprecate_book_id(id)
         .collection("books")
         .update(id, { legacy_book_id: "DEPRECATED_" + rec.legacy_book_id });
     await list_books();
-    await display_book(rec.id);
+    await book_display(rec.id);
 }
 async function list_books()
 {
@@ -1151,10 +1151,10 @@ function playOpenSound()
 
 function book_click_handler(e)
 {
-    display_book(e.srcElement.dataset.id, false);
+    book_display(e.srcElement.dataset.id, false);
 }
 
-async function display_book(ARGUMENT_ID, excused_from_dialog = false)
+async function book_display(ARGUMENT_ID, excused_from_dialog = false)
 {
     playOpenSound();
     let useid = ARGUMENT_ID; //ev.srcElement.dataset.id;
@@ -1400,7 +1400,7 @@ async function list_borrowers()
     });
 
     list_area_list_borrower.innerHTML = `
-        <button id="create_borrower_button" data-id="creation" onclick="clickHandler_borrower(event.srcElement.dataset.id)" style="border-bottom: 2px dashed var(--color-neutral-variant60);" class="list_button list_item">
+        <button id="create_borrower_button" data-id="creation" onclick="borrower_display(event.srcElement.dataset.id)" style="border-bottom: 2px dashed var(--color-neutral-variant60);" class="list_button list_item">
             + Create Borrower
         </button>
     `;
@@ -1419,7 +1419,7 @@ async function list_borrowers()
             list_item.addEventListener("pointerdown", createRipple);
             list_item.setAttribute(
                 "onclick",
-                "clickHandler_borrower(event.srcElement.dataset.id)"
+                "borrower_display(event.srcElement.dataset.id)"
             );
             let preview_image = document.createElement("img");
             preview_image.className = "preview_image";
@@ -1604,7 +1604,7 @@ async function lend_book_to_borrower(bookid, borrowerid)
     };
     p("TRANSACTION CREATION: ", data);
     await pb.collection("transactions").create(data);
-    clickHandler_borrower(borrowerid);
+    borrower_display(borrowerid);
 }
 async function delete_borrower(id)
 {
@@ -1621,11 +1621,11 @@ async function delete_borrower(id)
     await pb.collection("borrowers").delete(id);
     list_borrowers();
 }
-async function clickHandler_borrower(ARGUMENT_BORROWER_ID,excused_from_dialog = false)
+async function borrower_display(ARGUMENT_BORROWER_ID,excused_from_dialog = false)
 {
     playOpenSound();
 
-    let not_creation = (ARGUMENT_BORROWER_ID != "creation")
+    let creation = (ARGUMENT_BORROWER_ID == "creation")
 
     if (display_area_edit_mode_borrower && !excused_from_dialog)
     {
@@ -1645,16 +1645,8 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID,excused_from_dialog = 
    
     
     let borrower;
-    if (not_creation)
-    {
-        delete_borrower_forever.style.display = "flex";
-        swap_display_area_mode_borrower_to_display();
-        borrower = all_borrower_records.find((s) =>
-        {
-            return s.id === ARGUMENT_BORROWER_ID;
-        });
-    }
-    else if (!not_creation)
+    
+    if (creation)
     {
         delete_borrower_forever.style.display = "none";
         swap_display_area_mode_borrower_to_edit();
@@ -1675,6 +1667,15 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID,excused_from_dialog = 
             group: ""
         }
     }
+    else
+    {
+        delete_borrower_forever.style.display = "flex";
+        swap_display_area_mode_borrower_to_display();
+        borrower = all_borrower_records.find((s) =>
+        {
+            return s.id === ARGUMENT_BORROWER_ID;
+        });
+    }
 
 
 
@@ -1686,7 +1687,7 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID,excused_from_dialog = 
     edit_button_borrower.dataset.currentid = ARGUMENT_BORROWER_ID;
 
     // for display mode so no need for creation
-    if (not_creation)
+    if (!creation)
     {
         dpdb_name.innerText = "" + borrower.name;
         dpdb_surname.innerHTML = "&nbsp" + borrower.surname;
@@ -1702,25 +1703,26 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID,excused_from_dialog = 
             expand: "book",
         });
 
-        document.querySelectorAll(".ri9ri49ir9ri49").forEach((bookview) =>
+        document.querySelectorAll(".book_view").forEach((bookview) =>
         {
             bookview.remove();
         });
 
         transaction_list.forEach((transaction) =>
         {
-            book_view = document.createElement("div");
-            book_view.classList = "ri9ri49ir9ri49";
+            let book_view = document.createElement("div");
+            book_view.classList = "book_view";
+            let preview_image_url = "";
             if (transaction.expand.book.preview_url_override == "")
             {
-                preview_url_99393 = `https://covers.openlibrary.org/b/isbn/${transaction.expand.book.isbn}-M.jpg`;
+                preview_image_url = `https://covers.openlibrary.org/b/isbn/${transaction.expand.book.isbn}-M.jpg`;
             } else
             {
-                preview_url_99393 = transaction.expand.book.preview_url_override;
+                preview_image_url = transaction.expand.book.preview_url_override;
             }
             book_view.innerHTML = `<div style="display: flex; border-top: solid var(--color-surface-5) 2px;">
             <div style="margin-top: 0.5em;">
-            <img style=" object-fit: cover; padding: 0.2em; width: 6em; height: calc(100% - 1em); background-color: var(--color-inverse-surface); border-radius: 0.6em;" src="${preview_url_99393}">
+            <img style=" object-fit: cover; padding: 0.2em; width: 6em; height: calc(100% - 1em); background-color: var(--color-inverse-surface); border-radius: 0.6em;" src="${preview_image_url}">
             </div>
             <div
             style="margin-bottom: 0.5em; margin-top: 0.5em; display: flex; align-items: center; width: 100%; justify-content: left; margin-left: 1em;">
@@ -1753,7 +1755,7 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID,excused_from_dialog = 
             </div>
             </div>
             </div>`;
-            jfi4fijfifi54ijfi4.appendChild(book_view);
+            borrower_currently_borrowing_books.appendChild(book_view);
         });
     }
 
@@ -1765,11 +1767,7 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID,excused_from_dialog = 
         .forEach(function (i)
         {
             i.style.background = "";
-            //i.style.borderRadius = "";
-            //i.style.margin = "";
-            //i.style.padding = "";
         });
-    //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
     clickedOne.style.background = "var(--color-on-surface-2)";
 }
 
@@ -1785,7 +1783,7 @@ async function clickHandler_borrower(ARGUMENT_BORROWER_ID,excused_from_dialog = 
 async function return_book(id, person)
 {
     await pb.collection("transactions").update(id, { returned: true });
-    clickHandler_borrower(person);
+    borrower_display(person);
 }
 
 function generate_unique_borrower_id(text)
