@@ -2,24 +2,24 @@
 <html lang="en">
 
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>San Andrea Library</title>
    <script src="/js-sdk-0.19.0/dist/pocketbase.umd.js"></script>
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins" />
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono">
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="fresh.css">
-   <link rel="icon" type="image/x-icon" href="SASLIB_logo.png">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono" />
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet" />
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
+   <link rel="stylesheet" href="style.css" />
+   <link rel="stylesheet" href="fresh.css" />
+   <link rel="icon" type="image/x-icon" href="SASLIB_logo.png" />
 </head>
 
 <body class="green-dark">
@@ -33,105 +33,95 @@
          </div>
       </div>
    </button>
-
-
    <!--
-
-   <dialog
-      style="display: flex; border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
-      id="select_subject_dialog">
-      <div style="margin: 0.6em; width: 11em;">
-         Subjects:
-         <hr>
-      </div>
-
-      <div>
-         <button onclick="select_subject_dialog.dataset.value = 'Non-Fiction'"
-            class="dropdown-button">Non-Fiction</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Melitensia'"
-            class="dropdown-button">Melitensia</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Reference'" class="dropdown-button">Reference</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Poetry and Plays'" class="dropdown-button">Poetry and
-            Plays</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Graphic Novels'" class="dropdown-button">Graphic
-            Novels</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Fiction'" class="dropdown-button">Fiction</button>
-      </div>
-
-      <div>
-         <button onclick="select_subject_dialog.dataset.value = 'Spanish RES'" class="dropdown-button">Spanish
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Social Sciences RES'" class="dropdown-button">Social
-            Sciences RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Religion RES'" class="dropdown-button">Religion
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Phydics RES'" class="dropdown-button">Phydics
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'PE RES'" class="dropdown-button">PE RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Maths RES'" class="dropdown-button">Maths RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Malti RES'" class="dropdown-button">Malti RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Italian RES'" class="dropdown-button">Italian
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Hospitality RES'" class="dropdown-button">Hospitality
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'History RES'" class="dropdown-button">History
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Geography RES'" class="dropdown-button">Geography
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'General Science RES'" class="dropdown-button">General
-            Science RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'French RES'" class="dropdown-button">French
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'English RES'" class="dropdown-button">English
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Education RES'" class="dropdown-button">Education
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Economics RES'" class="dropdown-button">Economics
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Drama RES'" class="dropdown-button">Drama RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Design & Technology RES'"
-            class="dropdown-button">Design & Technology RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Computing RES'" class="dropdown-button">Computing
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Chemistry RES'" class="dropdown-button">Chemistry
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Art RES'" class="dropdown-button">Art RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Accounts RES'" class="dropdown-button">Accounts
-            RES</button>
-         <button onclick="select_subject_dialog.dataset.value = 'Biology RES'" class="dropdown-button">Biology
-            RES</button>
-      </div>
-   </dialog>
-
-
-
-   <dialog
-      style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
-      id="select_book_level_dialog">
-      <div style="margin: 0.6em; width: 11em;">
-         Levels:
-         <hr>
-      </div>
-
-      <button onclick="select_level_dialog.dataset.value = 'Red'" class="dropdown-button">Red</button>
-      <button onclick="select_level_dialog.dataset.value = 'Green'" class="dropdown-button">Green</button>
-      <button onclick="select_level_dialog.dataset.value = 'Blue'" class="dropdown-button">Blue</button>
-      <button onclick="select_level_dialog.dataset.value = 'Yellow'" class="dropdown-button">Yellow</button>
-      <button onclick="select_level_dialog.dataset.value = 'Brown'" class="dropdown-button">Brown</button>
-   </dialog>
-
--->
-
-
+            <dialog
+               style="display: flex; border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
+               id="select_subject_dialog">
+               <div style="margin: 0.6em; width: 11em;">
+                  Subjects:
+                  <hr>
+               </div>
+            
+               <div>
+                  <button onclick="select_subject_dialog.dataset.value = 'Non-Fiction'"
+                     class="dropdown-button">Non-Fiction</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Melitensia'"
+                     class="dropdown-button">Melitensia</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Reference'" class="dropdown-button">Reference</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Poetry and Plays'" class="dropdown-button">Poetry and
+                     Plays</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Graphic Novels'" class="dropdown-button">Graphic
+                     Novels</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Fiction'" class="dropdown-button">Fiction</button>
+               </div>
+            
+               <div>
+                  <button onclick="select_subject_dialog.dataset.value = 'Spanish RES'" class="dropdown-button">Spanish
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Social Sciences RES'" class="dropdown-button">Social
+                     Sciences RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Religion RES'" class="dropdown-button">Religion
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Phydics RES'" class="dropdown-button">Phydics
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'PE RES'" class="dropdown-button">PE RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Maths RES'" class="dropdown-button">Maths RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Malti RES'" class="dropdown-button">Malti RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Italian RES'" class="dropdown-button">Italian
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Hospitality RES'" class="dropdown-button">Hospitality
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'History RES'" class="dropdown-button">History
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Geography RES'" class="dropdown-button">Geography
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'General Science RES'" class="dropdown-button">General
+                     Science RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'French RES'" class="dropdown-button">French
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'English RES'" class="dropdown-button">English
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Education RES'" class="dropdown-button">Education
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Economics RES'" class="dropdown-button">Economics
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Drama RES'" class="dropdown-button">Drama RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Design & Technology RES'"
+                     class="dropdown-button">Design & Technology RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Computing RES'" class="dropdown-button">Computing
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Chemistry RES'" class="dropdown-button">Chemistry
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Art RES'" class="dropdown-button">Art RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Accounts RES'" class="dropdown-button">Accounts
+                     RES</button>
+                  <button onclick="select_subject_dialog.dataset.value = 'Biology RES'" class="dropdown-button">Biology
+                     RES</button>
+               </div>
+            </dialog>
+            
+            
+            
+            <dialog
+               style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
+               id="select_book_level_dialog">
+               <div style="margin: 0.6em; width: 11em;">
+                  Levels:
+                  <hr>
+               </div>
+            
+               <button onclick="select_level_dialog.dataset.value = 'Red'" class="dropdown-button">Red</button>
+               <button onclick="select_level_dialog.dataset.value = 'Green'" class="dropdown-button">Green</button>
+               <button onclick="select_level_dialog.dataset.value = 'Blue'" class="dropdown-button">Blue</button>
+               <button onclick="select_level_dialog.dataset.value = 'Yellow'" class="dropdown-button">Yellow</button>
+               <button onclick="select_level_dialog.dataset.value = 'Brown'" class="dropdown-button">Brown</button>
+            </dialog>
+            
+            -->
    <dialog class="j95r4ji5r bigdialog" id="add_book_to_borrow_dialog">
-      <div style="    display: flex;
-      height: 100%;
-      width: 100%;
-      flex-direction: column;" id="add_book_to_borrow_dialog_container">
-         <div style="    display: flex;
-         margin-top: 0.4em;
-         align-items: center;">
-            <button onclick="close_lend_book_dialog()" style="width: 40px; height: 40px; border: 0" class="button-circle">
+      <div style="display: flex; height: 100%; width: 100%; flex-direction: column;" id="add_book_to_borrow_dialog_container">
+         <div style="display: flex; margin-top: 0.4em; align-items: center;">
+            <button onclick="close_lend_book_dialog()" style="width: 40px; height: 40px; border: 0;" class="button-circle">
                <span class="material-symbols-outlined">
                   close
                </span>
@@ -140,10 +130,9 @@
          </div>
       </div>
    </dialog>
-
    <dialog style="padding: 1em;" id="close_unsaved">
       <div style="padding: 1rem 11rem 3rem 1rem; font-size: 1.2em;">Discard draft?</div>
-      <div style=" display: flex; justify-content: flex-end;">
+      <div style="display: flex; justify-content: flex-end;">
          <button onclick="close_unsaved.close()" style="margin-right: 0.1em; border: 0;">
             Cancel
          </button>
@@ -152,11 +141,9 @@
          </button>
       </div>
    </dialog>
-
-
    <dialog style="padding: 1em;" id="close_unsaved_borrower">
       <div style="padding: 1rem 11rem 3rem 1rem; font-size: 1.2em;">Discard draft?</div>
-      <div style=" display: flex; justify-content: flex-end;">
+      <div style="display: flex; justify-content: flex-end;">
          <button onclick="close_unsaved_borrower.close()" style="margin-right: 0.1em; border: 0;">
             Cancel
          </button>
@@ -165,104 +152,134 @@
          </button>
       </div>
    </dialog>
-
-
-
    <dialog id="migration_id_confirmation_dialog">
       <div style="background: var(--color-surface-1); padding: 3vw; display: flex; flex-direction: column; align-items: center; width: fit-content; height: fit-content; margin: auto; border-radius: 1em;">
-         <img style="height: calc(100vh - 13em); width: auto; margin-bottom: 1em;" id="ir040jr098" src="3429jr9.svg"></img>
-         <div style="display: flex;"> <button onclick="migration_id_confirmation_dialog.close();" style="margin-right: 0.5em;">Cancel</button>
+         <img style="height: calc(100vh - 13em); width: auto; margin-bottom: 1em;" id="ir040jr098" src="3429jr9.svg" />
+         <div style="display: flex;">
+            <button onclick="migration_id_confirmation_dialog.close();" style="margin-right: 0.5em;">Cancel</button>
             <button style="margin-right: 1em;" onclick="migration_id_confirmation_dialog.close(); deprecate_book_id(book_edit_button.dataset.currentid)" class="dialog-button-accept">Migrate</button>
          </div>
       </div>
    </dialog>
    <dialog style="height: fit-content; width: min(93vw, 60em); margin: auto; border-radius: 2em; padding: 1vw;" id="sign_in_dialog">
-      <div style="margin: min(3vw,1em);">
+      <div style="margin: min(3vw, 1em);">
          <div class="h9854h45g">
             <div>
-               <img src="SASLIB_logo.png" class="logo-image" style="height: 5em; width: 5em; opacity: 0.8;" alt="SAS Logo">
+               <img src="SASLIB_logo.png" class="logo-image" style="height: 5em; width: 5em; opacity: 0.8;" alt="SAS Logo" />
                <h1 style="margin: 0;">Sign in</h1>
                <h4 style="margin: 0; margin-bottom: 3em; font-weight: normal;">with your school email</h4>
             </div>
             <form>
                <div style="display: flex; margin: 0;">
-                  <div style="width: 100%" class="input-container">
-                     <input style=" text-align: right; padding-right: 9.9em; margin-right: 0; width: 100%;" class="input-google" id="email_input" autocomplete="email" type="email"> <label style="background-color: var(--color-surface-5);" class="input-placeholder">Email</label>
+                  <div style="width: 100%;" class="input-container">
+                     <input style="text-align: right; padding-right: 9.9em; margin-right: 0; width: 100%;" class="input-google" id="email_input" autocomplete="email" type="email" />
+                     <label style="background-color: var(--color-surface-5);" class="input-placeholder">Email</label>
                   </div>
-                  <label style=" margin: auto; margin-left: 0em; font-size: 1.3em; width: 0px; position: relative; left: -11em; color: var(--color-on-background); opacity: 0.7;">@sanandrea.edu.mt</label>
+                  <label style="margin: auto; margin-left: 0em; font-size: 1.3em; width: 0px; position: relative; left: -11em; color: var(--color-on-background); opacity: 0.7;">@sanandrea.edu.mt</label>
                </div>
                <div style="display: flex; margin-top: 1em;">
                   <div class="input-container">
-                     <input class="input-google" id="password_input" autocomplete="current-password" type="password">
+                     <input class="input-google" id="password_input" autocomplete="current-password" type="password" />
                      <label style="background-color: var(--color-surface-5);" class="input-placeholder">Password</label>
                   </div>
                </div>
             </form>
          </div>
-         <div style=" display: flex; flex-direction: row-reverse; margin-top: 1em;"> <button class="dialog-button-accept">Sign in</button> <button onclick="sign_in_dialog.close()" style="margin-right: 1em; border-color: transparent;">Cancel</button> </div>
-      </div>
-   </dialog>
-   <dialog style="font-size: 2.6vw;" onclose="collection_change()" id="theme_dialog">
-      <div style="background-color: var(--color-surface-1);width: 100%;height: 3.4em;">
-         <div style="display: flex;">
-            <button class="button-circle" onclick="theme_dialog.close()" style=" width: 40px; height: 40px; border-color: transparent; position: relative; top: 0.3em; left: 0.3em;">
-               <span class="material-symbols-outlined"> done </span> </button>
-            <div style=" margin: 8.4px; font-size: 1.4em;">Change Theme</div>
+         <div style="display: flex; flex-direction: row-reverse; margin-top: 1em;">
+            <button class="dialog-button-accept">Sign in</button>
+            <button onclick="sign_in_dialog.close()" style="margin-right: 1em; border-color: transparent;">Cancel</button>
          </div>
       </div>
-      <div style=" display: flex; flex-direction: row-reverse; margin: 1em; position: absolute; bottom: 0; right: 0;">
-         <button class="dialog-button-accept" onclick="theme_dialog.close()"> Save </button> <button onclick="theme_dialog.close()" style="border-color: transparent; margin-right: 1em;"> Save </button>
+   </dialog>
+   <dialog style="font-size: 16px; width: auto; max-width: 500px; padding: 0; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: var(--color-background);" onclose="collection_change()" id="theme_dialog">
+      <div style="padding: 16px; display: flex; align-items: center; border-bottom: 1px solid var(--color-outline);">
+         <button class="button-circle" onclick="theme_dialog.close()" style="width: 40px; height: 40px; border: none; background-color: transparent; margin-right: 16px;">
+            <span class="material-symbols-outlined">close</span>
+         </button>
+         <div style="font-size: 1.25rem; font-weight: 500;">Change Theme Colors</div>
+      </div>
+
+      <div style="padding: 24px; max-height: 60vh; overflow-y: auto;">
+         <div style="display: flex; flex-direction: column; gap: 20px;">
+
+            <div class="theme-assignments" style="display: flex; flex-direction: column; gap: 16px;">
+               <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; background-color: var(--color-surface-variant);">
+                  <span style="font-size: 1.2em;">Books</span>
+                  <select style="font-size: 1.2em; padding: 8px; background-color: var(--color-surface-2); width: auto;">
+                     <option value="green" selected>Green</option>
+                     <option value="blue">Blue</option>
+                     <option value="red">Red</option>
+                     <option value="yellow">Yellow</option>
+                  </select>
+               </div>
+               <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; background-color: var(--color-surface-variant);">
+                  <span style="font-size: 1.2em;">Borrowers</span>
+                  <select style="font-size: 1.2em; padding: 8px; background-color: var(--color-surface-2); width: auto;">
+                     <option value="green">Green</option>
+                     <option value="blue" selected>Blue</option>
+                     <option value="red">Red</option>
+                     <option value="yellow">Yellow</option>
+                  </select>
+               </div>
+               <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; background-color: var(--color-surface-variant);">
+                  <span style="font-size: 1.2em;">Transactions</span>
+                  <select style="font-size: 1.2em; padding: 8px; background-color: var(--color-surface-2); width: auto;">
+                     <option value="green">Green</option>
+                     <option value="blue">Blue</option>
+                     <option value="red" selected>Red</option>
+                     <option value="yellow">Yellow</option>
+                  </select>
+               </div>
+               <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; background-color: var(--color-surface-variant);">
+                  <span style="font-size: 1.2em;">Prints</span>
+                  <select style="font-size: 1.2em; padding: 8px; background-color: var(--color-surface-2); width: auto;">
+                     <option value="green">Green</option>
+                     <option value="blue">Blue</option>
+                     <option value="red">Red</option>
+                     <option value="yellow" selected>Yellow</option>
+                  </select>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; padding: 16px; border-top: 0px solid rgba(0, 0, 0, 0.1); background-color: var(--color-background)">
+         <button onclick="theme_dialog.close()" style="border-color: transparent; margin-right: 8px; padding: 8px 16px; background-color: transparent;">Cancel</button>
+         <button class="dialog-button-accept" onclick="theme_dialog.close()" style="padding: 8px 16px; background-color: var(--color-primary-container); color: var(--color-inverse-surface); border: none;">Save</button>
       </div>
    </dialog>
    <dialog class="account-dialog" id="account_dialog">
-      <button style=" margin: 0.7em; border: none; width: 40px; height: 40px; margin-bottom: 0;" class="button-circle" onclick="account_dialog.close()"> <span class="material-symbols-outlined"> close </span> </button>
-      <div style=" background: var(--color-surface-1); border-radius: 1.5em; margin-top: 0.5em; margin-left: 0.5em; margin-right: 0.5em; margin-bottom: 0.5em; overflow: hidden; height: 18em; ">
-         <button class="list-button"> <span class="button-icon material-symbols-outlined"> settings </span> account
-            settings </button> <button onclick="sign_in_dialog.showModal()" style=" background: var(--color-primary-80); border-color: transparent; margin-left: auto; color: black; margin-right: auto; width: 8em;">
-            <span class="button-icon material-symbols-outlined"> login </span> Sign in </button>
+      <button style="margin: 0.7em; border: none; width: 40px; height: 40px; margin-bottom: 0;" class="button-circle" onclick="account_dialog.close()"><span class="material-symbols-outlined"> close </span></button>
+      <div style="background: var(--color-surface-1); border-radius: 1.5em; margin-top: 0.5em; margin-left: 0.5em; margin-right: 0.5em; margin-bottom: 0.5em; overflow: hidden; height: 18em;">
+         <button class="list-button"><span class="button-icon material-symbols-outlined"> settings </span> account settings</button>
+         <button onclick="sign_in_dialog.showModal()" style="background: var(--color-primary-80); border-color: transparent; margin-left: auto; color: black; margin-right: auto; width: 8em;">
+            <span class="button-icon material-symbols-outlined"> login </span> Sign in
+         </button>
       </div>
       <button onclick="document.getElementById('theme_dialog').showModal();" id="theme_dialog_button" class="list-button">
          <span class="button-icon material-symbols-outlined">
             palette
-         </span>
-         Theme Colours
+         </span> Theme Colours
       </button>
       <button onclick="window.location.href = 'book_migration.html'" class="list-button">
          <span class="button-icon material-symbols-outlined">
             book
-         </span>
-         Book Migration
+         </span> Book Migration
       </button>
-      <button class="button-circle" onclick="change_dark_light_theme()"> <span id="dark_mode_switcher_icon" class="material-symbols-outlined"> light_mode </span> </button>
+      <button class="button-circle" onclick="change_dark_light_theme()"><span id="dark_mode_switcher_icon" class="material-symbols-outlined"> light_mode </span></button>
    </dialog>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    <div class="top-bar panel">
       <div style="display: flex; align-items: center;" class="site-logo">
-         <button class="button-circle" onclick="logo_easter_egg()" style="padding:0; height: auto; width: auto; border-width: 0;"> <img src="SASLIB_logo.png" class="logo-image" style="height: 3em; width: 3em; opacity: 0.8;" alt="SAS Logo"> </button>
+         <button class="button-circle" onclick="logo_easter_egg()" style="padding: 0; height: auto; width: auto; border-width: 0;">
+            <img src="SASLIB_logo.png" class="logo-image" style="height: 3em; width: 3em; opacity: 0.8;" alt="SAS Logo" />
+         </button>
          <div style="font-weight: 600;" id="logo_text" class="logo-text">Library</div>
       </div>
-      <div style=" width: 100%; display: flex; flex-direction: row-reverse; align-items: center;">
-         <button class="button-circle" id="account_button" onclick="open_account_dialog()" style="padding: 0; border-width: 0;"> <span class="material-symbols-outlined" style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">
-               account_circle </span> </button>
-         <select id="collection_select" onchange="window.location.hash = document.getElementById('collection_select').value" style=" width: 10em; margin: 0.2em; font-size: 18px;">
+      <div style="width: 100%; display: flex; flex-direction: row-reverse; align-items: center;">
+         <button class="button-circle" id="account_button" onclick="open_account_dialog()" style="padding: 0; border-width: 0;">
+            <span class="material-symbols-outlined" style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"> account_circle </span>
+         </button>
+         <select id="collection_select" onchange="window.location.hash = document.getElementById('collection_select').value" style="width: 10em; margin: 0.2em; font-size: 18px;">
             <option value="books">Books</option>
             <option value="borrowers">Borrowers</option>
             <option value="prints">Printing</option>
@@ -270,227 +287,143 @@
          </select>
       </div>
    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    <div style="display: none;" id="container_book" class="container">
       <div id="search_area" class="search-area panel">
-
          <dialog style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);" id="search_filter_select_dialog">
             <div style="margin: 0.6em; width: 11em;">
                Filter by:
-               <hr>
+               <hr />
             </div>
-
             <button onclick="filter_select_dialog_location.show()" class="dropdown-button">Location</button>
             <button onclick="select_subject_dialog.show()" class="dropdown-button">Subject</button>
             <button onclick="select_book_level_dialog_search.show()" class="dropdown-button">Level</button>
             <button onclick="filter_select_dialog_id_type.show()" class="dropdown-button">Id Type</button>
          </dialog>
-
          <dialog style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);" id="filter_select_dialog_location">
             <div style="margin: 0.6em; width: 11em;">
                Locations:
-               <hr>
+               <hr />
             </div>
-
             <button onclick="add_book_filter('location','shelf')" class="dropdown-button">In Shelf</button>
             <button onclick="add_book_filter('location','borrowing')" class="dropdown-button">Borrowing</button>
             <button onclick="add_book_filter('location','lost')" class="dropdown-button">Lost</button>
             <button onclick="add_book_filter('location','scrapped')" class="dropdown-button">Scrapped</button>
          </dialog>
-
          <dialog style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);" id="select_book_level_dialog_search">
             <div style="margin: 0.6em; width: 11em;">
                Levels:
-               <hr>
+               <hr />
             </div>
-
             <button onclick="add_book_filter('level','Red');" class="dropdown-button">Red</button>
             <button onclick="add_book_filter('level','Green');" class="dropdown-button">Green</button>
             <button onclick="add_book_filter('level','Blue');" class="dropdown-button">Blue</button>
             <button onclick="add_book_filter('level','Yellow');" class="dropdown-button">Yellow</button>
             <button onclick="add_book_filter('level','Brown');" class="dropdown-button">Brown</button>
          </dialog>
-
-         <button style="width: fit-content; margin-bottom: 10em;" onclick="search_filter_select_dialog.show()">Add
-            Filter
-         </button>
-
-
+         <button style="width: fit-content; margin-bottom: 10em;" onclick="search_filter_select_dialog.show()">Add Filter</button>
          <div style="margin-bottom: 10em;"></div>
          <!--
-         <div style="height: 2.8em;" class="accordian">
-            <button data-open="false" onclick="
-               if (this.dataset.open == 'true')
-               {
-                  this.dataset.open = 'false'
-                  this.parentElement.style.height = '2.8em'
-                  this.style.background = '';
-                  this.childNodes[3].style.rotate = '0deg';
-               }
-               else
-               {
-                  this.dataset.open = 'true'
-                  this.parentElement.style.height = '11em'
-                  this.style.background = 'var(--color-ref-neutral-100)';
-                  this.childNodes[3].style.rotate = '180deg';
-               }
-               " class="accordian-button">
-               <div>Location</div>
-               <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
-                  class="material-symbols-outlined">
-                  expand_more
-               </span>
-            </button>
-            <div style="margin: 1em;     margin: 1em;
-            display: flex;
-            flex-wrap: wrap;">
-               <button class="toggle-chip">Lost</button>
-               <button class="toggle-chip">Scrapped</button>
-               <button class="toggle-chip">In Shelf</button>
-               <button class="toggle-chip">Borrowing</button>
-            </div>
-         </div>
-
-         <div style="height: 2.8em;" class="accordian">
-            <button data-open="false" onclick="
-               if (this.dataset.open == 'true')
-               {
-                  this.dataset.open = 'false'
-                  this.parentElement.style.height = '2.8em'
-                  this.style.background = '';
-                  this.childNodes[3].style.rotate = '0deg';
-               }
-               else
-               {
-                  this.dataset.open = 'true'
-                  this.parentElement.style.height = '11em'
-                  this.style.background = 'var(--color-ref-neutral-100)';
-                  this.childNodes[3].style.rotate = '180deg';
-               }
-               " class="accordian-button">
-               <div>Level</div>
-               <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
-                  class="material-symbols-outlined">
-                  expand_more
-               </span>
-            </button>
-            <div style="margin: 1em;     margin: 1em;
-            display: flex;
-            flex-wrap: wrap;">
-               <button class="toggle-chip">Brown</button>
-               <button class="toggle-chip">Yellow</button>
-               <button class="toggle-chip">Blue</button>
-               <button class="toggle-chip">Green</button>
-               <button class="toggle-chip">Red</button>
-            </div>
-         </div>
-
-         <div style="height: 2.8em; margin-bottom: 2em;" class="accordian">
-            <button data-open="false" onclick="
-               if (this.dataset.open == 'true')
-               {
-                  this.dataset.open = 'false'
-                  this.parentElement.style.height = '2.8em'
-                  this.style.background = '';
-                  this.childNodes[3].style.rotate = '0deg';
-               }
-               else
-               {
-                  this.dataset.open = 'true'
-                  this.parentElement.style.height = '20em'
-                  this.style.background = 'var(--color-ref-neutral-100)';
-                  this.childNodes[3].style.rotate = '180deg';
-               }
-               " class="accordian-button">
-               <div>Subject</div>
-               <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
-                  class="material-symbols-outlined">
-                  expand_more
-               </span>
-            </button>
-            <div class="book-subject-accordian"
-               style="    overflow-y: scroll;
-               overflow-x: hidden;
-               margin: 1em;
-               height: 15em;
-               width: fit-content;
-               display: flex;
-               flex-wrap: wrap;">
-
-            </div>
-         </div>-->
-
-
-
-
+                    <div style="height: 2.8em;" class="accordian">
+                       <button data-open="false" onclick="
+                          if (this.dataset.open == 'true')
+                          {
+                             this.dataset.open = 'false'
+                             this.parentElement.style.height = '2.8em'
+                             this.style.background = '';
+                             this.childNodes[3].style.rotate = '0deg';
+                          }
+                          else
+                          {
+                             this.dataset.open = 'true'
+                             this.parentElement.style.height = '11em'
+                             this.style.background = 'var(--color-ref-neutral-100)';
+                             this.childNodes[3].style.rotate = '180deg';
+                          }
+                          " class="accordian-button">
+                          <div>Location</div>
+                          <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
+                             class="material-symbols-outlined">
+                             expand_more
+                          </span>
+                       </button>
+                       <div style="margin: 1em;     margin: 1em;
+                       display: flex;
+                       flex-wrap: wrap;">
+                          <button class="toggle-chip">Lost</button>
+                          <button class="toggle-chip">Scrapped</button>
+                          <button class="toggle-chip">In Shelf</button>
+                          <button class="toggle-chip">Borrowing</button>
+                       </div>
+                    </div>
+                    
+                    <div style="height: 2.8em;" class="accordian">
+                       <button data-open="false" onclick="
+                          if (this.dataset.open == 'true')
+                          {
+                             this.dataset.open = 'false'
+                             this.parentElement.style.height = '2.8em'
+                             this.style.background = '';
+                             this.childNodes[3].style.rotate = '0deg';
+                          }
+                          else
+                          {
+                             this.dataset.open = 'true'
+                             this.parentElement.style.height = '11em'
+                             this.style.background = 'var(--color-ref-neutral-100)';
+                             this.childNodes[3].style.rotate = '180deg';
+                          }
+                          " class="accordian-button">
+                          <div>Level</div>
+                          <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
+                             class="material-symbols-outlined">
+                             expand_more
+                          </span>
+                       </button>
+                       <div style="margin: 1em;     margin: 1em;
+                       display: flex;
+                       flex-wrap: wrap;">
+                          <button class="toggle-chip">Brown</button>
+                          <button class="toggle-chip">Yellow</button>
+                          <button class="toggle-chip">Blue</button>
+                          <button class="toggle-chip">Green</button>
+                          <button class="toggle-chip">Red</button>
+                       </div>
+                    </div>
+                    
+                    <div style="height: 2.8em; margin-bottom: 2em;" class="accordian">
+                       <button data-open="false" onclick="
+                          if (this.dataset.open == 'true')
+                          {
+                             this.dataset.open = 'false'
+                             this.parentElement.style.height = '2.8em'
+                             this.style.background = '';
+                             this.childNodes[3].style.rotate = '0deg';
+                          }
+                          else
+                          {
+                             this.dataset.open = 'true'
+                             this.parentElement.style.height = '20em'
+                             this.style.background = 'var(--color-ref-neutral-100)';
+                             this.childNodes[3].style.rotate = '180deg';
+                          }
+                          " class="accordian-button">
+                          <div>Subject</div>
+                          <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
+                             class="material-symbols-outlined">
+                             expand_more
+                          </span>
+                       </button>
+                       <div class="book-subject-accordian"
+                          style="    overflow-y: scroll;
+                          overflow-x: hidden;
+                          margin: 1em;
+                          height: 15em;
+                          width: fit-content;
+                          display: flex;
+                          flex-wrap: wrap;">
+                    
+                       </div>
+                    </div>-->
          <div style="display: flex;">
             <div class="input-container">
                <select onchange="list_books()" id="j54f9954j" style="width: 100%;" type="text" class="input-google">
@@ -502,7 +435,8 @@
                <label class="input-placeholder">Sort by</label>
             </div>
             <button id="search_sortby_ascending_book" data-ascending="-" onclick="search_sortby_ascending_book_change()" style="border-radius: 0.4em; margin: 0px 0px 0px 0.5em; height: auto; width: 3em;" class="button-circle">
-               <span id="on4ir4r0943" style="rotate: 0deg; transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);" class="material-symbols-outlined">arrow_upward</span> </button>
+               <span id="on4ir4r0943" style="rotate: 0deg; transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);" class="material-symbols-outlined">arrow_upward</span>
+            </button>
          </div>
          <div style="margin-bottom: 1em; flex-basis: 8em; margin-top: 1em;" class="input-container">
             <select onchange="list_books()" id="subject_search_select_shadow" style="width: 100%;" type="text" class="input-google">
@@ -518,7 +452,6 @@
             </select>
             <label class="input-placeholder">Level</label>
          </div>
-
          <div style="margin-bottom: 1em;" class="input-container">
             <select onchange="list_books()" style="width: 100%;" id="book_location_search_select" type="text" class="input-google">
                <option value="all">Any</option>
@@ -529,29 +462,38 @@
             </select>
             <label class="input-placeholder">Location</label>
          </div>
-
          <div id="book_search_selector_lost_thing" data-value="none" style="display: flex; margin-bottom: 0.5em;">
-            <button data-value="false" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Lost</button>
-            <button data-value="true" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">Not
-               Lost</button>
+            <button data-value="false" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">
+               Lost
+            </button>
+            <button data-value="true" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">
+               Not Lost
+            </button>
          </div>
          <div id="book_search_selector_scrapped_thing" data-value="none" style="display: flex; margin-bottom: 0.5em;">
-            <button data-value="false" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Scrapped</button>
-            <button data-value="true" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">Not
-               Scrapped</button>
+            <button data-value="false" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">
+               Scrapped
+            </button>
+            <button data-value="true" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">
+               Not Scrapped
+            </button>
          </div>
-         <div data-value="none" style="border-bottom: 2px dashed red; display: flex; margin-bottom: 0.5em;"> <button data-value="false" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event)" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Borrowing</button>
-            <button data-value="true" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event)" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">In
-               Shelf</button>
+         <div data-value="none" style="border-bottom: 2px dashed red; display: flex; margin-bottom: 0.5em;">
+            <button data-value="false" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event)" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">
+               Borrowing
+            </button>
+            <button data-value="true" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event)" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">
+               In Shelf
+            </button>
          </div>
-
          <div data-value="none" style="display: flex; margin-bottom: 1.3em;" id="search_books_id_type_select">
-            <button data-value="false" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">Old
-               ID</button>
-            <button data-value="true" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books()" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">New
-               ID</button>
+            <button data-value="false" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books();" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em;">
+               Old ID
+            </button>
+            <button data-value="true" data-state="false" class="segmented-button-button" onclick="segmented_button_thing(event); list_books()" style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em;">
+               New ID
+            </button>
          </div>
-
          <div data-pagenumber="1" id="page_number_changer_books" class="page-number-changer" style="display: none;">
             <button onclick="if (page_number_changer_books.dataset.pagenumber - 1 >= 1) {page_number_changer_books.dataset.pagenumber -= 1; list_books();}" class="button-circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
                <span class="material-symbols-outlined">
@@ -559,37 +501,29 @@
                </span>
             </button>
             <div id="tttttttt112" style="width: max-content; text-wrap: nowrap; margin: 0em auto; height: fit-content; font-size: 1.5em;">
-               Page 0 of 0</div>
+               Page 0 of 0
+            </div>
             <button onclick="if (page_number_changer_books.dataset.maxpages >= parseInt(page_number_changer_books.dataset.pagenumber)+1) {page_number_changer_books.dataset.pagenumber = parseInt(page_number_changer_books.dataset.pagenumber)+1; list_books();}" class="button-circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
                <span class="material-symbols-outlined">
                   navigate_next
                </span>
             </button>
          </div>
-
       </div>
       <div id="list_area" class="list-area panel">
          <div class="list-area-search">
             <div style="display: flex;">
-
                <span style="position: absolute; top: 0.55em; left: 0.6em; opacity: 0.7;" class="material-symbols-outlined">search</span>
-               <input type="text" class="main-search-bar" placeholder="Search Books" id="search_filter_input" onchange="list_books()">
-
+               <input type="text" class="main-search-bar" placeholder="Search Books" id="search_filter_input" onchange="list_books()" />
             </div>
          </div>
-         <div class="list-area-list" id="list_area_list">
-
-         </div>
-
+         <div class="list-area-list" id="list_area_list"></div>
       </div>
       <div id="display_area" class="display-area panel">
-
-
-
          <div class="display_panel_edit" style="display: none;" id="display_panel_edit_details">
             <div class="display-area-quick-buttons">
                <div style="display: flex; margin-left: auto;" id="display_area_top_book_view_edit">
-                  <button onclick="book_display('')" id="book_save_button" style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;">
+                  <button onclick="book_display(book_edit_button.dataset.currentid)" id="book_cancel_button" style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;">
                      <div id="book_save_button_text">
                         Cancel
                      </div>
@@ -599,107 +533,124 @@
                   </button>
                </div>
             </div>
-
-            <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_title_editing" type="text" class="input-google"> <label class="input-placeholder">Title</label> </div>
-            <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_author_editing" type="text" class="input-google"> <label class="input-placeholder">Author</label>
-            </div>
-            <div style=" background-color: var(--color-surface-1); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
-               <div style="margin-right: 1em; display: flex;flex-direction: column;justify-content: center; font-family: 'roboto mono';">
-                  <div style="text-wrap: nowrap;" id="display_panel_book_book_id_editing">ID: ----</div>
-                  <div style="text-wrap: nowrap;" id="display_panel_book_legacy_book_id_editing">IDL: 00000</div>
+            <div style="padding: 2em;">
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_title_editing" type="text" class="input-google" />
+                  <label class="input-placeholder">Title</label>
                </div>
-               <button id="j5498" onclick="migration_id_confirmation_dialog.showModal()" style="width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;">
-                  Migrate to New ID </button>
-            </div>
-            <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_isbn_editing" type="text" class="input-google"> <label class="input-placeholder">ISBN</label> </div>
-            <div style="margin-bottom: 1em; align-items: normal;" class="input-container"> <textarea style="resize:none; font-size: 1.2em; height: 100px;" id="display_panel_book_description_editing" type="text" class="input-google"></textarea> <label style="--translateamount: -1.15em;" class="input-placeholder">Description</label> </div>
-            <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_classification_label_editing" type="text" class="input-google"> <label class="input-placeholder">Classification Label</label> </div>
-            <div style="margin-bottom: 1em;" class="input-container">
-               <select onchange="list_books()" style="width: 100%;" id="display_panel_book_level_editing" type="text" class="input-google">
-               </select>
-               <label class="input-placeholder">Level</label>
-            </div>
-            <div style="margin-bottom: 1em; flex-basis: 8em;" class="input-container">
-               <select id="display_panel_book_subject_editing" style="width: 100%;" type="text" class="input-google">
-                  <optgroup style="font-size: 0;" id="kej0f4jj05___2" label=""></optgroup>
-                  <optgroup style="font-size: 1px;" id="kj0f4jj05__2" label=""></optgroup>
-                  <optgroup id="nv9tuni9_2" label="Resources"></optgroup>
-               </select>
-               <label class="input-placeholder">Subject</label>
-            </div>
-
-            <div style="margin-bottom: 0.8em; font-size: 1.4em;">
-               <div style="display: flex; margin-bottom: 0.5em;">
-                  <input onclick="display_panel_book_lost_scrapped_editing_handle()" id="display_panel_book_scrapped_editing" type="checkbox">
-                  <label style="margin-left: 0.3em;">Scrapped</label>
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_author_editing" type="text" class="input-google" />
+                  <label class="input-placeholder">Author</label>
                </div>
-               <div style="display: flex; margin-bottom: 0.5em;">
-                  <input onclick="display_panel_book_lost_scrapped_editing_handle()" id="display_panel_book_lost_editing" type="checkbox">
-                  <label style="margin-left: 0.3em;">Lost</label>
+               <div style="
+                                background-color: var(--color-surface-1);
+                                padding: 0.5em;
+                                flex-grow: 1;
+                                font-size: 1.2em;
+                                border-radius: 0.5em;
+                                margin-top: 0.2em;
+                                font-family: var(--the-font);
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                margin-bottom: 1em;
+                            ">
+                  <div style="margin-right: 1em; display: flex; flex-direction: column; justify-content: center; font-family: 'roboto mono';">
+                     <div style="text-wrap: nowrap;" id="display_panel_book_book_id_editing">ID: ----</div>
+                     <div style="text-wrap: nowrap;" id="display_panel_book_legacy_book_id_editing">IDL: 00000</div>
+                  </div>
+                  <button id="j5498" onclick="migration_id_confirmation_dialog.showModal()" style="width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;">
+                     Migrate to New ID
+                  </button>
+               </div>
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_isbn_editing" type="text" class="input-google" />
+                  <label class="input-placeholder">ISBN</label>
+               </div>
+               <div style="margin-bottom: 1em; align-items: normal;" class="input-container">
+                  <textarea style="resize: none; font-size: 1.2em; height: 100px;" id="display_panel_book_description_editing" type="text" class="input-google"></textarea>
+                  <label style="--translateamount: -1.15em;" class="input-placeholder">Description</label>
+               </div>
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_classification_label_editing" type="text" class="input-google" />
+                  <label class="input-placeholder">Classification Label</label>
+               </div>
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <select onchange="list_books()" style="width: 100%;" id="display_panel_book_level_editing" type="text" class="input-google"> </select>
+                  <label class="input-placeholder">Level</label>
+               </div>
+               <div style="margin-bottom: 1em; flex-basis: 8em;" class="input-container">
+                  <select id="display_panel_book_subject_editing" style="width: 100%;" type="text" class="input-google">
+                     <optgroup style="font-size: 0;" id="kej0f4jj05___2" label=""></optgroup>
+                     <optgroup style="font-size: 1px;" id="kj0f4jj05__2" label=""></optgroup>
+                     <optgroup id="nv9tuni9_2" label="Resources"></optgroup>
+                  </select>
+                  <label class="input-placeholder">Subject</label>
+               </div>
+               <div style="margin-bottom: 0.8em; font-size: 1.4em;">
+                  <div style="display: flex; margin-bottom: 0.5em;">
+                     <input onclick="display_panel_book_lost_scrapped_editing_handle()" id="display_panel_book_scrapped_editing" type="checkbox" />
+                     <label style="margin-left: 0.3em;">Scrapped</label>
+                  </div>
+                  <div style="display: flex; margin-bottom: 0.5em;">
+                     <input onclick="display_panel_book_lost_scrapped_editing_handle()" id="display_panel_book_lost_editing" type="checkbox" />
+                     <label style="margin-left: 0.3em;">Lost</label>
+                  </div>
+               </div>
+               <!--
+                            <div data-onlyone="true" id="display_panel_book_lost_editing" data-value="none"
+                               style="display: flex; margin-bottom: 0.5em;">
+                               <button data-value="false" data-state="false" class="segmented-button-button"
+                                  onclick="segmented_button_thing(event)"
+                                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em; width: 100%;">
+                                  Lost
+                               </button>
+                               <button data-value="true" data-state="false" class="segmented-button-button"
+                                  onclick="segmented_button_thing(event)"
+                                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
+                                  Not Lost
+                               </button>
+                            </div>
+                            
+                            <div id="display_panel_book_scrapped_editing" data-onlyone="true" data-value="none"
+                               style="display: flex; margin-bottom: 1em;">
+                               <button data-value="false" data-state="false" class="segmented-button-button"
+                                  onclick="segmented_button_thing(event)"
+                                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em; width: 100%;">
+                                  Scrapped
+                               </button>
+                               <button data-value="true" data-state="false" class="segmented-button-button"
+                                  onclick="segmented_button_thing(event)"
+                                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
+                                  Not Scrapped
+                               </button>
+                            
+                            </div> -->
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_price_editing" type="number" min="0" autocomplete="off" class="input-google" />
+                  <label class="input-placeholder">Price (EUR)</label>
+               </div>
+               <div style="margin-bottom: 1em;" class="input-container">
+                  <input id="display_panel_book_preview_url_override_editing" type="text" class="input-google" />
+                  <label class="input-placeholder input_placeholder_force_up">Cover Image URL</label>
                </div>
             </div>
-
-            <!--
-            <div data-onlyone="true" id="display_panel_book_lost_editing" data-value="none"
-               style="display: flex; margin-bottom: 0.5em;">
-               <button data-value="false" data-state="false" class="segmented-button-button"
-                  onclick="segmented_button_thing(event)"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em; width: 100%;">
-                  Lost
-               </button>
-               <button data-value="true" data-state="false" class="segmented-button-button"
-                  onclick="segmented_button_thing(event)"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
-                  Not Lost
-               </button>
-            </div>
-
-            <div id="display_panel_book_scrapped_editing" data-onlyone="true" data-value="none"
-               style="display: flex; margin-bottom: 1em;">
-               <button data-value="false" data-state="false" class="segmented-button-button"
-                  onclick="segmented_button_thing(event)"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em; width: 100%;">
-                  Scrapped
-               </button>
-               <button data-value="true" data-state="false" class="segmented-button-button"
-                  onclick="segmented_button_thing(event)"
-                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
-                  Not Scrapped
-               </button>
-
-            </div> -->
-
-            <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_price_editing" type="number" min="0" autocomplete="off" class="input-google"> <label class="input-placeholder">Price
-                  (EUR)</label>
-            </div>
-
-            <div style="margin-bottom: 1em;" class="input-container"> <input id="display_panel_book_preview_url_override_editing" type="text" class="input-google">
-               <label class="input-placeholder input_placeholder_force_up">Cover Image URL</label>
-            </div>
-
          </div>
          <div class="display_panel_display" style="display: none;" id="display_panel_details">
-
             <div class="display-area-quick-buttons">
                <!--
-               <button onclick="book_display('')" style=" margin: 5px; border: 0; height: 40px; width: 40px;" class="button-circle">
-                  <span class="material-symbols-outlined">
-                     arrow_back
-                  </span>
-               </button>-->
-
+                            <button onclick="book_display('')" style=" margin: 5px; border: 0; height: 40px; width: 40px;" class="button-circle">
+                               <span class="material-symbols-outlined">
+                                  arrow_back
+                               </span>
+                            </button>-->
                <div style="display: none;" id="display_area_top_lend_view">
-                  <button id="lend_book_button" onclick="lend_book_button_click_handler(event)" style="    margin: 5px;
-                  border: none;
-                  background-color: var(--color-primary);
-                  width: 100%;
-                  padding: 0 1.1em;">
-                     <div id="lend_book_button_text" style="pointer-events:none; color: var(--color-background);">
+                  <button id="lend_book_button" onclick="lend_book_button_click_handler(event)" style="margin: 5px; border: none; background-color: var(--color-primary); width: 100%; padding: 0 1.1em;">
+                     <div id="lend_book_button_text" style="pointer-events: none; color: var(--color-background);">
                         Lend book to borrower
                      </div>
                   </button>
                </div>
-
                <div id="display_area_top_book_view" style="display: flex; margin-left: auto;">
                   <button id="returnbutton54985t8" style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;">
                      <div id="returntextjinfo4">
@@ -711,38 +662,59 @@
                   </button>
                </div>
             </div>
-
             <div class="display-panel-book-general">
-               <div style=" margin: 0.5em; display: flex; flex-direction: column; justify-content: center;"> <img id="display_panel_book_cover" style=" object-fit: fill; padding: 0.2em; width: min(8em,30vw); height: -webkit-fill-available; background-color: var(--color-inverse-surface); border-radius: 0.6em;" src="https://covers.openlibrary.org/b/isbn/978-0-330-40rr436-5-M.jpg"> </div>
-               <div style=" padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; width: 100%;">
-                  <div id="display_panel_book_title" style="font-weight: bold; font-size: min(7vw, 2em);"> ----------
-                  </div>
-                  <div style=" display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr;font-size: 0.9em;">
+               <div style="margin: 0.5em; display: flex; flex-direction: column; justify-content: center;">
+                  <img id="display_panel_book_cover" style="object-fit: fill; padding: 0.2em; width: min(8em, 30vw); height: -webkit-fill-available; background-color: var(--color-inverse-surface); border-radius: 0.6em;" src="https://covers.openlibrary.org/b/isbn/978-0-330-40rr436-5-M.jpg" />
+               </div>
+               <div style="padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; width: 100%;">
+                  <div id="display_panel_book_title" style="font-weight: bold; font-size: min(7vw, 2em);">----------</div>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; font-size: 0.9em;">
                      <div id="display_panel_book_author">by -----</div>
                   </div>
                   <div class="e00j430985t">
-                     <div style="background-color: var(--color-surface-1); padding: 0.5em; flex-grow: 1; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: column; justify-content: center;">
+                     <div style="
+                                        background-color: var(--color-surface-1);
+                                        padding: 0.5em;
+                                        flex-grow: 1;
+                                        border-radius: 0.5em;
+                                        margin-top: 0.2em;
+                                        font-family: var(--the-font);
+                                        display: flex;
+                                        flex-direction: column;
+                                        justify-content: center;
+                                    ">
                         <div id="display_panel_book_classification_label" style="justify-self: end;">000.0 ---</div>
                         <div id="display_panel_book_isbn">ISBN: 0000000000000</div>
-                        <div id="display_panel_book_book_id"> ID: ----</div>
+                        <div id="display_panel_book_book_id">ID: ----</div>
                         <div id="display_panel_book_legacy_book_id">IDL: 00000</div>
                      </div>
                   </div>
                </div>
             </div>
-            <div style=" display: flex; display: none; margin: 0.2em; border: 3px solid var(--color-surface-1); border-left: 0; border-right: 0;">
-               <div style=" margin: 0.5em; display: flex; flex-direction: column; justify-content: center;"> <button style=" object-fit: fill; padding: 0.2em; width: min(8.4em,31.7vw); height: 5em; border: 0.2em dashed var(--color-inverse-surface); border-radius: 0.6em; display: flex; justify-content: center; align-items: center; ">
-                     <span style="user-select: none; font-size: 2em;" class="material-symbols-outlined"> person_add
-                     </span> </button>
+            <div style="display: flex; display: none; margin: 0.2em; border: 3px solid var(--color-surface-1); border-left: 0; border-right: 0;">
+               <div style="margin: 0.5em; display: flex; flex-direction: column; justify-content: center;">
+                  <button style="
+                                    object-fit: fill;
+                                    padding: 0.2em;
+                                    width: min(8.4em, 31.7vw);
+                                    height: 5em;
+                                    border: 0.2em dashed var(--color-inverse-surface);
+                                    border-radius: 0.6em;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                ">
+                     <span style="user-select: none; font-size: 2em;" class="material-symbols-outlined"> person_add </span>
+                  </button>
                </div>
                <div style="padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; justify-content: center;">
                   <div style="font-weight: bold; font-size: min(5vw, 1.3em); flex-direction: row; display: flex;">
                      Joe Esposito
                      <div style="font-weight: lighter;">&nbsp11.4</div>
                   </div>
-                  <div style=" width: fit-content; background-color: var(--color-surface-5); padding: 0.4em; border-radius: 0.4em; font-family: var(--the-font)">
+                  <div style="width: fit-content; background-color: var(--color-surface-5); padding: 0.4em; border-radius: 0.4em; font-family: var(--the-font);">
                      <div class="tooltip">
-                        <div style=" user-select: none; display: flex; font-size: min(4vw,1em); align-items: center;">
+                        <div style="user-select: none; display: flex; font-size: min(4vw, 1em); align-items: center;">
                            <div>ID: t2m</div>
                         </div>
                         <span id="copy_borrower_book_tooltip" class="tooltiptext">Copy</span>
@@ -756,74 +728,42 @@
                   ---------------
                </div>
             </div>
-            <div id="display_panel_book_lost" style="display:none; margin: 0.8em; margin-top: 0.5em; margin-bottom: 0.3em;">
+            <div id="display_panel_book_lost" style="display: none; margin: 0.8em; margin-top: 0.5em; margin-bottom: 0.3em;">
                <div style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
-                  <span style="translate: 0 5px;" class="material-symbols-outlined"> warning </span>&nbsp Book marked
-                  as lost
+                  <span style="translate: 0 5px;" class="material-symbols-outlined"> warning </span>&nbsp Book marked as lost
                </div>
             </div>
-            <div id="display_panel_book_scrapped" style="display:none; margin: 0.8em; margin-top: 0em;">
+            <div id="display_panel_book_scrapped" style="display: none; margin: 0.8em; margin-top: 0em;">
                <div style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
-                  <span style="translate: 0 5px;" class="material-symbols-outlined"> warning </span>&nbsp Book marked
-                  as scrapped
+                  <span style="translate: 0 5px;" class="material-symbols-outlined"> warning </span>&nbsp Book marked as scrapped
                </div>
             </div>
-            <div id="display_panel_book_price" style="display: none; margin: 0.8em; margin-top: 0.5em;"> Price: 5 EUR
-            </div>
-            <div id="display_panel_book_subject" style="margin: 0.8em; margin-top: 0.5em;"> Non-Feeection </div>
-            <div id="display_panel_book_level" style="margin: 0.8em; margin-top: 0.5em;"> Greeeeen </div>
-            <div id="display_panel_book_updated" style="margin: 0.8em; margin-top: 0.5em;"> Updated: 0000-00-00
-               00:00:00.000Z
-            </div>
-            <div id="display_panel_book_created" style="margin: 0.8em; margin-top: 0.5em;"> Legacy Created:
-               00/00/0000
-            </div>
+            <div id="display_panel_book_price" style="display: none; margin: 0.8em; margin-top: 0.5em;">Price: 5 EUR</div>
+            <div id="display_panel_book_subject" style="margin: 0.8em; margin-top: 0.5em;">Non-Feeection</div>
+            <div id="display_panel_book_level" style="margin: 0.8em; margin-top: 0.5em;">Greeeeen</div>
+            <div id="display_panel_book_updated" style="margin: 0.8em; margin-top: 0.5em;">Updated: 0000-00-00 00:00:00.000Z</div>
+            <div id="display_panel_book_created" style="margin: 0.8em; margin-top: 0.5em;">Legacy Created: 00/00/0000</div>
             <div id="display_panel_book_system_created" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
                SYS_CREATED: 0000-00-00 00:00:00.000Z
             </div>
-            <div id="display_panel_book_system_id" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;"> SYS_ID:
-               ---------------
-            </div>
+            <div id="display_panel_book_system_id" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">SYS_ID: ---------------</div>
          </div>
       </div>
       <!---- <img id="imag" src="https://png.pngtree.com/png-clipart/20220111/original/pngtree-cigarette-png-image_7083753.png" style="display: none;"></img> <canvas id="book_cover_canvas" style="display: none;"></canvas> -->
    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    <div style="display: none;" id="container_borrower" class="container">
       <div id="list_area" class="list-area panel">
          <div class="list-area-search">
             <div style="display: flex;">
                <span style="position: absolute; top: 0.55em; left: 0.6em; opacity: 0.7;" class="material-symbols-outlined">search</span>
-               <input type="text" class="main-search-bar" placeholder="Search Borrowers" id="search_filter_input_borrower" onchange="list_borrowers()">
+               <input type="text" class="main-search-bar" placeholder="Search Borrowers" id="search_filter_input_borrower" onchange="list_borrowers()" />
             </div>
          </div>
          <div class="list-area-list" id="list_area_list_borrower"></div>
       </div>
-
-
       <div id="display_area_borrower" class="display-area panel">
          <div class="display-area-quick-buttons">
-            <button onclick="change_display_area_mode('none',display_area_borrower)" style=" margin: 5px; border: 0; height: 40px; width: 40px;" class="button-circle"> <span class="material-symbols-outlined">arrow_back</span>
-            </button>
+            <button onclick="change_display_area_mode('none',display_area_borrower)" style="margin: 5px; border: 0; height: 40px; width: 40px;" class="button-circle"><span class="material-symbols-outlined">arrow_back</span></button>
             <button id="returnbutton54985t8_borrower" style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;">
                <div id="returntextjinfo4_borrower">Return All</div>
             </button>
@@ -831,29 +771,17 @@
                <div style="pointer-events: none;" id="edit_button_borrower_label">Edit</div>
             </button>
          </div>
-
-
          <div style="display: none; margin: 1em;" id="display_panel_details_borrower">
-
             <div style="display: flex; font-size: 2em; font-weight: bold;">
                <div id="dpdb_name"></div>
                <div id="dpdb_surname"></div>
             </div>
-
-            <div style="    background-color: var(--color-surface-3);
-                                                      border-radius: 0.4em;
-                                                      padding: 0.5em;
-                                                      font-size: 1.2em;
-                                                      font-family: var(--the-robo-font);">
+            <div style="background-color: var(--color-surface-3); border-radius: 0.4em; padding: 0.5em; font-size: 1.2em; font-family: var(--the-robo-font);">
                <div id="dpdb_group"></div>
                <div id="dpdb_borrower_id"></div>
             </div>
-
-
-            <div style="font-size: 1.3em; font-weight:bold; margin-top: 0.5em;">Currently borrowing books: </div>
-
+            <div style="font-size: 1.3em; font-weight: bold; margin-top: 0.5em;">Currently borrowing books:</div>
             <div id="borrower_currently_borrowing_books"></div>
-
             <div style="border-top: solid var(--color-surface-5) 2px; display: flex; width: 100%;">
                <button id="dpdb_add_button" onclick="add_borrower_book_button_handler(event);" style="width: fit-content; height: 2.6em; padding: 1.2em; margin-top: 0.4em;">
                   <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="button-icon material-symbols-outlined">
@@ -864,26 +792,36 @@
                   </div>
                </button>
             </div>
-
             <div style="margin-top: 100%;" id="dpdb_created"></div>
             <div id="dpdb_updated"></div>
             <div id="dpdb_id" style="opacity: 0.5;"></div>
          </div>
-
          <div style="display: none; padding: 2em;" id="display_panel_edit_details_borrower">
             <div style="margin-bottom: 1em;" class="input-container">
-               <input id="display_panel_borrower_name_editing" type="text" class="input-google">
+               <input id="display_panel_borrower_name_editing" type="text" class="input-google" />
                <label class="input-placeholder">Name</label>
             </div>
             <div style="margin-bottom: 1em;" class="input-container">
-               <input id="display_panel_borrower_surname_editing" type="text" class="input-google">
+               <input id="display_panel_borrower_surname_editing" type="text" class="input-google" />
                <label class="input-placeholder">
                   Surname
                </label>
             </div>
-            <div style=" background-color: var(--color-surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em;">
-               <div style="font-family: 'roboto mono'; display: flex; flex-direction: column;justify-content: center;">
-                  <div id="display_panel_borrower_borrower_id_editing">ID: </div>
+            <div style="
+                            background-color: var(--color-surface-5);
+                            padding: 0.5em;
+                            flex-grow: 1;
+                            font-size: 1.2em;
+                            border-radius: 0.5em;
+                            margin-top: 0.2em;
+                            font-family: var(--the-font);
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            margin-bottom: 1em;
+                        ">
+               <div style="font-family: 'roboto mono'; display: flex; flex-direction: column; justify-content: center;">
+                  <div id="display_panel_borrower_borrower_id_editing">ID:</div>
                </div>
             </div>
             <div style="margin-bottom: 1em;" class="input-container">
@@ -897,7 +835,8 @@
                   delete_forever
                </span>
                <div id="delete_borrower_forever_text">
-                  Delete Record</div>
+                  Delete Record
+               </div>
             </button>
          </div>
       </div>

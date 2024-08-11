@@ -872,7 +872,7 @@ function change_display_area_mode(mode, _display_area)
 
     function book_display()
     {
-        p(_display_area);
+        display_area_edit_mode = false;
         _display_area.querySelector(".display_panel_edit").style.display =
             "none";
         _display_area.querySelector(".display_panel_display").style.display =
@@ -1193,11 +1193,6 @@ function book_click_handler(e)
 
 async function book_display(ARGUMENT_ID, excused_from_dialog = false)
 {
-    if (book_edit_button.dataset.currentid == ARGUMENT_ID)
-    {
-        return;
-    }
-
     if (ARGUMENT_ID == "creation")
     {
         clickHandler_create(excused_from_dialog);
@@ -1213,7 +1208,6 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false)
     if (display_area_edit_mode && !excused_from_dialog)
     {
         nextid_book = ARGUMENT_ID;
-        p("EGGGG:", nextid_book);
         book_open_discard_draft_modal();
         return;
     }
@@ -1226,13 +1220,19 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false)
         return;
     }
 
+
+    change_display_area_mode("display", display_area);
+
+    if (book_edit_button.dataset.currentid == ARGUMENT_ID)
+    {
+        return;
+    }
+
     highlight_selected_item(useid, list_area_list);
 
     display_panel_book_cover.src = "";
 
     book_edit_button.dataset.currentid = ARGUMENT_ID;
-
-    change_display_area_mode("display", display_area);
 
     /////////DISPLAY PANEL NONSENCE/////////////////////////////////////
     display_panel_book_system_id.innerHTML = "SYS_ID: " + book.id;
