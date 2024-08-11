@@ -1171,16 +1171,7 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false)
     }
     nextid_book = "";
 
-    let clickedOne = list_area_list.querySelector(`button[data-id="${useid}"]`);
-    list_area_list.querySelectorAll(".list_item").forEach(function (i)
-    {
-        i.style.background = "";
-        //i.style.borderRadius = "";
-        //i.style.margin = "";
-        //i.style.padding = "";
-    });
-    //clickedOne.style.cssText = "border-radius: 1em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
-    clickedOne.style.background = "var(--color-on-surface-2)";
+    highlight_selected_item(useid, list_area_list)
 
     display_panel_book_cover.src = "";
 
@@ -1621,155 +1612,194 @@ async function delete_borrower(id)
     await pb.collection("borrowers").delete(id);
     list_borrowers();
 }
-async function borrower_display(ARGUMENT_BORROWER_ID,excused_from_dialog = false)
-{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function borrower_display(borrowerId, excused_from_dialog = false) {
     playOpenSound();
 
-    let creation = (ARGUMENT_BORROWER_ID == "creation")
+    const isCreation = borrowerId === "creation";
+    let borrower = {};
 
-    if (display_area_edit_mode_borrower && !excused_from_dialog)
-    {
-        let stringthing =
-            display_panel_borrower_name_editing.value +
-            display_panel_borrower_surname_editing.value +
-            display_panel_borrower_group_editing.value;
-        if (stringthing != "")
-        {
-            nextid_borrower = ARGUMENT_BORROWER_ID;
+    if (display_area_edit_mode_borrower && !excused_from_dialog) {
+        const hasUnsavedChanges = [
+            display_panel_borrower_name_editing.value,
+            display_panel_borrower_surname_editing.value,
+            display_panel_borrower_group_editing.value
+        ].some(value => value !== "");
+
+        if (hasUnsavedChanges) {
+            nextid_borrower = borrowerId;
             borrower_open_discard_draft_modal();
             return;
         }
     }
 
     nextid_borrower = "";
-   
-    
-    let borrower;
-    
-    if (creation)
-    {
-        delete_borrower_forever.style.display = "none";
-        swap_display_area_mode_borrower_to_edit();
 
-        await fetch("borrowers_id_list_length_3.txt")
-        .then((res) => res.text())
-        .then((text) =>
-        {
-            generatedid_borrower = generate_unique_borrower_id(text);
-        })
-        .catch((e) => console.error(e));
-
-        // creating new borrower
+    if (isCreation) {
+        await handleBorrowerCreation();
         borrower = {
             name: "",
             surname: "",
             id: generatedid_borrower,
             group: ""
-        }
-    }
-    else
-    {
-        delete_borrower_forever.style.display = "flex";
-        swap_display_area_mode_borrower_to_display();
-        borrower = all_borrower_records.find((s) =>
-        {
-            return s.id === ARGUMENT_BORROWER_ID;
-        });
+        };
+    } else {
+        borrower = await handleBorrowerDisplay(borrowerId);
     }
 
+    updateBorrowerEditingPanel(borrower);
+    if (!isCreation) {
+        updateBorrowerDisplayPanel(borrower);
+        await updateBorrowerBooks(borrower.id);
+    }
 
+    highlight_selected_item(borrowerId, list_area_list_borrower);
+}
 
+async function handleBorrowerCreation() {
+    delete_borrower_forever.style.display = "none";
+    swap_display_area_mode_borrower_to_edit();
+
+    try {
+        const response = await fetch("borrowers_id_list_length_3.txt");
+        const text = await response.text();
+        generatedid_borrower = generate_unique_borrower_id(text);
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+async function handleBorrowerDisplay(borrowerId) {
+    delete_borrower_forever.style.display = "flex";
+    swap_display_area_mode_borrower_to_display();
+    return all_borrower_records.find(borrower => borrower.id === borrowerId);
+}
+
+function updateBorrowerEditingPanel(borrower) {
     display_panel_borrower_name_editing.value = borrower.name;
     display_panel_borrower_surname_editing.value = borrower.surname;
-    display_panel_borrower_borrower_id_editing.innerText = "ID: " + borrower.id;
+    display_panel_borrower_borrower_id_editing.innerText = `ID: ${borrower.id}`;
     display_panel_borrower_group_editing.value = borrower.group;
 
-    edit_button_borrower.dataset.currentid = ARGUMENT_BORROWER_ID;
-
-    // for display mode so no need for creation
-    if (!creation)
-    {
-        dpdb_name.innerText = "" + borrower.name;
-        dpdb_surname.innerHTML = "&nbsp" + borrower.surname;
-        dpdb_borrower_id.innerText = "ID: " + borrower.id;
-        dpdb_group.innerText = "Group: " + borrower.group;
-        dpdb_created.innerText = "Created: " + borrower.created;
-        dpdb_updated.innerText = "Updated: " + borrower.updated;
-        dpdb_id.innerText = "SYS_ID: " + borrower.id;
-        dpdb_add_button.dataset.borrowerid = borrower.id;
-
-        const transaction_list = await pb.collection("transactions").getFullList({
-            filter: `person.id = "${borrower.id}" && returned = false`,
-            expand: "book",
-        });
-
-        document.querySelectorAll(".book_view").forEach((bookview) =>
-        {
-            bookview.remove();
-        });
-
-        transaction_list.forEach((transaction) =>
-        {
-            let book_view = document.createElement("div");
-            book_view.classList = "book_view";
-            let preview_image_url = "";
-            if (transaction.expand.book.preview_url_override == "")
-            {
-                preview_image_url = `https://covers.openlibrary.org/b/isbn/${transaction.expand.book.isbn}-M.jpg`;
-            } else
-            {
-                preview_image_url = transaction.expand.book.preview_url_override;
-            }
-            book_view.innerHTML = `<div style="display: flex; border-top: solid var(--color-surface-5) 2px;">
-            <div style="margin-top: 0.5em;">
-            <img style=" object-fit: cover; padding: 0.2em; width: 6em; height: calc(100% - 1em); background-color: var(--color-inverse-surface); border-radius: 0.6em;" src="${preview_image_url}">
-            </div>
-            <div
-            style="margin-bottom: 0.5em; margin-top: 0.5em; display: flex; align-items: center; width: 100%; justify-content: left; margin-left: 1em;">
-            <div style="width: 100%">
-                <div style="font-weight: bold; font-size:xx-large; text-wrap: wrap;">
-                    ${transaction.expand.book.title}
-                </div>
-                <div
-                    style="margin-bottom: 0.3em; padding: 0.3em; border-radius: 0.3em; font-size:1.1em; background-color: var(--color-surface-3);">
-                    <label style="font-family:var(--the-robo-font)">
-                        ID: ${transaction.expand.book.book_id} 
-                    </label> 
-                    <br> 
-                    <label style="font-family:var(--the-robo-font)"> 
-                        ISBN: ${transaction.expand.book.isbn} 
-                    </label>
-                </div>
-                <div style="display: flex; flex-direction: row; justify-content: end;"> 
-                    <button onclick="return_book('${transaction.id}','${transaction.person}');" class="button_circle">
-                        <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="material-symbols-outlined">
-                            tab_close
-                        </span>
-                    </button>
-                    <button style="margin-left: 0.3em;" class="button_circle">
-                        <span class="material-symbols-outlined">
-                            open_in_new
-                        </span> 
-                    </button>
-                </div>
-            </div>
-            </div>
-            </div>`;
-            borrower_currently_borrowing_books.appendChild(book_view);
-        });
-    }
-
-    let clickedOne = list_area_list_borrower.querySelector(
-        `button[data-id="${ARGUMENT_BORROWER_ID}"]`
-    );
-    list_area_list_borrower
-        .querySelectorAll(".list_item")
-        .forEach(function (i)
-        {
-            i.style.background = "";
-        });
-    clickedOne.style.background = "var(--color-on-surface-2)";
+    edit_button_borrower.dataset.currentid = borrower.id;
 }
+
+function updateBorrowerDisplayPanel(borrower) {
+    dpdb_name.innerText = borrower.name;
+    dpdb_surname.innerHTML = `&nbsp${borrower.surname}`;
+    dpdb_borrower_id.innerText = `ID: ${borrower.id}`;
+    dpdb_group.innerText = `Group: ${borrower.group}`;
+    dpdb_created.innerText = `Created: ${borrower.created}`;
+    dpdb_updated.innerText = `Updated: ${borrower.updated}`;
+    dpdb_id.innerText = `SYS_ID: ${borrower.id}`;
+    dpdb_add_button.dataset.borrowerid = borrower.id;
+}
+
+async function updateBorrowerBooks(borrowerId) {
+    try {
+        const transactionList = await pb.collection("transactions").getFullList({
+            filter: `person.id = "${borrowerId}" && returned = false`,
+            expand: "book"
+        });
+
+        document.querySelectorAll(".book_view").forEach(bookView => bookView.remove());
+
+        transactionList.forEach(transaction => {
+            const bookView = createBookView(transaction);
+            borrower_currently_borrowing_books.appendChild(bookView);
+        });
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+function createBookView(transaction) {
+    const book = transaction.expand.book;
+    const previewImageUrl = book.preview_url_override || 
+                            `https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`;
+
+    const bookView = document.createElement("div");
+    bookView.classList.add("book_view");
+    bookView.innerHTML = `
+        <div style="display: flex; border-top: solid var(--color-surface-5) 2px;">
+            <div style="margin-top: 0.5em;">
+                <img style="object-fit: cover; padding: 0.2em; width: 6em; height: calc(100% - 1em); background-color: var(--color-inverse-surface); border-radius: 0.6em;" src="${previewImageUrl}">
+            </div>
+            <div style="margin-bottom: 0.5em; margin-top: 0.5em; display: flex; align-items: center; width: 100%; justify-content: left; margin-left: 1em;">
+                <div style="width: 100%">
+                    <div style="font-weight: bold; font-size: xx-large; text-wrap: wrap;">
+                        ${book.title}
+                    </div>
+                    <div style="margin-bottom: 0.3em; padding: 0.3em; border-radius: 0.3em; font-size: 1.1em; background-color: var(--color-surface-3);">
+                        <label style="font-family:var(--the-robo-font)">ID: ${book.book_id}</label><br>
+                        <label style="font-family:var(--the-robo-font)">ISBN: ${book.isbn}</label>
+                    </div>
+                    <div style="display: flex; flex-direction: row; justify-content: end;">
+                        <button onclick="return_book('${transaction.id}','${transaction.person}');" class="button_circle">
+                            <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="material-symbols-outlined">tab_close</span>
+                        </button>
+                        <button style="margin-left: 0.3em;" class="button_circle">
+                            <span class="material-symbols-outlined">open_in_new</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    return bookView;
+}
+
+function highlight_selected_item(id, list_element)
+{
+    list_element.querySelectorAll(".list_item").forEach(item => item.style.background = "");
+    // If the id is blank then dont highlight a new one
+    if (id != "")
+    {
+        const clickedOne = list_element.querySelector(`button[data-id="${id}"]`);
+        clickedOne.style.background = "var(--color-on-surface-2)";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
