@@ -9,7 +9,8 @@ function p(t)
 
 // This is bad. this should come from database
 const book_level_colors = "Brown, Yellow, Blue, Green, Red";
-const borrower_groups = "Teacher, Admin, Maintenance, LSE, 8.1, 8.2, 8.3, 8.4, 9.1, 9.2, 9.3, 9.4, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 12.1, 12.2, 12.3, 12.4";
+const borrower_groups =
+    "Teacher, Admin, Maintenance, LSE, 8.1, 8.2, 8.3, 8.4, 9.1, 9.2, 9.3, 9.4, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 12.1, 12.2, 12.3, 12.4";
 
 set_borrower_levels_lists();
 set_book_subjects_lists();
@@ -77,19 +78,17 @@ window.addEventListener(
     false
 );
 
-
 // Select all input, select, and textarea elements
-const elements = document.querySelectorAll('input, select, textarea');
-elements.forEach(element =>
+const elements = document.querySelectorAll("input, select, textarea");
+elements.forEach((element) =>
 {
     // Check if the element doesn't have a placeholder attribute
-    if (!element.hasAttribute('placeholder'))
+    if (!element.hasAttribute("placeholder"))
     {
         // Add an empty placeholder attribute
-        element.setAttribute('placeholder', '');
+        element.setAttribute("placeholder", "");
     }
 });
-
 
 //list_area_search_filters.appendChild(search_area)
 search_area.style.background = "var(--color-background)";
@@ -101,8 +100,7 @@ let display_area_edit_mode = false;
 const all_buttons = document.getElementsByTagName("button");
 for (const button of all_buttons)
 {
-    if (
-        !button.classList.contains("segmented-button-button") &&
+    if (!button.classList.contains("segmented-button-button") &&
         !button.classList.contains("no-ripple")
     )
     {
@@ -125,7 +123,8 @@ delete_borrower_forever.addEventListener("mousedown", function ()
     iooi43iiore94 = setTimeout(() =>
     {
         navigator.vibrate([50]);
-        delete_borrower_forever_text.innerText = "Release to DELETE PERMENANTLY";
+        delete_borrower_forever_text.innerText =
+            "Release to DELETE PERMENANTLY";
         delete_borrower_forever_active = true;
     }, 2800);
     delete_borrower_forever.classList.add("ririirriire");
@@ -184,7 +183,8 @@ delete_borrower_forever.addEventListener("mouseup", function ()
     if (delete_borrower_forever_active)
     {
         delete_borrower(edit_button_borrower.dataset.currentid);
-        swap_display_area_mode_borrower_to_none()
+        change_display_area_mode("none", display_area_borrower);
+
         delete_borrower_forever.style.scale = 0;
         display_panel_edit_details_borrower
             .querySelectorAll("div")
@@ -231,6 +231,7 @@ function set_borrower_levels_lists()
         display_panel_borrower_group_editing.appendChild(optionelement);
     });
 }
+
 function set_book_levels_lists()
 {
     const color_array = book_level_colors.split(", ");
@@ -253,6 +254,7 @@ let book_filters = {
     level: new Set([]),
     id_type: new Set([]),
 };
+
 function add_book_filter(field, value)
 {
     book_filters[field].add(value);
@@ -261,11 +263,13 @@ function add_book_filter(field, value)
     search_filter_select_dialog.close();
     display_book_filters();
 }
+
 function remove_book_filter(field, value)
 {
     book_filters[field].delete(value);
     display_book_filters();
 }
+
 function display_book_filters()
 {
     p(book_filters);
@@ -341,6 +345,7 @@ async function set_book_subjects_lists()
         }
     }
 }
+
 function hide_search_view()
 {
     search_view_mode = false;
@@ -353,15 +358,14 @@ function hide_search_view()
     search_area.style.overflow = "hidden";
     search_area.style.transform = "scaleX(1)";
 }
+
 function show_search_view()
 {
     search_view_mode = true;
 
     //j5498j85t4954j9.innerText = "close"
 
-    if (window.matchMedia("(max-width: 1130px)"))
-    {
-    }
+    if (window.matchMedia("(max-width: 1130px)")) { }
 
     hide_display_area();
     search_area.style.width = "18em";
@@ -370,6 +374,7 @@ function show_search_view()
     search_area.style.transform = "scaleX(1)";
     search_area.style.overflow = "visible";
 }
+
 function hide_display_area()
 {
     display_area.style.width = "0em";
@@ -379,6 +384,7 @@ function hide_display_area()
     display_area.style.transform = "scaleX(1)";
     display_area.style.marginLeft = "0";
 }
+
 function show_display_area()
 {
     //display_area.style.marginLeft = "0.5em"
@@ -387,6 +393,7 @@ function show_display_area()
     //display_area.style.transform = "scaleX(1)"
     //display_area.style.overflowY = "scroll"
 }
+
 function swap_search_view()
 {
     if (!search_view_mode)
@@ -397,13 +404,11 @@ function swap_search_view()
         hide_search_view();
     }
 }
+
 function collection_change()
 {
-    turn_lend_view_into_book_view();
-
-    swap_display_area_mode_borrower_to_none();
-
-    swap_display_area_mode_to_none();
+    change_display_area_mode("none", display_area_borrower);
+    change_display_area_mode("none", display_area);
 
     collection_select.value = window.location.hash.substring(1);
     current_page = window.location.hash.substring(1);
@@ -418,11 +423,12 @@ function collection_change()
     {
         case "books":
             container_book.style.display = "flex";
-            turn_lend_view_into_book_view();
+            book_enable_lend_view(false);
             color = books_color;
             break;
         case "borrowers":
             container_borrower.style.display = "flex";
+            book_enable_lend_view(true);
             color = borrowers_color;
             break;
         case "transactions":
@@ -436,6 +442,7 @@ function collection_change()
     document.body.className = color + light_or_dark;
     list_selected_collection();
 }
+
 function list_selected_collection()
 {
     switch (current_page)
@@ -461,96 +468,81 @@ const book_state = {
 
 async function save_changes_handler_book(event)
 {
-    if (display_area_edit_mode)
+    if (book_edit_button.dataset.currentid == "creation")
     {
-        if (book_edit_button.dataset.currentid == "creation")
+        const data = {
+            book_id: generatedid_book,
+            legacy_book_id: "DEPRECATED_",
+            title: display_panel_book_title_editing.value,
+            author: display_panel_book_author_editing.value,
+            preview_url_override: display_panel_book_preview_url_override_editing.value,
+            isbn: display_panel_book_isbn_editing.value,
+            description: display_panel_book_description_editing.value,
+            classification_label: display_panel_book_classification_label_editing.value,
+            level: display_panel_book_level_editing.value,
+            subject: display_panel_book_subject_editing.value,
+            lost: display_panel_book_lost_editing.dataset.value,
+            scrapped: display_panel_book_scrapped_editing.dataset.value,
+            price: display_panel_book_price_editing.value,
+        };
+        p("CREATING BOOK RECORD WITH DATA: ", data);
+        try
         {
-            const data = {
-                book_id: generatedid_book,
-                legacy_book_id: "DEPRECATED_",
-                title: display_panel_book_title_editing.value,
-                author: display_panel_book_author_editing.value,
-                preview_url_override:
-                    display_panel_book_preview_url_override_editing.value,
-                isbn: display_panel_book_isbn_editing.value,
-                description: display_panel_book_description_editing.value,
-                classification_label:
-                    display_panel_book_classification_label_editing.value,
-                level: display_panel_book_level_editing.value,
-                subject: display_panel_book_subject_editing.value,
-                lost: display_panel_book_lost_editing.dataset.value,
-                scrapped: display_panel_book_scrapped_editing.dataset.value,
-                price: display_panel_book_price_editing.value,
-            };
-            p("CREATING BOOK RECORD WITH DATA: ", data);
-            try
-            {
-                await pb.collection("books").create(data);
-            } catch (error)
-            {
-                console.error(error.data);
-                let issue_string = "";
+            await pb.collection("books").create(data);
+        } catch (error)
+        {
+            console.error(error.data);
+            let issue_string = "";
 
-                for (
-                    let index = 0;
-                    index < Object.keys(error.data.data).length;
-                    index++
-                )
-                {
-                    issue_string += `\n${Object.keys(error.data.data)[index]
-                        }: ${Object.values(error.data.data)[index].message}`;
-                }
-                alert(
-                    `Error code: ${error.data.code}\nMessage: ${error.data.message}\n\nIssues:${issue_string}`
-                );
+            for (
+                let index = 0; index < Object.keys(error.data.data).length; index++
+            )
+            {
+                issue_string += `\n${Object.keys(error.data.data)[index]}: ${Object.values(error.data.data)[index].message
+                    }`;
             }
-
-            await list_books();
-            await clickHandler_create(book_edit_button.dataset.currentid);
-            swap_display_area_mode_to_display();
-        } else
-        {
-            const data = {
-                title: display_panel_book_title_editing.value,
-                author: display_panel_book_author_editing.value,
-                preview_url_override:
-                    display_panel_book_preview_url_override_editing.value,
-                isbn: display_panel_book_isbn_editing.value,
-                description: display_panel_book_description_editing.value,
-                classification_label:
-                    display_panel_book_classification_label_editing.value,
-                level: display_panel_book_level_editing.value,
-                subject: display_panel_book_subject_editing.value,
-                lost: display_panel_book_lost_editing.dataset.value,
-                scrapped: display_panel_book_scrapped_editing.dataset.value,
-                price: display_panel_book_price_editing.value,
-            };
-            p("UPDATING BOOK RECORD WITH DATA: ", data);
-            await pb
-                .collection("books")
-                .update(book_edit_button.dataset.currentid, data);
-            await list_books();
-            await book_display(book_edit_button.dataset.currentid);
-            swap_display_area_mode_to_display();
+            alert(
+                `Error code: ${error.data.code}\nMessage: ${error.data.message}\n\nIssues:${issue_string}`
+            );
         }
+
+        await list_books();
+        await clickHandler_create(true);
+        await change_display_area_mode("display", display_area);
     } else
     {
-        swap_display_area_mode_to_edit();
+        const data = {
+            title: display_panel_book_title_editing.value,
+            author: display_panel_book_author_editing.value,
+            preview_url_override: display_panel_book_preview_url_override_editing.value,
+            isbn: display_panel_book_isbn_editing.value,
+            description: display_panel_book_description_editing.value,
+            classification_label: display_panel_book_classification_label_editing.value,
+            level: display_panel_book_level_editing.value,
+            subject: display_panel_book_subject_editing.value,
+            lost: display_panel_book_lost_editing.dataset.value,
+            scrapped: display_panel_book_scrapped_editing.dataset.value,
+            price: display_panel_book_price_editing.value,
+        };
+        p("UPDATING BOOK RECORD WITH DATA: ", data);
+        await pb
+            .collection("books")
+            .update(book_edit_button.dataset.currentid, data);
+        await list_books();
+        await book_display(book_edit_button.dataset.currentid, true);
+        await change_display_area_mode("display", display_area);
     }
 }
 
-
-
-
 function borrower_close_unsaved_discard_click_handler()
 {
-    swap_display_area_mode_borrower_to_display();
+    change_display_area_mode("display", display_area_borrower);
     close_unsaved_borrower.close();
     if (edit_button_borrower.dataset.currentid == "creation")
     {
         if (nextid_borrower == "")
         {
-            swap_display_area_mode_borrower_to_none();
+            change_display_area_mode("none", display_area_borrower);
             create_borrower_button.style.background = "";
         } else
         {
@@ -567,21 +559,26 @@ function borrower_close_unsaved_discard_click_handler()
         }
     }
 }
+
 function book_close_unsaved_discard_click_handler()
 {
-    swap_display_area_mode_to_display();
+    book_display(nextid_book, true);
+    close_unsaved.close();
+    /*
+    change_display_area_mode("display", display_area)
     close_unsaved.close();
     if (book_edit_button.dataset.currentid == "creation")
     {
         if (nextid_book == "")
         {
-            swap_display_area_mode_to_none();
+            change_display_area_mode("none", display_area)
             create_button.style.background = "";
         } else
         {
             book_display(nextid_book);
         }
-    } else
+    } 
+    else
     {
         if (nextid_book == "")
         {
@@ -593,19 +590,15 @@ function book_close_unsaved_discard_click_handler()
         {
             book_display(nextid_book);
         }
-    }
+    }*/
 }
-
-
-
 
 async function save_changes_handler_borrower(event)
 {
     if (display_area_edit_mode_borrower)
     {
         regex = /^[a-zA-Z ]+$/;
-        if (
-            !regex.test(display_panel_borrower_name_editing.value) ||
+        if (!regex.test(display_panel_borrower_name_editing.value) ||
             !regex.test(display_panel_borrower_name_editing.value)
         )
         {
@@ -636,18 +629,16 @@ async function save_changes_handler_borrower(event)
                 .update(edit_button_borrower.dataset.currentid, data);
         }
         await list_borrowers();
-        await borrower_display(
-            edit_button_borrower.dataset.currentid,
-            true
-        );
-        await swap_display_area_mode_borrower_to_display();
+        await borrower_display(edit_button_borrower.dataset.currentid, true);
+        change_display_area_mode("display", display_area_borrower);
     } else
     {
-        swap_display_area_mode_borrower_to_edit();
+        change_display_area_mode("edit", display_area_borrower);
     }
 }
 
 change_dark_light_theme();
+
 function change_dark_light_theme()
 {
     let new_string = document.body.className.replace("light", "dark");
@@ -661,6 +652,7 @@ function change_dark_light_theme()
     }
     document.body.className = new_string;
 }
+
 function logo_easter_egg()
 {
     logo_text.style.fontWeight = parseInt(logo_text.style.fontWeight) + 50;
@@ -669,6 +661,7 @@ function logo_easter_egg()
         logo_text.innerHTML = `Made by <a target="_blank" rel="external" href="https://permanentlink.github.io/#saslib">Joe Esposito</a>`;
     }
 }
+
 function createRipple(event)
 {
     const button = event.currentTarget;
@@ -686,6 +679,7 @@ function createRipple(event)
     }, 1000);
     button.appendChild(circle);
 }
+
 function copy_isbn()
 {
     copy_isbn_tooltip.innerHTML = `Copied!`;
@@ -696,6 +690,7 @@ function copy_isbn()
     var copyText = document.getElementById("display_panel_book_isbn").innerHTML;
     navigator.clipboard.writeText(copyText);
 }
+
 function copy_borrower_id_from_books()
 {
     copy_borrower_book_tooltip.innerHTML = `Copied!`;
@@ -708,6 +703,7 @@ function copy_borrower_id_from_books()
     ).innerHTML;
     navigator.clipboard.writeText(copyText);
 }
+
 function open_account_dialog()
 {
     account_dialog.showModal();
@@ -785,107 +781,180 @@ function segmented_button_thing(event, element = "")
         }
     }
 }
-function swap_display_area_mode_borrower()
+
+function lend_book_button_click_handler(ev)
 {
-    if (display_area_edit_mode_borrower)
+    lend_book_to_borrower(
+        ev.srcElement.dataset.currentid,
+        edit_button_borrower.dataset.currentid
+    );
+    close_lend_book_dialog();
+    display_panel_details.style.display = "none";
+}
+
+function book_enable_lend_view(enable)
+{
+    if (enable)
     {
-        swap_display_area_mode_borrower_to_display();
+        display_area_top_book_view.style.display = "none";
+        display_area_top_lend_view.style.display = "flex";
+        add_book_to_borrow_dialog_container.appendChild(container_book);
     } else
     {
-        swap_display_area_mode_borrower_to_edit();
+        display_area_top_book_view.style.display = "flex";
+        display_area_top_lend_view.style.display = "none";
+        document.body.appendChild(container_book);
     }
 }
-function swap_display_area_mode_borrower_to_edit()
-{
-    display_panel_edit_details_borrower.style.display = "block";
 
-    display_panel_details_borrower.style.display = "none";
-    edit_button_borrower_label.innerText = "Save";
-    edit_button_borrower_label.style.color = "var(--color-background)";
-    edit_button_borrower.style.backgroundColor = "var(--color-primary)";
-    edit_button_borrower.style.border = "none";
-    returntextjinfo4_borrower.innerText = "Cancel";
-    returnbutton54985t8_borrower.onclick = borrower_open_discard_draft_modal;
-    display_area_edit_mode_borrower = true;
-    returnbutton54985t8_borrower.style.display = "flex";
-    edit_button_borrower.style.display = "flex";
-}
-function swap_display_area_mode_borrower_to_display()
+function change_display_area_mode(mode, _display_area)
 {
-    display_panel_edit_details_borrower.style.display = "none";
-    display_panel_details_borrower.style.display = "block";
-    edit_button_borrower_label.innerText = "Edit";
-    edit_button_borrower_label.style.color = "";
-    edit_button_borrower.style.backgroundColor = "";
-    edit_button_borrower.style.border = "";
-    returntextjinfo4_borrower.innerText = "Return";
-    returnbutton54985t8_borrower.onclick = null;
-    display_area_edit_mode_borrower = false;
-    returnbutton54985t8_borrower.style.display = "flex";
-    edit_button_borrower.style.display = "flex";
-}
-function swap_display_area_mode_borrower_to_none()
-{
-    returnbutton54985t8_borrower.style.display = "none";
-    edit_button_borrower.style.display = "none";
-    display_panel_details_borrower.style.display = "none";
-    display_panel_edit_details_borrower.style.display = "none";
-    edit_button_borrower.dataset.currentid = "none"
-}
-function swap_display_area_mode_to_none()
-{
-    returnbutton54985t8.style.display = "none";
-    book_edit_button.style.display = "none";
-    display_panel_details.style.display = "none";
-    display_panel_edit_details.style.display = "none";
-}
-function swap_display_area_mode()
-{
-    if (display_area_edit_mode)
+    // TEMPORARY
+    let ele_type;
+    if (_display_area === display_area)
     {
-        swap_display_area_mode_to_display();
-    } else
+        ele_type = "book";
+    }
+    if (_display_area == display_area_borrower)
     {
-        swap_display_area_mode_to_edit();
+        ele_type = "borrower";
+    }
+
+    function borrower_edit()
+    {
+        display_panel_edit_details_borrower.style.display = "block";
+
+        display_panel_details_borrower.style.display = "none";
+        edit_button_borrower_label.innerText = "Save";
+        edit_button_borrower_label.style.color = "var(--color-background)";
+        edit_button_borrower.style.backgroundColor = "var(--color-primary)";
+        edit_button_borrower.style.border = "none";
+        returntextjinfo4_borrower.innerText = "Cancel";
+        returnbutton54985t8_borrower.onclick =
+            borrower_open_discard_draft_modal;
+        display_area_edit_mode_borrower = true;
+        returnbutton54985t8_borrower.style.display = "flex";
+        edit_button_borrower.style.display = "flex";
+    }
+
+    function borrower_display()
+    {
+        display_panel_edit_details_borrower.style.display = "none";
+        display_panel_details_borrower.style.display = "block";
+        edit_button_borrower_label.innerText = "Edit";
+        edit_button_borrower_label.style.color = "";
+        edit_button_borrower.style.backgroundColor = "";
+        edit_button_borrower.style.border = "";
+        returntextjinfo4_borrower.innerText = "Return";
+        returnbutton54985t8_borrower.onclick = null;
+        display_area_edit_mode_borrower = false;
+        returnbutton54985t8_borrower.style.display = "flex";
+        edit_button_borrower.style.display = "flex";
+    }
+
+    function borrower_none()
+    {
+        returnbutton54985t8_borrower.style.display = "none";
+        edit_button_borrower.style.display = "none";
+        display_panel_details_borrower.style.display = "none";
+        display_panel_edit_details_borrower.style.display = "none";
+        edit_button_borrower.dataset.currentid = "none";
+    }
+
+    function book_none()
+    {
+        //_display_area.style.display = "none"
+        //display_area_top_book_view.style.display = "none"
+        //display_area_top_book_view_edit.style.display = "none"
+        //display_panel_details.style.display = "none";
+        //display_panel_edit_details.style.display = "none";
+    }
+
+    function book_display()
+    {
+        p(_display_area);
+        _display_area.querySelector(".display_panel_edit").style.display =
+            "none";
+        _display_area.querySelector(".display_panel_display").style.display =
+            "block";
+
+        //display_panel_edit_details.style.display = "none";
+        //display_panel_details.style.display = "block";
+
+        if (current_page == "books")
+        {
+            //display_area_top_book_view.style.display = "flex"
+            //display_area_top_book_view_edit.style.display = "none"
+            //display_area_edit_mode = false;
+        }
+    }
+
+    function book_edit()
+    {
+        p(_display_area);
+        _display_area.querySelector(".display_panel_edit").style.display =
+            "block";
+        _display_area.querySelector(".display_panel_display").style.display =
+            "none";
+        display_area_edit_mode = true;
+
+        //display_panel_edit_details.style.display = "block";
+        //display_panel_details.style.display = "none";
+
+        //display_area_top_book_view.style.display = "none"
+        //display_area_top_book_view_edit.style.display = "flex"
+    }
+    if (ele_type == "book")
+    {
+        switch (mode)
+        {
+            case "display":
+                book_display();
+                break;
+            case "edit":
+                book_edit();
+                break;
+            case "creation":
+                book_edit();
+                break;
+            case "none":
+                book_none();
+                break;
+            default:
+                break;
+        }
+    } else if ("borrower")
+    {
+        switch (mode)
+        {
+            case "display":
+                borrower_display();
+                break;
+            case "edit":
+                borrower_edit();
+                break;
+            case "creation":
+                borrower_edit();
+                break;
+            case "none":
+                borrower_none();
+                break;
+            default:
+                break;
+        }
     }
 }
-function swap_display_area_mode_to_display()
-{
-    display_panel_edit_details.style.display = "none";
-    display_panel_details.style.display = "block";
 
-    if (current_page == "books")
-    {
-        n5goiu.innerText = "Edit";
-        n5goiu.style.color = "";
-        book_edit_button.style.backgroundColor = "";
-        book_edit_button.style.border = "";
-        returntextjinfo4.innerText = "Return";
-        returnbutton54985t8.onclick = null;
-        display_area_edit_mode = false;
-    }
-}
-function swap_display_area_mode_to_edit()
-{
-    display_panel_edit_details.style.display = "block";
-    display_panel_details.style.display = "none";
-
-    n5goiu.innerText = "Save";
-    n5goiu.style.color = "var(--color-background)";
-    book_edit_button.style.backgroundColor = "var(--color-primary)";
-    book_edit_button.style.border = "none";
-    returntextjinfo4.innerText = "Cancel";
-    returnbutton54985t8.onclick = book_open_discard_draft_modal;
-    display_area_edit_mode = true;
-}
 function book_open_discard_draft_modal()
 {
     close_unsaved.showModal();
 }
+
 function borrower_open_discard_draft_modal()
 {
     close_unsaved_borrower.showModal();
 }
+
 function create_random_string(length)
 {
     const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -919,6 +988,7 @@ async function generate_unique_book_id()
         }
     }
 }
+
 function search_sortby_ascending_book_change()
 {
     if (search_sortby_ascending_book.dataset.ascending == "+")
@@ -1064,7 +1134,6 @@ async function list_books()
         let list_item = document.createElement("button");
         list_item.className = "list-button list-item";
         list_item.dataset.id = rec.id;
-        //list_item.setAttribute("onclick", "clickHandler(event.srcElement.dataset.id)");
         list_item.addEventListener("click", book_click_handler);
         list_area_list.appendChild(list_item);
         list_item.addEventListener("pointerdown", createRipple);
@@ -1103,9 +1172,11 @@ async function list_books()
         list_item.appendChild(preview_image);
         list_item.appendChild(info_div);
     }
+    highlight_selected_item(book_edit_button.dataset.currentid, list_area_list);
     list_area_list.appendChild(page_number_changer_books);
     page_number_changer_books.style.display = "flex";
 }
+
 function playOpenSound()
 {
     let randomInteger = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
@@ -1117,11 +1188,22 @@ function playOpenSound()
 function book_click_handler(e)
 {
     book_display(e.srcElement.dataset.id, false);
+    playOpenSound();
 }
 
 async function book_display(ARGUMENT_ID, excused_from_dialog = false)
 {
-    playOpenSound();
+    if (book_edit_button.dataset.currentid == ARGUMENT_ID)
+    {
+        return;
+    }
+
+    if (ARGUMENT_ID == "creation")
+    {
+        clickHandler_create(excused_from_dialog);
+        return;
+    }
+
     let useid = ARGUMENT_ID; //ev.srcElement.dataset.id;
     let book = loaded_book_records.find((s) =>
     {
@@ -1130,19 +1212,27 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false)
 
     if (display_area_edit_mode && !excused_from_dialog)
     {
-        nextid_book = book.id;
+        nextid_book = ARGUMENT_ID;
+        p("EGGGG:", nextid_book);
         book_open_discard_draft_modal();
         return;
     }
     nextid_book = "";
 
-    highlight_selected_item(useid, list_area_list)
+    if (ARGUMENT_ID == "")
+    {
+        book_edit_button.dataset.currentid = "";
+        change_display_area_mode("none", display_area);
+        return;
+    }
+
+    highlight_selected_item(useid, list_area_list);
 
     display_panel_book_cover.src = "";
 
-    book_edit_button.dataset.currentid = book.id;
+    book_edit_button.dataset.currentid = ARGUMENT_ID;
 
-    swap_display_area_mode_to_display();
+    change_display_area_mode("display", display_area);
 
     /////////DISPLAY PANEL NONSENCE/////////////////////////////////////
     display_panel_book_system_id.innerHTML = "SYS_ID: " + book.id;
@@ -1180,9 +1270,9 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false)
     display_panel_book_level.innerHTML = "Level: " + book.level;
 
     display_panel_book_lost.style.display = book.lost ? "block" : "none";
-    display_panel_book_scrapped.style.display = book.scrapped
-        ? "block"
-        : "none";
+    display_panel_book_scrapped.style.display = book.scrapped ?
+        "block" :
+        "none";
     if (book.price > 0)
     {
         display_panel_book_price.style.display = "block";
@@ -1205,15 +1295,13 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false)
     display_panel_book_title_editing.value = book.title;
     display_panel_book_author_editing.value = book.author;
 
-    if (book.preview_url_override == "")
+    if (book.preview_url_override === "")
     {
         display_panel_book_preview_url_override_editing.placeholder =
             "Automatic";
-    } else
-    {
-        display_panel_book_preview_url_override_editing.value =
-            book.preview_url_override;
     }
+    display_panel_book_preview_url_override_editing.value =
+        book.preview_url_override;
 
     display_panel_book_book_id_editing.innerText = "ID: " + book.book_id;
 
@@ -1326,7 +1414,7 @@ async function clickHandler_create(excused_from_dialog = false)
     //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
     clickedOne.style.background = "var(--color-on-surface-2)";
 
-    swap_display_area_mode_to_edit();
+    change_display_area_mode("edit", display_area);
 }
 async function list_borrowers()
 {
@@ -1422,6 +1510,7 @@ async function list_borrowers()
         }
     }
 }
+
 function close_lend_book_dialog()
 {
     dpdb_add_button_FAKE.style = null;
@@ -1445,35 +1534,7 @@ function close_lend_book_dialog()
         clearInterval(eer4r4);
     }, 500);
 }
-function turn_book_view_into_lend_view()
-{
-    add_book_to_borrow_dialog_container.appendChild(container_book);
-    i9i9i9i9i9i9i9.innerHTML = `
-    <button id="book_edit_button" onclick="lend_book_to_borrower(event.srcElement.dataset.currentid,edit_button_borrower.dataset.currentid); close_lend_book_dialog(); display_panel_details.style.display = 'none'" style="    margin: 5px;
-    border: none;
-    background-color: var(--color-primary);
-    width: 100%;
-    padding: 0 1.1em;">
-        <div id="n5goiu" style="pointer-events:none; color: var(--color-background);">
-            Lend book to borrower
-        </div>
-    </button>
-    `;
-}
-function turn_lend_view_into_book_view()
-{
-    document.body.appendChild(container_book);
-    i9i9i9i9i9i9i9.innerHTML = `
-        <button id="returnbutton54985t8" style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;">
-            <div id="returntextjinfo4">
-                Return
-            </div>
-        </button>
-        <button id="book_edit_button" onclick="save_changes_handler_book(event)" style="margin: 5px; margin-right: 5px;">
-            <div id="n5goiu">Edit</div>
-        </button>
-    `;
-}
+
 function add_borrower_book_button_handler(event)
 {
     document.body.style.setProperty("--j95r4ji5r-opacity", "1");
@@ -1487,7 +1548,7 @@ function add_borrower_book_button_handler(event)
 
     var zeBOX = dpdb_add_button.getBoundingClientRect();
 
-    turn_book_view_into_lend_view();
+    book_enable_lend_view(true);
 
     p(zeBOX);
 
@@ -1578,36 +1639,7 @@ async function delete_borrower(id)
     list_borrowers();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-async function borrower_display(borrowerId, excused_from_dialog = false) 
+async function borrower_display(borrowerId, excused_from_dialog = false)
 {
     playOpenSound();
 
@@ -1619,8 +1651,8 @@ async function borrower_display(borrowerId, excused_from_dialog = false)
         const hasUnsavedChanges = [
             display_panel_borrower_name_editing.value,
             display_panel_borrower_surname_editing.value,
-            display_panel_borrower_group_editing.value
-        ].some(value => value !== "");
+            display_panel_borrower_group_editing.value,
+        ].some((value) => value !== "");
 
         if (hasUnsavedChanges)
         {
@@ -1634,15 +1666,10 @@ async function borrower_display(borrowerId, excused_from_dialog = false)
 
     if (isCreation)
     {
-        await borrower_create_blank();
-        borrower = {
-            name: "",
-            surname: "",
-            id: generatedid_borrower,
-            group: ""
-        };
-    }
-    else 
+        delete_borrower_forever.style.display = "none";
+        change_display_area_mode("edit", display_area_borrower);
+        borrower = await borrower_create_blank();
+    } else
     {
         borrower = await handleBorrowerDisplay(borrowerId);
     }
@@ -1659,9 +1686,6 @@ async function borrower_display(borrowerId, excused_from_dialog = false)
 
 async function borrower_create_blank()
 {
-    delete_borrower_forever.style.display = "none";
-    swap_display_area_mode_borrower_to_edit();
-
     try
     {
         const response = await fetch("borrowers_id_list_length_3.txt");
@@ -1671,13 +1695,19 @@ async function borrower_create_blank()
     {
         console.error(e);
     }
+    return (borrower = {
+        name: "",
+        surname: "",
+        id: generatedid_borrower,
+        group: "",
+    });
 }
 
 async function handleBorrowerDisplay(borrowerId)
 {
     delete_borrower_forever.style.display = "flex";
-    swap_display_area_mode_borrower_to_display();
-    return all_borrower_records.find(borrower => borrower.id === borrowerId);
+    change_display_area_mode("display", display_area_borrower);
+    return all_borrower_records.find((borrower) => borrower.id === borrowerId);
 }
 
 function updateBorrowerEditingPanel(borrower)
@@ -1706,14 +1736,18 @@ async function updateBorrowerBooks(borrowerId)
 {
     try
     {
-        const transactionList = await pb.collection("transactions").getFullList({
-            filter: `person.id = "${borrowerId}" && returned = false`,
-            expand: "book"
-        });
+        const transactionList = await pb
+            .collection("transactions")
+            .getFullList({
+                filter: `person.id = "${borrowerId}" && returned = false`,
+                expand: "book",
+            });
 
-        document.querySelectorAll(".book_view").forEach(bookView => bookView.remove());
+        document
+            .querySelectorAll(".book_view")
+            .forEach((bookView) => bookView.remove());
 
-        transactionList.forEach(transaction =>
+        transactionList.forEach((transaction) =>
         {
             const bookView = createBookView(transaction);
             borrower_currently_borrowing_books.appendChild(bookView);
@@ -1727,7 +1761,8 @@ async function updateBorrowerBooks(borrowerId)
 function createBookView(transaction)
 {
     const book = transaction.expand.book;
-    const previewImageUrl = book.preview_url_override ||
+    const previewImageUrl =
+        book.preview_url_override ||
         `https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`;
 
     const bookView = document.createElement("div");
@@ -1762,36 +1797,29 @@ function createBookView(transaction)
 
 function highlight_selected_item(id, list_element)
 {
-    list_element.querySelectorAll(".list-item").forEach(item => item.style.background = "");
+    // Catching error just in case
+    if (list_element == null)
+    {
+        console.error("The list element is null");
+        return;
+    }
+
+    list_element
+        .querySelectorAll(".list-item")
+        .forEach((item) => (item.style.background = ""));
+
     // If the id is blank then dont highlight a new one
     if (id != "")
     {
-        const clickedOne = list_element.querySelector(`button[data-id="${id}"]`);
-        clickedOne.style.background = "var(--color-on-surface-2)";
+        const clickedOne = list_element.querySelector(
+            `button[data-id="${id}"]`
+        );
+        if (clickedOne != null)
+        {
+            clickedOne.style.background = "var(--color-on-surface-2)";
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 async function return_book(id, person)
 {
@@ -1924,6 +1952,7 @@ async function list_prints()
         }
     }
 }
+
 function open_signin_modal(event)
 {
     if (pb.authStore.isValid)
@@ -1936,10 +1965,12 @@ function open_signin_modal(event)
     document.getElementById("sign_in_dialog").showModal();
     document.addEventListener("keydown", enter_key_pressed_in_sign_in_dialog);
 }
+
 function close_sign_in_modal(event)
 {
     document.getElementById("sign_in_dialog").close();
 }
+
 function enter_key_pressed_in_sign_in_dialog(event)
 {
     if (event.code === "Enter")

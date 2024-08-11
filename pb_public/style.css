@@ -1329,3 +1329,13 @@ body.hasHover ::-webkit-scrollbar-thumb:hover
 {
     translate: 0px -1.15em;
 }
+
+.input_placeholder_force_up
+{
+    font-size: calc(min(4vw, 23px)*0.6);
+    translate: 0px -2.05em;
+    background-color: var(--color-surface-0);
+    opacity: 1;
+    transition-delay: 0s;
+    color: var(--color-on-background);
+}
