@@ -6,11 +6,11 @@ body{
     margin: 0;
     --border-thiccness: 0.1em
 }
-.top_bar{
+.top-bar{
     border-bottom: var(--border-thiccness) solid var(--color-neutral-variant60);
     background-color: var(--color-inverse-on-surface);
 }
-.list_area{
+.list-area{
     border: var(--border-thiccness) solid var(--color-neutral-variant60);
     border-top: 0;
     border-bottom: 0;
@@ -18,7 +18,7 @@ body{
     gap: 0 0;
     border-radius: 0;
 }
-.list_item
+.list-item
 {
     --color-on-surface-2: var(--color-primary-80);
     background-color: var(--color-background);
@@ -28,28 +28,28 @@ body{
     border: 0 !important;
     border-radius: 0.3em !important;
 }
-.list_area_search{
+.list-area-search{
     border-bottom: none;
     border-radius: 0;
 }
-body.hasHover .list_item:hover{
+body.hasHover .list-item:hover{
     background-color: var(--color-background);
     box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.8);
 }
-.green_dark .list_item{
+.green-dark .list-item{
     --color-on-surface-2: var(--color-secondary-container) !important;
 }
-.blue_dark .list_item{
+.blue-dark .list-item{
     --color-on-surface-2: var(--color-secondary-container) !important;
 }
-.page_number_changer{
+.page-number-changer{
     box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.2);
     margin: 0.3em !important;
 }
-.list_area_list{
+.list-area-list{
     border-radius: 0;
 }
-.create_button{
+.create-button{
     border-bottom: 2px dashed var(--color-neutral-variant60);
     margin-top: 0.4em !important;
 }

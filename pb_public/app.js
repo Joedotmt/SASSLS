@@ -49,44 +49,7 @@ function display_panel_book_lost_scrapped_editing_handle()
     }
 }
 
-// fills book subject accordions with chips
-document.querySelectorAll(".book_subject_accordion").forEach((ele) =>
-{
-    ele.innerHTML = `
-        <button class="toggle_chip">Fiction</button>
-        <button class="toggle_chip">Non-Fiction</button>
-        <button class="toggle_chip">Poetry & Plays</button>
-        <button class="toggle_chip">Graphic Novels</button>
-        <button class="toggle_chip">Reference</button>
-        <button class="toggle_chip">Melitensia</button>
-
-        <button class="toggle_chip">Spanish RES</button>
-        <button class="toggle_chip">Social Sciences RES</button>
-        <button class="toggle_chip">Religion RES</button>
-        <button class="toggle_chip">Physics RES</button>
-        <button class="toggle_chip">PE RES</button>
-        <button class="toggle_chip">Maths RES</button>
-        <button class="toggle_chip">Malti RES</button>
-        <button class="toggle_chip">Italian RES</button>
-        <button class="toggle_chip">Hospitality RES</button>
-        <button class="toggle_chip">History RES</button>
-        <button class="toggle_chip">Geography RES</button>
-        <button class="toggle_chip">General Science RES</button>
-        <button class="toggle_chip">French RES</button>
-        <button class="toggle_chip">English RES</button>
-        <button class="toggle_chip">Education RES</button>
-        <button class="toggle_chip">Economics RES</button>
-        <button class="toggle_chip">Drama RES</button>
-        <button class="toggle_chip">Design & Technology RES</button>
-        <button class="toggle_chip">Computing RES</button>
-        <button class="toggle_chip">Chemistry RES</button>
-        <button class="toggle_chip">Art RES</button>
-        <button class="toggle_chip">Accounts RES</button>
-        <button class="toggle_chip">Biology RES</button>
-    `;
-});
-
-document.querySelectorAll(".toggle_chip").forEach((ele) =>
+document.querySelectorAll(".toggle-chip").forEach((ele) =>
 {
     ele.addEventListener("click", function ()
     {
@@ -117,9 +80,11 @@ window.addEventListener(
 
 // Select all input, select, and textarea elements
 const elements = document.querySelectorAll('input, select, textarea');
-elements.forEach(element => {
+elements.forEach(element =>
+{
     // Check if the element doesn't have a placeholder attribute
-    if (!element.hasAttribute('placeholder')) {
+    if (!element.hasAttribute('placeholder'))
+    {
         // Add an empty placeholder attribute
         element.setAttribute('placeholder', '');
     }
@@ -128,7 +93,7 @@ elements.forEach(element => {
 
 //list_area_search_filters.appendChild(search_area)
 search_area.style.background = "var(--color-background)";
-//document.querySelector(".filter_button").style.display = "none"
+//document.querySelector(".filter-button").style.display = "none"
 
 search_view_mode = true;
 let display_area_edit_mode_borrower = false;
@@ -137,8 +102,8 @@ const all_buttons = document.getElementsByTagName("button");
 for (const button of all_buttons)
 {
     if (
-        !button.classList.contains("segmented_button_button") &&
-        !button.classList.contains("no_ripple")
+        !button.classList.contains("segmented-button-button") &&
+        !button.classList.contains("no-ripple")
     )
     {
         button.addEventListener("pointerdown", createRipple);
@@ -444,7 +409,7 @@ function collection_change()
     current_page = window.location.hash.substring(1);
 
     let str = document.body.className;
-    light_or_dark = "_" + str.substring(str.indexOf("_") + 1);
+    light_or_dark = "-" + str.substring(str.indexOf("-") + 1);
 
     container_book.style.display = "none";
     container_borrower.style.display = "none";
@@ -1082,7 +1047,7 @@ async function list_books()
     if (current_page == "books")
     {
         list_area_list.innerHTML = `
-            <button id="create_book_button" onclick="clickHandler_create()" class="list_button list_item create_button">
+            <button id="create_book_button" onclick="clickHandler_create()" class="list-button list-item create-button">
                 + Create Book
             </button>
         `;
@@ -1097,7 +1062,7 @@ async function list_books()
     for (const rec of loaded_book_records)
     {
         let list_item = document.createElement("button");
-        list_item.className = "list_button list_item";
+        list_item.className = "list-button list-item";
         list_item.dataset.id = rec.id;
         //list_item.setAttribute("onclick", "clickHandler(event.srcElement.dataset.id)");
         list_item.addEventListener("click", book_click_handler);
@@ -1105,7 +1070,7 @@ async function list_books()
         list_item.addEventListener("pointerdown", createRipple);
 
         let preview_image = document.createElement("img");
-        preview_image.className = "preview_image";
+        preview_image.className = "preview-image";
 
         if (rec.preview_url_override == "")
         {
@@ -1119,7 +1084,7 @@ async function list_books()
         }
         preview_image.style.marginRight = "0.5em";
         let info_div = document.createElement("div");
-        info_div.className = "list_item_info_text";
+        info_div.className = "list-item-info-text";
 
         if (rec.legacy_book_id.match("DEPRECATED_"))
         {
@@ -1351,7 +1316,7 @@ async function clickHandler_create(excused_from_dialog = false)
     display_panel_book_price_editing.value = "";
 
     let clickedOne = create_book_button;
-    list_area_list.querySelectorAll(".list_item").forEach(function (i)
+    list_area_list.querySelectorAll(".list-item").forEach(function (i)
     {
         i.style.background = "";
         //i.style.borderRadius = "";
@@ -1391,7 +1356,7 @@ async function list_borrowers()
     });
 
     list_area_list_borrower.innerHTML = `
-        <button id="create_borrower_button" data-id="creation" onclick="borrower_display(event.srcElement.dataset.id)" style="border-bottom: 2px dashed var(--color-neutral-variant60);" class="list_button list_item">
+        <button id="create_borrower_button" data-id="creation" onclick="borrower_display(event.srcElement.dataset.id)" style="border-bottom: 2px dashed var(--color-neutral-variant60);" class="list-button list-item">
             + Create Borrower
         </button>
     `;
@@ -1404,7 +1369,7 @@ async function list_borrowers()
         if (rec.id != "deletedborrower")
         {
             let list_item = document.createElement("button");
-            list_item.className = "list_button list_item";
+            list_item.className = "list-button list-item";
             list_item.dataset.id = rec.id;
             list_area_list_borrower.appendChild(list_item);
             list_item.addEventListener("pointerdown", createRipple);
@@ -1413,7 +1378,7 @@ async function list_borrowers()
                 "borrower_display(event.srcElement.dataset.id)"
             );
             let preview_image = document.createElement("img");
-            preview_image.className = "preview_image";
+            preview_image.className = "preview-image";
             switch (rec.group)
             {
                 case "Teacher":
@@ -1440,7 +1405,7 @@ async function list_borrowers()
             preview_image.style.border = "transparent";
             preview_image.style.marginRight = "0.5em";
             let info_div = document.createElement("div");
-            info_div.className = "list_item_info_text";
+            info_div.className = "list-item-info-text";
 
             info_div.innerHTML = `
             ${rec.name} ${rec.surname} 
@@ -1642,20 +1607,23 @@ async function delete_borrower(id)
 
 
 
-async function borrower_display(borrowerId, excused_from_dialog = false) {
+async function borrower_display(borrowerId, excused_from_dialog = false) 
+{
     playOpenSound();
 
     const isCreation = borrowerId === "creation";
     let borrower = {};
 
-    if (display_area_edit_mode_borrower && !excused_from_dialog) {
+    if (display_area_edit_mode_borrower && !excused_from_dialog)
+    {
         const hasUnsavedChanges = [
             display_panel_borrower_name_editing.value,
             display_panel_borrower_surname_editing.value,
             display_panel_borrower_group_editing.value
         ].some(value => value !== "");
 
-        if (hasUnsavedChanges) {
+        if (hasUnsavedChanges)
+        {
             nextid_borrower = borrowerId;
             borrower_open_discard_draft_modal();
             return;
@@ -1664,20 +1632,24 @@ async function borrower_display(borrowerId, excused_from_dialog = false) {
 
     nextid_borrower = "";
 
-    if (isCreation) {
-        await handleBorrowerCreation();
+    if (isCreation)
+    {
+        await borrower_create_blank();
         borrower = {
             name: "",
             surname: "",
             id: generatedid_borrower,
             group: ""
         };
-    } else {
+    }
+    else 
+    {
         borrower = await handleBorrowerDisplay(borrowerId);
     }
 
     updateBorrowerEditingPanel(borrower);
-    if (!isCreation) {
+    if (!isCreation)
+    {
         updateBorrowerDisplayPanel(borrower);
         await updateBorrowerBooks(borrower.id);
     }
@@ -1685,26 +1657,31 @@ async function borrower_display(borrowerId, excused_from_dialog = false) {
     highlight_selected_item(borrowerId, list_area_list_borrower);
 }
 
-async function handleBorrowerCreation() {
+async function borrower_create_blank()
+{
     delete_borrower_forever.style.display = "none";
     swap_display_area_mode_borrower_to_edit();
 
-    try {
+    try
+    {
         const response = await fetch("borrowers_id_list_length_3.txt");
         const text = await response.text();
         generatedid_borrower = generate_unique_borrower_id(text);
-    } catch (e) {
+    } catch (e)
+    {
         console.error(e);
     }
 }
 
-async function handleBorrowerDisplay(borrowerId) {
+async function handleBorrowerDisplay(borrowerId)
+{
     delete_borrower_forever.style.display = "flex";
     swap_display_area_mode_borrower_to_display();
     return all_borrower_records.find(borrower => borrower.id === borrowerId);
 }
 
-function updateBorrowerEditingPanel(borrower) {
+function updateBorrowerEditingPanel(borrower)
+{
     display_panel_borrower_name_editing.value = borrower.name;
     display_panel_borrower_surname_editing.value = borrower.surname;
     display_panel_borrower_borrower_id_editing.innerText = `ID: ${borrower.id}`;
@@ -1713,10 +1690,11 @@ function updateBorrowerEditingPanel(borrower) {
     edit_button_borrower.dataset.currentid = borrower.id;
 }
 
-function updateBorrowerDisplayPanel(borrower) {
+function updateBorrowerDisplayPanel(borrower)
+{
     dpdb_name.innerText = borrower.name;
     dpdb_surname.innerHTML = `&nbsp${borrower.surname}`;
-    dpdb_borrower_id.innerText = `ID: ${borrower.id}`;
+    dpdb_borrower_id.innerText = `ID: ${borrower.borrower_id}`;
     dpdb_group.innerText = `Group: ${borrower.group}`;
     dpdb_created.innerText = `Created: ${borrower.created}`;
     dpdb_updated.innerText = `Updated: ${borrower.updated}`;
@@ -1724,8 +1702,10 @@ function updateBorrowerDisplayPanel(borrower) {
     dpdb_add_button.dataset.borrowerid = borrower.id;
 }
 
-async function updateBorrowerBooks(borrowerId) {
-    try {
+async function updateBorrowerBooks(borrowerId)
+{
+    try
+    {
         const transactionList = await pb.collection("transactions").getFullList({
             filter: `person.id = "${borrowerId}" && returned = false`,
             expand: "book"
@@ -1733,19 +1713,22 @@ async function updateBorrowerBooks(borrowerId) {
 
         document.querySelectorAll(".book_view").forEach(bookView => bookView.remove());
 
-        transactionList.forEach(transaction => {
+        transactionList.forEach(transaction =>
+        {
             const bookView = createBookView(transaction);
             borrower_currently_borrowing_books.appendChild(bookView);
         });
-    } catch (e) {
+    } catch (e)
+    {
         console.error(e);
     }
 }
 
-function createBookView(transaction) {
+function createBookView(transaction)
+{
     const book = transaction.expand.book;
-    const previewImageUrl = book.preview_url_override || 
-                            `https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`;
+    const previewImageUrl = book.preview_url_override ||
+        `https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`;
 
     const bookView = document.createElement("div");
     bookView.classList.add("book_view");
@@ -1764,10 +1747,10 @@ function createBookView(transaction) {
                         <label style="font-family:var(--the-robo-font)">ISBN: ${book.isbn}</label>
                     </div>
                     <div style="display: flex; flex-direction: row; justify-content: end;">
-                        <button onclick="return_book('${transaction.id}','${transaction.person}');" class="button_circle">
+                        <button onclick="return_book('${transaction.id}','${transaction.person}');" class="button-circle">
                             <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="material-symbols-outlined">tab_close</span>
                         </button>
-                        <button style="margin-left: 0.3em;" class="button_circle">
+                        <button style="margin-left: 0.3em;" class="button-circle">
                             <span class="material-symbols-outlined">open_in_new</span>
                         </button>
                     </div>
@@ -1779,7 +1762,7 @@ function createBookView(transaction) {
 
 function highlight_selected_item(id, list_element)
 {
-    list_element.querySelectorAll(".list_item").forEach(item => item.style.background = "");
+    list_element.querySelectorAll(".list-item").forEach(item => item.style.background = "");
     // If the id is blank then dont highlight a new one
     if (id != "")
     {
@@ -1867,7 +1850,7 @@ async function list_prints()
             let list_item = document.createElement("div");
             list_item.innerHTML = `${rec.pages} × ${rec.paper
                 }<br>Email: ${rec.expand.user.email.slice(0, -17)}`;
-            list_item.className = "list_item";
+            list_item.className = "list-item";
             list_item.dataset.id = rec.id;
             list_item.onclick = function (list_area)
             {
@@ -1921,7 +1904,7 @@ async function list_prints()
 
                 let clickedOne = list_area.target;
                 list_area_list
-                    .querySelectorAll(".list_item")
+                    .querySelectorAll(".list-item")
                     .forEach(function (i)
                     {
                         i.style.background = "";
