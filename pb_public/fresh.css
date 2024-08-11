@@ -29,9 +29,8 @@ body{
     border-radius: 0.3em !important;
 }
 .list_area_search{
-    border-bottom: var(--border-thiccness) solid var(--color-neutral-variant60);
+    border-bottom: none;
     border-radius: 0;
-    background-color: var(--color-background);
 }
 body.hasHover .list_item:hover{
     background-color: var(--color-background);
@@ -49,4 +48,8 @@ body.hasHover .list_item:hover{
 }
 .list_area_list{
     border-radius: 0;
+}
+.create_button{
+    border-bottom: 2px dashed var(--color-neutral-variant60);
+    margin-top: 0.4em !important;
 }

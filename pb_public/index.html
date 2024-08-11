@@ -147,72 +147,27 @@
 
    <dialog style="padding: 1em;" id="close_unsaved">
       <div style="padding: 1rem 11rem 3rem 1rem; font-size: 1.2em;">Discard draft?</div>
-      <div style=" display: flex; justify-content: flex-end;"> <button onclick="close_unsaved.close()"
-            style="margin-right: 0.1em; border: 0;">Cancel</button> <button onclick="
-                     swap_display_area_mode_to_display(); 
-                     close_unsaved.close();
-                     if (book_edit_button.dataset.currentid == 'creation') 
-                     {
-                        if (nextid_book == '')
-                        {
-                           swap_display_area_mode_to_none()
-                           create_button.style.background = ''
-                        }
-                        else
-                        {
-                           clickHandler(nextid_book);
-                        }
-                     } 
-                     else 
-                     {
-                        if (nextid_book == '')
-                        {
-                           clickHandler(book_edit_button.dataset.currentid);
-                        }
-                        else if (nextid_book == 'creation')
-                        {
-                           clickHandler_create();
-                        }
-                        else
-                        {
-                           clickHandler(nextid_book);
-                        }
-                     }" style="border: 0;">Discard</button> </div>
+      <div style=" display: flex; justify-content: flex-end;"> 
+         <button onclick="close_unsaved.close()" style="margin-right: 0.1em; border: 0;">
+            Cancel
+         </button> 
+         <button onclick="book_close_unsaved_discard_click_handler()" style="border: 0;">
+            Discard
+         </button> 
+      </div>
    </dialog>
 
 
    <dialog style="padding: 1em;" id="close_unsaved_borrower">
       <div style="padding: 1rem 11rem 3rem 1rem; font-size: 1.2em;">Discard draft?</div>
-      <div style=" display: flex; justify-content: flex-end;"> <button onclick="close_unsaved_borrower.close()"
-            style="margin-right: 0.1em; border: 0;">Cancel</button> <button onclick="swap_display_area_mode_borrower_to_display(); 
-                     close_unsaved_borrower.close(); 
-                     if (edit_button_borrower.dataset.currentid == 'creation') 
-                     {
-                        if (nextid_borrower == '')
-                        {
-                           swap_display_area_mode_borrower_to_none()
-                           create_borrower_button.style.background = ''
-                        }
-                        else
-                        {
-                           clickHandler_borrower(nextid_borrower);
-                        }
-                     } 
-                     else 
-                     {
-                        if (nextid_borrower == '')
-                        {
-                           clickHandler_borrower(edit_button_borrower.dataset.currentid);
-                        }
-                        else if (nextid_borrower == 'creation')
-                        {
-                           clickHandler_borrower_create();
-                        }
-                        else
-                        {
-                           clickHandler_borrower(nextid_borrower);
-                        }
-                     }" style="border: 0;">Discard</button> </div>
+      <div style=" display: flex; justify-content: flex-end;"> 
+         <button onclick="close_unsaved_borrower.close()" style="margin-right: 0.1em; border: 0;">
+            Cancel
+         </button> 
+         <button onclick="borrower_close_unsaved_discard_click_handler()" style="border: 0;">
+            Discard
+         </button>
+      </div>
    </dialog>
 
 
@@ -680,28 +635,16 @@
             <div style="display: flex;">
 
                <span style="position: absolute; top: 0.55em; left: 0.6em; opacity: 0.7;"
-                  class="material-symbols-outlined">search</span>
-               <input type="text" class="main_search_bar" placeholder="Search Books" id="search_filter_input"
-                  onchange="list_books()">
+               class="material-symbols-outlined">search</span>
+            <input type="text" class="main_search_bar" placeholder="Search Books" id="search_filter_input"
+               onchange="list_books()">
 
-
-
-               <button onclick="tune_button_press_handler()" class="filter_button">
-                  <span style="translate: 0; padding: 0;" class="material-symbols-outlined button_icon">
-                     <div id="j5498j85t4954j9">tune</div>
-                  </span>
-               </button>
-            </div>
-            <div
-               style=" height: 0em; overflow: hidden; transition: all 0.4s cubic-bezier(0.86, 0, 0, 1) 0s; background: var(--color-surface-1); border-radius: 0.5em; display: flex; justify-content: center; --color-surface-0: var(--color-surface-1); align-items: center;"
-               id="list_area_search_filters">
-               <button onclick="book_filter_picker.show()">Add Filter</button>
-               <dialog id="book_filter_picker" style="height: 16.6em; width: 15em; top: 8.6em;">
-                  <button></button>
-               </dialog>
             </div>
          </div>
-         <div class="list_area_list" id="list_area_list"></div>
+         <div class="list_area_list" id="list_area_list">
+
+         </div>
+
       </div>
       <div id="display_area" class="display_area panel">
          <div class="display_area_quick_buttons">
@@ -1018,7 +961,7 @@
                <span class="button_icon material-symbols-outlined">
                   delete_forever
                </span>
-               <div id="jfifi99">
+               <div id="delete_borrower_forever_text">
                   Delete Record</div>
             </button>
          </div>
