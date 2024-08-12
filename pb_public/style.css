@@ -309,21 +309,6 @@ body
     user-select: none !important;
 }
 
-.theme-picker-color
-{
-    font-size: 1.3em;
-    background: linear-gradient(-90deg, var(--color-surface-1), var(--color-base));
-    width: 10em;
-    display: flex;
-    height: 2.695em;
-    border-radius: 0 8px 8px 0;
-    text-align: center;
-    box-shadow: 0px 0px 0px 2px #000000a1 !important;
-    padding: 0.5em;
-    justify-content: center;
-    align-items: center;
-}
-
 .input-placeholder
 {
     position: absolute;

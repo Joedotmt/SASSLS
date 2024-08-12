@@ -19,17 +19,6 @@ set_book_levels_lists();
 function show_theme_picker_modal()
 {
     document.getElementById('theme_dialog').showModal();
-    if (light_or_dark == "-dark")
-    {
-        color_assignments_light.style.display = "flex";
-        color_assignments_dark.style.display = "none";
-    }
-    else
-    {
-        color_assignments_light.style.display = "none";
-        color_assignments_dark.style.display = "flex";
-    }
-
 }
 
 localStorage.setItem("theme_settings", "blue green red");
