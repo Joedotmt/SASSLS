@@ -202,44 +202,198 @@
       <div style="padding: 24px; max-height: 60vh; overflow-y: auto;">
          <div style="display: flex; flex-direction: column; gap: 20px;">
 
-            <div class="theme-assignments" style="display: flex; flex-direction: column; gap: 16px;">
-               <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; background-color: var(--color-surface-variant);">
-                  <span style="font-size: 1.2em;">Books</span>
-                  <select style="font-size: 1.2em; padding: 8px; background-color: var(--color-surface-2); width: auto;">
-                     <option value="green" selected>Green</option>
-                     <option value="blue">Blue</option>
-                     <option value="red">Red</option>
-                     <option value="yellow">Yellow</option>
-                  </select>
+            <style>
+               .theme-assignments {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 1em;
+                  /* Maintain gap between items */
+               }
+
+               .color-assignments {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 1em;
+                  position: fixed;
+                  z-index: 2;
+                  right: 1.5em;
+                  /* Maintain gap between items */
+               }
+
+               .theme-assignments>div {
+                  display: flex;
+                  width: 12em;
+                  align-items: center;
+                  padding: 1.4em;
+                  height: 2em;
+                  padding-left: 0.4em;
+                  border-radius: 8px 0 0 8px;
+                  background-color: var(--color-base);
+                  box-shadow: 0px 0px 0px 2px #000000a1 !important;
+                  /* Smooth transition for reordering */
+                  position: relative;
+                  /* Necessary for smooth transitions */
+               }
+
+               .priority-moving {
+                  box-shadow: 0px 0px 0px 0px #000000a1 !important;
+                  scale: 1;
+                  z-index: 1;
+               }
+
+               .moving-up {
+                  transform: translateY(calc(-100% - 1em));
+               }
+
+               .moving-down {
+                  transform: translateY(calc(100% + 1em));
+               }
+
+               button {
+                  margin-left: 0.5em;
+                  cursor: pointer;
+               }
+            </style>
+
+            <div id="color_assignments_light" class="color-assignments">
+               <div class="green-light theme-picker-color" style="background: linear-gradient(-90deg, var(--color-primary-80), var(--color-base));">
+                  Green
                </div>
-               <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; background-color: var(--color-surface-variant);">
-                  <span style="font-size: 1.2em;">Borrowers</span>
-                  <select style="font-size: 1.2em; padding: 8px; background-color: var(--color-surface-2); width: auto;">
-                     <option value="green">Green</option>
-                     <option value="blue" selected>Blue</option>
-                     <option value="red">Red</option>
-                     <option value="yellow">Yellow</option>
-                  </select>
+               <div class="blue-light theme-picker-color" style="background: linear-gradient(-90deg, var(--color-primary-80), var(--color-base));">
+                  Blue
                </div>
-               <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; background-color: var(--color-surface-variant);">
-                  <span style="font-size: 1.2em;">Transactions</span>
-                  <select style="font-size: 1.2em; padding: 8px; background-color: var(--color-surface-2); width: auto;">
-                     <option value="green">Green</option>
-                     <option value="blue">Blue</option>
-                     <option value="red" selected>Red</option>
-                     <option value="yellow">Yellow</option>
-                  </select>
+               <div class="red-light theme-picker-color" style="background: linear-gradient(-90deg, var(--color-primary-80), var(--color-base));">
+                  Red
                </div>
-               <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; background-color: var(--color-surface-variant);">
-                  <span style="font-size: 1.2em;">Prints</span>
-                  <select style="font-size: 1.2em; padding: 8px; background-color: var(--color-surface-2); width: auto;">
-                     <option value="green">Green</option>
-                     <option value="blue">Blue</option>
-                     <option value="red">Red</option>
-                     <option value="yellow" selected>Yellow</option>
-                  </select>
+               <div style="background: linear-gradient(-90deg, #000, var(--color-base));" class="theme-picker-color">
+                  Yellow
                </div>
             </div>
+
+            <div style="display: none;" id="color_assignments_dark" class="color-assignments">
+               <div class="green-dark theme-picker-color" style="background: linear-gradient(-90deg, var(--color-primary-container), var(--color-base));">
+                  Green
+               </div>
+               <div class="blue-dark theme-picker-color" style="background: linear-gradient(-90deg, var(--color-primary-container), var(--color-base));">
+                  Blue
+               </div>
+               <div class="red-dark theme-picker-color" style="background: linear-gradient(-90deg, var(--color-primary-container), var(--color-base));">
+                  Red
+               </div>
+               <div style="background: linear-gradient(-90deg, #000, var(--color-base));" class="theme-picker-color">
+                  Yellow
+               </div>
+            </div>
+
+            <div class="theme-assignments">
+               <div>
+                  <div style="display: flex; flex-direction: column;">
+                     <button class="button-circle" style="width: 30px; height: 30px; border: none;" onclick="moveItem(this, 'up')"><span class="material-symbols-outlined">
+                           arrow_upward
+                        </span></button>
+                     <button class="button-circle" style="width: 30px; height: 30px; border: none;" onclick=" moveItem(this, 'down' )"><span class="material-symbols-outlined">
+                           arrow_downward
+                        </span></button>
+                  </div>
+                  <span style="font-size: 1.2em; margin-left: 0.2em;">Books</span>
+               </div>
+               <div>
+                  <div style="display: flex; flex-direction: column;">
+                     <button class="button-circle" style="width: 30px; height: 30px; border: none;" onclick="moveItem(this, 'up')"><span class="material-symbols-outlined">
+                           arrow_upward
+                        </span></button>
+                     <button class="button-circle" style="width: 30px; height: 30px; border: none;" onclick=" moveItem(this, 'down' )"><span class="material-symbols-outlined">
+                           arrow_downward
+                        </span></button>
+                  </div>
+                  <span style="font-size: 1.2em; margin-left: 0.2em;">Borrowers</span>
+               </div>
+               <div>
+                  <div style="display: flex; flex-direction: column;">
+                     <button class="button-circle" style="width: 30px; height: 30px; border: none;" onclick="moveItem(this, 'up')"><span class="material-symbols-outlined">
+                           arrow_upward
+                        </span></button>
+                     <button class="button-circle" style="width: 30px; height: 30px; border: none;" onclick=" moveItem(this, 'down' )"><span class="material-symbols-outlined">
+                           arrow_downward
+                        </span></button>
+                  </div>
+                  <span style="font-size: 1.2em; margin-left: 0.2em;">Transactions</span>
+               </div>
+               <div>
+                  <div style="display: flex; flex-direction: column;">
+                     <button class="button-circle" style="width: 30px; height: 30px; border: none;" onclick="moveItem(this, 'up')"><span class="material-symbols-outlined">
+                           arrow_upward
+                        </span></button>
+                     <button class="button-circle" style="width: 30px; height: 30px; border: none;" onclick=" moveItem(this, 'down' )"><span class="material-symbols-outlined">
+                           arrow_downward
+                        </span></button>
+                  </div>
+                  <span style="font-size: 1.2em; margin-left: 0.2em;">Prints</span>
+               </div>
+            </div>
+
+            <script>
+               let transition_text = "scale 0.3s ease, box-shadow 0.5s ease, transform 0.5s";
+               let transition_text_2 = "scale 0.2s ease, box-shadow 0.2s ease, transform 0s";
+               let transition_time = 500;
+               function moveItem(button, direction)
+               {
+                  const item = button.parentElement.parentElement;
+                  const parent = item.parentElement;
+                  const siblings = Array.from(parent.children);
+                  const index = siblings.indexOf(item);
+
+                  if (direction === 'up' && index > 0)
+                  {
+                     const prevItem = siblings[index - 1];
+                     item.classList.add('moving-up');
+                     item.classList.add('priority-moving');
+                     prevItem.classList.add('moving-down');
+                     item.style.transition = transition_text;
+                     prevItem.style.transition = transition_text;
+
+                     setTimeout(() =>
+                     {
+                        parent.insertBefore(item, prevItem);
+
+                        item.style.transition = transition_text_2;
+                        prevItem.style.transition = transition_text_2;
+
+                        item.classList.remove('moving-up');
+
+                        // Idfk why but this fixed it
+                        setTimeout(() =>
+                        {
+                           item.classList.remove('priority-moving');
+                        }, 1);
+                        prevItem.classList.remove('moving-down');
+                     }, transition_time); // Timeout matches the CSS transition duration
+
+                  } else if (direction === 'down' && index < siblings.length - 1)
+                  {
+                     const nextItem = siblings[index + 1];
+                     item.classList.add('moving-down');
+                     item.classList.add('priority-moving');
+                     nextItem.classList.add('moving-up');
+                     item.style.transition = transition_text;
+                     nextItem.style.transition = transition_text;
+
+                     setTimeout(() =>
+                     {
+                        parent.insertBefore(nextItem, item);
+
+                        item.style.transition = transition_text_2;
+                        nextItem.style.transition = transition_text_2;
+
+                        item.classList.remove('moving-down');
+                        item.classList.remove('priority-moving');
+                        nextItem.classList.remove('moving-up');
+                     }, transition_time); // Timeout matches the CSS transition duration
+                  }
+               }
+            </script>
+
+
          </div>
       </div>
 
@@ -256,7 +410,7 @@
             <span class="button-icon material-symbols-outlined"> login </span> Sign in
          </button>
       </div>
-      <button onclick="document.getElementById('theme_dialog').showModal();" id="theme_dialog_button" class="list-button">
+      <button onclick="show_theme_picker_modal()" id="theme_dialog_button" class="list-button">
          <span class="button-icon material-symbols-outlined">
             palette
          </span> Theme Colours
