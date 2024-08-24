@@ -33,91 +33,6 @@
          </div>
       </div>
    </button>
-   <!--
-            <dialog
-               style="display: flex; border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
-               id="select_subject_dialog">
-               <div style="margin: 0.6em; width: 11em;">
-                  Subjects:
-                  <hr>
-               </div>
-            
-               <div>
-                  <button onclick="select_subject_dialog.dataset.value = 'Non-Fiction'"
-                     class="dropdown-button">Non-Fiction</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Melitensia'"
-                     class="dropdown-button">Melitensia</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Reference'" class="dropdown-button">Reference</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Poetry and Plays'" class="dropdown-button">Poetry and
-                     Plays</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Graphic Novels'" class="dropdown-button">Graphic
-                     Novels</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Fiction'" class="dropdown-button">Fiction</button>
-               </div>
-            
-               <div>
-                  <button onclick="select_subject_dialog.dataset.value = 'Spanish RES'" class="dropdown-button">Spanish
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Social Sciences RES'" class="dropdown-button">Social
-                     Sciences RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Religion RES'" class="dropdown-button">Religion
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Phydics RES'" class="dropdown-button">Phydics
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'PE RES'" class="dropdown-button">PE RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Maths RES'" class="dropdown-button">Maths RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Malti RES'" class="dropdown-button">Malti RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Italian RES'" class="dropdown-button">Italian
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Hospitality RES'" class="dropdown-button">Hospitality
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'History RES'" class="dropdown-button">History
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Geography RES'" class="dropdown-button">Geography
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'General Science RES'" class="dropdown-button">General
-                     Science RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'French RES'" class="dropdown-button">French
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'English RES'" class="dropdown-button">English
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Education RES'" class="dropdown-button">Education
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Economics RES'" class="dropdown-button">Economics
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Drama RES'" class="dropdown-button">Drama RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Design & Technology RES'"
-                     class="dropdown-button">Design & Technology RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Computing RES'" class="dropdown-button">Computing
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Chemistry RES'" class="dropdown-button">Chemistry
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Art RES'" class="dropdown-button">Art RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Accounts RES'" class="dropdown-button">Accounts
-                     RES</button>
-                  <button onclick="select_subject_dialog.dataset.value = 'Biology RES'" class="dropdown-button">Biology
-                     RES</button>
-               </div>
-            </dialog>
-            
-            
-            
-            <dialog
-               style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);"
-               id="select_book_level_dialog">
-               <div style="margin: 0.6em; width: 11em;">
-                  Levels:
-                  <hr>
-               </div>
-            
-               <button onclick="select_level_dialog.dataset.value = 'Red'" class="dropdown-button">Red</button>
-               <button onclick="select_level_dialog.dataset.value = 'Green'" class="dropdown-button">Green</button>
-               <button onclick="select_level_dialog.dataset.value = 'Blue'" class="dropdown-button">Blue</button>
-               <button onclick="select_level_dialog.dataset.value = 'Yellow'" class="dropdown-button">Yellow</button>
-               <button onclick="select_level_dialog.dataset.value = 'Brown'" class="dropdown-button">Brown</button>
-            </dialog>
-            
-            -->
    <dialog class="j95r4ji5r bigdialog" id="add_book_to_borrow_dialog">
       <div style="display: flex; height: 100%; width: 100%; flex-direction: column;" id="add_book_to_borrow_dialog_container">
          <div style="display: flex; margin-top: 0.4em; align-items: center;">
@@ -227,71 +142,7 @@
                   </span>
                </div>
             </div>
-
             <script src="draggable_list_item.js"></script>
-            <!--
-            <script>
-               let transition_text = "transform 0.5s";
-               let transition_text_2 = "transform 0s";
-               let transition_time = 500;
-               function moveItem(button, direction)
-               {
-                  const item = button.parentElement.parentElement;
-                  const parent = item.parentElement;
-                  const siblings = Array.from(parent.children);
-                  const index = siblings.indexOf(item);
-
-                  if (direction === 'up' && index > 0)
-                  {
-                     const prevItem = siblings[index - 1];
-                     item.classList.add('moving-up');
-                     item.classList.add('priority-moving');
-                     prevItem.classList.add('moving-down');
-                     item.style.transition = transition_text;
-                     prevItem.style.transition = transition_text;
-
-                     setTimeout(() =>
-                     {
-                        parent.insertBefore(item, prevItem);
-
-                        item.style.transition = transition_text_2;
-                        prevItem.style.transition = transition_text_2;
-
-                        item.classList.remove('moving-up');
-
-                        // Idfk why but this fixed it
-                        setTimeout(() =>
-                        {
-                           item.classList.remove('priority-moving');
-                        }, 1);
-                        prevItem.classList.remove('moving-down');
-                     }, transition_time); // Timeout matches the CSS transition duration
-
-                  } else if (direction === 'down' && index < siblings.length - 1)
-                  {
-                     const nextItem = siblings[index + 1];
-                     item.classList.add('moving-down');
-                     item.classList.add('priority-moving');
-                     nextItem.classList.add('moving-up');
-                     item.style.transition = transition_text;
-                     nextItem.style.transition = transition_text;
-
-                     setTimeout(() =>
-                     {
-                        parent.insertBefore(nextItem, item);
-
-                        item.style.transition = transition_text_2;
-                        nextItem.style.transition = transition_text_2;
-
-                        item.classList.remove('moving-down');
-                        item.classList.remove('priority-moving');
-                        nextItem.classList.remove('moving-up');
-                     }, transition_time); // Timeout matches the CSS transition duration
-                  }
-               }
-            </script>-->
-
-
          </div>
       </div>
 
@@ -375,108 +226,6 @@
          </dialog>
          <button style="width: fit-content; margin-bottom: 10em;" onclick="search_filter_select_dialog.show()">Add Filter</button>
          <div style="margin-bottom: 10em;"></div>
-         <!--
-                    <div style="height: 2.8em;" class="accordian">
-                       <button data-open="false" onclick="
-                          if (this.dataset.open == 'true')
-                          {
-                             this.dataset.open = 'false'
-                             this.parentElement.style.height = '2.8em'
-                             this.style.background = '';
-                             this.childNodes[3].style.rotate = '0deg';
-                          }
-                          else
-                          {
-                             this.dataset.open = 'true'
-                             this.parentElement.style.height = '11em'
-                             this.style.background = 'var(--color-ref-neutral-100)';
-                             this.childNodes[3].style.rotate = '180deg';
-                          }
-                          " class="accordian-button">
-                          <div>Location</div>
-                          <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
-                             class="material-symbols-outlined">
-                             expand_more
-                          </span>
-                       </button>
-                       <div style="margin: 1em;     margin: 1em;
-                       display: flex;
-                       flex-wrap: wrap;">
-                          <button class="toggle-chip">Lost</button>
-                          <button class="toggle-chip">Scrapped</button>
-                          <button class="toggle-chip">In Shelf</button>
-                          <button class="toggle-chip">Borrowing</button>
-                       </div>
-                    </div>
-                    
-                    <div style="height: 2.8em;" class="accordian">
-                       <button data-open="false" onclick="
-                          if (this.dataset.open == 'true')
-                          {
-                             this.dataset.open = 'false'
-                             this.parentElement.style.height = '2.8em'
-                             this.style.background = '';
-                             this.childNodes[3].style.rotate = '0deg';
-                          }
-                          else
-                          {
-                             this.dataset.open = 'true'
-                             this.parentElement.style.height = '11em'
-                             this.style.background = 'var(--color-ref-neutral-100)';
-                             this.childNodes[3].style.rotate = '180deg';
-                          }
-                          " class="accordian-button">
-                          <div>Level</div>
-                          <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
-                             class="material-symbols-outlined">
-                             expand_more
-                          </span>
-                       </button>
-                       <div style="margin: 1em;     margin: 1em;
-                       display: flex;
-                       flex-wrap: wrap;">
-                          <button class="toggle-chip">Brown</button>
-                          <button class="toggle-chip">Yellow</button>
-                          <button class="toggle-chip">Blue</button>
-                          <button class="toggle-chip">Green</button>
-                          <button class="toggle-chip">Red</button>
-                       </div>
-                    </div>
-                    
-                    <div style="height: 2.8em; margin-bottom: 2em;" class="accordian">
-                       <button data-open="false" onclick="
-                          if (this.dataset.open == 'true')
-                          {
-                             this.dataset.open = 'false'
-                             this.parentElement.style.height = '2.8em'
-                             this.style.background = '';
-                             this.childNodes[3].style.rotate = '0deg';
-                          }
-                          else
-                          {
-                             this.dataset.open = 'true'
-                             this.parentElement.style.height = '20em'
-                             this.style.background = 'var(--color-ref-neutral-100)';
-                             this.childNodes[3].style.rotate = '180deg';
-                          }
-                          " class="accordian-button">
-                          <div>Subject</div>
-                          <span style="margin: auto; transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); margin-right: 0;"
-                             class="material-symbols-outlined">
-                             expand_more
-                          </span>
-                       </button>
-                       <div class="book-subject-accordian"
-                          style="    overflow-y: scroll;
-                          overflow-x: hidden;
-                          margin: 1em;
-                          height: 15em;
-                          width: fit-content;
-                          display: flex;
-                          flex-wrap: wrap;">
-                    
-                       </div>
-                    </div>-->
          <div style="display: flex;">
             <div class="input-container">
                <select onchange="list_books()" id="j54f9954j" style="width: 100%;" type="text" class="input-google">
@@ -650,35 +399,6 @@
                      <label style="margin-left: 0.3em;">Lost</label>
                   </div>
                </div>
-               <!--
-                            <div data-onlyone="true" id="display_panel_book_lost_editing" data-value="none"
-                               style="display: flex; margin-bottom: 0.5em;">
-                               <button data-value="false" data-state="false" class="segmented-button-button"
-                                  onclick="segmented_button_thing(event)"
-                                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em; width: 100%;">
-                                  Lost
-                               </button>
-                               <button data-value="true" data-state="false" class="segmented-button-button"
-                                  onclick="segmented_button_thing(event)"
-                                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
-                                  Not Lost
-                               </button>
-                            </div>
-                            
-                            <div id="display_panel_book_scrapped_editing" data-onlyone="true" data-value="none"
-                               style="display: flex; margin-bottom: 1em;">
-                               <button data-value="false" data-state="false" class="segmented-button-button"
-                                  onclick="segmented_button_thing(event)"
-                                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-radius: 100em 0em 0em 100em; width: 100%;">
-                                  Scrapped
-                               </button>
-                               <button data-value="true" data-state="false" class="segmented-button-button"
-                                  onclick="segmented_button_thing(event)"
-                                  style="transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1); border-left: 0; border-radius: 0em 100em 100em 0em; width: 100%;">
-                                  Not Scrapped
-                               </button>
-                            
-                            </div> -->
                <div style="margin-bottom: 1em;" class="input-container">
                   <input id="display_panel_book_price_editing" type="number" min="0" autocomplete="off" class="input-google" />
                   <label class="input-placeholder">Price (EUR)</label>
@@ -691,12 +411,6 @@
          </div>
          <div class="display_panel_display" style="display: none;" id="display_panel_details">
             <div class="display-area-quick-buttons">
-               <!--
-                            <button onclick="book_display('')" style=" margin: 5px; border: 0; height: 40px; width: 40px;" class="button-circle">
-                               <span class="material-symbols-outlined">
-                                  arrow_back
-                               </span>
-                            </button>-->
                <div style="display: none;" id="display_area_top_lend_view">
                   <button id="lend_book_button" onclick="lend_book_button_click_handler(event)" style="margin: 5px; border: none; background-color: var(--color-primary); width: 100%; padding: 0 1.1em;">
                      <div id="lend_book_button_text" style="pointer-events: none; color: var(--color-background);">
@@ -802,7 +516,6 @@
             <div id="display_panel_book_system_id" style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">SYS_ID: ---------------</div>
          </div>
       </div>
-      <!---- <img id="imag" src="https://png.pngtree.com/png-clipart/20220111/original/pngtree-cigarette-png-image_7083753.png" style="display: none;"></img> <canvas id="book_cover_canvas" style="display: none;"></canvas> -->
    </div>
    <div style="display: none;" id="container_borrower" class="container">
       <div id="list_area" class="list-area panel">

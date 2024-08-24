@@ -21,12 +21,36 @@ function show_theme_picker_modal()
     document.getElementById('theme_dialog').showModal();
 }
 
-localStorage.setItem("theme_settings", "blue green red");
-p(localStorage.getItem("theme_settings"));
 
-let books_color = "green";
-let borrowers_color = "blue";
-let transactions_color = "red";
+
+
+let USER_PREFS = null;
+
+function preferences_load()
+{
+    USER_PREFS = JSON.parse(localStorage.getItem("USER_PREFS"));
+    if (USER_PREFS == null)
+    {
+        preferences_reset();
+    }
+}
+function preferences_reset()
+{
+    let DEFAULT_USER_PREFS = {
+        books_color: "green",
+        borrowers_color: "blue",
+        transactions_color: "red"
+    };
+    USER_PREFS = DEFAULT_USER_PREFS;
+    preferences_save();
+}
+function preferences_save()
+{
+    localStorage.setItem("USER_PREFS", JSON.stringify(USER_PREFS));
+}
+
+
+
 var loaded_book_records;
 if (window.location.hash == "")
 {
@@ -311,20 +335,20 @@ function collection_change()
         case "books":
             container_book.style.display = "flex";
             book_enable_lend_view(false);
-            color = books_color;
+            color = USER_PREFS.books_color;
             break;
         case "borrowers":
             container_borrower.style.display = "flex";
             book_enable_lend_view(true);
-            color = borrowers_color;
+            color = USER_PREFS.borrowers_color;
             break;
         case "transactions":
-            color = transactions_color;
+            color = USER_PREFS.transactions_color;
             break;
         case "prints":
-            color = transactions_color;
+            color = USER_PREFS.transactions_color;
         default:
-            color = books_color;
+            color = USER_PREFS.books_color;
     }
     document.body.className = color + light_or_dark;
     list_selected_collection();
@@ -341,7 +365,7 @@ function list_selected_collection()
             list_borrowers();
             break;
         case "transactions":
-            //color = transactions_color;
+            //color = USER_PREFS.transactions_color;
             break;
         case "prints":
             list_prints();
