@@ -511,6 +511,7 @@ async function save_changes_handler_book(event)
             );
         }
 
+        await book_display(book_edit_button.dataset.currentid, true);
         await list_books();
         await clickHandler_create(true);
         await change_display_area_mode("display", display_area);
@@ -1029,6 +1030,7 @@ async function deprecate_book_id(id)
 }
 async function list_books()
 {
+    document.body.appendChild(page_number_changer_books);
     let enteredVal = search_filter_input.value;
     let enteredTokens = enteredVal.split(" ");
     p(enteredTokens);
@@ -1098,27 +1100,24 @@ async function list_books()
 
     pbSort = search_sortby_ascending_book.dataset.ascending + j54f9954j.value;
 
+
+
+
     query_response = await pb
         .collection("books")
         .getList(page_number_changer_books.dataset.pagenumber, 100, {
             sort: pbSort,
             filter: pbFilter,
         });
-    tttttttt112.innerText = `Page ${page_number_changer_books.dataset.pagenumber} of ${query_response.totalPages}`;
-    page_number_changer_books.dataset.maxpages = query_response.totalPages;
-    if (
-        page_number_changer_books.dataset.pagenumber > query_response.totalPages
-    )
-    {
-        page_number_changer_books.dataset.pagenumber =
-            query_response.totalPages;
-    }
-
     loaded_book_records = query_response.items;
-    p(query_response);
 
-    page_number_changer_books.style.display = "none";
-    search_area.appendChild(page_number_changer_books);
+
+
+
+
+
+
+
     if (current_page == "books")
     {
         list_area_list.innerHTML = `
@@ -1178,8 +1177,26 @@ async function list_books()
         list_item.appendChild(info_div);
     }
     highlight_selected_item(book_edit_button.dataset.currentid, list_area_list);
+
+
+    if (query_response.totalPages > 1)
+    {
+        document.getElementById("tttttttt112").innerText = `Page ${page_number_changer_books.dataset.pagenumber} of ${query_response.totalPages}`;
+        page_number_changer_books.dataset.maxpages = query_response.totalPages;
+        if (
+            page_number_changer_books.dataset.pagenumber > query_response.totalPages
+        )
+        {
+            page_number_changer_books.dataset.pagenumber =
+                query_response.totalPages;
+        }
+        page_number_changer_books.style.display = "flex";
+    }
+    else
+    {
+        page_number_changer_books.style.display = "none";
+    }
     list_area_list.appendChild(page_number_changer_books);
-    page_number_changer_books.style.display = "flex";
 }
 
 function playOpenSound()
@@ -1192,11 +1209,15 @@ function playOpenSound()
 
 function book_click_handler(e)
 {
+    if (book_edit_button.dataset.currentid == e.srcElement.dataset.id)
+    {
+        return;
+    }
     book_display(e.srcElement.dataset.id, false);
     playOpenSound();
 }
 
-async function book_display(ARGUMENT_ID, excused_from_dialog = false)
+async function book_display(ARGUMENT_ID, excused_from_dialog = false, start_in_edit_mode = false)
 {
     if (ARGUMENT_ID == "creation")
     {
@@ -1225,13 +1246,15 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false)
         return;
     }
 
-
-    change_display_area_mode("display", display_area);
-
-    if (book_edit_button.dataset.currentid == ARGUMENT_ID)
+    if (start_in_edit_mode)
     {
-        return;
+        change_display_area_mode("edit", display_area);
     }
+    else
+    {
+        change_display_area_mode("display", display_area);
+    }
+
 
     highlight_selected_item(useid, list_area_list);
 
@@ -1266,13 +1289,28 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false)
     display_panel_book_classification_label.innerHTML =
         "CLL: " + book.classification_label;
 
-    const book_subject_jr8r04 = await pb
-        .collection("books_subjects")
-        .getOne(book.subject, {});
+    if (book.subject != "")
+    {
+        const book_subject_jr8r04 = await pb
+            .collection("books_subjects")
+            .getOne(book.subject, {});
+        display_panel_book_subject.innerHTML = "Subject: " + book_subject_jr8r04.subject;
+    }
+    else
+    {
+        display_panel_book_subject.style.display = "none";
+    }
 
-    display_panel_book_subject.innerHTML =
-        "Subject: " + book_subject_jr8r04.subject;
-    display_panel_book_level.innerHTML = "Level: " + book.level;
+    if (book.level != "")
+    {
+        display_panel_book_level.innerHTML = "Level: " + book.level;
+    }
+    else
+    {
+        display_panel_book_level.style.display = "none";
+    }
+
+
 
     display_panel_book_lost.style.display = book.lost ? "block" : "none";
     display_panel_book_scrapped.style.display = book.scrapped ?
@@ -1283,20 +1321,23 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false)
         display_panel_book_price.style.display = "block";
         display_panel_book_price.innerHTML = "Price: " + book.price + " EUR";
     }
+    else
+    {
+        display_panel_book_price.style.display = "none";
+    }
 
     if (book.legacy_date_entered == "")
     {
         display_panel_book_created.innerHTML = "Created: " + book.created;
     } else
     {
-        display_panel_book_created.innerHTML =
-            "Legacy Created: " + book.legacy_date_entered;
-        display_panel_book_system_created.innerHTML =
-            "SYS_CREATED: " + book.created;
+        display_panel_book_created.innerHTML = "Legacy Created: " + book.legacy_date_entered;
     }
-    display_panel_book_updated.innerHTML = "Updated: " + book.updated;
-    ///////////////////////////////////////////////////////////
 
+    display_panel_book_system_created.innerHTML = "SYS_CREATED: " + book.created;
+    display_panel_book_updated.innerHTML = "Updated: " + book.updated;
+
+    ///////////////////////////////////////////////////////////
     display_panel_book_title_editing.value = book.title;
     display_panel_book_author_editing.value = book.author;
 
@@ -1849,114 +1890,6 @@ function generate_unique_borrower_id(text)
         }
     }
 }
-async function list_prints()
-{
-    let enteredVal = search_filter_input.value;
-    let enteredTokens = enteredVal.split(" ");
-    p(enteredTokens);
-    let pbFilter = "";
-    let operand = "";
-    for (const enteredToken of enteredTokens)
-    {
-        let cleanToken = enteredToken.trim();
-        if (cleanToken !== "")
-        {
-            pbFilter += `${operand} (id = "${cleanToken}" || user  ~ "%${cleanToken}%" || note ~ "%${cleanToken}%" || pages ~ "%${cleanToken}%" || paper ~ "%${cleanToken}%")`;
-            operand = " && ";
-        }
-    }
-    p(pbFilter);
-
-    // you can also fetch all records at once via getFullList
-    const records = await pb.collection("prints").getFullList({
-        sort: "-created",
-        filter: pbFilter,
-        expand: "user",
-    });
-
-    p(records);
-    list_area_list.innerHTML = "";
-    for (const rec of records)
-    {
-        for (let index = 0; index < 20; index++)
-        {
-            let list_item = document.createElement("div");
-            list_item.innerHTML = `${rec.pages} × ${rec.paper
-                }<br>Email: ${rec.expand.user.email.slice(0, -17)}`;
-            list_item.className = "list-item";
-            list_item.dataset.id = rec.id;
-            list_item.onclick = function (list_area)
-            {
-                display_area.innerHTML = `
-            
-            <div 
-                style=
-                "
-                    position: relative; 
-                    width: fit-content; 
-                    height: fit-content
-                "
-            >
-            
-                <img 
-                    style=
-                    "
-                        object-fit: cover;
-                        padding: 0.2em;
-                        background-color: white;
-                        border: solid aliceblue 2px;
-                        border-radius: 12px;
-                    "
-
-                    src=
-                    "
-
-                    "
-                > 
-                        
-                <img 
-                    style=
-                    "
-                        height: 2em;
-                        padding: 0.5em;
-                        left: 26px;
-                        bottom: 34px;
-                        background-color: #FFFFFF;
-                        position: absolute;
-                        margin: 0;
-                        border: solid black 2px;
-                        border-radius: 4px;
-                    " 
-                    src=
-                    "
-                        https://barcode.tec-it.com/barcode.ashx?data=${rec.id}
-                    "
-                >
-            </div>
-            ${rec.legacy_book_id} ${rec.title} ${rec.isbn}`;
-
-                let clickedOne = list_area.target;
-                list_area_list
-                    .querySelectorAll(".list-item")
-                    .forEach(function (i)
-                    {
-                        i.style.background = "";
-                    });
-                clickedOne.style.background =
-                    "var(--color-secondary-container)";
-                let idClicked = clickedOne.dataset.id;
-                p(idClicked);
-                let subset = records.filter((s) =>
-                {
-                    return s.id === idClicked;
-                });
-
-                p(subset);
-            };
-            list_area_list.appendChild(list_item);
-        }
-    }
-}
 
 function open_signin_modal(event)
 {
@@ -2009,19 +1942,20 @@ async function acceptSigninModal(event)
     }
     close_sign_in_modal();
 }
-
-function previous_page()
+function previous_page(event)
 {
-    if (page_number_changer_books.dataset.pagenumber - 1 >= 1)
+    page_number_changer = event.srcElement.closest(".page-number-changer");
+    if (page_number_changer.dataset.pagenumber - 1 >= 1)
     {
-        page_number_changer_books.dataset.pagenumber -= 1; list_books();
+        page_number_changer.dataset.pagenumber -= 1; list_books();
     }
 }
-function next_page()
+function next_page(event)
 {
-    if (page_number_changer_books.dataset.maxpages >= parseInt(page_number_changer_books.dataset.pagenumber) + 1)
+    page_number_changer = event.srcElement.closest(".page-number-changer");
+    if (page_number_changer.dataset.maxpages >= parseInt(page_number_changer.dataset.pagenumber) + 1)
     {
-        page_number_changer_books.dataset.pagenumber = parseInt(page_number_changer_books.dataset.pagenumber) + 1;
+        page_number_changer.dataset.pagenumber = parseInt(page_number_changer.dataset.pagenumber) + 1;
         list_books();
     }
 }
