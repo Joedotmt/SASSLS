@@ -56,11 +56,12 @@ function setup()
     if (!listContainer) return;
 
     listContainer.addEventListener('mousedown', dragStart);
-    listContainer.addEventListener('touchstart', dragStart);
+    listContainer.addEventListener('touchstart', dragStart, { passive: true });
 
     document.addEventListener('mouseup', dragEnd);
     document.addEventListener('touchend', dragEnd);
 }
+
 
 /***********************
  *     Drag Start      *
@@ -85,7 +86,7 @@ function dragStart(e)
     prevRect = draggableItem.getBoundingClientRect();
 
     document.addEventListener('mousemove', drag);
-    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('touchmove', drag, { passive: false }); // Keep passive: false here
 }
 
 function setItemsGap()

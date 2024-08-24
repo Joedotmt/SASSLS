@@ -108,7 +108,7 @@
    </dialog>
    <dialog style="font-size: 16px; width: auto; max-width: 500px; padding: 0; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: var(--color-background);" onclose="collection_change()" id="theme_dialog">
       <div style="padding: 16px; display: flex; align-items: center; border-bottom: 1px solid var(--color-outline);">
-         <button class="button-circle" onclick="theme_dialog.close()" style="width: 40px; height: 40px; border: none; background-color: transparent; margin-right: 16px;">
+         <button class="button-circle" onclick="cancel_theme_picker_modal()" style="width: 40px; height: 40px; border: none; background-color: transparent; margin-right: 16px;">
             <span class="material-symbols-outlined">close</span>
          </button>
          <div style="font-size: 1.25rem; user-select: none;">Change Theme Colors</div>
@@ -117,27 +117,40 @@
       <div style="padding: 24px;max-height: 60vh;overflow-y: hidden;">
          <div class="theme-picker-body" style="display: flex; flex-direction: column; gap: 20px;">
 
-            <div class="list js-list color-assignments">
-               <div class="list__item is-idle js-item drag-handle js-drag-handle green-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
+            <div id="theme_color_draggable_list_container" class="list js-list color-assignments">
+               <div data-color="green" class="list__item is-idle js-item drag-handle js-drag-handle green-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
                   <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Green</span>
                </div>
-               <div class="list__item is-idle js-item drag-handle js-drag-handle blue-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
+               <div data-color="blue" class="list__item is-idle js-item drag-handle js-drag-handle blue-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
                   <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Blue</span>
                </div>
-               <div class="list__item is-idle js-item drag-handle js-drag-handle red-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
+               <div data-color="red" class="list__item is-idle js-item drag-handle js-drag-handle red-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
                   <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Red</span>
                </div>
             </div>
 
             <div class="theme-assignments">
-               <div class="">
-                  <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Books</span>
+               <div>
+                  <span class='material-symbols-outlined grab-indicator'>
+                     drag_indicator
+                  </span>
+                  <span class="theme-picker-page-text">
+                     Books
+                  </span>
                </div>
-               <div class="">
-                  <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Borrowers</span>
+               <div>
+                  <span class='material-symbols-outlined grab-indicator'>
+                     drag_indicator
+                  </span>
+                  <span class="theme-picker-page-text">
+                     Borrowers
+                  </span>
                </div>
-               <div class="">
-                  <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">
+               <div>
+                  <span class='material-symbols-outlined grab-indicator'>
+                     drag_indicator
+                  </span>
+                  <span class="theme-picker-page-text">
                      Transactions
                   </span>
                </div>
@@ -148,8 +161,8 @@
 
 
       <div style="display: flex; justify-content: flex-end; padding: 16px; border-top: 0px solid rgba(0, 0, 0, 0.1); background-color: var(--color-background)">
-         <button onclick="theme_dialog.close()" style="border-color: transparent; margin-right: 8px; padding: 8px 16px; background-color: transparent;">Cancel</button>
-         <button class="dialog-button-accept" onclick="theme_dialog.close()" style="padding: 8px 16px; background-color: var(--color-primary-container); color: var(--color-inverse-surface); border: none;">Save</button>
+         <button onclick="cancel_theme_picker_modal()" style="border-color: transparent; margin-right: 8px; padding: 8px 16px; background-color: transparent;">Cancel</button>
+         <button class="dialog-button-accept" onclick="save_theme_picker_modal()" style="padding: 8px 16px; background-color: var(--color-primary-container); color: var(--color-inverse-surface); border: none;">Save</button>
       </div>
    </dialog>
    <dialog class="account-dialog" id="account_dialog">

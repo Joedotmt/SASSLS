@@ -16,38 +16,75 @@ set_borrower_levels_lists();
 set_book_subjects_lists();
 set_book_levels_lists();
 
-function show_theme_picker_modal()
+const themeDialog = document.getElementById('theme_dialog');
+const themeColorContainer = document.getElementById('theme_color_draggable_list_container');
+
+let USER_PREFS_before_edit;
+
+function showThemePickerModal()
 {
-    document.getElementById('theme_dialog').showModal();
+    USER_PREFS_before_edit = JSON.parse(JSON.stringify(USER_PREFS));
+    loadThemePickerModal();
+    themeDialog.showModal();
 }
 
+function cancelThemePickerModal()
+{
+    USER_PREFS = USER_PREFS_before_edit;
+    themeDialog.close();
+}
 
+function saveThemePickerModal()
+{
+    const colorDivs = Array.from(themeColorContainer.querySelectorAll('div[data-color]'));
+    const colorAssignments = ['books', 'borrowers', 'transactions'];
 
+    colorAssignments.forEach((item, index) =>
+    {
+        USER_PREFS[`${item}_color`] = colorDivs[index].dataset.color.toLowerCase();
+    });
+
+    preferencesSave();
+    themeDialog.close();
+}
+
+function loadThemePickerModal()
+{
+    const colorAssignments = ['books', 'borrowers', 'transactions'];
+    const colorDivs = colorAssignments.map(item =>
+        themeColorContainer.querySelector(`div[data-color="${USER_PREFS[`${item}_color`]}"]`)
+    );
+
+    themeColorContainer.innerHTML = '';
+    colorDivs.forEach(div => themeColorContainer.appendChild(div));
+}
 
 let USER_PREFS = null;
 
-function preferences_load()
+function preferencesLoad()
 {
-    USER_PREFS = JSON.parse(localStorage.getItem("USER_PREFS"));
-    if (USER_PREFS == null)
-    {
-        preferences_reset();
-    }
+    USER_PREFS = JSON.parse(localStorage.getItem("USER_PREFS")) || preferencesReset();
 }
-function preferences_reset()
+
+function preferencesReset()
 {
-    let DEFAULT_USER_PREFS = {
+    const DEFAULT_USER_PREFS = {
         books_color: "green",
         borrowers_color: "blue",
         transactions_color: "red"
     };
     USER_PREFS = DEFAULT_USER_PREFS;
-    preferences_save();
+    preferencesSave();
+    return DEFAULT_USER_PREFS;
 }
-function preferences_save()
+
+function preferencesSave()
 {
     localStorage.setItem("USER_PREFS", JSON.stringify(USER_PREFS));
 }
+
+preferencesLoad();
+
 
 
 
@@ -1083,12 +1120,12 @@ function playOpenSound()
 
 function book_click_handler(e)
 {
+    playOpenSound();
     if (book_edit_button.dataset.currentid == e.srcElement.dataset.id)
     {
         return;
     }
     book_display(e.srcElement.dataset.id, false);
-    playOpenSound();
 }
 
 async function book_display(ARGUMENT_ID, excused_from_dialog = false, start_in_edit_mode = false)
@@ -1634,7 +1671,7 @@ function updateBorrowerEditingPanel(borrower)
 {
     display_panel_borrower_name_editing.value = borrower.name;
     display_panel_borrower_surname_editing.value = borrower.surname;
-    display_panel_borrower_borrower_id_editing.innerText = `ID: ${borrower.id}`;
+    display_panel_borrower_borrower_id_editing.innerText = `ID: ${borrower.borrower_id}`;
     display_panel_borrower_group_editing.value = borrower.group;
 
     edit_button_borrower.dataset.currentid = borrower.id;

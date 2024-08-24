@@ -7,7 +7,9 @@ body
     color: var(--color-on-background);
     --j95r4ji5r-opacity: 1;
     overflow: hidden;
-    --the-font: "Poppins";
+    --the-font: "Poppins", "Trebuchet MS",
+        Helvetica,
+        sans-serif;
     --the-robo-font: "Roboto Mono";
     font-family: var(--the-font);
 
@@ -928,7 +930,9 @@ body.hasHover .button-circle:hover
     user-select: none;
     align-self: center;
     font-size: min(5vw, 40px);
-    font-family: "Montserrat";
+    font-family: "Montserrat", "Poppins", "Trebuchet MS",
+        Helvetica,
+        sans-serif;
     margin: 0.1em;
     font-weight: 600;
     text-wrap: nowrap;
