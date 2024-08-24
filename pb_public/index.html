@@ -196,135 +196,40 @@
          <button class="button-circle" onclick="theme_dialog.close()" style="width: 40px; height: 40px; border: none; background-color: transparent; margin-right: 16px;">
             <span class="material-symbols-outlined">close</span>
          </button>
-         <div style="font-size: 1.25rem; font-weight: 500;">Change Theme Colors</div>
+         <div style="font-size: 1.25rem; user-select: none;">Change Theme Colors</div>
       </div>
 
-      <div style="padding: 24px; max-height: 60vh; overflow-y: auto;">
+      <div style="padding: 24px;max-height: 60vh;overflow-y: hidden;">
          <div class="theme-picker-body" style="display: flex; flex-direction: column; gap: 20px;">
 
-            <style>
-               .theme-picker-body {
-                  --left-color: white;
-                  --text-color: black;
-               }
-
-               .theme-assignments {
-                  display: flex;
-                  flex-direction: column;
-                  gap: 1em;
-                  /* Maintain gap between items */
-               }
-
-               .color-assignments {
-                  display: flex;
-                  flex-direction: column;
-                  gap: 1em;
-                  position: fixed;
-                  z-index: 2;
-                  right: 1.5em;
-                  /* Maintain gap between items */
-               }
-
-               .theme-assignments>div {
-                  display: flex;
-                  width: 12em;
-                  align-items: center;
-                  padding: 1.4em;
-                  height: 2em;
-                  padding-left: 0.4em;
-                  box-shadow: 0 2px 0 #0000002e;
-                  border-radius: 8px 0 0 8px;
-                  background-color: var(--left-color);
-                  color: var(--text-color);
-                  border: 2px solid black;
-                  border-right: none;
-                  /* Smooth transition for reordering */
-                  position: relative;
-                  /* Necessary for smooth transitions */
-               }
-
-               .theme-picker-color {
-                  font-size: 1.3em;
-                  width: 10em;
-                  display: flex;
-                  height: 2.692em;
-                  border-radius: 0 8px 8px 0;
-                  text-align: center;
-                  box-shadow: 0 2px 0 #0000002e;
-                  border: 2px solid black;
-                  border-left: none;
-                  padding: 0.5em;
-                  color: var(--text-color);
-                  justify-content: center;
-                  align-items: center;
-               }
-
-               .priority-moving {
-                  z-index: 1;
-               }
-
-               .moving-up {
-                  transform: translateY(calc(-100% - 1em));
-               }
-
-               .moving-down {
-                  transform: translateY(calc(100% + 1em));
-               }
-
-               button {
-                  margin-left: 0.5em;
-                  cursor: pointer;
-               }
-            </style>
-
-            <div class="color-assignments">
-               <div class="green-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
-                  Green
+            <div class="list js-list color-assignments">
+               <div class="list__item is-idle js-item drag-handle js-drag-handle green-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
+                  <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Green</span>
                </div>
-               <div class="blue-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
-                  Blue
+               <div class="list__item is-idle js-item drag-handle js-drag-handle blue-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
+                  <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Blue</span>
                </div>
-               <div class="red-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
-                  Red
+               <div class="list__item is-idle js-item drag-handle js-drag-handle red-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
+                  <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Red</span>
                </div>
             </div>
 
             <div class="theme-assignments">
-               <div>
-                  <div style="display: flex; flex-direction: column;">
-                     <button class="button-circle" style="color: black; width: 30px; height: 30px; border: none;" onclick="moveItem(this, 'up')"><span class="material-symbols-outlined">
-                           arrow_upward
-                        </span></button>
-                     <button class="button-circle" style="color: black; width: 30px; height: 30px; border: none;" onclick=" moveItem(this, 'down' )"><span class="material-symbols-outlined">
-                           arrow_downward
-                        </span></button>
-                  </div>
-                  <span style="font-size: 1.2em; margin-left: 0.2em;">Books</span>
+               <div class="">
+                  <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Books</span>
                </div>
-               <div>
-                  <div style="display: flex; flex-direction: column;">
-                     <button class="button-circle" style="color: black; width: 30px; height: 30px; border: none;" onclick="moveItem(this, 'up')"><span class="material-symbols-outlined">
-                           arrow_upward
-                        </span></button>
-                     <button class="button-circle" style="color: black; width: 30px; height: 30px; border: none;" onclick=" moveItem(this, 'down' )"><span class="material-symbols-outlined">
-                           arrow_downward
-                        </span></button>
-                  </div>
-                  <span style="font-size: 1.2em; margin-left: 0.2em;">Borrowers</span>
+               <div class="">
+                  <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Borrowers</span>
                </div>
-               <div>
-                  <div style="display: flex; flex-direction: column;">
-                     <button class="button-circle" style="color: black; width: 30px; height: 30px; border: none;" onclick="moveItem(this, 'up')"><span class="material-symbols-outlined">
-                           arrow_upward
-                        </span></button>
-                     <button class="button-circle" style=" color: black; width: 30px; height: 30px; border: none;" onclick=" moveItem(this, 'down' )"><span class="material-symbols-outlined">
-                           arrow_downward
-                        </span></button>
-                  </div>
-                  <span style="font-size: 1.2em; margin-left: 0.2em;">Transactions</span>
+               <div class="">
+                  <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">
+                     Transactions
+                  </span>
                </div>
             </div>
 
+            <script src="draggable_list_item.js"></script>
+            <!--
             <script>
                let transition_text = "transform 0.5s";
                let transition_text_2 = "transform 0s";
@@ -384,11 +289,12 @@
                      }, transition_time); // Timeout matches the CSS transition duration
                   }
                }
-            </script>
+            </script>-->
 
 
          </div>
       </div>
+
 
       <div style="display: flex; justify-content: flex-end; padding: 16px; border-top: 0px solid rgba(0, 0, 0, 0.1); background-color: var(--color-background)">
          <button onclick="theme_dialog.close()" style="border-color: transparent; margin-right: 8px; padding: 8px 16px; background-color: transparent;">Cancel</button>
@@ -642,7 +548,7 @@
             </button>
          </div>
          <div data-pagenumber="1" id="page_number_changer_books" class="page-number-changer" style="display: none;">
-            <button onclick="if (page_number_changer_books.dataset.pagenumber - 1 >= 1) {page_number_changer_books.dataset.pagenumber -= 1; list_books();}" class="button-circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
+            <button onclick="previous_page()" class="button-circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
                <span class="material-symbols-outlined">
                   chevron_left
                </span>
@@ -650,7 +556,7 @@
             <div id="tttttttt112" style="width: max-content; text-wrap: nowrap; margin: 0em auto; height: fit-content; font-size: 1.5em;">
                Page 0 of 0
             </div>
-            <button onclick="if (page_number_changer_books.dataset.maxpages >= parseInt(page_number_changer_books.dataset.pagenumber)+1) {page_number_changer_books.dataset.pagenumber = parseInt(page_number_changer_books.dataset.pagenumber)+1; list_books();}" class="button-circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
+            <button onclick="next_page()" class="button-circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
                <span class="material-symbols-outlined">
                   navigate_next
                </span>

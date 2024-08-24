@@ -2009,3 +2009,19 @@ async function acceptSigninModal(event)
     }
     close_sign_in_modal();
 }
+
+function previous_page()
+{
+    if (page_number_changer_books.dataset.pagenumber - 1 >= 1)
+    {
+        page_number_changer_books.dataset.pagenumber -= 1; list_books();
+    }
+}
+function next_page()
+{
+    if (page_number_changer_books.dataset.maxpages >= parseInt(page_number_changer_books.dataset.pagenumber) + 1)
+    {
+        page_number_changer_books.dataset.pagenumber = parseInt(page_number_changer_books.dataset.pagenumber) + 1;
+        list_books();
+    }
+}
