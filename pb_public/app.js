@@ -253,65 +253,6 @@ function set_book_levels_lists()
     });
 }
 
-let book_filters = {
-    location: new Set([]),
-    subject: new Set([]),
-    level: new Set([]),
-    id_type: new Set([]),
-};
-
-function add_book_filter(field, value)
-{
-    book_filters[field].add(value);
-    select_book_level_dialog_search.close();
-    filter_select_dialog_location.close();
-    search_filter_select_dialog.close();
-    display_book_filters();
-}
-
-function remove_book_filter(field, value)
-{
-    book_filters[field].delete(value);
-    display_book_filters();
-}
-
-function display_book_filters()
-{
-    p(book_filters);
-    document.querySelectorAll(".book_filter_chip").forEach((element) =>
-    {
-        element.remove();
-    });
-
-    for (let index = 0; index < Object.keys(book_filters).length; index++)
-    {
-        const element = [
-            Object.keys(book_filters)[index],
-            Object.values(book_filters)[index],
-        ];
-        element[1].forEach((ele) =>
-        {
-            filter = document.createElement("button");
-            filter.classList.add("chip_dropdown");
-            filter.classList.add("book_filter_chip");
-            filter.style.background = "var(--color-primary-80)";
-            filter.style.border = "none";
-            filter.style.paddingLeft = "8px";
-            filter.onclick = function ()
-            {
-                remove_book_filter(element[0], ele);
-            };
-            filter.innerHTML = `
-                                ${ele}
-                                <span class="material-symbols-outlined">
-                                    close
-                                </span>
-                                `;
-            search_area.insertBefore(filter, search_area.firstChild);
-        });
-    }
-}
-
 async function set_book_subjects_lists()
 {
     let optionelement = document.createElement("option");
@@ -348,65 +289,6 @@ async function set_book_subjects_lists()
             clone3 = optionelement.cloneNode(true);
             kj0f4jj05__2.appendChild(clone3);
         }
-    }
-}
-
-function hide_search_view()
-{
-    search_view_mode = false;
-    //j5498j85t4954j9.innerText = "tune"
-    show_display_area();
-    search_area.style.width = "0";
-    search_area.style.padding = "1em 0";
-    search_area.style.minWidth = "0";
-    search_area.style.margin = "0";
-    search_area.style.overflow = "hidden";
-    search_area.style.transform = "scaleX(1)";
-}
-
-function show_search_view()
-{
-    search_view_mode = true;
-
-    //j5498j85t4954j9.innerText = "close"
-
-    if (window.matchMedia("(max-width: 1130px)")) { }
-
-    hide_display_area();
-    search_area.style.width = "18em";
-    search_area.style.padding = "1em";
-    search_area.style.margin = "0 0.5em 0 0";
-    search_area.style.transform = "scaleX(1)";
-    search_area.style.overflow = "visible";
-}
-
-function hide_display_area()
-{
-    display_area.style.width = "0em";
-    display_area.style.flex = "0";
-    display_area.style.minWidth = "0";
-    display_area.style.overflow = "hidden";
-    display_area.style.transform = "scaleX(1)";
-    display_area.style.marginLeft = "0";
-}
-
-function show_display_area()
-{
-    //display_area.style.marginLeft = "0.5em"
-    //display_area.style.width = "auto"
-    //display_area.style.flex = "1"
-    //display_area.style.transform = "scaleX(1)"
-    //display_area.style.overflowY = "scroll"
-}
-
-function swap_search_view()
-{
-    if (!search_view_mode)
-    {
-        show_search_view();
-    } else
-    {
-        hide_search_view();
     }
 }
 
@@ -570,33 +452,6 @@ function book_close_unsaved_discard_click_handler()
 {
     book_display(nextid_book, true);
     close_unsaved.close();
-    /*
-    change_display_area_mode("display", display_area)
-    close_unsaved.close();
-    if (book_edit_button.dataset.currentid == "creation")
-    {
-        if (nextid_book == "")
-        {
-            change_display_area_mode("none", display_area)
-            create_button.style.background = "";
-        } else
-        {
-            book_display(nextid_book);
-        }
-    } 
-    else
-    {
-        if (nextid_book == "")
-        {
-            book_display(book_edit_button.dataset.currentid);
-        } else if (nextid_book == "creation")
-        {
-            clickHandler_create();
-        } else
-        {
-            book_display(nextid_book);
-        }
-    }*/
 }
 
 async function save_changes_handler_borrower(event)
@@ -904,11 +759,6 @@ function change_display_area_mode(mode, _display_area)
             "none";
         display_area_edit_mode = true;
 
-        //display_panel_edit_details.style.display = "block";
-        //display_panel_details.style.display = "none";
-
-        //display_area_top_book_view.style.display = "none"
-        //display_area_top_book_view_edit.style.display = "flex"
     }
     if (ele_type == "book")
     {
