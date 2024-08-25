@@ -10,7 +10,9 @@ body
     --the-font: "Poppins", "Trebuchet MS",
         Helvetica,
         sans-serif;
-    --the-robo-font: "Roboto Mono";
+    --the-robo-font: "Roboto Mono", "Trebuchet MS",
+        Helvetica,
+        sans-serif;
     font-family: var(--the-font);
 
 }

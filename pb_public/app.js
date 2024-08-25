@@ -1715,6 +1715,17 @@ async function updateBorrowerBooks(borrowerId)
     }
 }
 
+async function display_in_isolation(id)
+{
+    let searchBar = list_area.querySelector(".main-search-bar");
+    searchBar.value = id;
+    window.location.hash = "books";
+    collection_change();
+
+    //book_display(list_area.querySelector(".list-item:not(.create-button)").dataset.id);
+}
+
+
 function createBookView(transaction)
 {
     const book = transaction.expand.book;
@@ -1742,7 +1753,7 @@ function createBookView(transaction)
                         <button onclick="return_book('${transaction.id}','${transaction.person}');" class="button-circle">
                             <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="material-symbols-outlined">tab_close</span>
                         </button>
-                        <button style="margin-left: 0.3em;" class="button-circle">
+                        <button onclick="display_in_isolation('${book.book_id}')" style="margin-left: 0.3em;" class="button-circle">
                             <span class="material-symbols-outlined">open_in_new</span>
                         </button>
                     </div>
@@ -1858,7 +1869,8 @@ function previous_page(event)
     page_number_changer = event.srcElement.closest(".page-number-changer");
     if (page_number_changer.dataset.pagenumber - 1 >= 1)
     {
-        page_number_changer.dataset.pagenumber -= 1; list_books();
+        page_number_changer.dataset.pagenumber -= 1;
+        list_books();
     }
 }
 function next_page(event)
