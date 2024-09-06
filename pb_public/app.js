@@ -1,5 +1,6 @@
 // @collapse
-const pb = new PocketBase("http://127.0.0.1:8090");
+//const pb = new PocketBase("http://192.168.1.193:8090");
+const pb = new PocketBase("http://localhost:8090");
 //const pb = new PocketBase('https://library.pockethost.io');
 
 function p(t)
@@ -88,7 +89,7 @@ preferencesLoad();
 
 
 
-var loaded_book_records;
+let loaded_book_records;
 if (window.location.hash == "")
 {
     window.location.hash = "books";
@@ -157,7 +158,7 @@ elements.forEach((element) =>
 });
 
 //list_area_search_filters.appendChild(search_area)
-search_area.style.background = "var(--color-background)";
+search_area.style.background = "var(---background)";
 //document.querySelector(".filter-button").style.display = "none"
 
 search_view_mode = true;
@@ -170,7 +171,7 @@ for (const button of all_buttons)
         !button.classList.contains("no-ripple")
     )
     {
-        button.addEventListener("pointerdown", createRipple);
+        button.addEventListener("pointerdown", pointerdownbutton);
     }
 }
 add_book_to_borrow_dialog.addEventListener("cancel", (event) =>
@@ -584,22 +585,61 @@ function logo_easter_egg()
     }
 }
 
+let mouseX, mouseY;
+let startX, startY;
+const drag_threshold = 0.01;
+function pointerdownbutton(event)
+{
+    let currentTarget = event.currentTarget;
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+    setTimeout(() =>
+    {
+        event.currentTargetJoe = currentTarget;
+        const deltaX = mouseX - event.clientX;
+        const deltaY = mouseY - event.clientY;
+        if (Math.sqrt(deltaX * deltaX + deltaY * deltaY) < drag_threshold)
+        {
+            createRipple(event);
+        }
+    }, 100);
+}
+function pointermovebutton(event)
+{
+    mouseX = event.changedTouches[0].clientX;
+    mouseY = event.changedTouches[0].clientY;
+    console.log('Pointer move at', mouseX, mouseY);
+}
+document.addEventListener("touchmove", pointermovebutton);
+
+
+
 function createRipple(event)
 {
-    const button = event.currentTarget;
-    const circle = document.createElement("span");
-    const diameter = Math.max(button.clientWidth, button.clientHeight);
-    const radius = diameter / 2;
-    let button_rect = button.getBoundingClientRect();
-    circle.classList.add("ripple");
-    circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${event.clientX - button_rect.x - radius}px`; //`${event.clientX - button.offsetLeft - radius}px`;
-    circle.style.top = `${event.clientY - button_rect.y - radius}px`; //`${event.clientY - button.offsetTop - radius}px`;
-    setTimeout(function ()
+    const button = event.currentTargetJoe;
+    const ripple = document.createElement('span');
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+    ripple.classList.add('ripple');
+
+    button.appendChild(ripple);
+
+    // Force a reflow before adding the animate class
+    ripple.offsetWidth;
+
+    ripple.classList.add('animate');
+
+    // Remove the ripple element after the animation
+    setTimeout(() =>
     {
-        circle.remove();
-    }, 1000);
-    button.appendChild(circle);
+        ripple.remove();
+    }, 600); // Match this to your transition duration
 }
 
 function copy_isbn()
@@ -651,7 +691,7 @@ function segmented_button_thing(event, element = "")
         ele = element;
     } else
     {
-        ele = event.srcElement;
+        ele = event.currentTarget;
     }
 
     if (
@@ -684,7 +724,7 @@ function segmented_button_thing(event, element = "")
 
         ele.dataset.state = true;
         ele.style.backgroundColor =
-            "color-mix(in hsl, var(--color-primary-container), #00000000 5%)";
+            "color-mix(in hsl, var(---primary-container), #00000000 5%)";
         ele.style.width = "10em";
 
         if (
@@ -707,7 +747,7 @@ function segmented_button_thing(event, element = "")
 function lend_book_button_click_handler(ev)
 {
     lend_book_to_borrower(
-        ev.srcElement.dataset.currentid,
+        ev.currentTarget.dataset.currentid,
         edit_button_borrower.dataset.currentid
     );
     close_lend_book_dialog();
@@ -748,8 +788,8 @@ function change_display_area_mode(mode, _display_area)
 
         display_panel_details_borrower.style.display = "none";
         edit_button_borrower_label.innerText = "Save";
-        edit_button_borrower_label.style.color = "var(--color-background)";
-        edit_button_borrower.style.backgroundColor = "var(--color-primary)";
+        edit_button_borrower_label.style.color = "var(---background)";
+        edit_button_borrower.style.backgroundColor = "var(---primary)";
         edit_button_borrower.style.border = "none";
         returntextjinfo4_borrower.innerText = "Cancel";
         returnbutton54985t8_borrower.onclick =
@@ -821,6 +861,8 @@ function change_display_area_mode(mode, _display_area)
         display_area_edit_mode = true;
 
     }
+
+
     if (ele_type == "book")
     {
         switch (mode)
@@ -939,175 +981,212 @@ async function deprecate_book_id(id)
     await list_books();
     await book_display(rec.id);
 }
+
+
+// Utility function to process input tokens for filtering
+function processTokens(search, lazyFields, exactFields)
+{
+    return search.split(" ")
+        .map(token => token.trim())
+        .filter(token => token !== "")
+        .map(cleanToken =>
+        {
+            const lazyConditions = lazyFields.map(field => `${field} ~ "%${cleanToken}%"`).join(" || ");
+            const exactConditions = exactFields.map(field => `${field} = "${cleanToken}"`).join(" || ");
+            return `(${lazyConditions}${exactConditions ? " || " + exactConditions : ""})`;
+        })
+        .join(" && ");
+}
+
+
+// Function to handle additional book-specific filters
+function applyBookFilters(pbFilter)
+{
+    const filters = [];
+
+    const lostValue = book_search_selector_lost_thing?.dataset.value || "none";
+    const scrappedValue = book_search_selector_scrapped_thing?.dataset.value || "none";
+    const levelValue = book_level_search_select?.value || "all";
+    const subjectValue = subject_search_select_shadow?.value || "all";
+    const idTypeValue = search_books_id_type_select?.dataset.value || "none";
+
+    if (lostValue !== "none")
+    {
+        filters.push(`lost = ${lostValue}`);
+    }
+
+    if (scrappedValue !== "none")
+    {
+        filters.push(`scrapped = ${scrappedValue}`);
+    }
+
+    if (levelValue !== "all")
+    {
+        filters.push(`level = '${levelValue}'`);
+    }
+
+    if (subjectValue !== "all")
+    {
+        filters.push(`subject = '${subjectValue}'`);
+    }
+
+    if (idTypeValue !== "none")
+    {
+        filters.push(idTypeValue === "true"
+            ? `legacy_book_id !~ 'DEPRECATED_'`
+            : `legacy_book_id ~ 'DEPRECATED_'`);
+    }
+
+    return pbFilter + (pbFilter && filters.length ? " && " : "") + filters.join(" && ");
+}
+
+// Main function to get search options for either books or borrowers
+function getSearchOptions(collection)
+{
+    let pbFilter = "";
+
+    switch (collection)
+    {
+        case "books":
+            const bookLazyFields = ["title", "isbn"];
+            const bookExactFields = ["legacy_book_id", "book_id"];
+            pbFilter = processTokens(search_filter_input.value, bookLazyFields, bookExactFields);
+            pbFilter = applyBookFilters(pbFilter);
+            var pbSort = `${search_sortby_ascending_book.dataset.ascending}${j54f9954j.value}`;
+            break;
+        case "borrowers":
+            const borrowerLazyFields = ["name", "surname", "group"];
+            const borrowerExactFields = ["name", "surname", "group"];
+            pbFilter = processTokens(search_filter_input_borrower.value, borrowerLazyFields, borrowerExactFields);
+            var pbSort = "-created"; // Default sort for borrowers
+            break;
+    }
+
+    return {
+        sort: pbSort,
+        filter: pbFilter,
+        page: page_number_changer_books.dataset.pagenumber || 1,
+        amount: 100,
+        collection: collection
+    };
+}
+
+
+
+
 async function list_books()
 {
-    document.body.appendChild(page_number_changer_books);
-    let enteredVal = search_filter_input.value;
-    let enteredTokens = enteredVal.split(" ");
-    p(enteredTokens);
-    let pbFilter = "";
-    let operand = "";
-
-    for (const enteredToken of enteredTokens)
+    try
     {
-        let cleanToken = enteredToken.trim();
-        if (cleanToken !== "")
-        {
-            pbFilter += `(${operand} (legacy_book_id = "${cleanToken}" || book_id = "${cleanToken}" || title  ~ "%${cleanToken}%" || isbn = "${cleanToken}"))`;
-            operand = " && ";
-        }
+        const pageNumberChanger = document.getElementById('page_number_changer_books');
+        document.body.appendChild(pageNumberChanger);
+
+        const searchOptions = getSearchOptions("books");
+        const queryResponse = await fetchBooks(searchOptions);
+        loaded_book_records = queryResponse.items;
+
+        renderBookList(loaded_book_records);
+        updatePagination(queryResponse, pageNumberChanger);
+    } catch (error)
+    {
+        console.error('Error in listBooks:', error);
+        // Handle error (e.g., show error message to user)
     }
-    if (book_search_selector_lost_thing.dataset.value != "none")
-    {
-        if (pbFilter != "")
+}
+
+async function fetchBooks(searchOptions)
+{
+    return await pb.collection(searchOptions.collection).getList(
+        searchOptions.page,
+        searchOptions.amount,
         {
-            pbFilter += " && ";
+            sort: searchOptions.sort,
+            filter: searchOptions.filter,
         }
-        pbFilter +=
-            "lost = " + book_search_selector_lost_thing.dataset.value + "";
+    );
+}
+
+function renderBookList(books)
+{
+    const listAreaList = document.getElementById('list_area_list');
+    listAreaList.innerHTML = '';
+
+    if (current_page === "books")
+    {
+        appendCreateBookButton(listAreaList);
     }
-    if (book_search_selector_scrapped_thing.dataset.value != "none")
+
+    books.forEach(book => appendBookListItem(book, listAreaList));
+}
+
+function appendCreateBookButton(container)
+{
+    const button = document.createElement('button');
+    button.id = 'create_book_button';
+    button.className = 'list-button list-item create-button';
+    button.textContent = '+ Create Book';
+    button.addEventListener('click', clickHandler_create);
+    button.addEventListener('pointerdown', pointerdownbutton);
+    container.appendChild(button);
+}
+
+function appendBookListItem(book, container)
+{
+    const listItem = createBookListItem(book);
+    container.appendChild(listItem);
+}
+
+function createBookListItem(book)
+{
+    const listItem = document.createElement('button');
+    listItem.className = 'list-button list-item';
+    listItem.dataset.id = book.id;
+    listItem.addEventListener('click', book_click_handler);
+    listItem.addEventListener('pointerdown', pointerdownbutton);
+
+    const previewImage = createPreviewImage(book);
+    const infoDiv = createInfoDiv(book);
+
+    listItem.appendChild(previewImage);
+    listItem.appendChild(infoDiv);
+
+    return listItem;
+}
+
+function createPreviewImage(book)
+{
+    const previewImage = document.createElement('img');
+    previewImage.className = 'preview-image';
+    previewImage.src = book.preview_url_override || `https://covers.openlibrary.org/b/isbn/${book.isbn}-S.jpg`;
+    return previewImage;
+}
+
+function createInfoDiv(book)
+{
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'list-item-info-text';
+    infoDiv.innerHTML = `
+        ${book.title}
+        <label class="book-id">
+            ${book.legacy_book_id.match("DEPRECATED_") ? book.book_id : `${book.legacy_book_id} ${book.book_id}`}
+        </label>
+    `;
+    return infoDiv;
+}
+
+function updatePagination(queryResponse, pageNumberChanger)
+{
+    const pageInfoElement = document.getElementById('page-info');
+    if (queryResponse.totalPages > 1)
     {
-        if (pbFilter != "")
-        {
-            pbFilter += " && ";
-        }
-        pbFilter +=
-            "scrapped = " +
-            book_search_selector_scrapped_thing.dataset.value +
-            "";
-    }
-    if (book_level_search_select.value != "all")
-    {
-        if (pbFilter != "")
-        {
-            pbFilter += " && ";
-        }
-        pbFilter += "level = '" + book_level_search_select.value + "'";
-    }
-    if (subject_search_select_shadow.value != "all")
-    {
-        if (pbFilter != "")
-        {
-            pbFilter += " && ";
-        }
-        pbFilter += "subject = '" + subject_search_select_shadow.value + "'";
-    }
-    if (search_books_id_type_select.dataset.value != "none")
-    {
-        if (pbFilter != "")
-        {
-            pbFilter += " && ";
-        }
-        if (search_books_id_type_select.dataset.value == "true")
-        {
-            pbFilter += `legacy_book_id !~ 'DEPRECATED_'`;
-        } else if (search_books_id_type_select.dataset.value == "false")
-        {
-            pbFilter += `legacy_book_id ~ 'DEPRECATED_'`;
-        }
-    }
-    p("pbfilter: ", pbFilter);
-
-    pbSort = search_sortby_ascending_book.dataset.ascending + j54f9954j.value;
-
-
-
-
-    query_response = await pb
-        .collection("books")
-        .getList(page_number_changer_books.dataset.pagenumber, 100, {
-            sort: pbSort,
-            filter: pbFilter,
-        });
-    loaded_book_records = query_response.items;
-
-
-
-
-
-
-
-
-    if (current_page == "books")
-    {
-        list_area_list.innerHTML = `
-            <button id="create_book_button" onclick="clickHandler_create()" class="list-button list-item create-button">
-                + Create Book
-            </button>
-        `;
-        list_area_list
-            .querySelector("button")
-            .addEventListener("pointerdown", createRipple);
+        pageInfoElement.textContent = `Page ${pageNumberChanger.dataset.pagenumber} of ${queryResponse.totalPages}`;
+        pageNumberChanger.dataset.maxpages = queryResponse.totalPages;
+        pageNumberChanger.dataset.pagenumber = Math.min(pageNumberChanger.dataset.pagenumber, queryResponse.totalPages);
+        pageNumberChanger.style.display = 'flex';
     } else
     {
-        list_area_list.innerHTML = "";
+        pageNumberChanger.style.display = 'none';
     }
-
-    for (const rec of loaded_book_records)
-    {
-        let list_item = document.createElement("button");
-        list_item.className = "list-button list-item";
-        list_item.dataset.id = rec.id;
-        list_item.addEventListener("click", book_click_handler);
-        list_area_list.appendChild(list_item);
-        list_item.addEventListener("pointerdown", createRipple);
-
-        let preview_image = document.createElement("img");
-        preview_image.className = "preview-image";
-
-        if (rec.preview_url_override == "")
-        {
-            preview_image.setAttribute(
-                "src",
-                `https://covers.openlibrary.org/b/isbn/${rec.isbn}-S.jpg`
-            );
-        } else
-        {
-            preview_image.setAttribute("src", rec.preview_url_override);
-        }
-        preview_image.style.marginRight = "0.5em";
-        let info_div = document.createElement("div");
-        info_div.className = "list-item-info-text";
-
-        if (rec.legacy_book_id.match("DEPRECATED_"))
-        {
-            info_div.innerHTML = `${rec.title} 
-            <label style="font-family:var(--the-font)">
-                ${rec.book_id}
-            </label>`;
-        } else
-        {
-            info_div.innerHTML = `${rec.title} 
-            <label style="font-family:var(--the-font)">
-                ${rec.legacy_book_id} ${rec.book_id}
-            </label>`;
-        }
-
-        list_item.appendChild(preview_image);
-        list_item.appendChild(info_div);
-    }
-    highlight_selected_item(book_edit_button.dataset.currentid, list_area_list);
-
-
-    if (query_response.totalPages > 1)
-    {
-        document.getElementById("tttttttt112").innerText = `Page ${page_number_changer_books.dataset.pagenumber} of ${query_response.totalPages}`;
-        page_number_changer_books.dataset.maxpages = query_response.totalPages;
-        if (
-            page_number_changer_books.dataset.pagenumber > query_response.totalPages
-        )
-        {
-            page_number_changer_books.dataset.pagenumber =
-                query_response.totalPages;
-        }
-        page_number_changer_books.style.display = "flex";
-    }
-    else
-    {
-        page_number_changer_books.style.display = "none";
-    }
-    list_area_list.appendChild(page_number_changer_books);
 }
 
 function playOpenSound()
@@ -1121,11 +1200,12 @@ function playOpenSound()
 function book_click_handler(e)
 {
     playOpenSound();
-    if (book_edit_button.dataset.currentid == e.srcElement.dataset.id)
+    if (book_edit_button.dataset.currentid == e.currentTarget.dataset.id)
     {
         return;
     }
-    book_display(e.srcElement.dataset.id, false);
+    e.currentTarget.style.viewTransitionName = "book-cover";
+    book_display(e.currentTarget.dataset.id, false);
 }
 
 async function book_display(ARGUMENT_ID, excused_from_dialog = false, start_in_edit_mode = false)
@@ -1172,6 +1252,8 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false, start_in_e
     display_panel_book_cover.src = "";
 
     book_edit_button.dataset.currentid = ARGUMENT_ID;
+
+
 
     /////////DISPLAY PANEL NONSENCE/////////////////////////////////////
     display_panel_book_system_id.innerHTML = "SYS_ID: " + book.id;
@@ -1368,48 +1450,39 @@ async function clickHandler_create(excused_from_dialog = false)
         //i.style.margin = "";
         //i.style.padding = "";
     });
-    //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(--color-secondary-container); margin: 0.2em !important; padding: 0.8em !important";
-    clickedOne.style.background = "var(--color-on-surface-2)";
+    //clickedOne.style.cssText = "border-radius: 1.5em !important; background: var(---secondary-container); margin: 0.2em !important; padding: 0.8em !important";
+    clickedOne.style.background = "var(---on-surface-2)";
 
     change_display_area_mode("edit", display_area);
 }
 async function list_borrowers()
 {
-    let enteredVal = search_filter_input_borrower.value;
-    let enteredTokens = enteredVal.split(" ");
-    p(enteredTokens);
-    let pbFilter = "";
-    let operand = "";
 
-    for (const enteredToken of enteredTokens)
-    {
-        let cleanToken = enteredToken.trim();
-        if (cleanToken !== "")
-        {
-            pbFilter += `(${operand} (borrower_id = "${cleanToken}" || name ~ "%${cleanToken}%" || surname ~ "%${cleanToken}%" || group ~ "%${cleanToken}%"))`;
-            operand = " && ";
-        }
-    }
-    p("pbfilter: ", pbFilter);
 
-    pbSort = "-created";
-    //pbSort = search_sortby_ascending_book.dataset.ascending + j54f9954j.value
+    let searchOptions = getSearchOptions("borrowers");
 
-    all_borrower_records = await pb.collection("borrowers").getFullList({
-        sort: pbSort,
-        filter: pbFilter,
-    });
+    query_response = await pb
+        .collection(searchOptions.collection)
+        .getList(
+            searchOptions.page,
+            searchOptions.amount,
+            {
+                sort: searchOptions.sort,
+                filter: searchOptions.filter,
+            }
+        );
+    loaded_borrower_records = query_response.items;
 
     list_area_list_borrower.innerHTML = `
-        <button id="create_borrower_button" data-id="creation" onclick="borrower_display(event.srcElement.dataset.id)" style="border-bottom: 2px dashed var(--color-neutral-variant60);" class="list-button list-item">
+        <button id="create_borrower_button" data-id="creation" onclick="borrower_display(event.srcElement.dataset.id)" style="border-bottom: 2px dashed var(---neutral-variant60);" class="list-button list-item">
             + Create Borrower
         </button>
     `;
     list_area_list_borrower
         .querySelector("button")
-        .addEventListener("pointerdown", createRipple);
+        .addEventListener("pointerdown", pointerdownbutton);
 
-    for (const rec of all_borrower_records)
+    for (const rec of loaded_borrower_records)
     {
         if (rec.id != "deletedborrower")
         {
@@ -1417,7 +1490,7 @@ async function list_borrowers()
             list_item.className = "list-button list-item";
             list_item.dataset.id = rec.id;
             list_area_list_borrower.appendChild(list_item);
-            list_item.addEventListener("pointerdown", createRipple);
+            list_item.addEventListener("pointerdown", pointerdownbutton);
             list_item.setAttribute(
                 "onclick",
                 "borrower_display(event.srcElement.dataset.id)"
@@ -1456,7 +1529,7 @@ async function list_borrowers()
             ${rec.name} ${rec.surname} 
             <label style="font-family: var(--the-font); display: flex; width: 100%; justify-content: space-between;">
                 ${rec.group}
-                <div style="text-align: right; background: var(--color-surface-5); padding: 0.1em 0.3em; border-radius: 8px; font-family: var(--the-robo-font)">
+                <div class="id-div">
                     ${rec.borrower_id}
                 </div>
             </label>
@@ -1664,7 +1737,7 @@ async function handleBorrowerDisplay(borrowerId)
 {
     delete_borrower_forever.style.display = "flex";
     change_display_area_mode("display", display_area_borrower);
-    return all_borrower_records.find((borrower) => borrower.id === borrowerId);
+    return loaded_borrower_records.find((borrower) => borrower.id === borrowerId);
 }
 
 function updateBorrowerEditingPanel(borrower)
@@ -1736,16 +1809,16 @@ function createBookView(transaction)
     const bookView = document.createElement("div");
     bookView.classList.add("book_view");
     bookView.innerHTML = `
-        <div style="display: flex; border-top: solid var(--color-surface-5) 2px;">
+        <div style="display: flex; border-top: solid var(---surface-5) 2px;">
             <div style="margin-top: 0.5em;">
-                <img style="object-fit: cover; padding: 0.2em; width: 6em; height: calc(100% - 1em); background-color: var(--color-inverse-surface); border-radius: 0.6em;" src="${previewImageUrl}">
+                <img style="object-fit: cover; padding: 0.2em; width: 6em; height: calc(100% - 1em); background-color: var(---inverse-surface); border-radius: 0.6em;" src="${previewImageUrl}">
             </div>
             <div style="margin-bottom: 0.5em; margin-top: 0.5em; display: flex; align-items: center; width: 100%; justify-content: left; margin-left: 1em;">
                 <div style="width: 100%">
                     <div style="font-weight: bold; font-size: xx-large; text-wrap: wrap;">
                         ${book.title}
                     </div>
-                    <div style="margin-bottom: 0.3em; padding: 0.3em; border-radius: 0.3em; font-size: 1.1em; background-color: var(--color-surface-3);">
+                    <div style="margin-bottom: 0.3em; padding: 0.3em; border-radius: 0.3em; font-size: 1.1em; background-color: var(---surface-3);">
                         <label style="font-family:var(--the-robo-font)">ID: ${book.book_id}</label><br>
                         <label style="font-family:var(--the-robo-font)">ISBN: ${book.isbn}</label>
                     </div>
@@ -1772,9 +1845,7 @@ function highlight_selected_item(id, list_element)
         return;
     }
 
-    list_element
-        .querySelectorAll(".list-item")
-        .forEach((item) => (item.style.background = ""));
+    list_element.querySelector(".list-item.selected")?.classList.remove("selected");
 
     // If the id is blank then dont highlight a new one
     if (id != "")
@@ -1784,7 +1855,7 @@ function highlight_selected_item(id, list_element)
         );
         if (clickedOne != null)
         {
-            clickedOne.style.background = "var(--color-on-surface-2)";
+            clickedOne.classList.add("selected");
         }
     }
 }

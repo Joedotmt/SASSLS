@@ -1,1 +1,1 @@
-pocketbase.exe serve
+pocketbase serve

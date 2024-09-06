@@ -18,7 +18,7 @@
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
    <link rel="stylesheet" href="style.css" />
-   <link rel="stylesheet" href="fresh.css" />
+   <link rel="stylesheet" href="themes.css" />
    <link rel="icon" type="image/x-icon" href="SASLIB_logo.png" />
 </head>
 
@@ -68,7 +68,7 @@
       </div>
    </dialog>
    <dialog id="migration_id_confirmation_dialog">
-      <div style="background: var(--color-surface-1); padding: 3vw; display: flex; flex-direction: column; align-items: center; width: fit-content; height: fit-content; margin: auto; border-radius: 1em;">
+      <div style="background: var(---surface-1); padding: 3vw; display: flex; flex-direction: column; align-items: center; width: fit-content; height: fit-content; margin: auto;">
          <img style="height: calc(100vh - 13em); width: auto; margin-bottom: 1em;" id="ir040jr098" src="3429jr9.svg" />
          <div style="display: flex;">
             <button onclick="migration_id_confirmation_dialog.close();" style="margin-right: 0.5em;">Cancel</button>
@@ -76,7 +76,7 @@
          </div>
       </div>
    </dialog>
-   <dialog style="height: fit-content; width: min(93vw, 60em); margin: auto; border-radius: 2em; padding: 1vw;" id="sign_in_dialog">
+   <dialog style="height: fit-content; width: min(93vw, 60em); margin: auto; padding: 1vw;" id="sign_in_dialog">
       <div style="margin: min(3vw, 1em);">
          <div class="h9854h45g">
             <div>
@@ -88,14 +88,14 @@
                <div style="display: flex; margin: 0;">
                   <div style="width: 100%;" class="input-container">
                      <input style="text-align: right; padding-right: 9.9em; margin-right: 0; width: 100%;" class="input-google" id="email_input" autocomplete="email" type="email" />
-                     <label style="background-color: var(--color-surface-5);" class="input-placeholder">Email</label>
+                     <label style="background-color: var(---surface-5);" class="input-placeholder">Email</label>
                   </div>
-                  <label style="margin: auto; margin-left: 0em; font-size: 1.3em; width: 0px; position: relative; left: -11em; color: var(--color-on-background); opacity: 0.7;">@sanandrea.edu.mt</label>
+                  <label style="margin: auto; margin-left: 0em; font-size: 1.3em; width: 0px; position: relative; left: -11em; color: var(---on-background); opacity: 0.7;">@sanandrea.edu.mt</label>
                </div>
                <div style="display: flex; margin-top: 1em;">
                   <div class="input-container">
                      <input class="input-google" id="password_input" autocomplete="current-password" type="password" />
-                     <label style="background-color: var(--color-surface-5);" class="input-placeholder">Password</label>
+                     <label style="background-color: var(---surface-5);" class="input-placeholder">Password</label>
                   </div>
                </div>
             </form>
@@ -106,9 +106,9 @@
          </div>
       </div>
    </dialog>
-   <dialog style="font-size: 16px; width: auto; max-width: 500px; padding: 0; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: var(--color-background);" onclose="collection_change()" id="theme_dialog">
-      <div style="padding: 16px; display: flex; align-items: center; border-bottom: 1px solid var(--color-outline);">
-         <button class="button-circle" onclick="cancel_theme_picker_modal()" style="width: 40px; height: 40px; border: none; background-color: transparent; margin-right: 16px;">
+   <dialog style="font-size: 16px; width: auto; max-width: 500px; padding: 0; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" onclose="collection_change()" id="theme_dialog">
+      <div style="padding: 16px; display: flex; align-items: center; border-bottom: 1px solid var(---outline);">
+         <button class="button-circle" onclick="cancelThemePickerModal()" style="width: 40px; height: 40px; border: none; background-color: transparent; margin-right: 16px;">
             <span class="material-symbols-outlined">close</span>
          </button>
          <div style="font-size: 1.25rem; user-select: none;">Change Theme Colors</div>
@@ -118,13 +118,13 @@
          <div class="theme-picker-body" style="display: flex; flex-direction: column; gap: 20px;">
 
             <div id="theme_color_draggable_list_container" class="list js-list color-assignments">
-               <div data-color="green" class="list__item is-idle js-item drag-handle js-drag-handle green-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
+               <div data-color="green" class="list__item is-idle js-item drag-handle js-drag-handle green-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(---primary-80), var(--left-color));">
                   <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Green</span>
                </div>
-               <div data-color="blue" class="list__item is-idle js-item drag-handle js-drag-handle blue-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
+               <div data-color="blue" class="list__item is-idle js-item drag-handle js-drag-handle blue-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(---primary-80), var(--left-color));">
                   <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Blue</span>
                </div>
-               <div data-color="red" class="list__item is-idle js-item drag-handle js-drag-handle red-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(--color-primary-80), var(--left-color));">
+               <div data-color="red" class="list__item is-idle js-item drag-handle js-drag-handle red-light theme-picker-color" style="color: black; background: linear-gradient(-90deg, var(---primary-80), var(--left-color));">
                   <span class='material-symbols-outlined grab-indicator'>drag_indicator </span><span class="theme-picker-page-text">Red</span>
                </div>
             </div>
@@ -160,20 +160,20 @@
       </div>
 
 
-      <div style="display: flex; justify-content: flex-end; padding: 16px; border-top: 0px solid rgba(0, 0, 0, 0.1); background-color: var(--color-background)">
-         <button onclick="cancel_theme_picker_modal()" style="border-color: transparent; margin-right: 8px; padding: 8px 16px; background-color: transparent;">Cancel</button>
-         <button class="dialog-button-accept" onclick="save_theme_picker_modal()" style="padding: 8px 16px; background-color: var(--color-primary-container); color: var(--color-inverse-surface); border: none;">Save</button>
+      <div style="display: flex; justify-content: flex-end; padding: 16px; border-top: 0px solid rgba(0, 0, 0, 0.1);">
+         <button class="text" onclick="cancelThemePickerModal()" style="margin-right: 8px;">Cancel</button>
+         <button class="dialog-button-accept" onclick="saveThemePickerModal()">Save</button>
       </div>
    </dialog>
    <dialog class="account-dialog" id="account_dialog">
       <button style="margin: 0.7em; border: none; width: 40px; height: 40px; margin-bottom: 0;" class="button-circle" onclick="account_dialog.close()"><span class="material-symbols-outlined"> close </span></button>
-      <div style="background: var(--color-surface-1); border-radius: 1.5em; margin-top: 0.5em; margin-left: 0.5em; margin-right: 0.5em; margin-bottom: 0.5em; overflow: hidden; height: 18em;">
+      <div style="background: var(---surface-1); border-radius: 1.5em; margin-top: 0.5em; margin-left: 0.5em; margin-right: 0.5em; margin-bottom: 0.5em; overflow: hidden; height: 18em;">
          <button class="list-button"><span class="button-icon material-symbols-outlined"> settings </span> account settings</button>
-         <button onclick="sign_in_dialog.showModal()" style="background: var(--color-primary-80); border-color: transparent; margin-left: auto; color: black; margin-right: auto; width: 8em;">
+         <button onclick="sign_in_dialog.showModal()" style="--bg: var(---primary-80); border-color: transparent; margin-left: auto; color: black; margin-right: auto; width: 8em;">
             <span class="button-icon material-symbols-outlined"> login </span> Sign in
          </button>
       </div>
-      <button onclick="show_theme_picker_modal()" id="theme_dialog_button" class="list-button">
+      <button onclick="showThemePickerModal()" id="theme_dialog_button" class="list-button">
          <span class="button-icon material-symbols-outlined">
             palette
          </span> Theme Colours
@@ -206,7 +206,7 @@
    </div>
    <div style="display: none;" id="container_book" class="container">
       <div id="search_area" class="search-area panel">
-         <dialog style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);" id="search_filter_select_dialog">
+         <dialog style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(---background);" id="search_filter_select_dialog">
             <div style="margin: 0.6em; width: 11em;">
                Filter by:
                <hr />
@@ -216,7 +216,7 @@
             <button onclick="select_book_level_dialog_search.show()" class="dropdown-button">Level</button>
             <button onclick="filter_select_dialog_id_type.show()" class="dropdown-button">Id Type</button>
          </dialog>
-         <dialog style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);" id="filter_select_dialog_location">
+         <dialog style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(---background);" id="filter_select_dialog_location">
             <div style="margin: 0.6em; width: 11em;">
                Locations:
                <hr />
@@ -226,7 +226,7 @@
             <button onclick="add_book_filter('location','lost')" class="dropdown-button">Lost</button>
             <button onclick="add_book_filter('location','scrapped')" class="dropdown-button">Scrapped</button>
          </dialog>
-         <dialog style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(--color-background);" id="select_book_level_dialog_search">
+         <dialog style="border-radius: 0.5em; padding-bottom: 1em; box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5), inset 0 0 0px 1px rgba(0, 0, 0, 0.5); background: var(---background);" id="select_book_level_dialog_search">
             <div style="margin: 0.6em; width: 11em;">
                Levels:
                <hr />
@@ -237,8 +237,7 @@
             <button onclick="add_book_filter('level','Yellow');" class="dropdown-button">Yellow</button>
             <button onclick="add_book_filter('level','Brown');" class="dropdown-button">Brown</button>
          </dialog>
-         <button style="width: fit-content; margin-bottom: 10em;" onclick="search_filter_select_dialog.show()">Add Filter</button>
-         <div style="margin-bottom: 10em;"></div>
+         <button style="display: none; width: fit-content; margin-bottom: 10em;" onclick="search_filter_select_dialog.show()">Add Filter</button>
          <div style="display: flex;">
             <div class="input-container">
                <select onchange="list_books()" id="j54f9954j" style="width: 100%;" type="text" class="input-google">
@@ -327,8 +326,10 @@
       </div>
       <div id="list_area" class="list-area panel">
          <div class="list-area-search">
-            <div style="display: flex;">
-               <span style="position: absolute; top: 0.55em; left: 0.6em; opacity: 0.7;" class="material-symbols-outlined">search</span>
+            <div style="display: flex; align-items: center;">
+               <span style="    position: fixed;
+    margin-left: 0.8em;
+    opacity: 0.7;" class="material-symbols-outlined">search</span>
                <input type="text" class="main-search-bar" placeholder="Search Books" id="search_filter_input" onchange="list_books()" />
             </div>
          </div>
@@ -343,8 +344,8 @@
                         Cancel
                      </div>
                   </button>
-                  <button id="book_save_button" onclick="save_changes_handler_book(event)" style="background-color: var(--color-primary); border: none; margin: 5px; margin-right: 5px;">
-                     <div style="color: var(--color-background);" id="book_save_button_text">Save</div>
+                  <button id="book_save_button" onclick="save_changes_handler_book(event)" style="background-color: var(---primary); border: none; margin: 5px; margin-right: 5px;">
+                     <div style="color: var(---background);" id="book_save_button_text">Save</div>
                   </button>
                </div>
             </div>
@@ -358,7 +359,7 @@
                   <label class="input-placeholder">Author</label>
                </div>
                <div style="
-                                background-color: var(--color-surface-1);
+                                background-color: var(---surface-1);
                                 padding: 0.5em;
                                 flex-grow: 1;
                                 font-size: 1.2em;
@@ -425,8 +426,8 @@
          <div class="display_panel_display" style="display: none;" id="display_panel_details">
             <div class="display-area-quick-buttons">
                <div style="display: none;" id="display_area_top_lend_view">
-                  <button id="lend_book_button" onclick="lend_book_button_click_handler(event)" style="margin: 5px; border: none; background-color: var(--color-primary); width: 100%; padding: 0 1.1em;">
-                     <div id="lend_book_button_text" style="pointer-events: none; color: var(--color-background);">
+                  <button id="lend_book_button" onclick="lend_book_button_click_handler(event)" style="margin: 5px; border: none; background-color: var(---primary); width: 100%; padding: 0 1.1em;">
+                     <div id="lend_book_button_text" style="pointer-events: none; color: var(---background);">
                         Lend book to borrower
                      </div>
                   </button>
@@ -444,7 +445,7 @@
             </div>
             <div class="display-panel-book-general">
                <div style="margin: 0.5em; display: flex; flex-direction: column; justify-content: center;">
-                  <img id="display_panel_book_cover" style="object-fit: fill; padding: 0.2em; width: min(8em, 30vw); height: -webkit-fill-available; background-color: var(--color-inverse-surface); border-radius: 0.6em;" src="https://covers.openlibrary.org/b/isbn/978-0-330-40rr436-5-M.jpg" />
+                  <img id="display_panel_book_cover" src="https://covers.openlibrary.org/b/isbn/978-0-330-40rr436-5-M.jpg" />
                </div>
                <div style="padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; width: 100%;">
                   <div id="display_panel_book_title" style="font-weight: bold; font-size: min(7vw, 2em);">----------</div>
@@ -453,7 +454,7 @@
                   </div>
                   <div class="e00j430985t">
                      <div style="
-                                        background-color: var(--color-surface-1);
+                                        background-color: var(---surface-1);
                                         padding: 0.5em;
                                         flex-grow: 1;
                                         border-radius: 0.5em;
@@ -471,14 +472,14 @@
                   </div>
                </div>
             </div>
-            <div style="display: flex; display: none; margin: 0.2em; border: 3px solid var(--color-surface-1); border-left: 0; border-right: 0;">
+            <div style="display: flex; display: none; margin: 0.2em; border: 3px solid var(---surface-1); border-left: 0; border-right: 0;">
                <div style="margin: 0.5em; display: flex; flex-direction: column; justify-content: center;">
                   <button style="
                                     object-fit: fill;
                                     padding: 0.2em;
                                     width: min(8.4em, 31.7vw);
                                     height: 5em;
-                                    border: 0.2em dashed var(--color-inverse-surface);
+                                    border: 0.2em dashed var(---inverse-surface);
                                     border-radius: 0.6em;
                                     display: flex;
                                     justify-content: center;
@@ -492,7 +493,7 @@
                      Joe Esposito
                      <div style="font-weight: lighter;">&nbsp11.4</div>
                   </div>
-                  <div style="width: fit-content; background-color: var(--color-surface-5); padding: 0.4em; border-radius: 0.4em; font-family: var(--the-font);">
+                  <div style="width: fit-content; background-color: var(---surface-5); padding: 0.4em; border-radius: 0.4em; font-family: var(--the-font);">
                      <div class="tooltip">
                         <div style="user-select: none; display: flex; font-size: min(4vw, 1em); align-items: center;">
                            <div>ID: t2m</div>
@@ -504,17 +505,17 @@
             </div>
             <div style="margin: 0.8em; margin-top: 0.5em;">
                Description
-               <div id="display_panel_book_description" style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(--color-surface-1);">
+               <div id="display_panel_book_description" style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(---surface-1);">
                   ---------------
                </div>
             </div>
             <div id="display_panel_book_lost" style="display: none; margin: 0.8em; margin-top: 0.5em; margin-bottom: 0.3em;">
-               <div style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
+               <div style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(---primary-container);">
                   <span style="translate: 0 5px;" class="material-symbols-outlined"> warning </span>&nbsp Book marked as lost
                </div>
             </div>
             <div id="display_panel_book_scrapped" style="display: none; margin: 0.8em; margin-top: 0em;">
-               <div style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(--color-primary-container);">
+               <div style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(---primary-container);">
                   <span style="translate: 0 5px;" class="material-symbols-outlined"> warning </span>&nbsp Book marked as scrapped
                </div>
             </div>
@@ -555,13 +556,13 @@
                <div id="dpdb_name"></div>
                <div id="dpdb_surname"></div>
             </div>
-            <div style="background-color: var(--color-surface-3); border-radius: 0.4em; padding: 0.5em; font-size: 1.2em; font-family: var(--the-robo-font);">
+            <div style="background-color: var(---surface-3); border-radius: 0.4em; padding: 0.5em; font-size: 1.2em; font-family: var(--the-robo-font);">
                <div id="dpdb_group"></div>
                <div id="dpdb_borrower_id"></div>
             </div>
             <div style="font-size: 1.3em; font-weight: bold; margin-top: 0.5em;">Currently borrowing books:</div>
             <div id="borrower_currently_borrowing_books"></div>
-            <div style="border-top: solid var(--color-surface-5) 2px; display: flex; width: 100%;">
+            <div style="border-top: solid var(---surface-5) 2px; display: flex; width: 100%;">
                <button id="dpdb_add_button" onclick="add_borrower_book_button_handler(event);" style="width: fit-content; height: 2.6em; padding: 1.2em; margin-top: 0.4em;">
                   <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="button-icon material-symbols-outlined">
                      library_add
@@ -587,7 +588,7 @@
                </label>
             </div>
             <div style="
-                            background-color: var(--color-surface-5);
+                            background-color: var(---surface-5);
                             padding: 0.5em;
                             flex-grow: 1;
                             font-size: 1.2em;

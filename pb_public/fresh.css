@@ -1,55 +1,82 @@
-.panel{
+.panel
+{
     margin: 0;
     border-radius: 0;
 }
-body{
+
+body
+{
     margin: 0;
     --border-thiccness: 0.1em
 }
-.top-bar{
-    border-bottom: var(--border-thiccness) solid var(--color-neutral-variant60);
-    background-color: var(--color-inverse-on-surface);
+
+.top-bar
+{
+    border-bottom: var(--border-thiccness) solid var(---neutral-variant60);
+    background-color: var(---inverse-on-surface);
 }
-.list-area{
-    border: var(--border-thiccness) solid var(--color-neutral-variant60);
+
+.list-area
+{
+    border: 0;
     border-top: 0;
     border-bottom: 0;
     padding: 0;
     gap: 0 0;
     border-radius: 0;
 }
+
 .list-item
 {
-    --color-on-surface-2: var(--color-primary-80);
-    background-color: var(--color-background);
+    ---on-surface-2: var(---primary-80);
+    background-color: var(---background);
     margin: 0.3em !important;
     transition: 0s;
-    box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.2);
+    box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
     border: 0 !important;
     border-radius: 0.3em !important;
 }
-.list-area-search{
+
+.list-area-search
+{
     border-bottom: none;
     border-radius: 0;
 }
-body.hasHover .list-item:hover{
-    background-color: var(--color-background);
-    box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.8);
+
+.list-area
+{
+    background: var(---background);
 }
-.green-dark .list-item{
-    --color-on-surface-2: var(--color-secondary-container) !important;
+
+body.hasHover .list-item:hover
+{
+    background-color: var(---background);
+    box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.8);
 }
-.blue-dark .list-item{
-    --color-on-surface-2: var(--color-secondary-container) !important;
+
+.green-dark .list-item
+{
+    ---on-surface-2: var(---secondary-container) !important;
 }
-.page-number-changer{
-    box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,0.2);
+
+.blue-dark .list-item
+{
+    ---on-surface-2: var(---secondary-container) !important;
+}
+
+.page-number-changer
+{
+    box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
     margin: 0.3em !important;
 }
-.list-area-list{
+
+.list-area-list
+{
     border-radius: 0;
 }
-.create-button{
-    border-bottom: 2px dashed var(--color-neutral-variant60);
+
+.create-button
+{
+    border-bottom: 2px dashed var(---neutral-variant60);
     margin-top: 0.4em !important;
 }
