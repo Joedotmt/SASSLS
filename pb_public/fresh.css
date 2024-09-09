@@ -7,7 +7,7 @@
 body
 {
     margin: 0;
-    --border-thiccness: 0.1em
+    --border-thiccness: 0.1em;
 }
 
 .top-bar

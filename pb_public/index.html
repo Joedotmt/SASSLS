@@ -18,7 +18,10 @@
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
    <link rel="stylesheet" href="style.css" />
+   <link rel="stylesheet" href="fresh.css" />
    <link rel="stylesheet" href="themes.css" />
+   <script src="loadingBar.js" defer></script>
+   <script src="touchsupport.js" defer></script>
    <link rel="icon" type="image/x-icon" href="SASLIB_logo.png" />
 </head>
 
@@ -67,6 +70,16 @@
          </button>
       </div>
    </dialog>
+
+   <dialog id="loading_modal">
+      <div class="dialog-title">Updating Record</div>
+      <loading-bar></loading-bar>
+      <span>This is taking longer than expected</span>
+      <button onclick="cancel_loading_modal()" style="    margin-right: 0.1em;border: 0px;display: flex;margin-top: auto;color: var(---primary);">
+         Cancel
+      </button>
+   </dialog>
+
    <dialog id="migration_id_confirmation_dialog">
       <div style="background: var(---surface-1); padding: 3vw; display: flex; flex-direction: column; align-items: center; width: fit-content; height: fit-content; margin: auto;">
          <img style="height: calc(100vh - 13em); width: auto; margin-bottom: 1em;" id="ir040jr098" src="3429jr9.svg" />
@@ -333,7 +346,7 @@
                <input type="text" class="main-search-bar" placeholder="Search Books" id="search_filter_input" onchange="list_books()" />
             </div>
          </div>
-         <div class="list-area-list" id="list_area_list"></div>
+         <div class="list-area-list" id="list_area_list_books"></div>
       </div>
       <div id="display_area" class="display-area panel">
          <div class="display_panel_edit" style="display: none;" id="display_panel_edit_details">
@@ -532,6 +545,21 @@
       </div>
    </div>
    <div style="display: none;" id="container_borrower" class="container">
+      <div data-pagenumber="1" id="page_number_changer_borrowers" class="page-number-changer" style="display: none;">
+         <button onclick="previous_page(event)" class="button-circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
+            <span class="material-symbols-outlined">
+               chevron_left
+            </span>
+         </button>
+         <div id="tttttttt112" style="width: max-content; text-wrap: nowrap; margin: 0em auto; height: fit-content; font-size: 1.5em;">
+            Page 0 of 0
+         </div>
+         <button onclick="next_page(event)" class="button-circle" style="width: var(--button-size); height: var(--button-size); font-size: 1.5em;">
+            <span class="material-symbols-outlined">
+               navigate_next
+            </span>
+         </button>
+      </div>
       <div id="list_area_borrower" class="list-area panel">
          <div class="list-area-search">
             <div style="display: flex;">
@@ -539,7 +567,7 @@
                <input type="text" class="main-search-bar" placeholder="Search Borrowers" id="search_filter_input_borrower" onchange="list_borrowers()" />
             </div>
          </div>
-         <div class="list-area-list" id="list_area_list_borrower"></div>
+         <div class="list-area-list" id="list_area_list_borrowers"></div>
       </div>
       <div id="display_area_borrower" class="display-area panel">
          <div class="display-area-quick-buttons">

@@ -90,10 +90,11 @@ preferencesLoad();
 
 
 let loaded_book_records;
+let loaded_borrower_records;
 if (window.location.hash == "")
 {
     window.location.hash = "books";
-    p(window.location.hash);
+    console.log(window.location.hash);
 }
 let current_page;
 
@@ -196,52 +197,12 @@ delete_borrower_forever.addEventListener("mousedown", function ()
     }, 2800);
     delete_borrower_forever.classList.add("ririirriire");
 });
+
 document.addEventListener("contextmenu", (event) =>
 {
     event.preventDefault();
 });
 
-function isTouchDevice()
-{
-    return "ontouchstart" in window || navigator.msMaxTouchPoints;
-}
-
-function watchForHover()
-{
-    // lastTouchTime is used for ignoring emulated mousemove events
-    // that are fired after touchstart events. Since they're
-    // indistinguishable from real events, we use the fact that they're
-    // fired a few milliseconds after touchstart to filter them.
-    let lastTouchTime = 0;
-
-    function enableHover()
-    {
-        if (new Date() - lastTouchTime < 500) return;
-        document.body.classList.add("hasHover");
-    }
-
-    function disableHover()
-    {
-        document.body.classList.remove("hasHover");
-    }
-
-    function updateLastTouchTime()
-    {
-        lastTouchTime = new Date();
-    }
-
-    document.addEventListener("touchstart", updateLastTouchTime, true);
-    document.addEventListener("touchstart", disableHover, true);
-    document.addEventListener("mousemove", enableHover, true);
-
-    enableHover();
-}
-watchForHover();
-
-if (!("ontouchstart" in document.documentElement))
-{
-    document.documentElement.className += " no-touch";
-}
 delete_borrower_forever.addEventListener("mouseup", function ()
 {
     clearTimeout(iooi43iiore94);
@@ -415,74 +376,113 @@ const book_state = {
     add_filter: function (filter) { },
 };
 
+
 async function save_changes_handler_book(event)
 {
-    if (book_edit_button.dataset.currentid == "creation")
-    {
-        const data = {
-            book_id: generatedid_book,
-            legacy_book_id: "DEPRECATED_",
-            title: display_panel_book_title_editing.value,
-            author: display_panel_book_author_editing.value,
-            preview_url_override: display_panel_book_preview_url_override_editing.value,
-            isbn: display_panel_book_isbn_editing.value,
-            description: display_panel_book_description_editing.value,
-            classification_label: display_panel_book_classification_label_editing.value,
-            level: display_panel_book_level_editing.value,
-            subject: display_panel_book_subject_editing.value,
-            lost: display_panel_book_lost_editing.dataset.value,
-            scrapped: display_panel_book_scrapped_editing.dataset.value,
-            price: display_panel_book_price_editing.value,
-        };
-        p("CREATING BOOK RECORD WITH DATA: ", data);
-        try
-        {
-            await pb.collection("books").create(data);
-        } catch (error)
-        {
-            console.error(error.data);
-            let issue_string = "";
+    const isCreation = book_edit_button.dataset.currentid === "creation";
+    const bookData = getBookData();
 
-            for (
-                let index = 0; index < Object.keys(error.data.data).length; index++
-            )
-            {
-                issue_string += `\n${Object.keys(error.data.data)[index]}: ${Object.values(error.data.data)[index].message
-                    }`;
-            }
-            alert(
-                `Error code: ${error.data.code}\nMessage: ${error.data.message}\n\nIssues:${issue_string}`
-            );
+    try
+    {
+        if (isCreation)
+        {
+            await createBook(bookData);
+        } else
+        {
+            await updateBook(bookData);
         }
 
-        await book_display(book_edit_button.dataset.currentid, true);
-        await list_books();
-        await clickHandler_create(true);
-        await change_display_area_mode("display", display_area);
-    } else
+        await updateUI(isCreation);
+    } catch (error)
     {
-        const data = {
-            title: display_panel_book_title_editing.value,
-            author: display_panel_book_author_editing.value,
-            preview_url_override: display_panel_book_preview_url_override_editing.value,
-            isbn: display_panel_book_isbn_editing.value,
-            description: display_panel_book_description_editing.value,
-            classification_label: display_panel_book_classification_label_editing.value,
-            level: display_panel_book_level_editing.value,
-            subject: display_panel_book_subject_editing.value,
-            lost: display_panel_book_lost_editing.dataset.value,
-            scrapped: display_panel_book_scrapped_editing.dataset.value,
-            price: display_panel_book_price_editing.value,
-        };
-        p("UPDATING BOOK RECORD WITH DATA: ", data);
-        await pb
-            .collection("books")
-            .update(book_edit_button.dataset.currentid, data);
-        await list_books();
-        await book_display(book_edit_button.dataset.currentid, true);
-        await change_display_area_mode("display", display_area);
+        handleError(error);
     }
 }
+
+function getBookData()
+{
+    return {
+        title: display_panel_book_title_editing.value,
+        author: display_panel_book_author_editing.value,
+        preview_url_override: display_panel_book_preview_url_override_editing.value,
+        isbn: display_panel_book_isbn_editing.value,
+        description: display_panel_book_description_editing.value,
+        classification_label: display_panel_book_classification_label_editing.value,
+        level: display_panel_book_level_editing.value,
+        subject: display_panel_book_subject_editing.value,
+        lost: display_panel_book_lost_editing.dataset.value,
+        scrapped: display_panel_book_scrapped_editing.dataset.value,
+        price: display_panel_book_price_editing.value,
+    };
+}
+
+async function createBook(data)
+{
+    console.log("CREATING BOOK RECORD WITH DATA: ", data);
+    data.book_id = generatedid_book;
+    data.legacy_book_id = "DEPRECATED_";
+    await withLoadingIndicator(() => pb.collection("books").create(data), "Creating Book");
+}
+
+async function updateBook(data)
+{
+    console.log("UPDATING BOOK RECORD WITH DATA: ", data);
+    await withLoadingIndicator(() => pb.collection("books").update(book_edit_button.dataset.currentid, data), "Updating Record");
+}
+
+async function updateUI(isCreation)
+{
+    if (isCreation)
+    {
+        await withLoadingIndicator(() => book_display(book_edit_button.dataset.currentid, true), "Displaying Book");
+        await withLoadingIndicator(list_books, "Listing Books");
+        await withLoadingIndicator(() => clickHandler_create(true), "Resetting Form");
+    } else
+    {
+        await withLoadingIndicator(() => listItems('books'), "Listing Books");
+        await withLoadingIndicator(() => book_display(book_edit_button.dataset.currentid, true), "Displaying Book");
+    }
+    await change_display_area_mode("display", display_area);
+}
+
+function handleError(error)
+{
+    console.error(error.data);
+    const issueString = Object.entries(error.data.data)
+        .map(([key, value]) => `\n${key}: ${value.message}`)
+        .join('');
+    alert(`Error code: ${error.data.code}\nMessage: ${error.data.message}\n\nIssues:${issueString}`);
+}
+
+async function withLoadingIndicator(operation, loadingMessage)
+{
+    const loadingTimer = setTimeout(() => showLoadingModal(loadingMessage), 1000);
+    try
+    {
+        await operation();
+    } finally
+    {
+        clearTimeout(loadingTimer);
+        hideLoadingModal();
+    }
+}
+
+function showLoadingModal(title)
+{
+    loading_modal.showModal();
+    loading_modal.querySelector(".dialog-title").innerText = title;
+    loading_modal.querySelector("button").style.display = 'none';
+}
+
+function hideLoadingModal()
+{
+    loading_modal.querySelector(".dialog-title").innerText = 'Complete';
+    loading_modal.close();
+}
+
+
+
+
 
 function borrower_close_unsaved_discard_click_handler()
 {
@@ -528,7 +528,7 @@ async function save_changes_handler_borrower(event)
             alert("only letters allowed");
             return;
         }
-        p("egg");
+        console.log("egg");
         if (edit_button_borrower.dataset.currentid == "creation")
         {
             const data = {
@@ -537,8 +537,8 @@ async function save_changes_handler_borrower(event)
                 surname: display_panel_borrower_surname_editing.value,
                 group: display_panel_borrower_group_editing.value,
             };
-            p("CREATING BORROWER RECORD WITH DATA: ", data);
-            p("ekekk", await pb.collection("borrowers").create(data));
+            console.log("CREATING BORROWER RECORD WITH DATA: ", data);
+            console.log("ekekk", await pb.collection("borrowers").create(data));
         } else
         {
             const data = {
@@ -546,7 +546,7 @@ async function save_changes_handler_borrower(event)
                 surname: display_panel_borrower_surname_editing.value,
                 group: display_panel_borrower_group_editing.value,
             };
-            p("UPDATING BORROWER RECORD WITH DATA: ", data);
+            console.log("UPDATING BORROWER RECORD WITH DATA: ", data);
             await pb
                 .collection("borrowers")
                 .update(edit_button_borrower.dataset.currentid, data);
@@ -853,7 +853,7 @@ function change_display_area_mode(mode, _display_area)
 
     function book_edit()
     {
-        p(_display_area);
+        console.log(_display_area);
         _display_area.querySelector(".display_panel_edit").style.display =
             "block";
         _display_area.querySelector(".display_panel_display").style.display =
@@ -973,7 +973,7 @@ function search_sortby_ascending_book_change()
 }
 async function deprecate_book_id(id)
 {
-    p("decrapating: ", id);
+    console.log("decrapating: ", id);
     const rec = await pb.collection("books").getOne(id, {});
     await pb
         .collection("books")
@@ -1073,28 +1073,38 @@ function getSearchOptions(collection)
 
 
 
-
-async function list_books()
+async function listItems(itemType)
 {
     try
     {
-        const pageNumberChanger = document.getElementById('page_number_changer_books');
+        const pageNumberChanger = document.getElementById(`page_number_changer_${itemType}`);
         document.body.appendChild(pageNumberChanger);
 
-        const searchOptions = getSearchOptions("books");
-        const queryResponse = await fetchBooks(searchOptions);
-        loaded_book_records = queryResponse.items;
+        const searchOptions = getSearchOptions(itemType);
+        const queryResponse = await fetchItems(searchOptions);
 
-        renderBookList(loaded_book_records);
+        if (itemType == 'books')
+        {
+            loaded_book_records = queryResponse.items;
+            renderItemList(itemType, loaded_book_records);
+        }
+        else if (itemType == 'borrowers')
+        {
+            loaded_borrower_records = queryResponse.items;
+            renderItemList(itemType, loaded_borrower_records);
+        }
+
+
+
         updatePagination(queryResponse, pageNumberChanger);
     } catch (error)
     {
-        console.error('Error in listBooks:', error);
+        console.error(`Error in list${itemType.charAt(0).toUpperCase() + itemType.slice(1)}:`, error);
         // Handle error (e.g., show error message to user)
     }
 }
 
-async function fetchBooks(searchOptions)
+async function fetchItems(searchOptions)
 {
     return await pb.collection(searchOptions.collection).getList(
         searchOptions.page,
@@ -1106,46 +1116,54 @@ async function fetchBooks(searchOptions)
     );
 }
 
-function renderBookList(books)
+function renderItemList(itemType, items)
 {
-    const listAreaList = document.getElementById('list_area_list');
+    const listAreaList = document.getElementById(`list_area_list_${itemType}`);
     listAreaList.innerHTML = '';
 
-    if (current_page === "books")
-    {
-        appendCreateBookButton(listAreaList);
-    }
+    appendCreateButton(itemType, listAreaList);
 
-    books.forEach(book => appendBookListItem(book, listAreaList));
+    items.forEach(item =>
+    {
+        if (itemType === 'borrowers' && item.id === 'deletedborrower') return;
+        appendListItem(itemType, item, listAreaList);
+    });
+
+    console.log("listed books");
 }
 
-function appendCreateBookButton(container)
+function appendCreateButton(itemType, container)
 {
     const button = document.createElement('button');
-    button.id = 'create_book_button';
+    button.id = `create_${itemType.slice(0, -1)}_button`;
     button.className = 'list-button list-item create-button';
-    button.textContent = '+ Create Book';
-    button.addEventListener('click', clickHandler_create);
+    button.textContent = `+ Create ${itemType.charAt(0).toUpperCase() + itemType.slice(1, -1)}`;
+    button.addEventListener('click', itemType === 'books' ? clickHandler_create : () => borrower_display('creation'));
     button.addEventListener('pointerdown', pointerdownbutton);
+    if (itemType === 'borrowers')
+    {
+        button.dataset.id = 'creation';
+        button.style.borderBottom = '2px dashed var(---neutral-variant60)';
+    }
     container.appendChild(button);
 }
 
-function appendBookListItem(book, container)
+function appendListItem(itemType, item, container)
 {
-    const listItem = createBookListItem(book);
+    const listItem = createListItem(itemType, item);
     container.appendChild(listItem);
 }
 
-function createBookListItem(book)
+function createListItem(itemType, item)
 {
     const listItem = document.createElement('button');
     listItem.className = 'list-button list-item';
-    listItem.dataset.id = book.id;
-    listItem.addEventListener('click', book_click_handler);
+    listItem.dataset.id = item.id;
+    listItem.addEventListener('click', itemType === 'books' ? book_click_handler : () => borrower_display(item.id));
     listItem.addEventListener('pointerdown', pointerdownbutton);
 
-    const previewImage = createPreviewImage(book);
-    const infoDiv = createInfoDiv(book);
+    const previewImage = createPreviewImage(itemType, item);
+    const infoDiv = createInfoDiv(itemType, item);
 
     listItem.appendChild(previewImage);
     listItem.appendChild(infoDiv);
@@ -1153,24 +1171,48 @@ function createBookListItem(book)
     return listItem;
 }
 
-function createPreviewImage(book)
+function createPreviewImage(itemType, item)
 {
     const previewImage = document.createElement('img');
     previewImage.className = 'preview-image';
-    previewImage.src = book.preview_url_override || `https://covers.openlibrary.org/b/isbn/${book.isbn}-S.jpg`;
+    if (itemType === 'books')
+    {
+        previewImage.src = item.preview_url_override || `https://covers.openlibrary.org/b/isbn/${item.isbn}-S.jpg`;
+    } else
+    {
+        previewImage.src = getBorrowerImageGroup(item.group);
+        previewImage.style.background = 'transparent';
+        previewImage.style.border = 'transparent';
+        previewImage.style.marginRight = '0.5em';
+    }
     return previewImage;
 }
 
-function createInfoDiv(book)
+function createInfoDiv(itemType, item)
 {
     const infoDiv = document.createElement('div');
     infoDiv.className = 'list-item-info-text';
-    infoDiv.innerHTML = `
-        ${book.title}
-        <label class="book-id">
-            ${book.legacy_book_id.match("DEPRECATED_") ? book.book_id : `${book.legacy_book_id} ${book.book_id}`}
-        </label>
-    `;
+
+    if (itemType === 'books')
+    {
+        infoDiv.innerHTML = `
+            ${item.title}
+            <label class="book-id">
+                ${item.legacy_book_id.match("DEPRECATED_") ? item.book_id : `${item.legacy_book_id} ${item.book_id}`}
+            </label>
+        `;
+    } else
+    {
+        infoDiv.innerHTML = `
+            ${item.name} ${item.surname} 
+            <label style="font-family: var(--the-font); display: flex; width: 100%; justify-content: space-between;">
+                ${item.group}
+                <div class="id-div">
+                    ${item.borrower_id}
+                </div>
+            </label>
+        `;
+    }
     return infoDiv;
 }
 
@@ -1187,6 +1229,26 @@ function updatePagination(queryResponse, pageNumberChanger)
     {
         pageNumberChanger.style.display = 'none';
     }
+}
+
+function getBorrowerImageGroup(group)
+{
+    const imageGroups = {
+        'Teacher': 'figure_one_purple.png',
+        'Admin': 'figure_one_green.png',
+        'LSE': 'figure_one_red.png',
+        'Maintenance': 'figure_one_white.png'
+    };
+    return imageGroups[group] || 'figure_one_blue.png';
+}
+
+async function list_books()
+{
+    await listItems('books');
+}
+function list_borrowers()
+{
+    listItems('borrowers');
 }
 
 function playOpenSound()
@@ -1247,7 +1309,7 @@ async function book_display(ARGUMENT_ID, excused_from_dialog = false, start_in_e
     }
 
 
-    highlight_selected_item(useid, list_area_list);
+    highlight_selected_item(useid, list_area_list_books);
 
     display_panel_book_cover.src = "";
 
@@ -1443,7 +1505,7 @@ async function clickHandler_create(excused_from_dialog = false)
     display_panel_book_price_editing.value = "";
 
     let clickedOne = create_book_button;
-    list_area_list.querySelectorAll(".list-item").forEach(function (i)
+    list_area_list_books.querySelectorAll(".list-item").forEach(function (i)
     {
         i.style.background = "";
         //i.style.borderRadius = "";
@@ -1454,91 +1516,6 @@ async function clickHandler_create(excused_from_dialog = false)
     clickedOne.style.background = "var(---on-surface-2)";
 
     change_display_area_mode("edit", display_area);
-}
-async function list_borrowers()
-{
-
-
-    let searchOptions = getSearchOptions("borrowers");
-
-    query_response = await pb
-        .collection(searchOptions.collection)
-        .getList(
-            searchOptions.page,
-            searchOptions.amount,
-            {
-                sort: searchOptions.sort,
-                filter: searchOptions.filter,
-            }
-        );
-    loaded_borrower_records = query_response.items;
-
-    list_area_list_borrower.innerHTML = `
-        <button id="create_borrower_button" data-id="creation" onclick="borrower_display(event.srcElement.dataset.id)" style="border-bottom: 2px dashed var(---neutral-variant60);" class="list-button list-item">
-            + Create Borrower
-        </button>
-    `;
-    list_area_list_borrower
-        .querySelector("button")
-        .addEventListener("pointerdown", pointerdownbutton);
-
-    for (const rec of loaded_borrower_records)
-    {
-        if (rec.id != "deletedborrower")
-        {
-            let list_item = document.createElement("button");
-            list_item.className = "list-button list-item";
-            list_item.dataset.id = rec.id;
-            list_area_list_borrower.appendChild(list_item);
-            list_item.addEventListener("pointerdown", pointerdownbutton);
-            list_item.setAttribute(
-                "onclick",
-                "borrower_display(event.srcElement.dataset.id)"
-            );
-            let preview_image = document.createElement("img");
-            preview_image.className = "preview-image";
-            switch (rec.group)
-            {
-                case "Teacher":
-                    image_group = "figure_one_purple.png";
-                    break;
-                case "Admin":
-                    image_group = "figure_one_green.png";
-                    break;
-                case "Admin":
-                    image_group = "figure_one_yellow.png";
-                    break;
-                case "LSE":
-                    image_group = "figure_one_red.png";
-                    break;
-                case "Maintenance":
-                    image_group = "figure_one_white.png";
-                    break;
-                default:
-                    image_group = "figure_one_blue.png";
-                    break;
-            }
-            preview_image.setAttribute("src", image_group);
-            preview_image.style.background = "transparent";
-            preview_image.style.border = "transparent";
-            preview_image.style.marginRight = "0.5em";
-            let info_div = document.createElement("div");
-            info_div.className = "list-item-info-text";
-
-            info_div.innerHTML = `
-            ${rec.name} ${rec.surname} 
-            <label style="font-family: var(--the-font); display: flex; width: 100%; justify-content: space-between;">
-                ${rec.group}
-                <div class="id-div">
-                    ${rec.borrower_id}
-                </div>
-            </label>
-            `;
-
-            list_item.appendChild(preview_image);
-            list_item.appendChild(info_div);
-        }
-    }
 }
 
 function close_lend_book_dialog()
@@ -1580,7 +1557,7 @@ function add_borrower_book_button_handler(event)
 
     book_enable_lend_view(true);
 
-    p(zeBOX);
+
 
     finaltargetWidth = add_book_to_borrow_dialog.getBoundingClientRect().width;
     finaltargetHeight =
@@ -1649,7 +1626,7 @@ async function lend_book_to_borrower(bookid, borrowerid)
         book: bookid,
         returned: false,
     };
-    p("TRANSACTION CREATION: ", data);
+    console.log("TRANSACTION CREATION: ", data);
     await pb.collection("transactions").create(data);
     borrower_display(borrowerid);
 }
@@ -1674,7 +1651,7 @@ async function borrower_display(borrowerId, excused_from_dialog = false)
     playOpenSound();
 
     const isCreation = borrowerId === "creation";
-    let borrower = {};
+
 
     if (display_area_edit_mode_borrower && !excused_from_dialog)
     {
@@ -1693,6 +1670,7 @@ async function borrower_display(borrowerId, excused_from_dialog = false)
     }
 
     nextid_borrower = "";
+    let borrower = {};
 
     if (isCreation)
     {
@@ -1705,13 +1683,14 @@ async function borrower_display(borrowerId, excused_from_dialog = false)
     }
 
     updateBorrowerEditingPanel(borrower);
+    console.log(borrower);
     if (!isCreation)
     {
         updateBorrowerDisplayPanel(borrower);
         await updateBorrowerBooks(borrower.id);
     }
 
-    highlight_selected_item(borrowerId, list_area_list_borrower);
+    highlight_selected_item(borrowerId, list_area_list_borrowers);
 }
 
 async function borrower_create_blank()
@@ -1728,7 +1707,7 @@ async function borrower_create_blank()
     return (borrower = {
         name: "",
         surname: "",
-        id: generatedid_borrower,
+        borrower_id: generatedid_borrower,
         group: "",
     });
 }
@@ -1871,7 +1850,6 @@ function generate_unique_borrower_id(text)
     try
     {
         let randInt = Math.floor(Math.random() * 46655) * 3;
-        p(text);
         return (generated_id = text.substring(randInt, randInt + 3));
         //const data_new = { "borrower_id": generated_id };
         //pb.collection('borrowers').update(record_id, data_new);
