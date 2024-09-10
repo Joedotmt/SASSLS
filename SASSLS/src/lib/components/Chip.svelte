@@ -1,15 +1,34 @@
 <script>
+    import { createEventDispatcher } from "svelte";
+
+    export let checked = false;
+    export let disabled = false;
+    export let ariaLabel = "Toggle";
+
     let data;
-    let checked = false;
+    const dispatch = createEventDispatcher();
+
     function handleClick() {
-        checked = !checked;
+        if (!disabled) {
+            checked = !checked;
+            dispatch("change", { checked });
+        }
+    }
+
+    $: {
+        if (data) {
+            data.setAttribute("aria-checked", checked);
+        }
     }
 </script>
 
 <button
-    class={checked ? "checked" : ""}
+    class={`toggle ${checked ? "checked" : ""} ${disabled ? "disabled" : ""}`}
     bind:this={data}
     on:click={handleClick}
+    aria-label={ariaLabel}
+    role="switch"
+    {disabled}
 >
     <span
         style="font-size:{checked ? '20' : '0'}px; margin-right: 0.3em;"
@@ -21,6 +40,7 @@
 </button>
 
 <style>
+    /* Styles remain unchanged */
     button {
         border-radius: 0.5em;
         padding: 0.3em 0.5em;
@@ -45,5 +65,10 @@
 
     span {
         transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    .disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 </style>

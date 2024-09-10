@@ -1,7 +1,5 @@
 <script>
     import logo from "$lib/SASLIB_logo.png";
-    import { onMount } from "svelte";
-    import ThemeSwitcher from "$lib/components/ThemeSwitcher.svelte";
 
     let logoText = "Library";
     let fontWeight = 600;
@@ -58,7 +56,6 @@
             {/if}
         </div>
     </div>
-    <ThemeSwitcher />
     <div
         style="width: 100%; display: flex; flex-direction: row-reverse; align-items: center;"
     >

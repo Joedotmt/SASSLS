@@ -17,42 +17,39 @@
 
     async function fetchBooks(filter) {
         if (browser) {
-            document.startViewTransition(async () => {
-                isLoading = true;
-                error = null;
-                try {
-                    const records = await pb
-                        .collection("books")
-                        .getList(1, 50, {
-                            filter: filter,
-                            sort: "-created",
-                        });
-                    books = records.items;
-                } catch (err) {
-                    console.error("Error fetching books:", err);
-                    error = "Failed to fetch books. Please try again.";
-                } finally {
-                    isLoading = false;
-                }
+            isLoading = true;
+            error = null;
+            try {
+                const records = await pb.collection("books").getList(1, 50, {
+                    filter: filter,
+                    sort: "-created",
+                    requestKey: null,
+                });
+                books = records.items;
+            } catch (err) {
+                console.error("Error fetching books:", err);
+                error = "Failed to fetch books. Please try again.";
+            } finally {
+                isLoading = false;
+            }
 
-                books.forEach((book) => {
-                    let t = pb.collection("books").subscribe(book.id, (e) => {
-                        switch (e.action) {
-                            case "create":
-                                books = [...books, e.record];
-                                break;
-                            case "update":
-                                books = books.map((book) =>
-                                    book.id === e.record.id ? e.record : book,
-                                );
-                                break;
-                            case "delete":
-                                books = books.filter(
-                                    (book) => book.id !== e.record.id,
-                                );
-                                break;
-                        }
-                    });
+            books.forEach((book) => {
+                let t = pb.collection("books").subscribe(book.id, (e) => {
+                    switch (e.action) {
+                        case "create":
+                            books = [...books, e.record];
+                            break;
+                        case "update":
+                            books = books.map((book) =>
+                                book.id === e.record.id ? e.record : book,
+                            );
+                            break;
+                        case "delete":
+                            books = books.filter(
+                                (book) => book.id !== e.record.id,
+                            );
+                            break;
+                    }
                 });
             });
         }

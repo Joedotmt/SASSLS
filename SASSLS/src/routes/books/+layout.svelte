@@ -1,27 +1,18 @@
 <script>
-    import { onMount } from "svelte";
     import BookList from "$lib/components/BookList.svelte";
-    import FilterSelector from "$lib/components/FilterSelector.svelte";
-    import Accordion from "$lib/components/Accordion.svelte";
-    import ChipGroup from "$lib/components/ChipGroup.svelte";
-    import pb from "$lib/pocketbase";
+    import SearchPanel from "$lib/components/SearchPanel.svelte";
 
     let selectedBookId = "";
+    let extraPbFilters = "";
     let searchInput = "";
-    let bookSubjects = [];
-    let filterDialog;
 
-    $: pbFilter = createPbFilter(searchInput);
+    $: pbFilter = createPbFilter(searchInput, extraPbFilters);
 
-    onMount(() => {
-        fetchSubjects();
-    });
-
-    function createPbFilter(search) {
+    function createPbFilter(search, extra) {
         const bookLazyFields = ["title", "isbn"];
         const bookExactFields = ["legacy_book_id", "book_id"];
 
-        return search
+        let filter = search
             .split(" ")
             .map((token) => token.trim())
             .filter((token) => token !== "")
@@ -35,48 +26,36 @@
                 return `(${lazyConditions}${exactConditions ? " || " + exactConditions : ""})`;
             })
             .join(" && ");
-    }
 
-    async function fetchSubjects() {
-        try {
-            const records = await pb.collection("books_subjects").getFullList({
-                sort: "-created",
-            });
-            bookSubjects = records.map((record) => ({
-                id: record.id,
-                subject: record.subject,
-            }));
-        } catch (err) {
-            console.error("Error fetching subjects:", err);
+        if (filter && extra) {
+            return filter + " && " + extra;
+        } else if (filter) {
+            return filter;
+        } else if (extra) {
+            return extra;
         }
+        return filter;
     }
 
-    function openFilters() {
-        filterDialog.showModal();
+    async function changeState() {
+        selectedBookId = "7w6qye6trgvn5dt";
+        searchPanelState = {
+            selectedSubjects: ["31rgqvi1oeqd1ey"],
+        };
+
+        searchInput = "Hindi";
     }
 
-    function closeFilters() {
-        filterDialog.close();
-    }
+    let searchPanelState = {
+        selectedSubjects: [],
+    };
 </script>
 
 <div>Selected Book ID: {selectedBookId}</div>
-<div>Selected Filters IDs: {selectedBookId}</div>
+<button on:click={changeState}>Change State</button>
 
 <div class="container">
-    <div class="search-area panel">
-        <Accordion>
-            <span slot="head">Subjects</span>
-            <ChipGroup
-                slot="details"
-                items={bookSubjects.map((subject) => ({
-                    label: subject.subject,
-                    id: subject.id,
-                }))}
-            />
-        </Accordion>
-    </div>
-
+    <SearchPanel bind:searchPanelState bind:extraPbFilters />
     <div class="list-area panel">
         <div class="list-area-search">
             <div class="search-input-wrapper">
@@ -90,18 +69,10 @@
                 />
             </div>
         </div>
-
-        <dialog
-            class="filter-dialog"
-            bind:this={filterDialog}
-            on:close={closeFilters}
-        >
-            <FilterSelector />
-        </dialog>
-
         <BookList searchQuery={pbFilter} bind:selectedBookId />
     </div>
 </div>
+<slot />
 
 <style>
     .search-input-wrapper {
@@ -114,12 +85,5 @@
         position: absolute;
         left: 0.8em;
         opacity: 0.7;
-    }
-
-    .filter-dialog::backdrop {
-        opacity: 1;
-    }
-    .filter-dialog {
-        border-radius: 10px;
     }
 </style>

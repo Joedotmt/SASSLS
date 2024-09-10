@@ -7,21 +7,22 @@
 
     const dispatch = createEventDispatcher();
 
-    function toggleSelection(id) {
-        if (selectedIds.includes(id)) {
-            selectedIds = selectedIds.filter((item) => item !== id);
-        } else {
+    function handleChipChange(id, checked) {
+        if (checked) {
             selectedIds = [...selectedIds, id];
+        } else {
+            selectedIds = selectedIds.filter((item) => item !== id);
         }
-        dispatch("selectionChange", selectedIds);
+        dispatch("selectionChange", { selectedIds });
     }
 </script>
 
 <div class="chip-group">
     {#each items as item (item.id)}
         <Chip
-            on:click={() => toggleSelection(item.id)}
-            selected={selectedIds.includes(item.id)}
+            checked={selectedIds.includes(item.id)}
+            on:change={(event) =>
+                handleChipChange(item.id, event.detail.checked)}
         >
             {item.label}
         </Chip>

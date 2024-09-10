@@ -1,8 +1,4 @@
 <script>
-    import TopBar from "$lib/components/TopBar.svelte";
-    import { onMount } from "svelte";
-
-    import Button from "$lib/components/Button.svelte";
     import { theme, AvailableThemes } from "$lib/stores/theme";
 
     $: if (typeof document !== "undefined") {

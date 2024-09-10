@@ -658,7 +658,7 @@ body.hasHover .button-circle:hover
     user-select: none;
     align-self: center;
     font-size: min(5vw, 40px);
-    font-family: "Montserrat", "Poppins", "Trebuchet MS",
+    font-family: "Outfit", "Poppins", "Trebuchet MS",
         Helvetica,
         sans-serif;
     margin: 0.1em;
