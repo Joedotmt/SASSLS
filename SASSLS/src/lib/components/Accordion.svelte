@@ -43,13 +43,14 @@
         justify-content: space-between;
         padding: 0.5em 20px;
         border-radius: 0.5em;
-        background-color: var(---surface-2);
+        background-color: var(---surface-1);
         border-width: 0px;
         transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     button.open {
         padding: 1em 20px;
+        background-color: var(---surface-3);
     }
 
     .material-symbols-outlined {

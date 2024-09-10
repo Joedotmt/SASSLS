@@ -4,6 +4,7 @@
     import ListItem from "./ListItem.svelte";
     import { browser } from "$app/environment";
     import LoadingBar from "./LoadingBar.svelte";
+    import ListItemCreate from "./ListItemCreate.svelte";
 
     export let searchQuery = "";
 
@@ -75,6 +76,11 @@
     {:else if error}
         <p style="color: red;">{error}</p>
     {:else}
+        <ListItemCreate
+            itemType="books"
+            isSelected={"create" == selectedBookId}
+            on:ItemClick={handleBookClick}
+        />
         {#each books as book (book.id)}
             <ListItem
                 itemType="books"

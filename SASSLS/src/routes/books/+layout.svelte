@@ -51,9 +51,6 @@
     };
 </script>
 
-<div>Selected Book ID: {selectedBookId}</div>
-<button on:click={changeState}>Change State</button>
-
 <div class="container">
     <SearchPanel bind:searchPanelState bind:extraPbFilters />
     <div class="list-area panel">
