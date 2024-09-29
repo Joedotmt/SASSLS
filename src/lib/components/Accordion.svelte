@@ -1,10 +1,12 @@
 <script>
     export let open = false;
+    export let expandedHeight = 400;
+    export let overflowy = "scroll";
     import { slide } from "svelte/transition";
     const handleClick = () => (open = !open);
 </script>
 
-<div class="accordion">
+<div class="accordion {open ? 'open' : ''}">
     <div class="header">
         <button class={open ? "open" : ""} on:click={handleClick}>
             <slot name="head"></slot>
@@ -18,8 +20,8 @@
     </div>
 
     <div
-        style="overflow-y:scroll; margin-top: 0.3em; height: {open
-            ? 400
+        style="overflow-y:{overflowy}; margin-top: 0.3em; height: {open
+            ? expandedHeight
             : 0}px;"
         class="details"
         transition:slide
@@ -30,7 +32,12 @@
 
 <style>
     div.accordion {
-        margin: 1rem 0;
+        margin: 0.3em 0;
+        margin-bottom: 0.3em;
+        transition: 0.2s;
+    }
+    div.accordion.open {
+        margin-bottom: 0.6em;
     }
 
     div.header {

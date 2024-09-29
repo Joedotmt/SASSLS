@@ -1,14 +1,64 @@
 <script>
     import BookList from "$lib/components/BookList.svelte";
     import SearchPanel from "$lib/components/SearchPanel.svelte";
+    import { browser } from "$app/environment";
+    import { onMount } from "svelte";
 
     let selectedBookId = "";
-    let extraPbFilters = "";
     let searchInput = "";
+    let pbFilter = ""; //createPbFilter(searchInput, searchPanelState);
+    let pbSort = "-created";
+    const defaultState = { selectedSubjects: [], sort: ["-", ["created"]] };
+    let searchPanelState = { selectedSubjects: [], sort: ["-", ["created"]] };
 
-    $: pbFilter = createPbFilter(searchInput, extraPbFilters);
+    if (browser) {
+        const hashParams = new URLSearchParams(window.location.hash.slice(1));
+        if (hashParams.size) {
+            searchInput = hashParams.get("search") || "";
+            searchPanelState = JSON.parse(hashParams.get("filter"));
+        }
+    }
+    $: searchPanelState, doSearch();
 
-    function createPbFilter(search, extra) {
+    function handleSearchKeyDown(event) {
+        if (event.key === "Enter") {
+            doSearch();
+        }
+    }
+
+    function doSearch() {
+        updateWindowHash(searchInput, searchPanelState);
+        pbSort = searchPanelState.sort[0] + searchPanelState.sort[1];
+        pbFilter = createPbFilter(searchInput, searchPanelState);
+    }
+
+    function updateWindowHash(search, state) {
+        if (!browser) return;
+        let hash = "";
+
+        if (state && JSON.stringify(state) !== JSON.stringify(defaultState)) {
+            hash = `search=${search}&filter=${encodeURIComponent(JSON.stringify(state))}`;
+        } else if (search) {
+            hash = `search=${search}`;
+        }
+
+        window.location.hash = hash;
+    }
+
+    function createPbFilter(search, state) {
+        let extra = "";
+        if (state.selectedSubjects.length >= 1) {
+            extra = "";
+
+            state.selectedSubjects.forEach((id) => {
+                extra += `subject='${id}'||`;
+            });
+
+            extra = extra.substring(0, extra.length - 2);
+        } else {
+            extra = "";
+        }
+
         const bookLazyFields = ["title", "isbn"];
         const bookExactFields = ["legacy_book_id", "book_id"];
 
@@ -37,22 +87,14 @@
         return filter;
     }
 
-    async function changeState() {
-        selectedBookId = "7w6qye6trgvn5dt";
-        searchPanelState = {
-            selectedSubjects: ["31rgqvi1oeqd1ey"],
-        };
-
-        searchInput = "Hindi";
+    function changeState() {
+        searchPanelState = { selectedSubjects: [], sort: ["+", ["updated"]] };
     }
-
-    let searchPanelState = {
-        selectedSubjects: [],
-    };
 </script>
 
+<button on:click={changeState}>Test Change State</button>
 <div class="container">
-    <SearchPanel bind:searchPanelState bind:extraPbFilters />
+    <SearchPanel bind:searchPanelState />
     <div class="list-area panel">
         <div class="list-area-search">
             <div class="search-input-wrapper">
@@ -63,10 +105,11 @@
                     class="main-search-bar"
                     placeholder="Search Books"
                     bind:value={searchInput}
+                    on:keydown={handleSearchKeyDown}
                 />
             </div>
         </div>
-        <BookList searchQuery={pbFilter} bind:selectedBookId />
+        <BookList searchQuery={pbFilter} sortPb={pbSort} bind:selectedBookId />
     </div>
 </div>
 <slot />

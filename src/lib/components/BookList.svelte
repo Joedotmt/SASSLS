@@ -7,23 +7,24 @@
     import ListItemCreate from "./ListItemCreate.svelte";
 
     export let searchQuery = "";
+    export let sortPb = "-created";
 
     let books = []; //: Book[] = [];
     let isLoading = false;
     let error = null;
 
     $: {
-        fetchBooks(searchQuery);
+        fetchBooks(searchQuery, sortPb);
     }
 
-    async function fetchBooks(filter) {
+    async function fetchBooks(filter, sort) {
         if (browser) {
             isLoading = true;
             error = null;
             try {
                 const records = await pb.collection("books").getList(1, 50, {
                     filter: filter,
-                    sort: "-created",
+                    sort: sort,
                     requestKey: null,
                 });
                 books = records.items;
