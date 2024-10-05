@@ -7,7 +7,6 @@
     export const prerender = true;
 
     let isDialogOpen = false;
-    let currentTheme = "blue-dark"; // Default theme
 
     function openDialog() {
         isDialogOpen = true;
@@ -18,28 +17,6 @@
     }
 
     onMount(() => {
-        const availableThemes = [
-            "blue-dark",
-            "blue-light",
-            "red-dark",
-            "red-light",
-            "green-dark",
-            "green-light",
-        ];
-
-        // Check for saved theme in local storage
-        const savedTheme = localStorage.getItem("theme");
-
-        // If no theme is saved, save the default theme
-        if (!savedTheme) {
-            localStorage.setItem("theme", currentTheme);
-        } else {
-            currentTheme = savedTheme; // Use the saved theme
-        }
-
-        // Apply the theme immediately
-        document.body.className = currentTheme;
-
         detectTouch();
 
         // Load fonts and update class on symbols
