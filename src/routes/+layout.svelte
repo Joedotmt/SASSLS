@@ -18,7 +18,7 @@
     }
 
     onMount(() => {
-        /*const availableThemes = [
+        const availableThemes = [
             "blue-dark",
             "blue-light",
             "red-dark",
@@ -38,7 +38,7 @@
         }
 
         // Apply the theme immediately
-        document.body.className = currentTheme;*/
+        document.body.className = currentTheme;
 
         detectTouch();
 
