@@ -1,5 +1,8 @@
 <script>
     import logo from "$lib/SASLIB_logo.png";
+    import { createEventDispatcher } from "svelte";
+
+    const dispatch = createEventDispatcher();
 
     let logoText = "Library";
     let fontWeight = 600;
@@ -9,7 +12,7 @@
     }
 
     function openAccountDialog() {
-        // Define this function or import it if it exists elsewhere
+        dispatch("accBtnPress");
     }
 
     function onCollectionSelectChange(event) {

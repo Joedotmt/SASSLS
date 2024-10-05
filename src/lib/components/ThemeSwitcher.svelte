@@ -6,9 +6,11 @@
     }
 
     function swaptheme() {
-        const currentIndex = AvailableThemes.indexOf($theme);
-        const nextIndex = (currentIndex + 1) % AvailableThemes.length;
-        theme.set(AvailableThemes[nextIndex]);
+        document.startViewTransition(() => {
+            const currentIndex = AvailableThemes.indexOf($theme);
+            const nextIndex = (currentIndex + 1) % AvailableThemes.length;
+            theme.set(AvailableThemes[nextIndex]);
+        });
     }
 </script>
 
