@@ -18,7 +18,7 @@
     }
 
     onMount(() => {
-        const availableThemes = [
+        /*const availableThemes = [
             "blue-dark",
             "blue-light",
             "red-dark",
@@ -27,7 +27,6 @@
             "green-light",
         ];
 
-        console.log("ello");
         // Check for saved theme in local storage
         const savedTheme = localStorage.getItem("theme");
 
@@ -39,18 +38,17 @@
         }
 
         // Apply the theme immediately
-        document.body.className = currentTheme;
-        console.log("theme!");
+        document.body.className = currentTheme;*/
 
         detectTouch();
 
         // Load fonts and update class on symbols
-        document.fonts.load('1rem "Material Symbols Outlined"').then(() => {
+        /*document.fonts.load('1rem "Material Symbols Outlined"').then(() => {
             document.querySelectorAll(".symbol").forEach((e) => {
                 e.classList.add("material-symbols-outlined");
                 e.classList.remove("symbol");
             });
-        });
+        });*/
     });
 
     import "../themes.css";
