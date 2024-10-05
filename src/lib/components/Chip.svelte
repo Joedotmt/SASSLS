@@ -54,7 +54,7 @@
 
     button.checked {
         background-color: var(---primary-30);
-        color: var(---on-primary-container);
+        color: var(---neutral-90);
     }
     button.checked:hover {
         background-color: color-mix(

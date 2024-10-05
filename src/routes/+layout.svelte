@@ -1,6 +1,6 @@
 <script>
     import TopBar from "$lib/components/TopBar.svelte";
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     import { detectTouch } from "$lib/utils/touchDetection";
     import AccountDialog from "$lib/components/AccountDialog.svelte";
 
@@ -16,17 +16,51 @@
         isDialogOpen = false;
     }
 
+    let observer;
+
     onMount(() => {
         detectTouch();
 
-        // Load fonts and update class on symbols
+        // Load fonts and update initial icons
         document.fonts.load('1rem "Material Symbols Outlined"').then(() => {
-            document.querySelectorAll(".symbol").forEach((e) => {
-                e.classList.add("material-symbols-outlined");
-                e.classList.remove("symbol");
-            });
+            updateSymbols();
         });
+
+        // Set up a mutation observer to detect new elements with the 'symbol' class
+        const config = { childList: true, subtree: true };
+
+        observer = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                mutation.addedNodes.forEach((node) => {
+                    if (
+                        node.nodeType === 1 &&
+                        node.classList.contains("symbol")
+                    ) {
+                        updateSymbol(node);
+                    }
+                });
+            }
+        });
+
+        observer.observe(document.body, config);
     });
+
+    onDestroy(() => {
+        // Disconnect observer when component is destroyed
+        if (observer) observer.disconnect();
+    });
+
+    function updateSymbols() {
+        // Update all existing symbols
+        document.querySelectorAll(".symbol").forEach((e) => {
+            updateSymbol(e);
+        });
+    }
+
+    function updateSymbol(element) {
+        element.classList.add("material-symbols-outlined");
+        element.classList.remove("symbol");
+    }
 
     import "../themes.css";
     import "../style.css";

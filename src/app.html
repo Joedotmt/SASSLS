@@ -12,45 +12,21 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" />
 
+	<link rel="preload" href="/icons.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+	<style>
+		@font-face {
+			font-family: 'Material Symbols Outlined';
+			font-style: normal;
+			font-weight: 100 700;
+			src: url("/icons.woff2") format('woff2');
+		}
+	</style>
+
 	%sveltekit.head%
 </head>
 <body class="blue-dark" data-sveltekit-preload-data="hover">
 	<script>
-		let currentTheme = "blue-dark"; // Default theme
-
-		const availableThemes = [
-			"blue-dark",
-			"blue-light",
-			"red-dark",
-			"red-light",
-			"green-dark",
-			"green-light",
-		];
-
-		// Check for saved theme in local storage
-		const savedTheme = localStorage.getItem("theme");
-
-		// If no theme is saved, save the default theme
-		if (!savedTheme)
-		{
-			localStorage.setItem("theme", currentTheme);
-		} else
-		{
-			currentTheme = savedTheme; // Use the saved theme
-		}
-
-		const changeColorScheme = () =>
-		{
-			const transitions = transitionManager();
-			transitions.disable();
-
-			document.body.className = currentTheme;
-
-			window.getComputedStyle(transitions.style).opacity;
-
-			transitions.enable();
-		};
-
 		const transitionManager = () =>
 		{
 			// Create HTML style element with CSS selector that targets all
@@ -72,7 +48,22 @@
 			return { enable, disable, style };
 		};
 
-		changeColorScheme();
+
+		let currentTheme = JSON.parse(localStorage.getItem("theme")) || {
+			mode: "dark",
+			books: "blue",
+			borrowers: "green",
+			transactions: "red"
+		};
+
+		const transitions = transitionManager();
+		transitions.disable();
+
+		document.body.className = `${currentTheme[window.location.pathname.split("/")[1]] || "blue"}-${currentTheme.mode}`;
+
+		window.getComputedStyle(transitions.style).opacity;
+
+		transitions.enable();
 	</script>
 	<div style="display: contents">%sveltekit.body%</div>
 </body>

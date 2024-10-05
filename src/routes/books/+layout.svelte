@@ -95,6 +95,7 @@
 <div class="container">
     <SearchPanel bind:searchPanelState />
     <div class="list-area panel">
+        <button on:click={changeState}>Test Change State</button>
         <div class="list-area-search">
             <div class="search-input-wrapper">
                 <span class="symbol search-icon">search</span>
@@ -108,7 +109,6 @@
             </div>
         </div>
         <BookList searchQuery={pbFilter} sortPb={pbSort} bind:selectedBookId />
-        <button on:click={changeState}>Test Change State</button>
     </div>
 </div>
 <slot />

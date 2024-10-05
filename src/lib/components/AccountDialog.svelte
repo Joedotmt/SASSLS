@@ -1,11 +1,13 @@
 <script>
     import { createEventDispatcher } from "svelte";
+    import { onMount } from "svelte";
+    import { themeStore } from "$lib/theme.js";
 
     export let isOpen = false;
 
     const dispatch = createEventDispatcher();
 
-    let isDarkMode = false;
+    let isDarkMode = true;
 
     function closeDialog() {
         isOpen = false;
@@ -25,12 +27,15 @@
 
     function changeDarkLightTheme() {
         isDarkMode = !isDarkMode;
-        document.body.className = isDarkMode ? "dark" : "light";
+
+        themeStore.update((theme) => {
+            theme.mode = isDarkMode ? "light" : "dark";
+            return theme;
+        });
     }
 
     let dialog;
 
-    import { onMount } from "svelte";
     onMount(() => {
         dialog = document.getElementById("acc-dialog");
     });
