@@ -92,14 +92,12 @@
     }
 </script>
 
-<button on:click={changeState}>Test Change State</button>
 <div class="container">
     <SearchPanel bind:searchPanelState />
     <div class="list-area panel">
         <div class="list-area-search">
             <div class="search-input-wrapper">
-                <span class="material-symbols-outlined search-icon">search</span
-                >
+                <span class="symbol search-icon">search</span>
                 <input
                     type="text"
                     class="main-search-bar"
@@ -110,6 +108,7 @@
             </div>
         </div>
         <BookList searchQuery={pbFilter} sortPb={pbSort} bind:selectedBookId />
+        <button on:click={changeState}>Test Change State</button>
     </div>
 </div>
 <slot />

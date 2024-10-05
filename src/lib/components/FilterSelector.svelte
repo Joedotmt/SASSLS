@@ -9,7 +9,7 @@
         class="list-button"
     >
         {filter}
-        <span style="margin-left: 1em;" class="material-symbols-outlined">
+        <span style="margin-left: 1em;" class="symbol">
             arrow_right
         </span>
     </button>

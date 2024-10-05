@@ -50,33 +50,28 @@
         class="button-circle"
         on:click={closeDialog}
     >
-        <span class="material-symbols-outlined">close</span>
+        <span class="symbol">close</span>
     </button>
     <div
         style="background: var(---surface-1); border-radius: 1.5em; margin: 0.5em; overflow: hidden; height: 18em;"
     >
         <button class="list-button">
-            <span class="button-icon material-symbols-outlined">settings</span> account
-            settings
+            <span class="button-icon symbol">settings</span> account settings
         </button>
         <button
             on:click={showSignInDialog}
             style="--bg: var(---primary-80); border-color: transparent; margin-left: auto; color: black; margin-right: auto; width: 8em;"
         >
-            <span class="button-icon material-symbols-outlined">login</span> Sign
-            in
+            <span class="button-icon symbol">login</span> Sign in
         </button>
     </div>
     <button on:click={showThemePickerModal} class="list-button">
-        <span class="button-icon material-symbols-outlined">palette</span> Theme
-        Colours
+        <span class="button-icon symbol">palette</span> Theme Colours
     </button>
     <button on:click={navigateToBookMigration} class="list-button">
-        <span class="button-icon material-symbols-outlined">book</span> Book Migration
+        <span class="button-icon symbol">book</span> Book Migration
     </button>
     <button class="button-circle" on:click={changeDarkLightTheme}>
-        <span class="material-symbols-outlined"
-            >{isDarkMode ? "light_mode" : "dark_mode"}</span
-        >
+        <span class="symbol">{isDarkMode ? "light_mode" : "dark_mode"}</span>
     </button>
 </dialog>

@@ -69,7 +69,7 @@
             style="padding: 0; border-width: 0;"
         >
             <span
-                class="material-symbols-outlined"
+                class="symbol"
                 style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"
             >
                 account_circle

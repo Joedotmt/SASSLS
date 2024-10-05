@@ -10,10 +10,7 @@
     <div class="header">
         <button class={open ? "open" : ""} on:click={handleClick}>
             <slot name="head"></slot>
-            <span
-                style="rotate: {open ? 0 : 180}deg;"
-                class="material-symbols-outlined"
-            >
+            <span style="rotate: {open ? 0 : 180}deg;" class="symbol">
                 keyboard_arrow_down
             </span>
         </button>
