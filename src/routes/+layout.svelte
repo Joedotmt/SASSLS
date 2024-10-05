@@ -43,12 +43,12 @@
         detectTouch();
 
         // Load fonts and update class on symbols
-        /*document.fonts.load('1rem "Material Symbols Outlined"').then(() => {
+        document.fonts.load('1rem "Material Symbols Outlined"').then(() => {
             document.querySelectorAll(".symbol").forEach((e) => {
                 e.classList.add("material-symbols-outlined");
                 e.classList.remove("symbol");
             });
-        });*/
+        });
     });
 
     import "../themes.css";
