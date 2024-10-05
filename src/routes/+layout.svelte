@@ -54,31 +54,6 @@
     });
 </script>
 
-<svelte:head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%sveltekit.assets%/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>[NEW] San Andrea Library</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto Mono"
-    />
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Poppins"
-    />
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap"
-    />
-    <link rel="stylesheet" href="themes.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="fresh.css" />
-</svelte:head>
-
 <div
     style="position: fixed; z-index:2; right:50%; scale:0.3; opacity:0.3"
 ></div>
