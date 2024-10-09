@@ -14,10 +14,6 @@
     let error = null;
 
     $: {
-        if (browser) {
-            document.startViewTransition();
-        }
-
         fetchBooks(searchQuery, sortPb);
     }
 

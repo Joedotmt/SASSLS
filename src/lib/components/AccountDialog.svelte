@@ -29,7 +29,7 @@
         isDarkMode = !isDarkMode;
 
         themeStore.update((theme) => {
-            theme.mode = isDarkMode ? "light" : "dark";
+            theme.mode = isDarkMode ? "dark" : "light";
             return theme;
         });
     }
@@ -38,14 +38,31 @@
 
     onMount(() => {
         dialog = document.getElementById("acc-dialog");
+        dialog.addEventListener("close", () => {
+            isOpen = false;
+        });
+        window.addEventListener("mousedown", handleOutsideClick);
+        isDarkMode = document.body.className.includes("dark");
     });
 
     $: if (!isOpen) {
-        console.log("closing");
         dialog?.close();
     } else {
-        console.log("opening");
         dialog?.showModal();
+    }
+
+    function handleOutsideClick(event) {
+        if (dialog) {
+            const rect = dialog.getBoundingClientRect();
+            if (
+                event.clientX < rect.left ||
+                event.clientX > rect.right ||
+                event.clientY < rect.top ||
+                event.clientY > rect.bottom
+            ) {
+                closeDialog();
+            }
+        }
     }
 </script>
 

@@ -49,7 +49,11 @@
         color: var(---on-background);
     }
     button:hover {
-        background-color: var(---surface-3) !important;
+        background-color: color-mix(
+            in srgb,
+            var(---surface-5) 90%,
+            black 10%
+        ) !important;
     }
 
     button.checked {
@@ -59,8 +63,8 @@
     button.checked:hover {
         background-color: color-mix(
             in srgb,
-            var(---primary-30) 70%,
-            transparent 30%
+            var(---primary-30) 80%,
+            black 20%
         ) !important;
     }
 

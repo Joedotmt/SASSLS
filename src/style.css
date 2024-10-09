@@ -119,6 +119,11 @@ body
     }
 }
 
+::view-transition-group(body *)
+{
+    transition: transform 0s ease-in-out;
+}
+
 .dialog-button-accept
 {
     --bg: var(---primary);
@@ -647,7 +652,7 @@ body.hasHover .button-circle:hover
     opacity: 1;
     flex-shrink: 0;
     width: calc(100% - 2em);
-    transition: translate 0.1s linear, opacity 0.1s linear;
+    transition: translate 0.1s linear, opacity 0.1s linear, background 225ms ease;
 }
 
 
