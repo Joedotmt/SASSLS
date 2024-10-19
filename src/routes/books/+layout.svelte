@@ -128,7 +128,7 @@
 </script>
 
 <Splitpanes class="container">
-    <Pane size={30} minSize={10}>
+    <Pane size={20} minSize={15}>
         <SearchPanel bind:searchPanelState />
     </Pane>
     <Pane minSize={35}>

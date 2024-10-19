@@ -17,7 +17,12 @@
 
 <button
     on:click={handleClick}
-    style="border-radius: 0.4em; margin: 0px 0px 0px 0.5em; height: auto; width: 3em; {style}"
+    style="    border-radius: 0.4em;
+    height: auto;
+    margin: 0.5em;
+    width: 100%;
+    flex-shrink: 1;
+    max-width: 100px; {style}"
     class="button-circle"
     aria-label={isAscending ? "Sort Descending" : "Sort Ascending"}
 >

@@ -3,7 +3,29 @@
     export let expandedHeight = 400;
     export let overflowy = "scroll";
     import { slide } from "svelte/transition";
-    const handleClick = () => (open = !open);
+    const handleClick = () => {
+        open = !open;
+        getHeight();
+    };
+    let contentEle = null;
+
+    let heightcss = "0px";
+
+    function getHeight() {
+        if (open) {
+            heightcss = "fit-content";
+        } else {
+            heightcss = "0px";
+        }
+
+        //let oldHeight = contentEle.style.height;
+        //contentEle.style.height = "fit-content";
+        //let height = contentEle.getBoundingClientRect().height * open;
+        //contentEle.style.height = oldHeight;
+        //setTimeout(() => {
+        //    contentEle.style.height = height + "px";
+        //}, 1);
+    }
 </script>
 
 <div class="accordion {open ? 'open' : ''}">
@@ -17,11 +39,10 @@
     </div>
 
     <div
-        style="overflow-y:{overflowy}; margin-top: 0.3em; height: {open
-            ? expandedHeight
-            : 0}px;"
+        style="overflow-y:{overflowy}; margin-top: 0.3em; height: {heightcss};"
         class="details"
         transition:slide
+        bind:this={contentEle}
     >
         <slot name="details"></slot>
     </div>
@@ -32,6 +53,7 @@
         margin: 0.3em 0;
         margin-bottom: 0.3em;
         transition: 0.2s;
+        interpolate-size: allow-keywords;
     }
     div.accordion.open {
         margin-bottom: 0.6em;
