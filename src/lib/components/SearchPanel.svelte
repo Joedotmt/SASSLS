@@ -9,10 +9,19 @@
     import pb from "$lib/pocketbase";
 
     let subjectChips = [];
+    let levelChips = [
+        { label: "Brown", id: "Brown" },
+        { label: "Yellow", id: "Yellow" },
+        { label: "Blue", id: "Blue" },
+        { label: "Green", id: "Green" },
+        { label: "Red", id: "Red" },
+    ];
     let resourceSubjectChips = [];
 
     export let searchPanelState = {
         selectedSubjects: [],
+        selectedLevels: [],
+        showingIdType: "",
         sort: ["-", "created"],
     };
 
@@ -47,7 +56,7 @@
     let currentTab = 0;
 </script>
 
-<div class="search-area panel" style="overflow-y: scroll; padding-right:0.9em">
+<div class="search-area panel">
     <Accordion expandedHeight={155} overflowy="none">
         <span slot="head">Sort by</span>
         <div
@@ -91,4 +100,18 @@
             </TabView>
         </div>
     </Accordion>
+    <Accordion expandedHeight={192}>
+        <span slot="head">Level</span>
+        <div slot="details">
+            <ChipGroup
+                bind:selectedIds={searchPanelState.selectedLevels}
+                items={levelChips}
+            />
+        </div>
+    </Accordion>
+    <select style="width: 100%;" bind:value={searchPanelState.showingIdType}>
+        <option value="both">Both</option>
+        <option value="old">Old ID</option>
+        <option value="new">New ID</option>
+    </select>
 </div>

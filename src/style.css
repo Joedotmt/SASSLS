@@ -32,7 +32,7 @@ body
     margin: 0.3em;
     margin-top: 0.4em;
     padding: 0;
-    background-color: var(---surface-5);
+    background-color: var(---background);
     color: var(---on-background);
     --j95r4ji5r-opacity: 1;
     overflow: hidden;
@@ -151,6 +151,7 @@ body
     overflow: hidden;
     height: 2.8em;
     width: 1.8em;
+    min-width: 1.8em;
     object-fit: fill;
     padding: 0em;
     margin: 0em;
@@ -531,12 +532,12 @@ textarea
     background-color: transparent;
     outline: none;
     border: none;
-    box-shadow: 0px 0px 0px 1.2px var(---neutral-variant60);
+    box-shadow: inset 0px 0px 0px 1.2px var(---neutral-variant60), 0px 0px 0px 0px var(---neutral-variant60);
     font-family: var(--the-font);
     width: calc(100% - 0.8em);
-    font-size: 23px;
+    font-size: 19px;
     padding: 0.4em;
-    border-radius: 0.2em;
+    border-radius: 8px;
     margin: 0;
     transition: 1s box-shadow cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -551,7 +552,7 @@ input:focus,
 select:focus,
 textarea:focus
 {
-    box-shadow: 0px 0px 0px 3px var(---primary-80);
+    box-shadow: inset 0px 0px 0px 0px var(---neutral-variant60), 0px 0px 0px 3px var(---primary-80);
 }
 
 button
@@ -651,21 +652,13 @@ body.hasHover .button-circle:hover
     translate: 0px 0px;
     opacity: 1;
     flex-shrink: 0;
-    width: calc(100% - 2em);
     transition: translate 0.1s linear, opacity 0.1s linear, background 225ms ease;
 }
 
-
 .search-area
 {
-    width: 100%;
     padding: 1em;
-    display: block;
-    overflow: hidden;
-    width: 18em;
-    flex: 0 0 auto;
-    position: relative;
-    right: 0px;
+    padding-right: 0.9em
 }
 
 .segmented-button-button
@@ -1311,4 +1304,79 @@ loading-bar
 {
     font-size: 1.4em;
     margin: 0.5em;
+}
+
+/* The following classes can be used to style the splitter, see demos*/
+
+.splitpanes
+{
+    background-color: transparent;
+    height: 100% !important;
+}
+
+.splitpanes__splitter
+{
+    background-color: transparent !important;
+    border: none !important;
+    width: 5px !important;
+    position: relative;
+    cursor: w-resize !important;
+    border-radius: 50em;
+}
+
+.splitpanes.default-theme .splitpanes__pane
+{
+    background: transparent !important;
+}
+
+.splitpanes__splitter:hover
+{
+    background-color: var(---surface-5) !important;
+}
+
+.splitpanes__splitter:before
+{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: opacity 0.4s;
+    background-color: rgba(255, 0, 0, 0.3);
+    opacity: 0;
+    z-index: 1;
+}
+
+.splitpanes__splitter:hover:before
+{
+    opacity: 1;
+}
+
+.splitpanes--vertical>.splitpanes__splitter:before
+{
+    left: -0px !important;
+    right: -0px !important;
+    height: 50%;
+}
+
+.splitpanes--horizontal>.splitpanes__splitter:before
+{
+    top: -0px !important;
+    bottom: -0px !important;
+    width: 50%;
+}
+
+.splitpanes__pane
+{
+    height: calc(100vh - 4.45em) !important;
+    overflow-y: scroll !important;
+}
+
+.splitpanes--vertical>.splitpanes__pane
+{
+    transition: width 0.4s cubic-bezier(0.37, 0.01, 0, 1.01) !important;
+}
+
+.splitpanes--dragging .splitpanes__pane
+{
+    transition: none !important;
 }

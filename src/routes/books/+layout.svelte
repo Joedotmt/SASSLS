@@ -3,13 +3,24 @@
     import SearchPanel from "$lib/components/SearchPanel.svelte";
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
+    import { Pane, Splitpanes } from "svelte-splitpanes";
 
     let selectedBookId = "";
     let searchInput = "";
-    let pbFilter = ""; //createPbFilter(searchInput, searchPanelState);
+    let pbFilter = "";
     let pbSort = "-created";
-    const defaultState = { selectedSubjects: [], sort: ["-", ["created"]] };
-    let searchPanelState = { selectedSubjects: [], sort: ["-", ["created"]] };
+    const defaultState = {
+        selectedSubjects: [],
+        selectedLevels: [],
+        showingIdType: "both",
+        sort: ["-", ["created"]],
+    };
+    let searchPanelState = {
+        selectedSubjects: [],
+        selectedLevels: [],
+        showingIdType: "both",
+        sort: ["-", ["created"]],
+    };
 
     if (browser) {
         const hashParams = new URLSearchParams(window.location.hash.slice(1));
@@ -46,18 +57,35 @@
     }
 
     function createPbFilter(search, state) {
-        let extra = "";
+        let subjectFilter = "";
+        let levelFilter = "";
+
+        // Create filter for selected subjects
         if (state.selectedSubjects.length >= 1) {
-            extra = "";
-
-            state.selectedSubjects.forEach((id) => {
-                extra += `subject='${id}'||`;
-            });
-
-            extra = extra.substring(0, extra.length - 2);
-        } else {
-            extra = "";
+            subjectFilter = state.selectedSubjects
+                .map((id) => `subject='${id}'`)
+                .join(" || ");
         }
+
+        // Create filter for selected levels
+        if (state.selectedLevels.length >= 1) {
+            levelFilter = state.selectedLevels
+                .map((label) => `level='${label}'`)
+                .join(" || ");
+        }
+
+        // Combine subject and level filters if both exist
+        let extra = [subjectFilter, levelFilter].filter(Boolean);
+
+        // Add logic for showingIdType filter
+        if (state.showingIdType === "old") {
+            extra.push(`legacy_book_id !~ 'DEPRECATED_'`);
+        } else if (state.showingIdType === "new") {
+            extra.push(`legacy_book_id ~ 'DEPRECATED_'`);
+        }
+        //if "both" dont add anything
+
+        console.log(extra);
 
         const bookLazyFields = ["title", "isbn"];
         const bookExactFields = ["legacy_book_id", "book_id"];
@@ -77,40 +105,55 @@
             })
             .join(" && ");
 
-        if (filter && extra) {
-            return filter + " && " + extra;
+        // Combine search filter with extra filters if they exist
+        let extraFilter = extra.join(" && ");
+
+        if (filter && extraFilter) {
+            return `${filter} && ${extraFilter}`;
         } else if (filter) {
             return filter;
-        } else if (extra) {
-            return extra;
+        } else if (extraFilter) {
+            return extraFilter;
         }
         return filter;
     }
 
     function changeState() {
-        searchPanelState = { selectedSubjects: [], sort: ["+", ["updated"]] };
+        searchPanelState = {
+            selectedSubjects: [],
+            selectedLevels: ["Red"],
+            sort: ["+", ["updated"]],
+        };
     }
 </script>
 
-<div class="container">
-    <SearchPanel bind:searchPanelState />
-    <div class="list-area panel">
-        <button on:click={changeState}>Test Change State</button>
-        <div class="list-area-search">
-            <div class="search-input-wrapper">
-                <span class="symbol search-icon">search</span>
-                <input
-                    type="text"
-                    class="main-search-bar"
-                    placeholder="Search Books"
-                    bind:value={searchInput}
-                    on:keydown={handleSearchKeyDown}
-                />
+<Splitpanes class="container">
+    <Pane size={30} minSize={10}>
+        <SearchPanel bind:searchPanelState />
+    </Pane>
+    <Pane minSize={35}>
+        <div class="list-area panel">
+            <button on:click={changeState}>Test Change State</button>
+            <div class="list-area-search">
+                <div class="search-input-wrapper">
+                    <span class="symbol search-icon">search</span>
+                    <input
+                        type="text"
+                        class="main-search-bar"
+                        placeholder="Search Books"
+                        bind:value={searchInput}
+                        on:keydown={handleSearchKeyDown}
+                    />
+                </div>
             </div>
+            <BookList
+                searchQuery={pbFilter}
+                sortPb={pbSort}
+                bind:selectedBookId
+            />
         </div>
-        <BookList searchQuery={pbFilter} sortPb={pbSort} bind:selectedBookId />
-    </div>
-</div>
+    </Pane>
+</Splitpanes>
 <slot />
 
 <style>

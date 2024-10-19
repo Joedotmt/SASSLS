@@ -18,7 +18,16 @@
 
     let observer;
 
+    let barcode_string = "";
+
     onMount(() => {
+        document.body.addEventListener("keydown", function (event) {
+            barcode_string += event.key;
+            if (barcode_string.length >= 8) {
+                barcode_string = "";
+            }
+        });
+
         detectTouch();
 
         // Load fonts and update initial icons

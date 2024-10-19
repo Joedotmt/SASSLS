@@ -18,6 +18,7 @@
 	"type": "module",
 	"dependencies": {
 		"pocketbase": "^0.21.5",
-		"sse-client": "^0.0.10"
+		"sse-client": "^0.0.10",
+		"svelte-splitpanes": "^8.0.8"
 	}
 }
