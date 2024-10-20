@@ -3,7 +3,7 @@
     import SearchPanel from "$lib/components/SearchPanel.svelte";
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
-    import { Pane, Splitpanes } from "svelte-splitpanes";
+    import BookPanel from "$lib/components/display/BookPanel.svelte";
 
     let selectedBookId = "";
     let searchInput = "";
@@ -125,35 +125,34 @@
             sort: ["+", ["updated"]],
         };
     }
+    let selectedBookData;
 </script>
 
-<Splitpanes class="container">
-    <Pane size={20} minSize={15}>
-        <SearchPanel bind:searchPanelState />
-    </Pane>
-    <Pane minSize={35}>
-        <div class="list-area panel">
-            <button on:click={changeState}>Test Change State</button>
-            <div class="list-area-search">
-                <div class="search-input-wrapper">
-                    <span class="symbol search-icon">search</span>
-                    <input
-                        type="text"
-                        class="main-search-bar"
-                        placeholder="Search Books"
-                        bind:value={searchInput}
-                        on:keydown={handleSearchKeyDown}
-                    />
-                </div>
+<!--<button on:click={changeState}>Test Change State</button>-->
+<div class="container">
+    <SearchPanel bind:searchPanelState />
+    <div class="list-area panel">
+        <div class="list-area-search">
+            <div class="search-input-wrapper">
+                <span class="symbol search-icon">search</span>
+                <input
+                    type="text"
+                    class="main-search-bar"
+                    placeholder="Search Books"
+                    bind:value={searchInput}
+                    on:keydown={handleSearchKeyDown}
+                />
             </div>
-            <BookList
-                searchQuery={pbFilter}
-                sortPb={pbSort}
-                bind:selectedBookId
-            />
         </div>
-    </Pane>
-</Splitpanes>
+        <BookList
+            searchQuery={pbFilter}
+            sortPb={pbSort}
+            bind:selectedBookId
+            bind:selectedBookData
+        />
+    </div>
+    <BookPanel bind:selectedBookData></BookPanel>
+</div>
 <slot />
 
 <style>

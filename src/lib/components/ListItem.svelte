@@ -26,9 +26,9 @@
     <img
         class="preview-image"
         src={itemType === "books"
-            ? item.preview_url_override ||
-              `https://covers.openlibrary.org/b/isbn/${item.isbn}-S.jpg`
-            : getBorrowerImageGroup(item.group)}
+            ? item.preview_url_override //||
+            : //`https://covers.openlibrary.org/b/isbn/${item.isbn}-S.jpg`
+              getBorrowerImageGroup(item.group)}
         alt={itemType === "books"
             ? `Cover of ${item.title}`
             : `${item.name} ${item.surname}`}

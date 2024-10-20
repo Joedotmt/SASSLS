@@ -1,5 +1,4 @@
 <script>
-    import FilterSelector from "$lib/components/FilterSelector.svelte";
     import Accordion from "$lib/components/Accordion.svelte";
     import ChipGroup from "$lib/components/ChipGroup.svelte";
     import SortButton from "$lib/components/SortButton.svelte";
@@ -7,15 +6,9 @@
     import TabView from "$lib/components/TabView.svelte";
     import { onMount } from "svelte";
     import pb from "$lib/pocketbase";
-
+    import { BookLevelsStore } from "$lib/levels.js";
     let subjectChips = [];
-    let levelChips = [
-        { label: "Brown", id: "Brown" },
-        { label: "Yellow", id: "Yellow" },
-        { label: "Blue", id: "Blue" },
-        { label: "Green", id: "Green" },
-        { label: "Red", id: "Red" },
-    ];
+    let levelChips = $BookLevelsStore;
     let resourceSubjectChips = [];
 
     export let searchPanelState = {

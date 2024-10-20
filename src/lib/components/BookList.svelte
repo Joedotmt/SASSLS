@@ -62,13 +62,21 @@
     });
 
     export let selectedBookId = null;
+    export let selectedBookData = {};
 
     function handleBookClick(event) {
         selectedBookId = event.detail.id;
     }
+
+    // Find the selected book using its ID
+    $: selectedBookData = books.find((book) => book.id === selectedBookId);
 </script>
 
-<div style="overflow-y: scroll; border-radius: 0.6em;">
+<div
+    style="    overflow-y: scroll;
+    border-radius: 0.6em;
+    height: 100%;"
+>
     {#if isLoading}
         <div class="fade-in" style="width: 30%; margin:auto;">
             <LoadingBar />
