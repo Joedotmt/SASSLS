@@ -26,25 +26,29 @@
         try {
             const records = await pb.collection("books_subjects").getFullList({
                 sort: "+subject",
+                fields: "resource,subject",
             });
 
-            subjectChips = records
-                .filter((subject) => !subject.subject.endsWith("RES"))
-                .map((subject) => ({
-                    label: subject.subject,
-                    id: subject.id,
-                }));
+            const mapToChips = (subject) => ({
+                label: subject.subject,
+                id: subject.subject,
+            });
 
+            subjectChips = records.filter((s) => !s.resource).map(mapToChips);
             resourceSubjectChips = records
-                .filter((subject) => subject.subject.endsWith("RES"))
-                .map((subject) => ({
-                    label: subject.subject.slice(0, -3), // Remove 'RES' from the end
-                    id: subject.id,
-                }));
+                .filter((s) => s.resource)
+                .map(mapToChips);
         } catch (err) {
             console.error("Error fetching subjects:", err);
+            subjectChips = { label: "Error fetching Subjects", id: "1" };
+            resourceSubjectChips = {
+                label: "Error fetching Subjects",
+                id: "2",
+            };
         }
     }
+
+    //async function fetchSubjects() {}
 
     let currentTab = 0;
 </script>

@@ -10,7 +10,7 @@
     export let sortPb = "-created";
 
     let books = []; //: Book[] = [];
-    let isLoading = false;
+    let isLoading = true;
     let error = null;
 
     $: {

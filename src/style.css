@@ -1246,7 +1246,7 @@ body.hasHover ::-webkit-scrollbar-thumb:hover
 {
     transition: 5.8s cubic-bezier(0.075, 0.82, 0.165, 1);
     transition-delay: 0s;
-    background: var(---on-surface-2) !important;
+    background: var(---surface-2) !important;
 }
 
 .list-item .id-div

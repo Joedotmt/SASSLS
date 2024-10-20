@@ -48,7 +48,7 @@
         let hash = "";
 
         if (state && JSON.stringify(state) !== JSON.stringify(defaultState)) {
-            hash = `search=${search}&filter=${encodeURIComponent(JSON.stringify(state))}`;
+            hash = `search=${search}&filter=${JSON.stringify(state)}`;
         } else if (search) {
             hash = `search=${search}`;
         }
@@ -59,11 +59,10 @@
     function createPbFilter(search, state) {
         let subjectFilter = "";
         let levelFilter = "";
-
         // Create filter for selected subjects
         if (state.selectedSubjects.length >= 1) {
             subjectFilter = state.selectedSubjects
-                .map((id) => `subject='${id}'`)
+                .map((subject) => `subject.subject='${subject}'`)
                 .join(" || ");
         }
 
@@ -84,8 +83,6 @@
             extra.push(`legacy_book_id ~ 'DEPRECATED_'`);
         }
         //if "both" dont add anything
-
-        console.log(extra);
 
         const bookLazyFields = ["title", "isbn"];
         const bookExactFields = ["legacy_book_id", "book_id"];
