@@ -1,7 +1,5 @@
 <script>
-    export let open = false;
-    export let expandedHeight = 400;
-    export let overflowy = "scroll";
+    let { open = false, expandedHeight = 400, overflowy = "scroll" } = $props();
     import { slide } from "svelte/transition";
     const handleClick = () => {
         open = !open;

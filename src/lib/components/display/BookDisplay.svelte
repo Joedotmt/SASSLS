@@ -1,5 +1,5 @@
 <script>
-    export let selectedBookData = {
+    const defaultSelectedBookData = {
         preview_url_override: "",
         title: "",
         author: "",
@@ -18,6 +18,7 @@
         lost: true,
         scrapped: true,
     };
+    export let selectedBookData = defaultSelectedBookData;
     export let lending_mode = false;
 
     import { createEventDispatcher } from "svelte";
@@ -26,6 +27,10 @@
 
     function editButton() {
         dispatch("EditButton");
+    }
+
+    $: if (selectedBookData == undefined) {
+        selectedBookData = defaultSelectedBookData;
     }
 </script>
 

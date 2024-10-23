@@ -187,7 +187,7 @@ body
     border-bottom: 0px solid var(---neutral-variant60);
     position: sticky;
     top: 0;
-    background: var(---surface-1);
+    background: var(---surface-3);
     height: 50px;
 }
 

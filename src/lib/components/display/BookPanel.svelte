@@ -9,8 +9,8 @@
     $: foo(selectedBookData);
 
     function foo(bd) {
-        if (bd != undefined && browser && display_mode == "none")
-            display_mode = "display";
+        if (bd != undefined && browser) display_mode = "display";
+        else display_mode = "none";
     }
 
     function EditButtonClicked() {
