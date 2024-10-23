@@ -1,0 +1,17 @@
+.list-item
+{
+    background-color: var(---background);
+    margin: 0.3em !important;
+    border-radius: 0.5em !important;
+}
+
+body.hasHover .list-item:hover
+{
+    background-color: var(---surface-1);
+}
+
+.page-number-changer
+{
+    box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+    margin: 0.3em !important;
+}

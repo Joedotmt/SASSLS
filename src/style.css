@@ -1,3 +1,43 @@
+/* BOXY UI */
+/* body
+{
+    --global-gap: 0em !important;
+    --global-radius: 0em !important;
+}
+
+.top-bar
+{
+    border-bottom: 0.1em solid var(---neutral-variant60) !important;
+    background-color: var(---inverse-on-surface) !important;
+} */
+
+/* END OF BOXY UI */
+
+body
+{
+    margin: 0;
+    background-color: var(---surface-1);
+    color: var(---on-background);
+    --j95r4ji5r-opacity: 1;
+    overflow: hidden;
+    --the-font: "Poppins", "Trebuchet MS",
+        Helvetica,
+        sans-serif;
+    --the-robo-font: "Roboto Mono", "Trebuchet MS",
+        Helvetica,
+        sans-serif;
+    font-family: var(--the-font);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-sizing: border-box;
+    --global-gap: 0.3em;
+    --global-radius: 0.8em;
+
+    padding: var(--global-gap);
+    gap: var(--global-gap);
+}
+
 .material-symbols-outlined
 {
     user-select: none !important;
@@ -27,23 +67,7 @@
     -webkit-font-smoothing: antialiased;
 }
 
-body
-{
-    margin: 0.3em;
-    margin-top: 0.4em;
-    padding: 0;
-    background-color: var(---background);
-    color: var(---on-background);
-    --j95r4ji5r-opacity: 1;
-    overflow: hidden;
-    --the-font: "Poppins", "Trebuchet MS",
-        Helvetica,
-        sans-serif;
-    --the-robo-font: "Roboto Mono", "Trebuchet MS",
-        Helvetica,
-        sans-serif;
-    font-family: var(--the-font);
-}
+
 
 html,
 body
@@ -620,33 +644,29 @@ body.hasHover .button-circle:hover
 .container
 {
     display: flex;
-    height: calc(100dvh - 4.4em);
+    gap: var(--global-gap);
     overflow-x: scroll;
     overflow-y: hidden;
+    height: 100%;
 }
 
 .panel
 {
-    margin: 0.15em;
     flex: 1;
-    border: 0px solid var(---utility-outline);
     overflow: hidden;
+    display: flex;
+    overflow-y: scroll;
     background-color: var(---background);
-    border-radius: 0.8em;
-    min-width: 1em;
-    translate: 0px 0px;
-    opacity: 1;
-    flex-shrink: 0;
+    border-radius: var(--global-radius);
     transition: translate 0.1s linear, opacity 0.1s linear, background 225ms ease;
+    flex-direction: column;
 }
 
 .search-area
 {
     padding: 1em;
-    padding-right: 0.9em;
-    min-width: 14em;
-    max-width: 14em;
-    overflow-y: scroll;
+    max-width: 16em;
+    flex: 0.8;
 }
 
 .segmented-button-button
@@ -785,12 +805,13 @@ body.hasHover .tooltip:hover .tooltiptext
 
 .top-bar
 {
-    grid-area: top-bar;
-    height: 2.7em;
+    min-height: 2.5em;
     padding: 0.8em;
-    width: unset;
     display: flex;
-    overflow-x: scroll !important;
+    overflow-x: scroll;
+    flex-shrink: 0;
+    flex-direction: row;
+    flex-grow: 0;
 }
 
 .top-bar::-webkit-scrollbar
@@ -813,25 +834,11 @@ body.hasHover .tooltip:hover .tooltiptext
 
 .list-area
 {
-    padding: 0.5em;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4em 0px;
-    flex-shrink: 0;
-    overflow: hidden;
-    min-width: 23em;
-    height: 100%;
+    overflow-y: hidden;
 }
 
 .display-area
-{
-    grid-area: display-area;
-    overflow-y: scroll;
-    flex-basis: 8em;
-    min-width: 24em;
-    height: 100%;
-    width: 100%
-}
+{}
 
 
 .list-area-search
@@ -948,14 +955,14 @@ input[type=checkbox]:hover:not(:disabled):not(:checked)
 /* Track */
 ::-webkit-scrollbar-track
 {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb
 {
-    background: rgba(0, 0, 0, 0.1);
+    background: color-mix(in hsl, var(---on-surface), transparent 90%);
     border-radius: 4px;
 }
 
@@ -1289,81 +1296,20 @@ loading-bar
     margin: 0.5em;
 }
 
-/* The following classes can be used to style the splitter, see demos*/
-
-.splitpanes
+.list-item
 {
-    background-color: transparent;
-    height: 100% !important;
+    background-color: var(---background);
+    margin: 0.3em !important;
+    border-radius: 0.5em !important;
 }
 
-.splitpanes__splitter
+body.hasHover .list-item:hover
 {
-    background-color: transparent !important;
-    border: none !important;
-    width: 5px !important;
-    position: relative;
-    cursor: w-resize !important;
-    border-radius: 50em;
+    background-color: var(---surface-1) !important;
 }
 
-.splitpanes.default-theme .splitpanes__pane
+.page-number-changer
 {
-    background: transparent !important;
-}
-
-.splitpanes__splitter:hover
-{
-    background-color: var(---surface-5) !important;
-}
-
-.splitpanes__splitter:before
-{
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    transition: opacity 0.4s;
-    background-color: rgba(255, 0, 0, 0.3);
-    opacity: 0;
-    z-index: 1;
-}
-
-.splitpanes__splitter:hover:before
-{
-    opacity: 1;
-}
-
-.splitpanes--vertical>.splitpanes__splitter:before
-{
-    left: -0px !important;
-    right: -0px !important;
-    height: 50%;
-}
-
-.splitpanes--horizontal>.splitpanes__splitter:before
-{
-    top: -0px !important;
-    bottom: -0px !important;
-    width: 50%;
-}
-
-.splitpanes__pane
-{
-    height: calc(100vh - 4.45em) !important;
-}
-
-.scrollable-y
-{
-    overflow-y: scroll !important;
-}
-
-.splitpanes--vertical>.splitpanes__pane
-{
-    transition: width 0.4s cubic-bezier(0.37, 0.01, 0, 1.01) !important;
-}
-
-.splitpanes--dragging .splitpanes__pane
-{
-    transition: none !important;
+    box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+    margin: 0.3em !important;
 }

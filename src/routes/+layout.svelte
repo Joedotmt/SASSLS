@@ -73,7 +73,6 @@
 
     import "../themes.css";
     import "../style.css";
-    import "../fresh.css";
 </script>
 
 <div
