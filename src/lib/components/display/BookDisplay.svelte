@@ -34,7 +34,6 @@
         {#if lending_mode}
             <div>
                 <button
-                    onclick=""
                     style="margin: 5px; border: none; background-color: var(---primary); width: 100%; padding: 0 1.1em;"
                 >
                     <div

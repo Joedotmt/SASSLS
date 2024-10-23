@@ -32,7 +32,7 @@
 >
     <span
         style="font-size:{checked ? '20' : '0'}px; margin-right: 0.3em;"
-        class="symbol"
+        class="material-symbols-outlined"
     >
         check
     </span>
