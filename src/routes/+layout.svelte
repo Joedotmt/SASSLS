@@ -4,8 +4,6 @@
     import { detectTouch } from "$lib/utils/touchDetection";
     import AccountDialog from "$lib/components/AccountDialog.svelte";
 
-    export const prerender = true;
-
     let isDialogOpen = false;
 
     function openDialog() {

@@ -4,6 +4,7 @@
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
     import BookPanel from "$lib/components/display/BookPanel.svelte";
+    import { fetchGlobalSubjects } from "$lib/levels.js";
 
     let selectedBookId = "";
     let searchInput = "";
@@ -21,6 +22,10 @@
         showingIdType: "both",
         sort: ["-", ["created"]],
     };
+
+    onMount(() => {
+        fetchGlobalSubjects();
+    });
 
     if (browser) {
         const hashParams = new URLSearchParams(window.location.hash.slice(1));
@@ -62,7 +67,7 @@
         // Create filter for selected subjects
         if (state.selectedSubjects.length >= 1) {
             subjectFilter = state.selectedSubjects
-                .map((subject) => `subject.subject='${subject}'`)
+                .map((subject) => `subject.id='${subject}'`)
                 .join(" || ");
         }
 

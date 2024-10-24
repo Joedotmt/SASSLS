@@ -32,6 +32,16 @@
     $: if (selectedBookData == undefined) {
         selectedBookData = defaultSelectedBookData;
     }
+
+    import { BookSubjectsStore } from "$lib/levels.js";
+    let subjectLabel = "";
+    // Subscribe to the BookSubjectsStore to get the list of subjects
+    $: if (selectedBookData.subject && $BookSubjectsStore) {
+        const foundSubject = $BookSubjectsStore.find(
+            (subj) => subj.id === selectedBookData.subject,
+        );
+        subjectLabel = foundSubject ? foundSubject.subject : "Unknown subject";
+    }
 </script>
 
 <div class="display_panel_display">
@@ -119,57 +129,6 @@
             </div>
         </div>
     </div>
-    <!--
-    <div
-        style="display: flex; display: none; margin: 0.2em; border: 3px solid var(---surface-1); border-left: 0; border-right: 0;"
-    >
-        <div
-            style="margin: 0.5em; display: flex; flex-direction: column; justify-content: center;"
-        >
-            <button
-                style="
-                                    object-fit: fill;
-                                    padding: 0.2em;
-                                    width: min(8.4em, 31.7vw);
-                                    height: 5em;
-                                    border: 0.2em dashed var(---inverse-surface);
-                                    border-radius: 0.6em;
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                "
-            >
-                <span
-                    style="user-select: none; font-size: 2em;"
-                    class="material-symbols-outlined"
-                >
-                    person_add
-                </span>
-            </button>
-        </div>
-        <div
-            style="padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; justify-content: center;"
-        >
-            <div
-                style="font-weight: bold; font-size: min(5vw, 1.3em); flex-direction: row; display: flex;"
-            >
-                Joe Esposito
-                <div style="font-weight: lighter;">&nbsp11.4</div>
-            </div>
-            <div
-                style="width: fit-content; background-color: var(---surface-5); padding: 0.4em; border-radius: 0.4em; font-family: var(--the-font);"
-            >
-                <div class="tooltip">
-                    <div
-                        style="user-select: none; display: flex; font-size: min(4vw, 1em); align-items: center;"
-                    >
-                        <div>ID: t2m</div>
-                    </div>
-                    <span class="tooltiptext">Copy</span>
-                </div>
-            </div>
-        </div>
-    </div>-->
     <div style="margin: 0.8em; margin-top: 0.5em;">
         Description
         <div
@@ -214,7 +173,7 @@
     {/if}
 
     <div style="margin: 0.8em; margin-top: 0.5em;">
-        Subject: {selectedBookData.subject}
+        Subject: {subjectLabel}
     </div>
 
     <div style="margin: 0.8em; margin-top: 0.5em;">

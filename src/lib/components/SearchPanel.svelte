@@ -4,11 +4,9 @@
     import SortButton from "$lib/components/SortButton.svelte";
     import TabSelector from "$lib/components/TabSelector.svelte";
     import TabView from "$lib/components/TabView.svelte";
-    import { onMount } from "svelte";
-    import pb from "$lib/pocketbase";
-    import { BookLevelsStore } from "$lib/levels.js";
+    import { BookLevelsStore, BookSubjectsStore } from "$lib/levels.js";
+    import { browser } from "$app/environment";
     let subjectChips = [];
-    let levelChips = $BookLevelsStore;
     let resourceSubjectChips = [];
 
     export let searchPanelState = {
@@ -18,37 +16,21 @@
         sort: ["-", "created"],
     };
 
-    onMount(() => {
-        fetchSubjects();
-    });
-
-    async function fetchSubjects() {
-        try {
-            const records = await pb.collection("books_subjects").getFullList({
-                sort: "+subject",
-                fields: "resource,subject",
-            });
-
-            const mapToChips = (subject) => ({
-                label: subject.subject,
-                id: subject.subject,
-            });
-
-            subjectChips = records.filter((s) => !s.resource).map(mapToChips);
-            resourceSubjectChips = records
-                .filter((s) => s.resource)
-                .map(mapToChips);
-        } catch (err) {
-            console.error("Error fetching subjects:", err);
-            subjectChips = { label: "Error fetching Subjects", id: "1" };
-            resourceSubjectChips = {
-                label: "Error fetching Subjects",
-                id: "2",
-            };
-        }
+    // Subscribe to the store and reactively update when it changes
+    $: if (browser && $BookSubjectsStore != null) {
+        mapToChips($BookSubjectsStore);
     }
 
-    //async function fetchSubjects() {}
+    function mapToChips(records) {
+        const mapToChips = (subject) => ({
+            label: subject.subject,
+            id: subject.subject,
+        });
+        subjectChips = records.filter((s) => !s.resource).map(mapToChips);
+        resourceSubjectChips = records
+            .filter((s) => s.resource)
+            .map(mapToChips);
+    }
 
     let currentTab = 0;
 </script>
@@ -102,7 +84,7 @@
         <div slot="details">
             <ChipGroup
                 bind:selectedIds={searchPanelState.selectedLevels}
-                items={levelChips}
+                items={$BookLevelsStore}
             />
         </div>
     </Accordion>
