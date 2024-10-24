@@ -66,10 +66,9 @@
 
     function handleBookClick(event) {
         selectedBookId = event.detail.id;
+        // Find the selected book using its ID
+        selectedBookData = books.find((book) => book.id === selectedBookId);
     }
-
-    // Find the selected book using its ID
-    $: selectedBookData = books.find((book) => book.id === selectedBookId);
 </script>
 
 <div

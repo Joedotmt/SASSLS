@@ -9,7 +9,7 @@
     $: foo(selectedBookData);
 
     function foo(bd) {
-        if (bd != undefined && browser) display_mode = "display";
+        if (bd.id != undefined && browser) display_mode = "display";
         else display_mode = "none";
     }
 
