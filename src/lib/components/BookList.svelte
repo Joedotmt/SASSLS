@@ -22,7 +22,7 @@
             isLoading = true;
             error = null;
             try {
-                const records = await pb.collection("books").getList(1, 50, {
+                const records = await pb.collection("books").getList(1, 200, {
                     filter: filter,
                     sort: sort,
                     requestKey: null,
