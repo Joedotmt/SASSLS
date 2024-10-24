@@ -3,7 +3,7 @@
     import { onMount } from "svelte";
     import { themeStore } from "$lib/theme.js";
 
-    export let isOpen = false;
+    let { isOpen = false } = $props();
 
     const dispatch = createEventDispatcher();
 

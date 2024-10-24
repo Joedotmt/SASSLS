@@ -4,7 +4,7 @@
     import { detectTouch } from "$lib/utils/touchDetection";
     import AccountDialog from "$lib/components/AccountDialog.svelte";
 
-    let isDialogOpen = false;
+    let isDialogOpen = $state(false);
 
     function openDialog() {
         isDialogOpen = true;
@@ -81,4 +81,4 @@
 
 <AccountDialog bind:isOpen={isDialogOpen} on:close={closeDialog} />
 
-<slot />
+{@render children()}
