@@ -1,11 +1,25 @@
 <script>
+    import { run } from 'svelte/legacy';
+
     import { createEventDispatcher } from "svelte";
 
-    export let checked = false;
-    export let disabled = false;
-    export let ariaLabel = "Toggle";
+    /**
+     * @typedef {Object} Props
+     * @property {boolean} [checked]
+     * @property {boolean} [disabled]
+     * @property {string} [ariaLabel]
+     * @property {import('svelte').Snippet} [children]
+     */
 
-    let data;
+    /** @type {Props} */
+    let {
+        checked = $bindable(false),
+        disabled = false,
+        ariaLabel = "Toggle",
+        children
+    } = $props();
+
+    let data = $state();
     const dispatch = createEventDispatcher();
 
     function handleClick() {
@@ -15,17 +29,17 @@
         }
     }
 
-    $: {
+    run(() => {
         if (data) {
             data.setAttribute("aria-checked", checked);
         }
-    }
+    });
 </script>
 
 <button
     class={`toggle ${checked ? "checked" : ""} ${disabled ? "disabled" : ""}`}
     bind:this={data}
-    on:click={handleClick}
+    onclick={handleClick}
     aria-label={ariaLabel}
     role="switch"
     {disabled}
@@ -36,7 +50,7 @@
     >
         check
     </span>
-    <slot></slot>
+    {@render children?.()}
 </button>
 
 <style>

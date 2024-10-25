@@ -1,9 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
 
-    export let itemType;
-    export let item;
-    export let isSelected;
+    let { itemType, item, isSelected = $bindable() } = $props();
 
     const dispatch = createEventDispatcher();
 
@@ -20,7 +18,7 @@
 
 <button
     class="list-button list-item {isSelected ? 'selected' : ''}"
-    on:click={handleClick}
+    onclick={handleClick}
     style="view-transition-name: id-{item.id};"
 >
     <img

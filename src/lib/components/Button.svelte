@@ -26,4 +26,4 @@
     }
 </script>
 
-<button on:click={createRipple}></button>
+<button onclick={createRipple}></button>

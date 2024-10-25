@@ -1,12 +1,13 @@
+<!-- @migration-task Error while migrating Svelte code: This migration would change the name of a slot making the component unusable -->
 <script>
-    export let currentTab = 0;
-    let oldCurrentTab = currentTab;
-    let currentTabReal = currentTab;
+    let { currentTab = $bindable(0), content1, content2 } = $props();
+    let oldCurrentTab = $state(currentTab);
+    let currentTabReal = $state(currentTab);
 
-    let direction = 1;
-    let animating = false;
+    let direction = $state(1);
+    let animating = $state(false);
 
-    $: {
+    $effect(() => {
         // Update direction only if currentTab changes
         if (currentTab !== oldCurrentTab) {
             direction = currentTab > oldCurrentTab ? 1 : -1;
@@ -20,7 +21,7 @@
                 currentTabReal = currentTab;
             }, 300 / 2); // Assuming the animation duration is 300ms
         }
-    }
+    });
 </script>
 
 <div id="container">
@@ -30,19 +31,10 @@
                 ? 'slide-left'
                 : 'slide-right'
             : ''}"
-    >
-        {#if currentTabReal === 0}<slot name="0"></slot>{/if}
-        {#if currentTabReal === 1}<slot name="1"></slot>{/if}
-        {#if currentTabReal === 2}<slot name="2"></slot>{/if}
-        {#if currentTabReal === 3}<slot name="3"></slot>{/if}
-        {#if currentTabReal === 4}<slot name="4"></slot>{/if}
-        {#if currentTabReal === 5}<slot name="5"></slot>{/if}
-        {#if currentTabReal === 6}<slot name="6"></slot>{/if}
-        {#if currentTabReal === 7}<slot name="7"></slot>{/if}
-        {#if currentTabReal === 8}<slot name="8"></slot>{/if}
-        {#if currentTabReal === 9}<slot name="9"></slot>{/if}
-        {#if currentTabReal === 10}<slot name="10"></slot>{/if}
-    </div>
+    ></div>
+
+    {#if currentTabReal == 0}{@render content1()}{/if}
+    {#if currentTabReal == 1}{@render content2()}{/if}
 </div>
 
 <style>

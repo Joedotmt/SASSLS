@@ -68,7 +68,7 @@
         element.classList.add("material-symbols-outlined");
         element.classList.remove("symbol");
     }
-
+let {children} = $props()
     import "../themes.css";
     import "../style.css";
 </script>

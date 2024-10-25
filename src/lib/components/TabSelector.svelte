@@ -1,8 +1,14 @@
 <script>
-    // Define tabs
-    export let tabs = ["Subjects", "Resources"];
-    export let currentTab = 0; // Index of the active tab
-    export let style = "";
+    
+    /**
+     * @typedef {Object} Props
+     * @property {any} [tabs] - Define tabs
+     * @property {number} [currentTab]
+     * @property {string} [style]
+     */
+
+    /** @type {Props} */
+    let { tabs = ["Subjects", "Resources"], currentTab = $bindable(0), style = "" } = $props();
 
     // Function to change the active tab
     function setActive(index) {
@@ -15,7 +21,7 @@
         {#each tabs as tab, index}
             <button
                 class="tab {currentTab === index ? 'selected' : ''}"
-                on:click={() => setActive(index)}
+                onclick={() => setActive(index)}
             >
                 {tab}
             </button>
@@ -25,7 +31,7 @@
         class="active-indicator"
         style="width:{(1 / tabs.length) *
             100}%; transform: translateX({currentTab * 100}%);"
-    />
+></div>
 </div>
 
 <style>

@@ -1,21 +1,16 @@
 <script>
-    import { onDestroy } from "svelte";
+    import { run } from "svelte/legacy";
+    import { onDestroy, createEventDispatcher } from "svelte";
     import pb from "$lib/pocketbase";
     import ListItem from "./ListItem.svelte";
     import { browser } from "$app/environment";
     import LoadingBar from "./LoadingBar.svelte";
     import ListItemCreate from "./ListItemCreate.svelte";
 
-    export let searchQuery = "";
-    export let sortPb = "-created";
-
-    let books = []; //: Book[] = [];
-    let isLoading = true;
-    let error = null;
-
-    $: {
-        fetchBooks(searchQuery, sortPb);
-    }
+    let books = $state([]);
+    let isLoading = $state(true);
+    let error = $state(null);
+    const dispatch = createEventDispatcher();
 
     async function fetchBooks(filter, sort) {
         if (browser) {
@@ -61,18 +56,33 @@
         pb.collection("books").unsubscribe();
     });
 
-    export let selectedBookId = null;
-    export let selectedBookData = {};
+    /**
+     * @typedef {Object} Props
+     * @property {string} [searchQuery]
+     * @property {string} [sortPb]
+     * @property {string} [selectedBookId]
+     */
+
+    /** @type {Props} */
+    let {
+        searchQuery = "",
+        sortPb = "-created",
+        selectedBookId = "",
+    } = $props();
 
     function handleBookClick(event) {
-        selectedBookId = event.detail.id;
-        // Find the selected book using its ID
-        selectedBookData = books.find((book) => book.id === selectedBookId);
+        const bookId = event.detail.id;
+        const bookData = books.find((book) => book.id === bookId);
+        dispatch("selectBook", { id: bookId, data: bookData });
     }
+
+    run(() => {
+        fetchBooks(searchQuery, sortPb);
+    });
 </script>
 
 <div
-    style="    overflow-y: scroll;
+    style="overflow-y: scroll;
     border-radius: 0.6em;
     height: 100%;"
 >

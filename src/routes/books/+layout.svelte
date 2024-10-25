@@ -1,4 +1,5 @@
 <script>
+    import { run } from 'svelte/legacy';
     import BookList from "$lib/components/BookList.svelte";
     import SearchPanel from "$lib/components/SearchPanel.svelte";
     import { browser } from "$app/environment";
@@ -6,22 +7,33 @@
     import BookPanel from "$lib/components/display/BookPanel.svelte";
     import { fetchGlobalSubjects } from "$lib/levels.js";
 
-    let selectedBookId = "";
-    let searchInput = "";
-    let pbFilter = "";
-    let pbSort = "-created";
+    /**
+     * @typedef {Object} Props
+     * @property {import('svelte').Snippet} [children]
+     */
+
+    /** @type {Props} */
+    let { children } = $props();
+
+    let selectedBookId = $state("");
+    let selectedBookData = $state(null);
+    let searchInput = $state("");
+    let pbFilter = $state("");
+    let pbSort = $state("-created");
+    
     const defaultState = {
         selectedSubjects: [],
         selectedLevels: [],
         showingIdType: "both",
         sort: ["-", ["created"]],
     };
-    let searchPanelState = {
+    
+    let searchPanelState = $state({
         selectedSubjects: [],
         selectedLevels: [],
         showingIdType: "both",
         sort: ["-", ["created"]],
-    };
+    });
 
     onMount(() => {
         fetchGlobalSubjects();
@@ -34,12 +46,21 @@
             searchPanelState = JSON.parse(hashParams.get("filter"));
         }
     }
-    $: searchPanelState, doSearch();
 
     function handleSearchKeyDown(event) {
         if (event.key === "Enter") {
             doSearch();
         }
+    }
+
+    function handleBookSelect(event) {
+        selectedBookId = event.detail.id;
+        selectedBookData = event.detail.data;
+    }
+
+    // New function to handle book updates from BookEdit
+    function handleBookUpdate(event) {
+        selectedBookData = event.detail;
     }
 
     function doSearch() {
@@ -64,30 +85,26 @@
     function createPbFilter(search, state) {
         let subjectFilter = "";
         let levelFilter = "";
-        // Create filter for selected subjects
+        
         if (state.selectedSubjects.length >= 1) {
             subjectFilter = state.selectedSubjects
                 .map((subject) => `subject.id='${subject}'`)
                 .join(" || ");
         }
 
-        // Create filter for selected levels
         if (state.selectedLevels.length >= 1) {
             levelFilter = state.selectedLevels
                 .map((label) => `level='${label}'`)
                 .join(" || ");
         }
 
-        // Combine subject and level filters if both exist
         let extra = [subjectFilter, levelFilter].filter(Boolean);
 
-        // Add logic for showingIdType filter
         if (state.showingIdType === "old") {
             extra.push(`legacy_book_id !~ 'DEPRECATED_'`);
         } else if (state.showingIdType === "new") {
             extra.push(`legacy_book_id ~ 'DEPRECATED_'`);
         }
-        //if "both" dont add anything
 
         const bookLazyFields = ["title", "isbn"];
         const bookExactFields = ["legacy_book_id", "book_id"];
@@ -107,7 +124,6 @@
             })
             .join(" && ");
 
-        // Combine search filter with extra filters if they exist
         let extraFilter = extra.join(" && ");
 
         if (filter && extraFilter) {
@@ -127,10 +143,12 @@
             sort: ["+", ["updated"]],
         };
     }
-    let selectedBookData;
+
+    run(() => {
+        searchPanelState, doSearch();
+    });
 </script>
 
-<!--<button on:click={changeState}>Test Change State</button>-->
 <div class="container">
     <SearchPanel bind:searchPanelState />
     <div class="list-area panel">
@@ -149,13 +167,16 @@
         <BookList
             searchQuery={pbFilter}
             sortPb={pbSort}
-            bind:selectedBookId
-            bind:selectedBookData
+            selectedBookId={selectedBookId}
+            on:selectBook={handleBookSelect}
         />
     </div>
-    <BookPanel bind:selectedBookData></BookPanel>
+    <BookPanel 
+        selectedBookData={selectedBookData} 
+        on:bookUpdate={handleBookUpdate}
+    />
 </div>
-<slot />
+{@render children?.()}
 
 <style>
     .search-input-wrapper {

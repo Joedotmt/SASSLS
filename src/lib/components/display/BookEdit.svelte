@@ -1,73 +1,82 @@
 <script>
     import Input from "../Input.svelte";
     import pb from "$lib/pocketbase";
-    export let selectedBookData = {
-        preview_url_override: "",
-        title: "",
-        author: "",
-        id: "",
-        created: "",
-        updated: "",
-        legacy_date_entered: "",
-        subject: "",
-        level: "",
-        price: "",
-        classification_label: "",
-        isbn: "",
-        book_id: "",
-        legacy_book_id: "",
-        description: "",
-        lost: true,
-        scrapped: true,
-    };
-
     import { createEventDispatcher } from "svelte";
+    import { BookLevelsStore } from "$lib/levels.js";
 
     const dispatch = createEventDispatcher();
+
+    let { selectedBookData } = $props();
+    let localBookData = $state({ ...selectedBookData });
+    let levelChips = $BookLevelsStore;
 
     function editButton() {
         dispatch("EditButton");
     }
 
+    // Update local data and dispatch changes
+    function updateField(field, value) {
+        localBookData[field] = value;
+        // Only dispatch on field updates if needed
+        // dispatch('bookUpdate', localBookData);
+    }
+
     async function saveChanges() {
-        const isCreation = selectedBookData.id === "creation";
+        const isCreation = localBookData.id === "creation";
 
         try {
+            let updatedRecord;
             if (isCreation) {
-                await createBook(selectedBookData);
+                updatedRecord = await createBook(localBookData);
             } else {
-                await updateBook(selectedBookData);
+                updatedRecord = await updateBook(localBookData);
             }
+            // Dispatch the updated record from the server
+            dispatch("bookUpdate", updatedRecord);
+            editButton();
         } catch (error) {
             handleError(error);
         }
-        editButton();
     }
-
-    import { BookLevelsStore } from "$lib/levels.js";
-    let levelChips = $BookLevelsStore;
 
     function handleError(error) {
         console.error(error);
-        // const issueString = Object.entries(error.data.data)
-        //     .map(([key, value]) => `\n${key}: ${value.message}`)
-        //     .join("");
-        // alert(
-        //     `Error code: ${error.data.code}\nMessage: ${error.data.message}\n\nIssues:${issueString}`,
-        // );
     }
 
     async function createBook(data) {
         console.log("CREATING BOOK RECORD WITH DATA: ", data);
-        data.book_id = generatedid_book;
+        data.book_id = generatedid_book; // Make sure this is defined
         data.legacy_book_id = "DEPRECATED_";
-        pb.collection("books").create(data);
+        const record = await pb.collection("books").create(data);
+        return record;
     }
 
     async function updateBook(data) {
-        console.log("UPDATING BOOK RECORD WITH DATA: ", data);
-        pb.collection("books").update(selectedBookData.id, data);
+        const record = await pb.collection("books").update(localBookData.id, {
+            title: localBookData.title,
+            author: localBookData.author,
+            isbn: localBookData.isbn,
+            description: localBookData.description,
+            classification_label: localBookData.classification_label,
+            level: localBookData.level,
+            subject: localBookData.subject,
+            scrapped: localBookData.scrapped,
+            lost: localBookData.lost,
+            price: localBookData.price,
+            preview_url_override: localBookData.preview_url_override,
+            // Include any other fields that need to be updated
+        });
+        return record;
     }
+
+    $inspect(localBookData);
+
+    // Make sure local data stays in sync with props
+    $effect(() => {
+        if (selectedBookData) {
+            localBookData = { ...selectedBookData };
+        }
+    });
 </script>
 
 <div class="display_panel_edit" id="display_panel_edit_details">
@@ -77,7 +86,7 @@
             id="display_area_top_book_view_edit"
         >
             <button
-                on:click={editButton}
+                onclick={editButton}
                 id="book_cancel_button"
                 style="border: 0; margin: 5px; margin-right: 0; margin-left: auto; width:8em"
             >
@@ -85,7 +94,7 @@
             </button>
             <button
                 id="book_save_button"
-                on:click={saveChanges}
+                onclick={saveChanges}
                 style="background-color: var(---primary); border: none; margin: 5px; margin-right: 5px; width:8em"
             >
                 <div
@@ -98,34 +107,33 @@
         </div>
     </div>
     <div style="padding: 2em;">
-        <!-- WHY DOES THIS HAVE TO BE HERE FOR IT TO WORK????-->
-        <div style="display: none;">{selectedBookData.title}</div>
-        <!--???????????-->
         <Input
             style="margin-bottom:1em"
             label="Title"
-            bind:value={selectedBookData.title}
+            bind:value={localBookData.title}
+            oninput={(e) => updateField("title", e.target.value)}
         />
         <Input
             style="margin-bottom:1em"
             label="Author"
-            bind:value={selectedBookData.author}
+            bind:value={localBookData.author}
+            oninput={(e) => updateField("author", e.target.value)}
         />
 
         <div
             style="
-                                background-color: var(---surface-1);
-                                padding: 0.5em;
-                                flex-grow: 1;
-                                font-size: 1.2em;
-                                border-radius: 0.5em;
-                                margin-top: 0.2em;
-                                font-family: var(--the-font);
-                                display: flex;
-                                flex-direction: row;
-                                justify-content: space-between;
-                                margin-bottom: 1em;
-                            "
+                background-color: var(---surface-1);
+                padding: 0.5em;
+                flex-grow: 1;
+                font-size: 1.2em;
+                border-radius: 0.5em;
+                margin-top: 0.2em;
+                font-family: var(--the-font);
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-bottom: 1em;
+            "
         >
             <div
                 style="height:2.5em; margin-right: 1em; display: flex; flex-direction: column; justify-content: center; font-family: 'roboto mono';"
@@ -134,18 +142,18 @@
                     style="text-wrap: nowrap;"
                     id="display_panel_book_book_id_editing"
                 >
-                    ID: {selectedBookData.book_id}
+                    ID: {localBookData.book_id}
                 </div>
-                {#if !selectedBookData.legacy_book_id?.includes("DEPRECATED_")}
+                {#if !localBookData.legacy_book_id?.includes("DEPRECATED_")}
                     <div
                         style="text-wrap: nowrap;"
                         id="display_panel_book_legacy_book_id_editing"
                     >
-                        IDL: {selectedBookData.legacy_book_id}
+                        IDL: {localBookData.legacy_book_id}
                     </div>
                 {/if}
             </div>
-            {#if !selectedBookData.legacy_book_id?.includes("DEPRECATED_")}
+            {#if !localBookData.legacy_book_id?.includes("DEPRECATED_")}
                 <button
                     id="j5498"
                     style="text-wrap:balance; width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;"
@@ -157,7 +165,8 @@
         <Input
             style="margin-bottom:1em"
             label="ISBN"
-            bind:value={selectedBookData.isbn}
+            bind:value={localBookData.isbn}
+            on:input={(e) => updateField("isbn", e.target.value)}
         />
         <div
             style="margin-bottom: 1em; align-items: normal;"
@@ -165,7 +174,8 @@
         >
             <textarea
                 style="resize: none; font-size: 1em; height: 100px;"
-                value={selectedBookData.description}
+                bind:value={localBookData.description}
+                oninput={(e) => updateField("description", e.target.value)}
                 type="text"
                 class="input-google"
             ></textarea>
@@ -176,11 +186,13 @@
         <Input
             style="margin-bottom:1em"
             label="Classification Label"
-            bind:value={selectedBookData.classification_label}
+            bind:value={localBookData.classification_label}
+            oninput={(e) => updateField("classification_label", e.target.value)}
         />
         <div style="margin-bottom: 1em;" class="input-container">
             <select
-                bind:value={selectedBookData.level}
+                bind:value={localBookData.level}
+                onchange={(e) => updateField("level", e.target.value)}
                 style="width: 100%;"
                 id="display_panel_book_level_editing"
                 type="text"
@@ -200,6 +212,8 @@
             <select
                 id="display_panel_book_subject_editing"
                 style="width: 100%;"
+                bind:value={localBookData.subject}
+                onchange={(e) => updateField("subject", e.target.value)}
                 type="text"
                 class="input-google"
             >
@@ -214,7 +228,8 @@
         <div style="margin-bottom: 0.8em; font-size: 1.4em;">
             <div style="display: flex; margin-bottom: 0.5em;">
                 <input
-                    checked={selectedBookData.scrapped ? "scrapped" : ""}
+                    bind:checked={localBookData.scrapped}
+                    onchange={(e) => updateField("scrapped", e.target.checked)}
                     id="display_panel_book_scrapped_editing"
                     type="checkbox"
                 />
@@ -224,7 +239,8 @@
                 <input
                     id="display_panel_book_lost_editing"
                     type="checkbox"
-                    checked={selectedBookData.lost ? "checked" : ""}
+                    bind:checked={localBookData.lost}
+                    onchange={(e) => updateField("lost", e.target.checked)}
                 />
                 <label style="margin-left: 0.3em;">Lost</label>
             </div>
@@ -234,13 +250,15 @@
             label="Price (EUR)"
             type="number"
             min="0"
-            bind:value={selectedBookData.price}
+            bind:value={localBookData.price}
+            oninput={(e) => updateField("price", e.target.value)}
         />
         <Input
             style="margin-bottom:1em"
             label="Cover Image URL"
             placeholder="Automatic"
-            bind:value={selectedBookData.preview_url_override}
+            bind:value={localBookData.preview_url_override}
+            oninput={(e) => updateField("preview_url_override", e.target.value)}
         />
     </div>
 </div>

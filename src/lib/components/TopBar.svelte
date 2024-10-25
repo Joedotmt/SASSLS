@@ -5,7 +5,7 @@
     const dispatch = createEventDispatcher();
 
     let logoText = "Library";
-    let fontWeight = 600;
+    let fontWeight = $state(600);
 
     function logoEasterEgg() {
         fontWeight += 50;
@@ -35,7 +35,7 @@
     <div class="site-logo" style="display: flex; align-items: center">
         <button
             class="button-circle"
-            on:click={logoEasterEgg}
+            onclick={logoEasterEgg}
             style="padding: 0; height: auto; width: auto; border-width: 0;"
         >
             <img
@@ -65,7 +65,7 @@
         <button
             class="button-circle"
             id="account_button"
-            on:click={openAccountDialog}
+            onclick={openAccountDialog}
             style="padding: 0; border-width: 0;"
         >
             <span
@@ -77,7 +77,7 @@
         </button>
         <select
             id="collection_select"
-            on:change={onCollectionSelectChange}
+            onchange={onCollectionSelectChange}
             style="width: 10em; margin: 0.2em; font-size: 18px;"
         >
             {#each collections as collection}

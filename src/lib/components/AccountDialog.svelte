@@ -1,13 +1,14 @@
+<!-- @migration-task Error while migrating Svelte code: `$:` is not allowed in runes mode, use `$derived` or `$effect` instead -->
 <script>
     import { createEventDispatcher } from "svelte";
     import { onMount } from "svelte";
     import { themeStore } from "$lib/theme.js";
 
-    let { isOpen = false } = $props();
+    let { isOpen = $bindable(false) } = $props();
 
     const dispatch = createEventDispatcher();
 
-    let isDarkMode = true;
+    let isDarkMode = $state(true);
 
     function closeDialog() {
         isOpen = false;
@@ -45,11 +46,13 @@
         isDarkMode = document.body.className.includes("dark");
     });
 
-    $: if (!isOpen) {
-        dialog?.close();
-    } else {
-        dialog?.showModal();
-    }
+    $effect(() => {
+        if (!isOpen) {
+            dialog?.close();
+        } else {
+            dialog?.showModal();
+        }
+    });
 
     function handleOutsideClick(event) {
         if (dialog) {
@@ -70,7 +73,7 @@
     <button
         style="margin: 0.7em; border: none; width: 40px; height: 40px; margin-bottom: 0;"
         class="button-circle"
-        on:click={closeDialog}
+        onclick={closeDialog}
     >
         <span class="symbol">close</span>
     </button>
@@ -81,19 +84,19 @@
             <span class="button-icon symbol">settings</span> account settings
         </button>
         <button
-            on:click={showSignInDialog}
+            onclick={showSignInDialog}
             style="--bg: var(---primary-80); border-color: transparent; margin-left: auto; color: black; margin-right: auto; width: 8em;"
         >
             <span class="button-icon symbol">login</span> Sign in
         </button>
     </div>
-    <button on:click={showThemePickerModal} class="list-button">
+    <button onclick={showThemePickerModal} class="list-button">
         <span class="button-icon symbol">palette</span> Theme Colours
     </button>
-    <button on:click={navigateToBookMigration} class="list-button">
+    <button onclick={navigateToBookMigration} class="list-button">
         <span class="button-icon symbol">book</span> Book Migration
     </button>
-    <button class="button-circle" on:click={changeDarkLightTheme}>
+    <button class="button-circle" onclick={changeDarkLightTheme}>
         <span class="symbol">{isDarkMode ? "light_mode" : "dark_mode"}</span>
     </button>
 </dialog>

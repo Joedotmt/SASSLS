@@ -2,12 +2,25 @@
     import { createEventDispatcher, onMount } from "svelte";
     import Chip from "$lib/components/Chip.svelte";
 
-    export let style = "";
-    export let items = [];
-    export let selectedIds = [];
-    export let multiple = true;
-    export let optional = true;
-    export let defaultId = null;
+    /**
+     * @typedef {Object} Props
+     * @property {string} [style]
+     * @property {any} [items]
+     * @property {any} [selectedIds]
+     * @property {boolean} [multiple]
+     * @property {boolean} [optional]
+     * @property {any} [defaultId]
+     */
+
+    /** @type {Props} */
+    let {
+        style = "",
+        items = [],
+        selectedIds = $bindable([]),
+        multiple = true,
+        optional = true,
+        defaultId = null
+    } = $props();
 
     const dispatch = createEventDispatcher();
 

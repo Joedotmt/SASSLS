@@ -1,12 +1,19 @@
 <script>
-    export let value = "-"; // Default value
-    let isAscending = value === "+"; // Initialize based on the incoming value
-    export let style = ""; // Additional styles for the button
+    import { run } from "svelte/legacy";
 
+    /**
+     * @typedef {Object} Props
+     * @property {string} [value]
+     * @property {string} [style]
+     */
+
+    /** @type {Props} */
+    let { value = $bindable("-"), style = "" } = $props();
+    let isAscending = $state(value === "+"); // Initialize based on the incoming value
     // Watch for changes in value to set isAscending accordingly
-    $: {
+    run(() => {
         isAscending = value === "+";
-    }
+    });
 
     // Handle button click to toggle isAscending state and update value
     function handleClick() {
@@ -16,7 +23,7 @@
 </script>
 
 <button
-    on:click={handleClick}
+    onclick={handleClick}
     style="    border-radius: 0.4em;
     height: auto;
     margin: 0.5em;

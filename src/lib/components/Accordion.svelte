@@ -1,5 +1,6 @@
+<!-- @migration-task Error while migrating Svelte code: Unexpected token -->
 <script>
-    let { open = false, expandedHeight = 400, overflowy = "scroll" } = $props();
+    let { open = false, expandedHeight = 400, overflowy = "scroll", head, details } = $props();
     import { slide } from "svelte/transition";
     const handleClick = () => {
         open = !open;
@@ -7,7 +8,7 @@
     };
     let contentEle = null;
 
-    let heightcss = "0px";
+    let heightcss = $state("0px");
 
     function getHeight() {
         if (open) {
@@ -15,21 +16,13 @@
         } else {
             heightcss = "0px";
         }
-
-        //let oldHeight = contentEle.style.height;
-        //contentEle.style.height = "fit-content";
-        //let height = contentEle.getBoundingClientRect().height * open;
-        //contentEle.style.height = oldHeight;
-        //setTimeout(() => {
-        //    contentEle.style.height = height + "px";
-        //}, 1);
     }
 </script>
 
 <div class="accordion {open ? 'open' : ''}">
     <div class="header">
-        <button class={open ? "open" : ""} on:click={handleClick}>
-            <slot name="head"></slot>
+        <button class={open ? "open" : ""} onclick={handleClick}>
+            {@render head?.()}
             <span style="rotate: {open ? 0 : 180}deg;" class="symbol">
                 keyboard_arrow_down
             </span>
@@ -42,7 +35,7 @@
         transition:slide
         bind:this={contentEle}
     >
-        <slot name="details"></slot>
+        {@render details?.()}
     </div>
 </div>
 
