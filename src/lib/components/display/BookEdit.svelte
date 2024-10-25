@@ -14,13 +14,6 @@
         dispatch("EditButton");
     }
 
-    // Update local data and dispatch changes
-    function updateField(field, value) {
-        localBookData[field] = value;
-        // Only dispatch on field updates if needed
-        // dispatch('bookUpdate', localBookData);
-    }
-
     async function saveChanges() {
         const isCreation = localBookData.id === "creation";
 
@@ -111,13 +104,11 @@
             style="margin-bottom:1em"
             label="Title"
             bind:value={localBookData.title}
-            oninput={(e) => updateField("title", e.target.value)}
         />
         <Input
             style="margin-bottom:1em"
             label="Author"
             bind:value={localBookData.author}
-            oninput={(e) => updateField("author", e.target.value)}
         />
 
         <div
@@ -166,7 +157,6 @@
             style="margin-bottom:1em"
             label="ISBN"
             bind:value={localBookData.isbn}
-            on:input={(e) => updateField("isbn", e.target.value)}
         />
         <div
             style="margin-bottom: 1em; align-items: normal;"
@@ -175,7 +165,6 @@
             <textarea
                 style="resize: none; font-size: 1em; height: 100px;"
                 bind:value={localBookData.description}
-                oninput={(e) => updateField("description", e.target.value)}
                 type="text"
                 class="input-google"
             ></textarea>
@@ -187,12 +176,10 @@
             style="margin-bottom:1em"
             label="Classification Label"
             bind:value={localBookData.classification_label}
-            oninput={(e) => updateField("classification_label", e.target.value)}
         />
         <div style="margin-bottom: 1em;" class="input-container">
             <select
                 bind:value={localBookData.level}
-                onchange={(e) => updateField("level", e.target.value)}
                 style="width: 100%;"
                 id="display_panel_book_level_editing"
                 type="text"
@@ -213,7 +200,6 @@
                 id="display_panel_book_subject_editing"
                 style="width: 100%;"
                 bind:value={localBookData.subject}
-                onchange={(e) => updateField("subject", e.target.value)}
                 type="text"
                 class="input-google"
             >
@@ -229,7 +215,6 @@
             <div style="display: flex; margin-bottom: 0.5em;">
                 <input
                     bind:checked={localBookData.scrapped}
-                    onchange={(e) => updateField("scrapped", e.target.checked)}
                     id="display_panel_book_scrapped_editing"
                     type="checkbox"
                 />
@@ -240,7 +225,6 @@
                     id="display_panel_book_lost_editing"
                     type="checkbox"
                     bind:checked={localBookData.lost}
-                    onchange={(e) => updateField("lost", e.target.checked)}
                 />
                 <label style="margin-left: 0.3em;">Lost</label>
             </div>
@@ -251,14 +235,12 @@
             type="number"
             min="0"
             bind:value={localBookData.price}
-            oninput={(e) => updateField("price", e.target.value)}
         />
         <Input
             style="margin-bottom:1em"
             label="Cover Image URL"
             placeholder="Automatic"
             bind:value={localBookData.preview_url_override}
-            oninput={(e) => updateField("preview_url_override", e.target.value)}
         />
     </div>
 </div>
