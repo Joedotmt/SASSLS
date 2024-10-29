@@ -72,6 +72,10 @@
 
     function handleBookClick(event) {
         const bookId = event.detail.id;
+        if (bookId == "create") {
+            dispatch("selectBook", { id: bookId, data: { id: "create" } });
+            return;
+        }
         const bookData = books.find((book) => book.id === bookId);
         dispatch("selectBook", { id: bookId, data: bookData });
     }

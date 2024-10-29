@@ -10,6 +10,12 @@
     let { selectedBookData } = $props();
     let display_mode = $state("none");
 
+    $effect(() => {
+        if (selectedBookData?.id == "create") {
+            display_mode = "edit";
+        }
+    });
+
     function foo(bd) {
         if (bd != undefined && browser) display_mode = "display";
         else display_mode = "none";

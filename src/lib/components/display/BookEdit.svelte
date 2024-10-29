@@ -45,21 +45,7 @@
     }
 
     async function updateBook(data) {
-        const record = await pb.collection("books").update(localBookData.id, {
-            title: localBookData.title,
-            author: localBookData.author,
-            isbn: localBookData.isbn,
-            description: localBookData.description,
-            classification_label: localBookData.classification_label,
-            level: localBookData.level,
-            subject: localBookData.subject,
-            scrapped: localBookData.scrapped,
-            lost: localBookData.lost,
-            price: localBookData.price,
-            preview_url_override: localBookData.preview_url_override,
-            // Include any other fields that need to be updated
-        });
-        return record;
+        return await pb.collection("books").update(data.id, { ...data });
     }
 
     $inspect(localBookData);

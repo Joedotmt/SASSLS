@@ -19,7 +19,7 @@
         selectedIds = $bindable([]),
         multiple = true,
         optional = true,
-        defaultId = null
+        defaultId = null,
     } = $props();
 
     const dispatch = createEventDispatcher();
@@ -68,7 +68,7 @@
     {#each items as item (item.id)}
         <Chip
             checked={selectedIds.includes(item.id)}
-            on:change={(event) =>
+            onchange={(event) =>
                 handleChipChange(item.id, event.detail.checked)}
         >
             {item.label}

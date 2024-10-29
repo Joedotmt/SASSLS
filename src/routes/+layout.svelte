@@ -79,6 +79,6 @@ let {children} = $props()
 
 <TopBar on:accBtnPress={openDialog} />
 
-<AccountDialog bind:isOpen={isDialogOpen} on:close={closeDialog} />
+<AccountDialog bind:isOpen={isDialogOpen} onclose={closeDialog} />
 
 {@render children()}
