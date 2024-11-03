@@ -1,5 +1,5 @@
 <script>
-    import { run } from 'svelte/legacy';
+    import { run } from "svelte/legacy";
 
     const defaultSelectedBookData = {
         preview_url_override: "",
@@ -29,7 +29,6 @@
         dispatch("EditButton");
     }
 
-
     import { BookSubjectsStore } from "$lib/levels.js";
     /**
      * @typedef {Object} Props
@@ -38,7 +37,11 @@
      */
 
     /** @type {Props} */
-    let { selectedBookData = $bindable(defaultSelectedBookData), lending_mode = false } = $props();
+    let {
+        style = "",
+        selectedBookData = $bindable(defaultSelectedBookData),
+        lending_mode = false,
+    } = $props();
     let subjectLabel = $state("");
     run(() => {
         if (selectedBookData == undefined) {
@@ -51,12 +54,14 @@
             const foundSubject = $BookSubjectsStore.find(
                 (subj) => subj.id === selectedBookData.subject,
             );
-            subjectLabel = foundSubject ? foundSubject.subject : "Unknown subject";
+            subjectLabel = foundSubject
+                ? foundSubject.subject
+                : "Unknown subject";
         }
     });
 </script>
 
-<div class="display_panel_display">
+<div {style} class="display_panel_display">
     <div class="display-area-quick-buttons">
         {#if lending_mode}
             <div>
@@ -123,7 +128,7 @@
                                         justify-content: center;
                                     "
                 >
-                    <div style="justify-self: end;">
+                    <div style="justify-self: end; text-wrap:nowrap">
                         CLL: {selectedBookData.classification_label}
                     </div>
                     <div>

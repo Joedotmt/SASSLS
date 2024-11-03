@@ -11,18 +11,14 @@
     let subjectChips = $state([]);
     let resourceSubjectChips = $state([]);
 
-    let { searchPanelState = $bindable({
-        selectedSubjects: [],
-        selectedLevels: [],
-        showingIdType: "",
-        sort: ["-", "created"],
-    }) } = $props();
+    let { searchState = $bindable({subjects, levels, sortType:"created", sortOrder : "-"})} = $props();
 
+    
 
     function mapToChips(records) {
         const mapToChips = (subject) => ({
             label: subject.subject,
-            id: subject.subject,
+            id: subject.id,
         });
         subjectChips = records.filter((s) => !s.resource).map(mapToChips);
         resourceSubjectChips = records
@@ -50,7 +46,7 @@
                 
             >
                 <ChipGroup
-                    bind:selectedIds={searchPanelState.sort[1]}
+                    bind:selectedIds={searchState.sortType}
                     multiple={false}
                     optional={false}
                     defaultId={"created"}
@@ -63,7 +59,7 @@
                     ]}
                 />
                 <SortButton
-                    bind:value={searchPanelState.sort[0]}
+                    bind:value={searchState.sortOrder}
                     style="margin:0.5em; width:100px"
                 />
             </div>
@@ -79,13 +75,13 @@
                 <TabView bind:currentTab>
                     {#snippet content1()}
                         <ChipGroup
-                            bind:selectedIds={searchPanelState.selectedSubjects}
+                            bind:selectedIds={searchState.subjects}
                             items={subjectChips}
                         />
                     {/snippet}
                     {#snippet content2()}
                         <ChipGroup
-                            bind:selectedIds={searchPanelState.selectedSubjects}
+                            bind:selectedIds={searchState.subjects}
                             items={resourceSubjectChips}
                         />
                     {/snippet}
@@ -100,13 +96,13 @@
         {#snippet details()}
                 <div >
                 <ChipGroup
-                    bind:selectedIds={searchPanelState.selectedLevels}
+                    bind:selectedIds={searchState.levels}
                     items={$BookLevelsStore}
                 />
             </div>
             {/snippet}
     </Accordion>
-    <select style="width: 100%;" bind:value={searchPanelState.showingIdType}>
+    <select style="width: 100%;" bind:value={searchState.showingIdType}>
         <option value="both">Both</option>
         <option value="old">Old ID</option>
         <option value="new">New ID</option>

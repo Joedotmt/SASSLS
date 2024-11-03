@@ -2,17 +2,6 @@
     import { createEventDispatcher, onMount } from "svelte";
     import Chip from "$lib/components/Chip.svelte";
 
-    /**
-     * @typedef {Object} Props
-     * @property {string} [style]
-     * @property {any} [items]
-     * @property {any} [selectedIds]
-     * @property {boolean} [multiple]
-     * @property {boolean} [optional]
-     * @property {any} [defaultId]
-     */
-
-    /** @type {Props} */
     let {
         style = "",
         items = [],

@@ -10,8 +10,8 @@ export const BookLevelsStore = readable([
     { label: "Red", id: "Red" }
 ]);
 
-export let BookSubjectsStore = writable(null);
 
+export let BookSubjectsStore = writable(null);
 export async function fetchGlobalSubjects()
 {
     try

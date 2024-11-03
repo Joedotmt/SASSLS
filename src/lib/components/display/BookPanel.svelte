@@ -1,28 +1,42 @@
 <script>
     import BookDisplay from "./BookDisplay.svelte";
     import BookEdit from "./BookEdit.svelte";
-    import { createEventDispatcher } from "svelte";
+    import { untrack } from "svelte";
 
-    const dispatch = createEventDispatcher();
+    let { books, selectedBookId = $bindable("") } = $props();
 
-    let { selectedBookData } = $props();
+    let selectedBookData = $derived(
+        getSelectedBookData(
+            untrack(() => books),
+            selectedBookId,
+        ),
+    );
+
+    function getSelectedBookData(books, selectedBookId) {
+        return books.find((book) => book.id === selectedBookId);
+    }
+
+    function handleBookSave() {
+        // Forcing Triggering Reactivity
+        // So it updates the books details
+        const old = selectedBookId;
+        selectedBookId = "";
+        selectedBookId = old;
+    }
+
     let display_mode = $state("none");
 
     $effect(() => {
-        onBookChange(selectedBookData);
+        display_mode = getDisplayMode(selectedBookId);
     });
-
-    function onBookChange(bd) {
-        console.log(JSON.stringify(bd));
-        if (bd == null) {
-            display_mode = "none";
-            return;
+    function getDisplayMode(id) {
+        if (id == "create") {
+            return "edit";
         }
-        if (bd?.id == "create") {
-            display_mode = "edit";
-            return;
+        if (id != "") {
+            return "display";
         }
-        display_mode = "display";
+        return "none";
     }
 
     function EditButtonClicked() {
@@ -33,23 +47,18 @@
         }
     }
 
-    function handleBookUpdate(event) {
-        // Forward the update event to the parent
-        dispatch("bookUpdate", event.detail);
-    }
-
-    function close_panel() {
-        selectedBookData = null;
+    function unselect_book() {
+        selectedBookId = "";
     }
 </script>
 
 <div
-    style="max-width: {display_mode == 'none' ? 0 : 'unset'}px;"
+    style="flex-grow: {display_mode == 'none' ? 0 : 1};"
     id="display_area"
     class="display-area panel"
 >
     <button
-        onclick={close_panel}
+        onclick={unselect_book}
         class="button-circle"
         style="position:absolute; left:5px; top:5px; z-index:6; border:none; width:40px; height:40px"
         ><span class="symbol">arrow_back</span></button
@@ -57,10 +66,22 @@
     {#if display_mode === "edit"}
         <BookEdit
             on:EditButton={EditButtonClicked}
-            on:bookUpdate={handleBookUpdate}
+            on:bookUpdate={handleBookSave}
             {selectedBookData}
         />
     {:else if display_mode === "display"}
-        <BookDisplay on:EditButton={EditButtonClicked} {selectedBookData} />
+        <BookDisplay
+            style="opacity:1"
+            on:EditButton={EditButtonClicked}
+            {selectedBookData}
+        />
     {/if}
 </div>
+
+<style>
+    #display_area {
+        interpolate-size: allow-keywords;
+        width: 100%;
+        transition: 0.5s flex-grow ease-in-out;
+    }
+</style>

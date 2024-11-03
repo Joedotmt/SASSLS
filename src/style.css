@@ -185,10 +185,11 @@ body
     display: flex;
     z-index: 5;
     border-bottom: 0px solid var(---neutral-variant60);
-    position: sticky;
+    position: relative;
     top: 0;
     background: var(---surface-3);
     height: 50px;
+    width: 100%;
 }
 
 .account-dialog
@@ -675,14 +676,6 @@ body.hasHover .button-circle:hover
     width: 9em;
 }
 
-@media (min-width:751px)
-{
-    .display-area
-    {
-        flex-basis: 8em;
-    }
-}
-
 .logo-text
 {
     user-select: none;
@@ -836,11 +829,6 @@ body.hasHover .tooltip:hover .tooltiptext
 .list-area
 {
     overflow-y: hidden;
-}
-
-.display-area
-{
-    transition: 5s max-width;
 }
 
 

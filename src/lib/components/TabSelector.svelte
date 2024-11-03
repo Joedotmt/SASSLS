@@ -1,14 +1,9 @@
 <script>
-    
-    /**
-     * @typedef {Object} Props
-     * @property {any} [tabs] - Define tabs
-     * @property {number} [currentTab]
-     * @property {string} [style]
-     */
-
-    /** @type {Props} */
-    let { tabs = ["Subjects", "Resources"], currentTab = $bindable(0), style = "" } = $props();
+    let {
+        tabs = ["Subjects", "Resources"],
+        currentTab = $bindable(0),
+        style = "",
+    } = $props();
 
     // Function to change the active tab
     function setActive(index) {
@@ -31,7 +26,7 @@
         class="active-indicator"
         style="width:{(1 / tabs.length) *
             100}%; transform: translateX({currentTab * 100}%);"
-></div>
+    ></div>
 </div>
 
 <style>

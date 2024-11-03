@@ -1,5 +1,4 @@
 <script>
-    import { run } from "svelte/legacy";
     import { onDestroy, createEventDispatcher } from "svelte";
     import pb from "$lib/pocketbase";
     import ListItem from "./ListItem.svelte";
@@ -7,10 +6,74 @@
     import LoadingBar from "./LoadingBar.svelte";
     import ListItemCreate from "./ListItemCreate.svelte";
 
-    let books = $state([]);
+    let {
+        searchState = {},
+        selectedBookId = $bindable(""),
+        books = $bindable([]),
+    } = $props();
+
     let isLoading = $state(true);
     let error = $state(null);
-    const dispatch = createEventDispatcher();
+
+    function createPbSort(state) {
+        return state.sortOrder + state.sortType;
+    }
+    function createPbFilter(state) {
+        let subjectFilter = "";
+        let levelFilter = "";
+
+        if (state.subjects.length >= 1) {
+            subjectFilter = state.subjects
+                .map((subject) => `subject.id='${subject}'`)
+                .join(" || ");
+            subjectFilter = `(${subjectFilter})`;
+        }
+
+        if (state.levels.length >= 1) {
+            levelFilter = state.levels
+                .map((label) => `level='${label}'`)
+                .join(" || ");
+
+            levelFilter = `(${levelFilter})`;
+        }
+
+        let extra = [subjectFilter, levelFilter].filter(Boolean);
+
+        if (state.showingIdType === "old") {
+            extra.push(`legacy_book_id !~ 'DEPRECATED_'`);
+        } else if (state.showingIdType === "new") {
+            extra.push(`legacy_book_id ~ 'DEPRECATED_'`);
+        }
+
+        const bookLazyFields = ["title", "isbn"];
+        const bookExactFields = ["legacy_book_id", "book_id"];
+
+        let filter = state.query
+            .split(" ")
+            .map((token) => token.trim())
+            .filter((token) => token !== "")
+            .map((cleanToken) => {
+                const lazyConditions = bookLazyFields
+                    .map((field) => `${field} ~ "%${cleanToken}%"`)
+                    .join(" || ");
+                const exactConditions = bookExactFields
+                    .map((field) => `${field} = "${cleanToken}"`)
+                    .join(" || ");
+                return `(${lazyConditions}${exactConditions ? " || " + exactConditions : ""})`;
+            })
+            .join(" && ");
+
+        let extraFilter = extra.join(" && ");
+
+        if (filter && extraFilter) {
+            return `${filter} && ${extraFilter}`;
+        } else if (filter) {
+            return filter;
+        } else if (extraFilter) {
+            return extraFilter;
+        }
+        return filter;
+    }
 
     async function fetchBooks(filter, sort) {
         if (browser) {
@@ -56,32 +119,22 @@
         pb.collection("books").unsubscribe();
     });
 
-    /**
-     * @typedef {Object} Props
-     * @property {string} [searchQuery]
-     * @property {string} [sortPb]
-     * @property {string} [selectedBookId]
-     */
-
-    /** @type {Props} */
-    let {
-        searchQuery = "",
-        sortPb = "-created",
-        selectedBookId = "",
-    } = $props();
+    // function handleBookClick(event) {
+    //     const bookId = event.detail.id;
+    //     if (bookId == "create") {
+    //         dispatch("selectBook", { id: bookId, data: { id: "create" } });
+    //         return;
+    //     }
+    //     const bookData = books.find((book) => book.id === bookId);
+    //     dispatch("selectBook", { id: bookId, data: bookData });
+    // }
 
     function handleBookClick(event) {
-        const bookId = event.detail.id;
-        if (bookId == "create") {
-            dispatch("selectBook", { id: bookId, data: { id: "create" } });
-            return;
-        }
-        const bookData = books.find((book) => book.id === bookId);
-        dispatch("selectBook", { id: bookId, data: bookData });
+        selectedBookId = event.detail;
     }
 
-    run(() => {
-        fetchBooks(searchQuery, sortPb);
+    $effect(() => {
+        fetchBooks(createPbFilter(searchState), createPbSort(searchState));
     });
 </script>
 

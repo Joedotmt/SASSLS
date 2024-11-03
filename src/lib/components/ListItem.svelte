@@ -7,7 +7,7 @@
 
     function handleClick() {
         //isSelected = true;
-        dispatch("ItemClick", { id: item.id });
+        dispatch("ItemClick", item.id);
     }
 
     function getBorrowerImageGroup(group) {
