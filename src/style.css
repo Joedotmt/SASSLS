@@ -839,7 +839,9 @@ body.hasHover .tooltip:hover .tooltiptext
 }
 
 .display-area
-{}
+{
+    transition: 5s max-width;
+}
 
 
 .list-area-search

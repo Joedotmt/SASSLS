@@ -68,7 +68,7 @@
     {#each items as item (item.id)}
         <Chip
             checked={selectedIds.includes(item.id)}
-            onchange={(event) =>
+            on:clicked={(event) =>
                 handleChipChange(item.id, event.detail.checked)}
         >
             {item.label}

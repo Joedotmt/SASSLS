@@ -47,15 +47,6 @@
     async function updateBook(data) {
         return await pb.collection("books").update(data.id, { ...data });
     }
-
-    $inspect(localBookData);
-
-    // Make sure local data stays in sync with props
-    $effect(() => {
-        if (selectedBookData) {
-            localBookData = { ...selectedBookData };
-        }
-    });
 </script>
 
 <div class="display_panel_edit" id="display_panel_edit_details">

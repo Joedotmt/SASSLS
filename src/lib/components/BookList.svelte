@@ -17,7 +17,7 @@
             isLoading = true;
             error = null;
             try {
-                const records = await pb.collection("books").getList(1, 200, {
+                const records = await pb.collection("books").getList(1, 10, {
                     filter: filter,
                     sort: sort,
                     requestKey: null,
@@ -91,7 +91,7 @@
     height: 100%;"
 >
     {#if isLoading}
-        <div class="fade-in" style="width: 30%; margin:auto;">
+        <div class="fade-in" style="width: 50%; margin:auto;">
             <LoadingBar />
             Loading Books
         </div>

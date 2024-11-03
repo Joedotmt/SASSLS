@@ -21,13 +21,6 @@
     let pbFilter = $state("");
     let pbSort = $state("-created");
     
-    const defaultState = {
-        selectedSubjects: [],
-        selectedLevels: [],
-        showingIdType: "both",
-        sort: ["-", ["created"]],
-    };
-    
     let searchPanelState = $state({
         selectedSubjects: [],
         selectedLevels: [],
@@ -73,11 +66,7 @@
         if (!browser) return;
         let hash = "";
 
-        if (state && JSON.stringify(state) !== JSON.stringify(defaultState)) {
-            hash = `search=${search}&filter=${JSON.stringify(state)}`;
-        } else if (search) {
-            hash = `search=${search}`;
-        }
+        hash = `search=${search}&filter=${JSON.stringify(state)}`;
 
         window.location.hash = hash;
     }

@@ -41,8 +41,7 @@
 
 <style>
     div.accordion {
-        margin: 0.3em 0;
-        margin-bottom: 0.3em;
+        margin: 0;
         transition: 0.2s;
         interpolate-size: allow-keywords;
     }

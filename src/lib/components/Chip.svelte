@@ -25,7 +25,7 @@
     function handleClick() {
         if (!disabled) {
             checked = !checked;
-            dispatch("change", { checked });
+            dispatch("clicked", { checked });
         }
     }
 

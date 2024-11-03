@@ -71,7 +71,7 @@
     </Accordion>
     <Accordion expandedHeight={400}>
         {#snippet head()}
-                <span >Subjects</span>
+                <span>Subjects</span>
             {/snippet}
         {#snippet details()}
                 <div >

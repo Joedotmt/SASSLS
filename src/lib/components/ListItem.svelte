@@ -6,7 +6,7 @@
     const dispatch = createEventDispatcher();
 
     function handleClick() {
-        isSelected = true;
+        //isSelected = true;
         dispatch("ItemClick", { id: item.id });
     }
 
