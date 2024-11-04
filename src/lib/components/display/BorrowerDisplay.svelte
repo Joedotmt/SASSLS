@@ -1,25 +1,7 @@
 <script>
     import { run } from "svelte/legacy";
 
-    const defaultSelectedBookData = {
-        preview_url_override: "",
-        title: "",
-        author: "",
-        id: "",
-        created: "",
-        updated: "",
-        legacy_date_entered: "",
-        subject: "",
-        level: "",
-        price: "",
-        classification_label: "",
-        isbn: "",
-        book_id: "",
-        legacy_book_id: "",
-        description: "",
-        lost: true,
-        scrapped: true,
-    };
+    const defaultselectedBorrowerData = {};
 
     import { createEventDispatcher } from "svelte";
 
@@ -29,185 +11,77 @@
         dispatch("EditButton");
     }
 
-    import { BookSubjectsStore } from "$lib/levels.js";
-    /**
-     * @typedef {Object} Props
-     * @property {any} [selectedBookData]
-     * @property {boolean} [lending_mode]
-     */
-
-    /** @type {Props} */
     let {
         style = "",
-        selectedBookData = $bindable(defaultSelectedBookData),
+        selectedBorrowerData = $bindable(defaultselectedBorrowerData),
         lending_mode = false,
     } = $props();
     let subjectLabel = $state("");
     run(() => {
-        if (selectedBookData == undefined) {
-            selectedBookData = defaultSelectedBookData;
-        }
-    });
-    // Subscribe to the BookSubjectsStore to get the list of subjects
-    run(() => {
-        if (selectedBookData.subject && $BookSubjectsStore) {
-            const foundSubject = $BookSubjectsStore.find(
-                (subj) => subj.id === selectedBookData.subject,
-            );
-            subjectLabel = foundSubject
-                ? foundSubject.subject
-                : "Unknown subject";
+        if (selectedBorrowerData == undefined) {
+            selectedBorrowerData = defaultselectedBorrowerData;
         }
     });
 </script>
 
 <div {style} class="display_panel_display">
     <div class="display-area-quick-buttons">
-        {#if lending_mode}
+        <button
+            id="returnbutton54985t8_borrower"
+            style="border: 0; margin: 5px; margin-right: 0; margin-left: auto; width:8em"
+        >
+            <div id="returntextjinfo4_borrower">Return All</div>
+        </button>
+        <button
+            id="edit_button_borrower"
+            style="margin: 5px; margin-right: 5px; width:8em"
+        >
+            <div style="pointer-events: none;" id="edit_button_borrower_label">
+                Edit
+            </div>
+        </button>
+    </div>
+    <div style="margin: 1em;" id="display_panel_details_borrower">
+        <div style="display: flex; font-size: 2em; font-weight: bold;">
             <div>
-                <button
-                    style="margin: 5px; border: none; background-color: var(---primary); width: 100%; padding: 0 1.1em;"
-                >
-                    <div
-                        style="pointer-events: none; color: var(---background);"
-                    >
-                        Lend book to borrower
-                    </div>
-                </button>
-            </div>
-        {:else}
-            <div style="display: flex; margin-left: auto;">
-                <button
-                    style="border: 0; margin: 5px; margin-right: 0; margin-left: auto; width:8em"
-                >
-                    Return
-                </button>
-                <button
-                    onclick={editButton}
-                    style="margin: 5px; margin-right: 5px; width:8em"
-                >
-                    Edit
-                </button>
-            </div>
-        {/if}
-    </div>
-    <div class="display-panel-book-general">
-        <div
-            style="margin: 0.5em; display: flex; flex-direction: column; justify-content: center;"
-        >
-            <img
-                class="display_panel_book_cover"
-                src={selectedBookData.preview_url_override}
-                alt="book cover"
-            />
-        </div>
-        <div
-            style="padding: 0.5em; font-size: 1.1em; display: flex; flex-direction: column; width: 100%;"
-        >
-            <div style="font-weight: bold; font-size: min(7vw, 2em);">
-                {selectedBookData.title}
-            </div>
-            <div
-                style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; font-size: 0.9em;"
-            >
-                <div>
-                    by {selectedBookData.author}
-                </div>
-            </div>
-            <div class="e00j430985t">
-                <div
-                    style="
-                                        background-color: var(---surface-1);
-                                        padding: 0.5em;
-                                        flex-grow: 1;
-                                        border-radius: 0.5em;
-                                        margin-top: 0.2em;
-                                        font-family: var(--the-font);
-                                        display: flex;
-                                        flex-direction: column;
-                                        justify-content: center;
-                                    "
-                >
-                    <div style="justify-self: end; text-wrap:nowrap">
-                        CLL: {selectedBookData.classification_label}
-                    </div>
-                    <div>
-                        ISBN: {selectedBookData.isbn}
-                    </div>
-                    <div>
-                        ID: {selectedBookData.book_id}
-                    </div>
-                    {#if !selectedBookData.legacy_book_id?.includes("DEPRECATED_")}
-                        <div>
-                            IDL: {selectedBookData.legacy_book_id}
-                        </div>
-                    {/if}
-                </div>
+                {selectedBorrowerData.name}
+                {selectedBorrowerData.surname}
             </div>
         </div>
-    </div>
-    <div style="margin: 0.8em; margin-top: 0.5em;">
-        Description
         <div
-            style="padding: 0.5em; width: calc(100% - 1em); height: 5em; border-radius: 0.5em; background-color: var(---surface-1);"
+            style="background-color: var(---surface-3); border-radius: 0.4em; padding: 0.5em; font-size: 1.2em; font-family: var(--the-robo-font);"
         >
-            {selectedBookData.description}
+            <div id="dpdb_group">Group: {selectedBorrowerData.group}</div>
+            <div id="dpdb_borrower_id">
+                ID: {selectedBorrowerData.borrower_id}
+            </div>
         </div>
-    </div>
-
-    {#if selectedBookData.lost}
-        <div style="margin: 0.8em; margin-top: 0.5em; margin-bottom: 0.3em;">
-            <div
-                style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(---primary-container);"
+        <div style="font-size: 1.3em; font-weight: bold; margin-top: 0.5em;">
+            Currently borrowing books:
+        </div>
+        <div id="borrower_currently_borrowing_books"></div>
+        <div
+            style="border-top: solid var(---surface-5) 2px; display: flex; width: 100%;"
+        >
+            <button
+                id="dpdb_add_button"
+                style="width: fit-content; height: 2.6em; padding: 1.2em; margin-top: 0.4em;"
             >
                 <span
-                    style="translate: 0 5px;"
-                    class="material-symbols-outlined"
+                    style="user-select: none; font-size: 1.5em; margin: 0.2em;"
+                    class="button-icon material-symbols-outlined"
                 >
-                    warning
-                </span>&nbsp Book marked as lost
-            </div>
+                    library_add
+                </span>
+                <div>Lend book</div>
+            </button>
         </div>
-    {/if}
-    {#if selectedBookData.scrapped}
-        <div style="margin: 0.8em; margin-top: 0em;">
-            <div
-                style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(---primary-container);"
-            >
-                <span
-                    style="translate: 0 5px;"
-                    class="material-symbols-outlined"
-                >
-                    warning
-                </span>&nbsp Book marked as scrapped
-            </div>
+        <div style="margin-top: 100%;" id="dpdb_created">
+            Updated: {selectedBorrowerData.created}
         </div>
-    {/if}
-    {#if selectedBookData.price > 0}
-        <div style="margin: 0.8em; margin-top: 0.5em;">
-            Price: {selectedBookData.price} EUR
+        <div id="dpdb_updated">Updated: {selectedBorrowerData.updated}</div>
+        <div id="dpdb_id" style="opacity: 0.5;">
+            SYS_ID: {selectedBorrowerData.id}
         </div>
-    {/if}
-
-    <div style="margin: 0.8em; margin-top: 0.5em;">
-        Subject: {subjectLabel}
-    </div>
-
-    <div style="margin: 0.8em; margin-top: 0.5em;">
-        Level: {selectedBookData.level}
-    </div>
-    <div style="margin: 0.8em; margin-top: 0.5em;">
-        Updated: {selectedBookData.updated}
-    </div>
-    {#if selectedBookData.legacy_date_entered !== ""}
-        <div style="margin: 0.8em; margin-top: 0.5em;">
-            Legacy Created: {selectedBookData.legacy_date_entered}
-        </div>
-    {/if}
-    <div style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
-        SYS_CREATED: {selectedBookData.created}
-    </div>
-    <div style="margin: 0.8em; margin-top: 0.5em; opacity: 0.5;">
-        SYS_ID: {selectedBookData.id}
     </div>
 </div>

@@ -3,7 +3,7 @@
     // import SearchPanel from "$lib/components/SearchPanel.svelte";
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
-    // import borrowerPanel from "$lib/components/display/borrowerPanel.svelte";
+    import BorrowerPanel from "$lib/components/display/BorrowerPanel.svelte";
 
     let searchState = $state({
         query: "",
@@ -11,7 +11,7 @@
         sortOrder: "-",
     });
     let borrowers = $state([]);
-    let selectedborrowerId = $state("");
+    let selectedBorrowerId = $state("");
 
     onMount(() => {
         // fetchGlobalSubjects();
@@ -59,9 +59,9 @@
                 />
             </div>
         </div>
-        <BorrowerList {searchState} bind:borrowers bind:selectedborrowerId />
+        <BorrowerList {searchState} bind:borrowers bind:selectedBorrowerId />
     </div>
-    <!-- <borrowerPanel bind:selectedborrowerId {borrowers} /> -->
+    <BorrowerPanel bind:selectedBorrowerId {borrowers} />
 </div>
 
 <style>

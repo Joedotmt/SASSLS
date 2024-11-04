@@ -8,7 +8,7 @@
 
     let {
         searchState = {},
-        selectedborrowerId: selectedBorrowerId = $bindable(""),
+        selectedBorrowerId: selectedBorrowerId = $bindable(""),
         borrowers: borrowers = $bindable([]),
     } = $props();
 

@@ -1,36 +1,36 @@
 <script>
-    import BookDisplay from "./BookDisplay.svelte";
-    import BookEdit from "./BookEdit.svelte";
+    import BorrowerDisplay from "./BorrowerDisplay.svelte";
+    import BorrowerEdit from "./BorrowerEdit.svelte";
     import { untrack } from "svelte";
 
-    let { books, selectedBookId = $bindable("") } = $props();
+    let { borrowers, selectedBorrowerId = $bindable("") } = $props();
 
-    let selectedBookData = $derived(
-        getSelectedBookData(
-            untrack(() => books),
-            selectedBookId,
+    let selectedBorrowerData = $derived(
+        getSelectedBorrowerData(
+            untrack(() => borrowers),
+            selectedBorrowerId,
         ),
     );
 
-    function getSelectedBookData(books, selectedBookId) {
-        if (selectedBookId == "create") {
+    function getSelectedBorrowerData(borrowers, selectedBorrowerId) {
+        if (selectedBorrowerId == "create") {
             return { id: "create" };
         }
-        return books.find((book) => book.id === selectedBookId);
+        return borrowers.find((borrower) => borrower.id === selectedBorrowerId);
     }
 
-    function handleBookSave() {
+    function handleBorrowerSave() {
         // Forcing Triggering Reactivity
-        // So it updates the books details
-        const old = selectedBookId;
-        selectedBookId = "";
-        selectedBookId = old;
+        // So it updates the borrowers details
+        const old = selectedBorrowerId;
+        selectedBorrowerId = "";
+        selectedBorrowerId = old;
     }
 
     let display_mode = $state("none");
 
     $effect.pre(() => {
-        display_mode = getDisplayMode(selectedBookId);
+        display_mode = getDisplayMode(selectedBorrowerId);
     });
     function getDisplayMode(id) {
         if (id == "create") {
@@ -50,8 +50,8 @@
         }
     }
 
-    function unselect_book() {
-        selectedBookId = "";
+    function unselect_borrower() {
+        selectedBorrowerId = "";
     }
 </script>
 
@@ -61,23 +61,23 @@
     class="display-area panel"
 >
     <button
-        onclick={unselect_book}
+        onclick={unselect_borrower}
         class="button-circle"
         style="position:absolute; left:5px; top:5px; z-index:6; border:none; width:40px; height:40px"
         ><span class="symbol">arrow_back</span></button
     >
     {#if display_mode === "edit"}
-        <BookEdit
+        <!-- <BorrowerEdit
             on:EditButton={EditButtonClicked}
-            on:bookUpdate={handleBookSave}
-            on:deleteButton={unselect_book}
-            {selectedBookData}
-        />
+            on:borrowerUpdate={handleBorrowerSave}
+            on:deleteButton={unselect_borrower}
+            {selectedBorrowerData}
+        /> -->
     {:else if display_mode === "display"}
-        <BookDisplay
+        <BorrowerDisplay
             style="opacity:1"
             on:EditButton={EditButtonClicked}
-            {selectedBookData}
+            {selectedBorrowerData}
         />
     {/if}
 </div>

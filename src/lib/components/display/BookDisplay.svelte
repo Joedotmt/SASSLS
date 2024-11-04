@@ -1,25 +1,7 @@
 <script>
     import { run } from "svelte/legacy";
 
-    const defaultSelectedBookData = {
-        preview_url_override: "",
-        title: "",
-        author: "",
-        id: "",
-        created: "",
-        updated: "",
-        legacy_date_entered: "",
-        subject: "",
-        level: "",
-        price: "",
-        classification_label: "",
-        isbn: "",
-        book_id: "",
-        legacy_book_id: "",
-        description: "",
-        lost: true,
-        scrapped: true,
-    };
+    const defaultSelectedBookData = {};
 
     import { createEventDispatcher } from "svelte";
 
@@ -30,13 +12,7 @@
     }
 
     import { BookSubjectsStore } from "$lib/levels.js";
-    /**
-     * @typedef {Object} Props
-     * @property {any} [selectedBookData]
-     * @property {boolean} [lending_mode]
-     */
 
-    /** @type {Props} */
     let {
         style = "",
         selectedBookData = $bindable(defaultSelectedBookData),
