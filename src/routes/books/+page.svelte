@@ -16,6 +16,18 @@
     let books = $state([]);
     let selectedBookId = $state("");
 
+    onMount(() => {
+        fetchGlobalSubjects();
+        const hashParams = new URLSearchParams(window.location.hash.slice(1));
+        if (hashParams.size) {
+            searchState = JSON.parse(hashParams.get("search"));
+        }
+    });
+
+    $effect(() => {
+        updateWindowHash(searchState);
+    });
+
     // let selectedBookData = $state(null);
     // let searchInput = $state("");
     // let pbFilter = $state("");
@@ -28,10 +40,6 @@
     //     sort: ["-", ["created"]],
     // });
 
-    onMount(() => {
-        fetchGlobalSubjects();
-    });
-
     // if (browser) {
     //     const hashParams = new URLSearchParams(window.location.hash.slice(1));
     //     if (hashParams.size) {
@@ -40,14 +48,14 @@
     //     }
     // }
 
-    // function updateWindowHash(search, state) {
-    //     if (!browser) return;
-    //     let hash = "";
+    function updateWindowHash(state) {
+        if (!browser) return;
+        let hash = "";
 
-    //     hash = `search=${search}&filter=${JSON.stringify(state)}`;
+        hash = `search=${JSON.stringify(state)}`;
 
-    //     window.location.hash = hash;
-    // }
+        window.location.hash = hash;
+    }
 
     // function changeState() {
     //     searchPanelState = {
