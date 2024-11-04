@@ -12,7 +12,7 @@
     let books = $state([])
     let selectedBookId = $state("")
 
-    $inspect(books)
+
 
     // let selectedBookData = $state(null);
     // let searchInput = $state("");
@@ -38,11 +38,7 @@
     //     }
     // }
 
-    function handleSearchKeyDown(event) {
-        if (event.key === "Enter") {
-            // doSearch();
-        }
-    }
+
 
 
     // function updateWindowHash(search, state) {
@@ -67,6 +63,17 @@
     // run(() => {
     //     searchPanelState, doSearch();
     // });
+
+
+    function handleSearchKeyDown(event) {
+    if (event.key === "Enter") {
+        searchBarChanged(event)
+    }
+    }
+    function searchBarChanged(event)
+    {
+        searchState.query = event.target.value
+    }
 </script>
 
 <div class="container">
@@ -79,7 +86,7 @@
                     type="text"
                     class="main-search-bar"
                     placeholder="Search Books"
-                    bind:value={searchState.query}
+                    onchange={searchBarChanged}
                     onkeydown={handleSearchKeyDown}
                 />
             </div>

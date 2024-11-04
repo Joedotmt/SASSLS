@@ -1,13 +1,15 @@
 <script>
     import { createEventDispatcher } from "svelte";
+    import pb from "$lib/pocketbase";
 
     let { itemType, item = $bindable(), isSelected = $bindable() } = $props();
 
     const dispatch = createEventDispatcher();
 
-    function handleClick() {
+    async function handleClick() {
         isSelected = true;
-        dispatch("ItemClick", { id: item.id });
+
+        dispatch("ItemClick", item.id);
     }
     item = {
         id: "create",

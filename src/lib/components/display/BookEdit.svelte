@@ -7,16 +7,66 @@
     const dispatch = createEventDispatcher();
 
     let { selectedBookData } = $props();
-    let localBookData = $state({ ...selectedBookData });
     let levelChips = $BookLevelsStore;
+
+    let isCreation = $derived(localBookData.id == null);
+    let localBookData = $derived(updateLocalBookData());
+
+    function updateLocalBookData() {
+        if (selectedBookData?.id != "create") {
+            return selectedBookData;
+        }
+
+        return {
+            title: "",
+            author: "",
+            legacy_book_id: "DEPRECATED_",
+            isbn: "",
+            description: "",
+            book_id: "",
+            classification_label: "",
+            level: "",
+            subject: "",
+            scrapped: false,
+            lost: false,
+            preview_url_override: "",
+            price: "",
+        };
+    }
+
+    function create_random_string(length) {
+        const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        let result = "";
+        for (let i = 0; i < length; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    }
+
+    async function generate_unique_book_id() {
+        let generated_id = "";
+        for (let i = 0; i < 1000; i++) {
+            try {
+                generated_id = create_random_string(4);
+
+                await pb
+                    .collection("books")
+                    .getFirstListItem(`book_id="${generated_id}"`);
+                console.error(
+                    "trying to generate a book id again because of collisions",
+                );
+            } catch (err) {
+                console.log("Sucessfully creaded book_id: ", generated_id);
+                return generated_id;
+            }
+        }
+    }
 
     function editButton() {
         dispatch("EditButton");
     }
 
     async function saveChanges() {
-        const isCreation = localBookData.id === "creation";
-
         try {
             let updatedRecord;
             if (isCreation) {
@@ -28,24 +78,29 @@
             dispatch("bookUpdate", updatedRecord);
             editButton();
         } catch (error) {
-            handleError(error);
+            console.error(error);
         }
     }
 
-    function handleError(error) {
-        console.error(error);
-    }
-
     async function createBook(data) {
+        await generate_unique_book_id().then((generated_id_response) => {
+            localBookData.book_id = generated_id_response;
+        });
         console.log("CREATING BOOK RECORD WITH DATA: ", data);
-        data.book_id = generatedid_book; // Make sure this is defined
-        data.legacy_book_id = "DEPRECATED_";
         const record = await pb.collection("books").create(data);
         return record;
     }
 
     async function updateBook(data) {
         return await pb.collection("books").update(data.id, { ...data });
+    }
+
+    async function deleteBook(id) {
+        if (id == "creation" || id == null) {
+            return;
+        }
+        dispatch("deleteButton");
+        return await pb.collection("books").delete(id);
     }
 </script>
 
@@ -97,19 +152,16 @@
                 border-radius: 0.5em;
                 margin-top: 0.2em;
                 font-family: var(--the-font);
-                display: flex;
+                display:{isCreation ? 'none' : 'flex'};
                 flex-direction: row;
                 justify-content: space-between;
                 margin-bottom: 1em;
             "
         >
             <div
-                style="height:2.5em; margin-right: 1em; display: flex; flex-direction: column; justify-content: center; font-family: 'roboto mono';"
+                style="display:flex; height:2.5em; margin-right: 1em; flex-direction: column; justify-content: center; font-family: 'roboto mono';"
             >
-                <div
-                    style="text-wrap: nowrap;"
-                    id="display_panel_book_book_id_editing"
-                >
+                <div style="text-wrap: nowrap;">
                     ID: {localBookData.book_id}
                 </div>
                 {#if !localBookData.legacy_book_id?.includes("DEPRECATED_")}
@@ -219,5 +271,9 @@
             placeholder="Automatic"
             bind:value={localBookData.preview_url_override}
         />
+        <button
+            style="display:{isCreation ? 'none' : 'flex'}"
+            onclick={deleteBook(localBookData.id)}>Delete Book Forever</button
+        >
     </div>
 </div>

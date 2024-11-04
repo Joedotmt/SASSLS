@@ -13,6 +13,9 @@
     );
 
     function getSelectedBookData(books, selectedBookId) {
+        if (selectedBookId == "create") {
+            return { id: "create" };
+        }
         return books.find((book) => book.id === selectedBookId);
     }
 
@@ -26,7 +29,7 @@
 
     let display_mode = $state("none");
 
-    $effect(() => {
+    $effect.pre(() => {
         display_mode = getDisplayMode(selectedBookId);
     });
     function getDisplayMode(id) {
@@ -67,6 +70,7 @@
         <BookEdit
             on:EditButton={EditButtonClicked}
             on:bookUpdate={handleBookSave}
+            on:deleteButton={unselect_book}
             {selectedBookData}
         />
     {:else if display_mode === "display"}
@@ -80,7 +84,6 @@
 
 <style>
     #display_area {
-        interpolate-size: allow-keywords;
         width: 100%;
         transition: 0.5s flex-grow ease-in-out;
     }
