@@ -1,23 +1,20 @@
 <script>
-    import BookList from "$lib/components/BookList.svelte";
-    import SearchPanel from "$lib/components/SearchPanel.svelte";
+    import BorrowerList from "$lib/components/BorrowerList.svelte";
+    // import SearchPanel from "$lib/components/SearchPanel.svelte";
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
-    import BookPanel from "$lib/components/display/BookPanel.svelte";
-    import { fetchGlobalSubjects } from "$lib/levels.js";
+    // import borrowerPanel from "$lib/components/display/borrowerPanel.svelte";
 
     let searchState = $state({
         query: "",
-        subjects: [],
-        levels: [],
         sortType: "created",
         sortOrder: "-",
     });
-    let books = $state([]);
-    let selectedBookId = $state("");
+    let borrowers = $state([]);
+    let selectedborrowerId = $state("");
 
     onMount(() => {
-        fetchGlobalSubjects();
+        // fetchGlobalSubjects();
         const hashParams = new URLSearchParams(window.location.hash.slice(1));
         if (hashParams.size) {
             searchState = JSON.parse(hashParams.get("search"));
@@ -48,7 +45,7 @@
 </script>
 
 <div class="container">
-    <SearchPanel bind:searchState />
+    <!-- <SearchPanel bind:searchState /> -->
     <div class="list-area panel">
         <div class="list-area-search">
             <div class="search-input-wrapper">
@@ -56,15 +53,15 @@
                 <input
                     type="text"
                     class="main-search-bar"
-                    placeholder="Search Books"
+                    placeholder="Search borrowers"
                     onchange={searchBarChanged}
                     onkeydown={handleSearchKeyDown}
                 />
             </div>
         </div>
-        <BookList {searchState} bind:books bind:selectedBookId />
+        <BorrowerList {searchState} bind:borrowers bind:selectedborrowerId />
     </div>
-    <BookPanel bind:selectedBookId {books} />
+    <!-- <borrowerPanel bind:selectedborrowerId {borrowers} /> -->
 </div>
 
 <style>

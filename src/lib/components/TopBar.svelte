@@ -16,7 +16,7 @@
     }
 
     function onCollectionSelectChange(event) {
-        window.location.hash = event.target.value;
+        //window.location.hash = event.target.value;
     }
 
     let collections = ["Books", "Borrowers", "Prints", "Transactions"];

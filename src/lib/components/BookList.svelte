@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, createEventDispatcher } from "svelte";
+    import { onDestroy } from "svelte";
     import pb from "$lib/pocketbase";
     import ListItem from "./ListItem.svelte";
     import { browser } from "$app/environment";
@@ -118,16 +118,6 @@
     onDestroy(() => {
         pb.collection("books").unsubscribe();
     });
-
-    // function handleBookClick(event) {
-    //     const bookId = event.detail.id;
-    //     if (bookId == "create") {
-    //         dispatch("selectBook", { id: bookId, data: { id: "create" } });
-    //         return;
-    //     }
-    //     const bookData = books.find((book) => book.id === bookId);
-    //     dispatch("selectBook", { id: bookId, data: bookData });
-    // }
 
     function handleBookClick(event) {
         selectedBookId = event.detail;
