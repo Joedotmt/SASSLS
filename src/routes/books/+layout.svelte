@@ -11,7 +11,7 @@
         subjects: [],
         levels: [],
         sortType: "created",
-        sortOrder: "-",
+        sortAscending: "true",
     });
     let books = $state([]);
     let selectedBookId = $state("");

@@ -16,7 +16,7 @@
     let error = $state(null);
 
     function createPbSort(state) {
-        return state.sortOrder + state.sortType;
+        return (state.sortAscending ? "-" : "+") + state.sortType;
     }
     function createPbFilter(state) {
         let subjectFilter = "";

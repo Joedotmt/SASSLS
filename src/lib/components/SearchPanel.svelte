@@ -1,5 +1,5 @@
 <script>
-    import { run } from 'svelte/legacy';
+    import { run } from "svelte/legacy";
 
     import Accordion from "$lib/components/Accordion.svelte";
     import ChipGroup from "$lib/components/ChipGroup.svelte";
@@ -11,9 +11,14 @@
     let subjectChips = $state([]);
     let resourceSubjectChips = $state([]);
 
-    let { searchState = $bindable({subjects, levels, sortType:"created", sortOrder : "-"})} = $props();
-
-    
+    let {
+        searchState = $bindable({
+            subjects,
+            levels,
+            sortType: "created",
+            sortAscending: "true",
+        }),
+    } = $props();
 
     function mapToChips(records) {
         const mapToChips = (subject) => ({
@@ -38,12 +43,11 @@
 <div class="search-area panel">
     <Accordion expandedHeight={155} overflowy="none">
         {#snippet head()}
-                <span >Sort by</span>
-            {/snippet}
+            <span>Sort by</span>
+        {/snippet}
         {#snippet details()}
-                <div
+            <div
                 style="flex-direction: row; display:flex; justify-content: space-between;"
-                
             >
                 <ChipGroup
                     bind:selectedIds={searchState.sortType}
@@ -59,18 +63,18 @@
                     ]}
                 />
                 <SortButton
-                    bind:value={searchState.sortOrder}
+                    bind:isAscending={searchState.sortAscending}
                     style="margin:0.5em; width:100px"
                 />
             </div>
-            {/snippet}
+        {/snippet}
     </Accordion>
     <Accordion expandedHeight={400}>
         {#snippet head()}
-                <span>Subjects</span>
-            {/snippet}
+            <span>Subjects</span>
+        {/snippet}
         {#snippet details()}
-                <div >
+            <div>
                 <TabSelector bind:currentTab />
                 <TabView bind:currentTab>
                     {#snippet content1()}
@@ -87,20 +91,20 @@
                     {/snippet}
                 </TabView>
             </div>
-            {/snippet}
+        {/snippet}
     </Accordion>
     <Accordion expandedHeight={192}>
         {#snippet head()}
-                <span >Level</span>
-            {/snippet}
+            <span>Level</span>
+        {/snippet}
         {#snippet details()}
-                <div >
+            <div>
                 <ChipGroup
                     bind:selectedIds={searchState.levels}
                     items={$BookLevelsStore}
                 />
             </div>
-            {/snippet}
+        {/snippet}
     </Accordion>
     <select style="width: 100%;" bind:value={searchState.showingIdType}>
         <option value="both">Both</option>

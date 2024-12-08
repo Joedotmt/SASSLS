@@ -8,7 +8,7 @@
     let searchState = $state({
         query: "",
         sortType: "created",
-        sortOrder: "-",
+        sortAscending: "true",
     });
     let borrowers = $state([]);
     let selectedBorrowerId = $state("");

@@ -1,8 +1,9 @@
 <script>
-    import logo from "$lib/SASLIB_logo.png";
     import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
+
+    import logo from "$lib/MAIN_LOGO.png";
 
     let logoText = "Library";
     let fontWeight = $state(600);
@@ -42,7 +43,7 @@
                 src={logo}
                 class="logo-image"
                 style="height: 3em; width: 3em; opacity: 0.8;"
-                alt="SAS Logo"
+                alt="Main Logo"
             />
         </button>
 
@@ -51,8 +52,7 @@
                 Made by <a
                     target="_blank"
                     rel="external"
-                    href="https://permanentlink.github.io/#saslib"
-                    >Joe Esposito</a
+                    href="https://www.joe.mt#sassls">Joe Esposito</a
                 >
             {:else}
                 {logoText}
