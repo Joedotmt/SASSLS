@@ -6,8 +6,6 @@
     import BookPanel from "$lib/components/display/BookPanel.svelte";
     import { fetchGlobalSubjects } from "$lib/levels.js";
 
-    let { children } = $props();
-
     let searchState = $state({
         query: "",
         subjects: [],
@@ -66,7 +64,7 @@
         </div>
         <BookList {searchState} bind:books bind:selectedBookId />
     </div>
-    {@render children?.()}
+    <BookPanel bind:selectedBookId {books} />
 </div>
 
 <style>
