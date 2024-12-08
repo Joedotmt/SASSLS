@@ -1,6 +1,12 @@
 <!-- @migration-task Error while migrating Svelte code: Unexpected token -->
 <script>
-    let { open = false, expandedHeight = null, overflowy = "scroll", head, details } = $props();
+    let {
+        open = false,
+        expandedHeight = null,
+        overflowy = "scroll",
+        head,
+        details,
+    } = $props();
     import { slide } from "svelte/transition";
     const handleClick = () => {
         open = !open;
@@ -12,10 +18,8 @@
 
     function setHeight() {
         if (open) {
-            if (expandedHeight == null)
-                heightcss = "fit-content";
-            else
-                heightcss = expandedHeight + "px"
+            if (expandedHeight == null) heightcss = "fit-content";
+            else heightcss = expandedHeight + "px";
         } else {
             heightcss = "0px";
         }
@@ -72,7 +76,7 @@
         background-color: var(---surface-3);
     }
 
-    .material-symbols-outlined {
+    .symbol {
         transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 

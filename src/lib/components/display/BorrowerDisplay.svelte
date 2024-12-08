@@ -69,7 +69,7 @@
             >
                 <span
                     style="user-select: none; font-size: 1.5em; margin: 0.2em;"
-                    class="button-icon material-symbols-outlined"
+                    class="button-icon symbol"
                 >
                     library_add
                 </span>

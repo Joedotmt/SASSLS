@@ -136,10 +136,7 @@
             <div
                 style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(---primary-container);"
             >
-                <span
-                    style="translate: 0 5px;"
-                    class="material-symbols-outlined"
-                >
+                <span style="translate: 0 5px;" class="symbol">
                     warning
                 </span>&nbsp Book marked as lost
             </div>
@@ -150,10 +147,7 @@
             <div
                 style="padding: 0.5em; width: calc(100% - 1em); border-radius: 0.5em; background-color: var(---primary-container);"
             >
-                <span
-                    style="translate: 0 5px;"
-                    class="material-symbols-outlined"
-                >
+                <span style="translate: 0 5px;" class="symbol">
                     warning
                 </span>&nbsp Book marked as scrapped
             </div>

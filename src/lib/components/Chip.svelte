@@ -1,5 +1,5 @@
 <script>
-    import { run } from 'svelte/legacy';
+    import { run } from "svelte/legacy";
 
     import { createEventDispatcher } from "svelte";
 
@@ -16,7 +16,7 @@
         checked = $bindable(false),
         disabled = false,
         ariaLabel = "Toggle",
-        children
+        children,
     } = $props();
 
     let data = $state();
@@ -46,7 +46,7 @@
 >
     <span
         style="font-size:{checked ? '20' : '0'}px; margin-right: 0.3em;"
-        class="material-symbols-outlined"
+        class="symbol"
     >
         check
     </span>

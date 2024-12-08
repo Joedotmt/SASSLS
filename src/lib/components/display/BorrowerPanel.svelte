@@ -67,12 +67,12 @@
         ><span class="symbol">arrow_back</span></button
     >
     {#if display_mode === "edit"}
-        <!-- <BorrowerEdit
+        <BorrowerEdit
             on:EditButton={EditButtonClicked}
             on:borrowerUpdate={handleBorrowerSave}
             on:deleteButton={unselect_borrower}
             {selectedBorrowerData}
-        /> -->
+        />
     {:else if display_mode === "display"}
         <BorrowerDisplay
             style="opacity:1"
