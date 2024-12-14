@@ -1,13 +1,5 @@
 <script>
-    import { createEventDispatcher } from "svelte";
-
     let { itemType, item, isSelected = $bindable() } = $props();
-
-    const dispatch = createEventDispatcher();
-
-    function handleClick() {
-        dispatch("ItemClick", item.id);
-    }
 
     function getBorrowerImageGroup(group) {
         const imageGroups = {
@@ -17,6 +9,14 @@
             Maintenance: "figure_one_white.png",
         };
         return imageGroups[group] || "figure_one_blue.png";
+    }
+
+    import { goto } from "$app/navigation";
+    import { base } from "$app/paths";
+    function handleClick() {
+        goto(
+            `${base}/${itemType}/${itemType === "books" ? item.book_id : item.borrower_id}`,
+        );
     }
 </script>
 

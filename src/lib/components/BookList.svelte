@@ -6,12 +6,11 @@
     import LoadingBar from "./LoadingBar.svelte";
     import ListItemCreate from "./ListItemCreate.svelte";
 
-    let {
-        searchState = {},
-        selectedBookId = $bindable(""),
-        books = $bindable([]),
-    } = $props();
+    let { searchState = {}, selectedBookId = $bindable("") } = $props();
 
+    import { page } from "$app/stores";
+
+    let books = $state([]);
     let isLoading = $state(true);
     let error = $state(null);
 
@@ -119,10 +118,6 @@
         pb.collection("books").unsubscribe();
     });
 
-    function handleBookClick(event) {
-        selectedBookId = event.detail;
-    }
-
     $effect(() => {
         fetchBooks(createPbFilter(searchState), createPbSort(searchState));
     });
@@ -143,15 +138,13 @@
     {:else}
         <ListItemCreate
             itemType="books"
-            isSelected={"create" == selectedBookId}
-            on:ItemClick={handleBookClick}
+            isSelected={"create" == $page.params.book_id}
         />
         {#each books as book (book.id)}
             <ListItem
                 itemType="books"
                 item={book}
-                isSelected={book.id == selectedBookId}
-                on:ItemClick={handleBookClick}
+                isSelected={book.book_id == $page.params.book_id}
             />
         {/each}
     {/if}

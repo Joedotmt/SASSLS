@@ -6,7 +6,7 @@
 
     const dispatch = createEventDispatcher();
 
-    let { selectedBookData } = $props();
+    let { selectedBookData = $bindable() } = $props();
     let levelChips = $BookLevelsStore;
 
     let isCreation = $derived(localBookData.id == null);

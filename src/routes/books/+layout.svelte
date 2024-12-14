@@ -3,8 +3,9 @@
     import SearchPanel from "$lib/components/SearchPanel.svelte";
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
-    import BookPanel from "$lib/components/display/BookPanel.svelte";
     import { fetchGlobalSubjects } from "$lib/levels.js";
+
+    let { children } = $props();
 
     let searchState = $state({
         query: "",
@@ -13,29 +14,28 @@
         sortType: "created",
         sortAscending: "true",
     });
-    let books = $state([]);
     let selectedBookId = $state("");
 
     onMount(() => {
         fetchGlobalSubjects();
-        const hashParams = new URLSearchParams(window.location.hash.slice(1));
-        if (hashParams.size) {
-            searchState = JSON.parse(hashParams.get("search"));
-        }
+        // const hashParams = new URLSearchParams(window.location.hash.slice(1));
+        // if (hashParams.size) {
+        //     searchState = JSON.parse(hashParams.get("search"));
+        // }
     });
 
-    $effect(() => {
-        updateWindowHash(searchState);
-    });
+    // $effect(() => {
+    //     updateWindowHash(searchState);
+    // });
 
-    function updateWindowHash(state) {
-        if (!browser) return;
-        let hash = "";
+    // function updateWindowHash(state) {
+    //     if (!browser) return;
+    //     let hash = "";
 
-        hash = `search=${JSON.stringify(state)}`;
+    //     hash = `search=${JSON.stringify(state)}`;
 
-        window.location.hash = hash;
-    }
+    //     window.location.hash = hash;
+    // }
 
     function handleSearchKeyDown(event) {
         if (event.key === "Enter") {
@@ -62,9 +62,9 @@
                 />
             </div>
         </div>
-        <BookList {searchState} bind:books bind:selectedBookId />
+        <BookList {searchState} bind:selectedBookId />
     </div>
-    <BookPanel bind:selectedBookId {books} />
+    {@render children()}
 </div>
 
 <style>

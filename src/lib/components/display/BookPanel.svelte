@@ -1,36 +1,37 @@
 <script>
     import BookDisplay from "./BookDisplay.svelte";
     import BookEdit from "./BookEdit.svelte";
-    import { untrack } from "svelte";
+    import pb from "$lib/pocketbase";
 
-    let { books, selectedBookId = $bindable("") } = $props();
+    let { selectedBookBook_id = "" } = $props();
 
-    let selectedBookData = $derived(
-        getSelectedBookData(
-            untrack(() => books),
-            selectedBookId,
-        ),
-    );
+    let selectedBookData = $state({});
 
-    function getSelectedBookData(books, selectedBookId) {
-        if (selectedBookId == "create") {
-            return { id: "create" };
+    import { goto } from "$app/navigation";
+    import { base } from "$app/paths";
+    $effect(async () => {
+        try {
+            selectedBookData = await pb
+                .collection("books")
+                .getFirstListItem(`book_id="${selectedBookBook_id}"`, {});
+        } catch (error) {
+            console.log("Error with selected book data " + selectedBookData);
+            goto(base + "/books");
         }
-        return books.find((book) => book.id === selectedBookId);
-    }
+    });
 
     function handleBookSave() {
         // Forcing Triggering Reactivity
         // So it updates the books details
-        const old = selectedBookId;
-        selectedBookId = "";
-        selectedBookId = old;
+        const old = selectedBookBook_id;
+        selectedBookBook_id = "";
+        selectedBookBook_id = old;
     }
 
     let display_mode = $state("none");
 
     $effect.pre(() => {
-        display_mode = getDisplayMode(selectedBookId);
+        display_mode = getDisplayMode(selectedBookBook_id);
     });
     function getDisplayMode(id) {
         if (id == "create") {
@@ -51,7 +52,7 @@
     }
 
     function unselect_book() {
-        selectedBookId = "";
+        goto(base + "/books");
     }
 </script>
 
@@ -71,7 +72,7 @@
             on:EditButton={EditButtonClicked}
             on:bookUpdate={handleBookSave}
             on:deleteButton={unselect_book}
-            {selectedBookData}
+            bind:selectedBookData
         />
     {:else if display_mode === "display"}
         <BookDisplay
