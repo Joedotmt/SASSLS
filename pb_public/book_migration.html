@@ -92,13 +92,13 @@
             background-color: rgba(0, 175, 96, 0.189);
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
 
 <body style="display: flex; flex-direction: column;">
 
     <div style="display: flex;">
-        <div class="egg" onclick="window.location = 'index.html'"
-            style="text-wrap: nowrap; font-size: 1.8em; user-select: none;">[go back]</div>
+        <div class="egg" onclick="window.location = 'index.html'" style="text-wrap: nowrap; font-size: 1.8em; user-select: none;">[go back]</div>
         <div style="text-align: right; width: 100%; font-size: 1.8em;">Hello, Welcome to book migrations (:</div>
     </div>
 
@@ -119,6 +119,7 @@
             <button id="update_button">Update</button>
             <button onclick="createBooks()" id="add_button">Create</button>
             <button id="delete_button">Delete</button>
+            <button onclick="exportToCsv(collectionName,outputFileName)" id="export_button">Export</button>
             <div id="tooltip" style="width: 100%; text-align: end; height: 2em;">[None]</div>
         </div>
 
@@ -139,6 +140,46 @@
             return result;
         }
 
+        // Export collection data to CSV
+        const collectionName = 'books'; // Collection name
+        const outputFileName = 'exported_books_data.csv'; // Output file name
+        // Fetch and export data as CSV
+        async function exportToCsv()
+        {
+            try
+            {
+                // Fetch data from PocketBase collection
+                const records = await pb.collection(collectionName).getFullList();
+
+                // Ensure there is data
+                if (records.length === 0)
+                {
+                    alert('No records found!');
+                    return;
+                }
+
+                // Convert data to CSV
+                const headers = Object.keys(records[0]); // Get headers from the first record
+                const csvData = [
+                    headers.join(','), // Join headers to make the first row
+                    ...records.map(record => headers.map(header => `"${record[header] || ''}"`).join(',')) // Join each record's values
+                ].join('\n');
+
+                // Create a Blob from the CSV string
+                const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+
+                // Use FileSaver.js to download the file
+                saveAs(blob, outputFileName);
+
+            } catch (error)
+            {
+                console.error('Error exporting data:', error);
+                alert('An error occurred while exporting the data.');
+            }
+        }
+
+
+
         async function generate_unique_book_id()
         {
             generated_id = "";
@@ -146,14 +187,14 @@
             {
                 try
                 {
-                    generated_id = create_random_string(4)
+                    generated_id = create_random_string(4);
                     await pb.collection('books').getFirstListItem(`book_id="${generated_id}"`);
-                    console.error("trying to generate a book id again because of a collision")
+                    console.error("trying to generate a book id again because of a collision");
                 } catch (err)
                 {
                     if (err.data.code == '404')
                     {
-                        console.log("ejejej")
+                        console.log("ejejej");
                         return generated_id;
                     }
                 }
@@ -161,13 +202,13 @@
         }
 
 
-        
+
         async function createBooks()
         {
             counter = 0;
             for (const row of csvData)
             {
-                let data = {"":""}
+                let data = { "": "" };
                 await generate_unique_book_id().then(generated_id =>
                 {
                     data = {
@@ -186,16 +227,18 @@
                         "legacy_date_entered": row.legacy_date_entered,
                         "preview_url_override": row.preview_url_override
                     };
-                })
-                await console.log(data)
-                try {
+                });
+                await console.log(data);
+                try
+                {
                     await pb.collection('books').create(data);
-                } catch (error) {
-                    console.error("Error: ",error.response)
+                } catch (error)
+                {
+                    console.error("Error: ", error.response);
                 }
-                
-                await counter++
-                await console.log(counter)
+
+                await counter++;
+                await console.log(counter);
             }
         }
         function createBook(data)
@@ -207,26 +250,26 @@
         {
             btn.addEventListener("mouseout", function ()
             {
-                tooltip.innerText = "[None]"
+                tooltip.innerText = "[None]";
             });
         });
 
 
         UploadFile.addEventListener("mouseover", function ()
         {
-            tooltip.innerText = "Upload .csv file to use for action"
+            tooltip.innerText = "Upload .csv file to use for action";
         });
         add_button.addEventListener("mouseover", function ()
         {
-            tooltip.innerText = "Accepted Fields: title, author, isbn, description, classification_label, level, subject, lost, scrapped, price, legacy_date_entered, preview_url_override"
+            tooltip.innerText = "Accepted Fields: title, author, isbn, description, classification_label, level, subject, lost, scrapped, price, legacy_date_entered, preview_url_override";
         });
         delete_button.addEventListener("mouseover", function ()
         {
-            tooltip.innerText = "Accepted Fields: id"
+            tooltip.innerText = "Accepted Fields: id";
         });
         update_button.addEventListener("mouseover", function ()
         {
-            tooltip.innerText = "Accepted Fields: id, title, author, isbn, description, classification_label, level, subject, lost, scrapped, price, legacy_date_entered, preview_url_override"
+            tooltip.innerText = "Accepted Fields: id, title, author, isbn, description, classification_label, level, subject, lost, scrapped, price, legacy_date_entered, preview_url_override";
         });
 
 
@@ -241,29 +284,29 @@
             {
                 const text = e.target.result;
                 csvData = d3.csvParse(text);
-                console.log(csvData)
+                console.log(csvData);
 
-                header = document.createElement("tr")
-                info_table.appendChild(header)
-                done_or_not = document.createElement("th")
-                done_or_not.innerText = "status"
-                header.appendChild(done_or_not)
+                header = document.createElement("tr");
+                info_table.appendChild(header);
+                done_or_not = document.createElement("th");
+                done_or_not.innerText = "status";
+                header.appendChild(done_or_not);
                 csvData.columns.forEach(column =>
                 {
-                    ele = document.createElement("th")
-                    ele.innerText = column
-                    header.appendChild(ele)
+                    ele = document.createElement("th");
+                    ele.innerText = column;
+                    header.appendChild(ele);
                 });
                 csvData.forEach(row =>
                 {
-                    ele = document.createElement("tr")
-                    info_table.appendChild(ele)
-                    ele.appendChild(document.createElement("td"))
+                    ele = document.createElement("tr");
+                    info_table.appendChild(ele);
+                    ele.appendChild(document.createElement("td"));
                     Object.values(row).forEach(cell =>
                     {
-                        e = document.createElement("td")
-                        e.innerText = cell
-                        ele.appendChild(e)
+                        e = document.createElement("td");
+                        e.innerText = cell;
+                        ele.appendChild(e);
                     });
                 });
             };

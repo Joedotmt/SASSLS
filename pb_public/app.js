@@ -940,10 +940,8 @@ async function generate_unique_book_id()
             );
         } catch (err)
         {
-            if (err.data.code == "404")
-            {
-                return generated_id;
-            }
+            console.error(err);
+            return generated_id;
         }
     }
 }
