@@ -311,6 +311,87 @@
                 });
             };
         }
+
+
+        // Update functionality
+        async function updateBooks()
+        {
+            console.log("updating");
+            try
+            {
+                for (const row of csvData)
+                {
+                    const id = row.id; // Assuming 'id' is provided in the CSV data
+                    if (!id)
+                    {
+                        console.error("Missing 'id' field in CSV data for update operation.");
+                        continue;
+                    }
+
+                    const data = {
+                        title: row.title,
+                        author: row.author,
+                        isbn: row.isbn,
+                        description: row.description,
+                        legacy_book_id: row.legacy_book_id,
+                        classification_label: row.classification_label,
+                        level: row.level,
+                        subject: row.subject,
+                        lost: row.lost,
+                        scrapped: row.scrapped,
+                        price: row.price,
+                        legacy_date_entered: row.legacy_date_entered,
+                        preview_url_override: row.preview_url_override
+                    };
+
+                    try
+                    {
+                        await pb.collection('books').update(id, data);
+                        console.log(`Updated record with id: ${id}`);
+                    } catch (error)
+                    {
+                        console.error(`Error updating record with id: ${id}`, error);
+                    }
+                }
+            } catch (error)
+            {
+                console.error("Error during the update process:", error);
+            }
+        }
+
+        // Delete functionality
+        async function deleteBooks()
+        {
+            try
+            {
+                for (const row of csvData)
+                {
+                    const id = row.id; // Assuming 'id' is provided in the CSV data
+                    if (!id)
+                    {
+                        console.error("Missing 'id' field in CSV data for delete operation.");
+                        continue;
+                    }
+
+                    try
+                    {
+                        await pb.collection('books').delete(id);
+                        console.log(`Deleted record with id: ${id}`);
+                    } catch (error)
+                    {
+                        console.error(`Error deleting record with id: ${id}`, error);
+                    }
+                }
+            } catch (error)
+            {
+                console.error("Error during the delete process:", error);
+            }
+        }
+
+        // Add event listeners to buttons
+        document.getElementById('update_button').addEventListener('click', updateBooks);
+        document.getElementById('delete_button').addEventListener('click', deleteBooks);
+
     </script>
 </body>
 
