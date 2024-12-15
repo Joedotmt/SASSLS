@@ -40,9 +40,9 @@
         let extra = []; //[subjectFilter, levelFilter].filter(Boolean);
 
         // if (state.showingIdType === "old") {
-        //     extra.push(`legacy_borrower_id !~ 'DEPRECATED_'`);
+        //     extra.push(`legacy_borrower_id !~ '_'`);
         // } else if (state.showingIdType === "new") {
-        //     extra.push(`legacy_borrower_id ~ 'DEPRECATED_'`);
+        //     extra.push(`legacy_borrower_id ~ '_'`);
         // }
 
         const borrowerLazyFields = ["name", "surname", "group"];

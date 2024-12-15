@@ -1,12 +1,14 @@
 <script>
     import Input from "../Input.svelte";
     import pb from "$lib/pocketbase";
-    import { createEventDispatcher } from "svelte";
     import { BookLevelsStore } from "$lib/levels.js";
 
-    const dispatch = createEventDispatcher();
-
-    let { selectedBookData = $bindable() } = $props();
+    let {
+        selectedBookData = $bindable(),
+        deleteButton,
+        EditButton,
+        bookUpdate,
+    } = $props();
     let levelChips = $BookLevelsStore;
 
     let isCreation = $derived(localBookData.id == null);
@@ -20,7 +22,7 @@
         return {
             title: "",
             author: "",
-            legacy_book_id: "DEPRECATED_",
+            legacy_book_id: "_",
             isbn: "",
             description: "",
             book_id: "",
@@ -63,7 +65,7 @@
     }
 
     function editButton() {
-        dispatch("EditButton");
+        EditButton();
     }
 
     async function saveChanges() {
@@ -74,8 +76,8 @@
             } else {
                 updatedRecord = await updateBook(localBookData);
             }
-            // Dispatch the updated record from the server
-            dispatch("bookUpdate", updatedRecord);
+            // the updated record from the server
+            bookUpdate(updatedRecord);
             editButton();
         } catch (error) {
             console.error(error);
@@ -99,7 +101,7 @@
         if (id == "creation" || id == null) {
             return;
         }
-        dispatch("deleteButton");
+        deleteButton();
         return await pb.collection("books").delete(id);
     }
 </script>
@@ -164,7 +166,7 @@
                 <div style="text-wrap: nowrap;">
                     ID: {localBookData.book_id}
                 </div>
-                {#if !localBookData.legacy_book_id?.includes("DEPRECATED_")}
+                {#if !localBookData.legacy_book_id?.includes("_")}
                     <div
                         style="text-wrap: nowrap;"
                         id="display_panel_book_legacy_book_id_editing"
@@ -173,7 +175,7 @@
                     </div>
                 {/if}
             </div>
-            {#if !localBookData.legacy_book_id?.includes("DEPRECATED_")}
+            {#if !localBookData.legacy_book_id?.includes("_")}
                 <button
                     id="j5498"
                     style="text-wrap:balance; width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;"

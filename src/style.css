@@ -182,8 +182,7 @@ body
 
 .list-item-info-text
 {
-    text-wrap: nowrap;
-    pointer-events: none;
+    text-wrap: pretty;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1159,8 +1158,6 @@ body.hasHover ::-webkit-scrollbar-thumb:hover
 
 .list__item>span
 {
-    pointer-events: none;
-    user-select: none;
     font-size: 1.2em;
     margin-left: 0.2em;
 }

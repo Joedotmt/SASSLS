@@ -51,7 +51,7 @@
             </div>
             <div class="id-div">
                 {#if itemType === "books"}
-                    {#if item.legacy_book_id.match("DEPRECATED_")}
+                    {#if item.legacy_book_id.match("_")}
                         <div>{item.book_id}</div>
                     {:else}
                         <div>{item.legacy_book_id}</div>

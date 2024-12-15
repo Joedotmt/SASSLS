@@ -39,9 +39,9 @@
         let extra = [subjectFilter, levelFilter].filter(Boolean);
 
         if (state.showingIdType === "old") {
-            extra.push(`legacy_book_id !~ 'DEPRECATED_'`);
+            extra.push(`legacy_book_id !~ '_'`);
         } else if (state.showingIdType === "new") {
-            extra.push(`legacy_book_id ~ 'DEPRECATED_'`);
+            extra.push(`legacy_book_id ~ '_'`);
         }
 
         const bookLazyFields = ["title", "isbn"];
@@ -79,11 +79,20 @@
             isLoading = true;
             error = null;
             try {
+                const startTime = performance.now(); // Start measuring time
+
                 const records = await pb.collection("books").getList(1, 10, {
                     filter: filter,
                     sort: sort,
                     requestKey: null,
+                    fields: "title, author, legacy_book_id, book_id, id, preview_url_override",
                 });
+
+                const endTime = performance.now(); // End measuring time
+                console.log(
+                    `Request duration: ${(endTime - startTime).toFixed(2)} ms`,
+                );
+
                 books = records.items;
             } catch (err) {
                 console.error("Error fetching books:", err);
@@ -140,7 +149,7 @@
             itemType="books"
             isSelected={"create" == $page.params.book_id}
         />
-        {#each books as book (book.id)}
+        {#each books as book (book.book_id)}
             <ListItem
                 itemType="books"
                 item={book}

@@ -20,7 +20,7 @@
         return {
             title: "",
             author: "",
-            legacy_book_id: "DEPRECATED_",
+            legacy_book_id: "_",
             isbn: "",
             description: "",
             book_id: "",
@@ -164,7 +164,7 @@
                 <div style="text-wrap: nowrap;">
                     ID: {localBookData.book_id}
                 </div>
-                {#if !localBookData.legacy_book_id?.includes("DEPRECATED_")}
+                {#if !localBookData.legacy_book_id?.includes("_")}
                     <div
                         style="text-wrap: nowrap;"
                         id="display_panel_book_legacy_book_id_editing"
@@ -173,7 +173,7 @@
                     </div>
                 {/if}
             </div>
-            {#if !localBookData.legacy_book_id?.includes("DEPRECATED_")}
+            {#if !localBookData.legacy_book_id?.includes("_")}
                 <button
                     id="j5498"
                     style="text-wrap:balance; width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;"

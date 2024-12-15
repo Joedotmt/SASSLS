@@ -69,15 +69,15 @@
     >
     {#if display_mode === "edit"}
         <BookEdit
-            on:EditButton={EditButtonClicked}
-            on:bookUpdate={handleBookSave}
-            on:deleteButton={unselect_book}
+            EditButton={EditButtonClicked}
+            bookUpdate={handleBookSave}
+            deleteButton={unselect_book}
             bind:selectedBookData
         />
     {:else if display_mode === "display"}
         <BookDisplay
             style="opacity:1"
-            on:EditButton={EditButtonClicked}
+            EditButton={EditButtonClicked}
             {selectedBookData}
         />
     {/if}

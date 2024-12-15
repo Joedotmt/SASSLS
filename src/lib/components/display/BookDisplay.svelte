@@ -3,20 +3,13 @@
 
     const defaultSelectedBookData = {};
 
-    import { createEventDispatcher } from "svelte";
-
-    const dispatch = createEventDispatcher();
-
-    function editButton() {
-        dispatch("EditButton");
-    }
-
     import { BookSubjectsStore } from "$lib/levels.js";
 
     let {
         style = "",
         selectedBookData = $bindable(defaultSelectedBookData),
         lending_mode = false,
+        EditButton,
     } = $props();
     let subjectLabel = $state("");
     run(() => {
@@ -59,7 +52,7 @@
                     Return
                 </button>
                 <button
-                    onclick={editButton}
+                    onclick={EditButton}
                     style="margin: 5px; margin-right: 5px; width:8em"
                 >
                     Edit
@@ -113,7 +106,7 @@
                     <div>
                         ID: {selectedBookData.book_id}
                     </div>
-                    {#if !selectedBookData.legacy_book_id?.includes("DEPRECATED_")}
+                    {#if !selectedBookData.legacy_book_id?.includes("_")}
                         <div>
                             IDL: {selectedBookData.legacy_book_id}
                         </div>
