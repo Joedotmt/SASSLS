@@ -72,7 +72,7 @@
             EditButton={EditButtonClicked}
             bookUpdate={handleBookSave}
             deleteButton={unselect_book}
-            bind:selectedBookData
+            {selectedBookData}
         />
     {:else if display_mode === "display"}
         <BookDisplay

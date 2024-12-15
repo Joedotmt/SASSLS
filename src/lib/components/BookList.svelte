@@ -74,38 +74,34 @@
         return filter;
     }
 
-    async function fetchBooks(filter, sort) {
-        if (browser) {
-            isLoading = true;
-            error = null;
-            try {
-                const startTime = performance.now(); // Start measuring time
+    async function fetchBooks(filter, sort, page = 1, pageSize = 10) {
+        isLoading = true;
+        error = null;
 
-                const records = await pb.collection("books").getList(1, 10, {
-                    filter: filter,
-                    sort: sort,
-                    requestKey: null,
+        try {
+            const startTime = performance.now();
+
+            const records = await pb
+                .collection("books")
+                .getList(page, pageSize, {
+                    filter,
+                    sort,
                     fields: "title, author, legacy_book_id, book_id, id, preview_url_override",
                 });
 
-                const endTime = performance.now(); // End measuring time
-                console.log(
-                    `Request duration: ${(endTime - startTime).toFixed(2)} ms`,
-                );
+            const endTime = performance.now();
+            console.log(
+                `Request duration: ${(endTime - startTime).toFixed(2)} ms`,
+            );
 
-                books = records.items;
-            } catch (err) {
-                console.error("Error fetching books:", err);
-                error = "Failed to fetch books. Please try again.";
-            } finally {
-                isLoading = false;
-            }
+            books = records.items;
 
-            books.forEach((book) => {
-                let t = pb.collection("books").subscribe(book.id, (e) => {
+            // Subscribe to the entire collection
+            pb.collection("books").subscribe("*", (e) => {
+                document.startViewTransition(() => {
                     switch (e.action) {
                         case "create":
-                            books = [...books, e.record];
+                            books = [e.record, ...books];
                             break;
                         case "update":
                             books = books.map((book) =>
@@ -120,6 +116,11 @@
                     }
                 });
             });
+        } catch (err) {
+            console.error("Error fetching books:", err);
+            error = `Failed to fetch books: ${err.message}`;
+        } finally {
+            isLoading = false;
         }
     }
 

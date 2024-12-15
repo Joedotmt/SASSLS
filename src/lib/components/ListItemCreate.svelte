@@ -1,19 +1,18 @@
 <script>
-    import { createEventDispatcher } from "svelte";
-    import pb from "$lib/pocketbase";
-
     let { itemType, item = $bindable(), isSelected = $bindable() } = $props();
 
-    const dispatch = createEventDispatcher();
-
-    async function handleClick() {
-        isSelected = true;
-
-        dispatch("ItemClick", item.id);
-    }
     item = {
         id: "create",
     };
+
+    import { goto } from "$app/navigation";
+    import { base } from "$app/paths";
+
+    function handleClick() {
+        isSelected = true;
+
+        goto(`${base}/${itemType}/create`);
+    }
 </script>
 
 <button

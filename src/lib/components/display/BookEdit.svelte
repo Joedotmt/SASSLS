@@ -3,16 +3,11 @@
     import pb from "$lib/pocketbase";
     import { BookLevelsStore } from "$lib/levels.js";
 
-    let {
-        selectedBookData = $bindable(),
-        deleteButton,
-        EditButton,
-        bookUpdate,
-    } = $props();
+    let { selectedBookData, deleteButton, EditButton, bookUpdate } = $props();
     let levelChips = $BookLevelsStore;
 
     let isCreation = $derived(localBookData.id == null);
-    let localBookData = $derived(updateLocalBookData());
+    let localBookData = $state(JSON.parse(JSON.stringify(selectedBookData))); //updateLocalBookData());
 
     function updateLocalBookData() {
         if (selectedBookData?.id != "create") {
@@ -105,6 +100,30 @@
         return await pb.collection("books").delete(id);
     }
 </script>
+
+<div
+    class="warningBack"
+    style="    display: flex;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    position: fixed;
+    background-color: red;
+    z-index: 100;
+    justify-content: center;"
+>
+    <div style="font-size: 4em; text-align:center">
+        ARE YOU SURE YOU WANT TO DELETE THE BOOK????
+    </div>
+    <button
+        class="shake"
+        style="position: fixed; bottom:50px; left:50%; translate: -50% 0; font-size:2em"
+        >DELETE FOREVER AND EVER</button
+    >
+    <span class="symbol pulse"> delete_forever </span>
+    <!-- <span class="pulse"> 😮 </span> -->
+</div>
 
 <div class="display_panel_edit" id="display_panel_edit_details">
     <div class="display-area-quick-buttons">
@@ -279,3 +298,85 @@
         >
     </div>
 </div>
+
+<style>
+    .pulse {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        font-size: 300px;
+        transform: translate(-50%, -50%);
+        width: 300px; /* Initial size */
+        height: 300px; /* Initial size */
+        animation: pulseAnimation 0.1s infinite linear; /* Animation */
+    }
+
+    @keyframes pulseAnimation {
+        0% {
+            transform: translate(-50%, -50%) scale(1); /* Initial size */
+        }
+        50% {
+            transform: translate(-50%, -50%) scale(1.5); /* Grow */
+        }
+        100% {
+            transform: translate(-50%, -50%) scale(1); /* Shrink back */
+        }
+    }
+
+    .warningBack {
+        margin: 0;
+        height: 100vh;
+        background-color: red;
+        animation: pulseBackground 0.5s infinite alternate linear;
+    }
+
+    @keyframes pulseBackground {
+        0% {
+            background-color: red; /* Initial red color */
+        }
+        100% {
+            background-color: darkred; /* Dark red color at halfway point */
+        }
+    }
+
+    @keyframes shake {
+        0% {
+            transform: translateX(0);
+        }
+        10% {
+            transform: translateX(-10px) rotate(-1deg);
+        }
+        20% {
+            transform: translateX(10px) rotate(1deg);
+        }
+        30% {
+            transform: translateX(-10px) rotate(-1deg);
+        }
+        40% {
+            transform: translateX(10px) rotate(1deg);
+        }
+        50% {
+            transform: translateX(-5px) rotate(-0.5deg);
+        }
+        60% {
+            transform: translateX(5px) rotate(0.5deg);
+        }
+        70% {
+            transform: translateX(-5px) rotate(-0.5deg);
+        }
+        80% {
+            transform: translateX(5px) rotate(0.5deg);
+        }
+        90% {
+            transform: translateX(-2px) rotate(-0.2deg);
+        }
+        100% {
+            transform: translateX(2px) rotate(0.2deg);
+        }
+    }
+
+    .shake {
+        animation: shake 0.3s infinite ease-in-out;
+        animation-timing-function: cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    }
+</style>
