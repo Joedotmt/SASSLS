@@ -6,30 +6,30 @@
     let { selectedBookData, deleteButton, EditButton, bookUpdate } = $props();
     let levelChips = $BookLevelsStore;
 
-    let isCreation = $derived(localBookData.id == null);
     let localBookData = $state(JSON.parse(JSON.stringify(selectedBookData))); //updateLocalBookData());
 
-    function updateLocalBookData() {
-        if (selectedBookData?.id != "create") {
-            return selectedBookData;
-        }
+    let isCreation = $derived(false); //localBookData?.id == null);
+    // function updateLocalBookData() {
+    //     if (selectedBookData?.id != "create") {
+    //         return selectedBookData;
+    //     }
 
-        return {
-            title: "",
-            author: "",
-            legacy_book_id: "_",
-            isbn: "",
-            description: "",
-            book_id: "",
-            classification_label: "",
-            level: "",
-            subject: "",
-            scrapped: false,
-            lost: false,
-            preview_url_override: "",
-            price: "",
-        };
-    }
+    //     return {
+    //         title: "",
+    //         author: "",
+    //         legacy_book_id: "_",
+    //         isbn: "",
+    //         description: "",
+    //         book_id: "",
+    //         classification_label: "",
+    //         level: "",
+    //         subject: "",
+    //         scrapped: false,
+    //         lost: false,
+    //         preview_url_override: "",
+    //         price: "",
+    //     };
+    // }
 
     function create_random_string(length) {
         const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -101,7 +101,7 @@
     }
 </script>
 
-<div
+<!-- <div
     class="warningBack"
     style="    display: flex;
     width: 100vw;
@@ -122,9 +122,7 @@
         >DELETE FOREVER AND EVER</button
     >
     <span class="symbol pulse"> delete_forever </span>
-    <!-- <span class="pulse"> 😮 </span> -->
-</div>
-
+</div> -->
 <div class="display_panel_edit" id="display_panel_edit_details">
     <div class="display-area-quick-buttons">
         <div
@@ -294,12 +292,13 @@
         />
         <button
             style="display:{isCreation ? 'none' : 'flex'}"
-            onclick={deleteBook(localBookData.id)}>Delete Book Forever</button
+            onclick={() => deleteBook(localBookData.id)}
+            >Delete Book Forever</button
         >
     </div>
 </div>
 
-<style>
+<!-- <style>
     .pulse {
         position: fixed;
         top: 50%;
@@ -379,4 +378,4 @@
         animation: shake 0.3s infinite ease-in-out;
         animation-timing-function: cubic-bezier(0.36, 0.07, 0.19, 0.97);
     }
-</style>
+</style> -->

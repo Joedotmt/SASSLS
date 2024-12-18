@@ -698,7 +698,7 @@ body.hasHover .button-circle:hover
     text-wrap: nowrap;
 }
 
-a
+.joeweblink
 {
     text-decoration: underline;
     background-color: black;
@@ -708,14 +708,23 @@ a
     transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-body.hasHover a:hover
+a{
+    color: var(--text-color);
+    text-decoration: none;
+}
+a:hover{
+    color:var(--text-color);
+    text-decoration:underline;
+}
+
+body.hasHover .joeweblink:hover
 {
     color: lightblue;
     font-weight: 600;
     text-decoration: none;
 }
 
-a:active
+.joeweblink:active
 {
     font-weight: 400;
 }

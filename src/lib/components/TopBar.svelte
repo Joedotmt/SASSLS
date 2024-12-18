@@ -52,10 +52,11 @@
                 Made by <a
                     target="_blank"
                     rel="external"
+                    class="joeweblink"
                     href="https://www.joe.mt#sassls">Joe Esposito</a
                 >
             {:else}
-                {logoText}
+                <a href="/">{logoText}</a>
             {/if}
         </div>
     </div>

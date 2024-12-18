@@ -2,13 +2,11 @@
     import { onDestroy } from "svelte";
     import pb from "$lib/pocketbase";
     import ListItem from "./ListItem.svelte";
-    import { browser } from "$app/environment";
     import LoadingBar from "./LoadingBar.svelte";
     import ListItemCreate from "./ListItemCreate.svelte";
-
-    let { searchState = {}, selectedBookId = $bindable("") } = $props();
-
     import { page } from "$app/stores";
+
+    let { searchState = {} } = $props();
 
     let books = $state([]);
     let isLoading = $state(true);
@@ -151,11 +149,13 @@
             isSelected={"create" == $page.params.book_id}
         />
         {#each books as book (book.book_id)}
-            <ListItem
-                itemType="books"
-                item={book}
-                isSelected={book.book_id == $page.params.book_id}
-            />
+            <div>
+                <ListItem
+                    itemType="books"
+                    item={book}
+                    isSelected={book.book_id == $page.params.book_id}
+                />
+            </div>
         {/each}
     {/if}
 </div>

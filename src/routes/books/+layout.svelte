@@ -1,11 +1,10 @@
 <script>
     import BookList from "$lib/components/BookList.svelte";
     import SearchPanel from "$lib/components/SearchPanel.svelte";
-    import { browser } from "$app/environment";
     import { onMount } from "svelte";
     import { fetchGlobalSubjects } from "$lib/levels.js";
-
-    let { children } = $props();
+    import BookPanel from "$lib/components/display/BookPanel.svelte";
+    import { page } from "$app/stores";
 
     let searchState = $state({
         query: "",
@@ -14,7 +13,6 @@
         sortType: "created",
         sortAscending: "true",
     });
-    let selectedBookId = $state("");
 
     onMount(() => {
         fetchGlobalSubjects();
@@ -62,9 +60,9 @@
                 />
             </div>
         </div>
-        <BookList {searchState} bind:selectedBookId />
+        <BookList {searchState} />
     </div>
-    {@render children()}
+    <BookPanel selectedBookBook_id={$page.params.book_id} />
 </div>
 
 <style>

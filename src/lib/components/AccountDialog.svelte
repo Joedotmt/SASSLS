@@ -23,7 +23,7 @@
     }
 
     function navigateToBookMigration() {
-        window.location.href = "book_migration.html";
+        window.location.href = "/book_migration.html";
     }
 
     function changeDarkLightTheme() {
