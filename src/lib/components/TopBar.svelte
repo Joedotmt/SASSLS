@@ -42,7 +42,7 @@
             <img
                 src={logo}
                 class="logo-image"
-                style="height: 3em; width: 3em; opacity: 0.8;"
+                style="height: 2.7em; width: 2.7em; opacity: 0.8;"
                 alt="Main Logo"
             />
         </button>
