@@ -1,7 +1,8 @@
 <script>
-    import { goto } from "$app/navigation";
-    import { base } from "$app/paths";
+    import { global } from "$lib/global.svelte.js";
 </script>
 
-<button onclick={() => goto(base + "/books")}> Go to books </button>
-<button onclick={() => goto(base + "/borrowers")}> Go to borrowers </button>
+<button onclick={() => global.change_page("books")}> Go to books </button>
+<button onclick={() => global.change_page("borrowers")}>
+    Go to borrowers
+</button>

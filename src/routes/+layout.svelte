@@ -1,8 +1,10 @@
 <script>
     import TopBar from "$lib/components/TopBar.svelte";
-    import { onMount, onDestroy } from "svelte";
+    import { onMount } from "svelte";
     import { detectTouch } from "$lib/utils/touchDetection";
     import AccountDialog from "$lib/components/AccountDialog.svelte";
+    import ConfirmationDialog from "$lib/components/ConfirmationDialog.svelte";
+    import { confirmationDialog } from "$lib/global.svelte.js";
 
     let isDialogOpen = $state(false);
 
@@ -13,8 +15,6 @@
     function closeDialog() {
         isDialogOpen = false;
     }
-
-    let observer;
 
     let barcode_string = "";
 
@@ -41,5 +41,14 @@
 <TopBar on:accBtnPress={openDialog} />
 
 <AccountDialog bind:isOpen={isDialogOpen} onclose={closeDialog} />
+
+<ConfirmationDialog
+    message="Discard Draft?"
+    confirmText="Discard"
+    cancelText="Cancel"
+    confirm={confirmationDialog.confirm}
+    cancel={confirmationDialog.cancel}
+    bind:dialog={confirmationDialog.dialog}
+></ConfirmationDialog>
 
 {@render children()}

@@ -1,21 +1,26 @@
 <script>
     let { itemType, item, isSelected = $bindable() } = $props();
 
+    import LoadingBar from "$lib/components/LoadingBar.svelte";
+
     function getBorrowerImageGroup(group) {
         const imageGroups = {
-            Teacher: "figure_one_purple.png",
-            Admin: "figure_one_green.png",
-            LSE: "figure_one_red.png",
-            Maintenance: "figure_one_white.png",
+            Teacher: "/figure_one_purple.png",
+            Admin: "/figure_one_green.png",
+            LSE: "/figure_one_red.png",
+            Maintenance: "/figure_one_white.png",
         };
-        return imageGroups[group] || "figure_one_blue.png";
+        return imageGroups[group] || "/figure_one_blue.png";
     }
 
-    import { goto } from "$app/navigation";
-    import { base } from "$app/paths";
+    import { global } from "$lib/global.svelte.js";
+
     function handleClick() {
-        goto(
-            `${base}/${itemType}/${itemType === "books" ? item.book_id : item.borrower_id}`,
+        if (!isSelected) {
+            global.loading_items.add(item.book_id);
+        }
+        global.change_page(
+            `${itemType}/${itemType === "books" ? item.book_id : item.borrower_id}`
         );
     }
 </script>
@@ -63,6 +68,14 @@
             </div>
         </div>
     </div>
+    {#if global.loading_items.has(item.book_id)}
+        <div
+            class="fade-in"
+            style="position:absolute; bottom:0; left:0; width:calc(100% - 1em); margin:0em 0.5em"
+        >
+            <LoadingBar />
+        </div>
+    {/if}
 </button>
 
 <style>

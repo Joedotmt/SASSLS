@@ -5,13 +5,10 @@
         id: "create",
     };
 
-    import { goto } from "$app/navigation";
-    import { base } from "$app/paths";
-
+    import { global } from "$lib/global.svelte.js";
     function handleClick() {
         isSelected = true;
-
-        goto(`${base}/${itemType}/create`);
+        global.change_page(`/${itemType}/create`);
     }
 </script>
 

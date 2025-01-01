@@ -19,10 +19,10 @@
 >
     <span
         style="transform: rotate({isAscending
-            ? 180
-            : 0}deg); transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);"
+            ? 0
+            : 180}deg); transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);"
         class="symbol"
     >
-        arrow_upward
+        sort
     </span>
 </button>

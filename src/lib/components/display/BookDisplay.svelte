@@ -1,5 +1,6 @@
 <script>
     import { run } from "svelte/legacy";
+    import { page } from "$app/stores";
 
     const defaultSelectedBookData = {};
 
@@ -9,7 +10,6 @@
         style = "",
         selectedBookData = $bindable(defaultSelectedBookData),
         lending_mode = false,
-        EditButton,
     } = $props();
     let subjectLabel = $state("");
     run(() => {
@@ -21,13 +21,14 @@
     run(() => {
         if (selectedBookData.subject && $BookSubjectsStore) {
             const foundSubject = $BookSubjectsStore.find(
-                (subj) => subj.id === selectedBookData.subject,
+                (subj) => subj.id === selectedBookData.subject
             );
             subjectLabel = foundSubject
                 ? foundSubject.subject
                 : "Unknown subject";
         }
     });
+    import { global } from "$lib/global.svelte.js";
 </script>
 
 <div {style} class="display_panel_display">
@@ -52,7 +53,11 @@
                     Return
                 </button>
                 <button
-                    onclick={EditButton}
+                    onclick={() => {
+                        global.change_page(
+                            "books/" + $page.params.book_id + "/edit"
+                        );
+                    }}
                     style="margin: 5px; margin-right: 5px; width:8em"
                 >
                     Edit

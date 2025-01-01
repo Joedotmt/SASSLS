@@ -48,6 +48,15 @@
 <div class="container">
     <SearchPanel bind:searchState />
     <div class="list-area panel">
+        <div
+            style="    border-bottom: 1px solid var(---surface-5);
+    min-height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;"
+        >
+            <span style="margin: 0em 1em;">Search</span>
+        </div>
         <div class="list-area-search">
             <div class="search-input-wrapper">
                 <span class="symbol search-icon">search</span>

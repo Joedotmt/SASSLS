@@ -89,7 +89,7 @@
 
             const endTime = performance.now();
             console.log(
-                `Request duration: ${(endTime - startTime).toFixed(2)} ms`,
+                `Request duration: ${(endTime - startTime).toFixed(2)} ms`
             );
 
             books = records.items;
@@ -103,12 +103,12 @@
                             break;
                         case "update":
                             books = books.map((book) =>
-                                book.id === e.record.id ? e.record : book,
+                                book.id === e.record.id ? e.record : book
                             );
                             break;
                         case "delete":
                             books = books.filter(
-                                (book) => book.id !== e.record.id,
+                                (book) => book.id !== e.record.id
                             );
                             break;
                     }
@@ -132,7 +132,7 @@
 </script>
 
 <div
-    style="overflow-y: scroll;
+    style="overflow:hidden; overflow-y: scroll;
     border-radius: 0.6em;
     height: 100%;"
 >

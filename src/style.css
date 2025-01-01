@@ -99,7 +99,7 @@ body {
 .fade-in {
     opacity: 0;
     /* Start invisible */
-    animation: fadeIn 2s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+    animation: fadeIn 0.2s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
     animation-delay: 0.5s;
     /* Fade in over 2 seconds */
 }
@@ -212,7 +212,7 @@ dialog:not([open]) {
 
 .display-panel-book-general {
     display: flex;
-    margin: 0.2em;
+    margin: 0em;
     flex-direction: row;
 }
 
@@ -599,7 +599,7 @@ body.hasHover .button-circle:hover {
 .search-area {
     padding: 1em;
     padding-right: calc(1em - 12px);
-    max-width: 16em;
+    max-width: 18em;
     flex: 0.8;
 }
 

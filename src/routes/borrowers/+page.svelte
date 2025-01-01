@@ -5,11 +5,7 @@
     import { onMount } from "svelte";
     import BorrowerPanel from "$lib/components/display/BorrowerPanel.svelte";
 
-    let searchState = $state({
-        query: "",
-        sortType: "created",
-        sortAscending: "true",
-    });
+    let searchState = $state({});
     let borrowers = $state([]);
     let selectedBorrowerId = $state("");
 

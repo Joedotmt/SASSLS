@@ -2,22 +2,28 @@
     import BookDisplay from "./BookDisplay.svelte";
     import BookEdit from "./BookEdit.svelte";
     import pb from "$lib/pocketbase";
+    import { global } from "$lib/global.svelte.js";
 
     let { selectedBookBook_id = "" } = $props();
     import { page } from "$app/stores";
 
     let selectedBookData = $state(null);
+    let visible = $state(true);
 
-    import { goto } from "$app/navigation";
-    import { base } from "$app/paths";
     $effect(async () => {
+        if (selectedBookBook_id == "") {
+            visible = false;
+            return;
+        }
         try {
             selectedBookData = await pb
                 .collection("books")
                 .getFirstListItem(`book_id="${selectedBookBook_id}"`, {});
+            global.loading_items.delete(selectedBookBook_id);
+            visible = true;
         } catch (error) {
             console.log("Error with selected book data " + selectedBookData);
-            goto(base + "/books");
+            global.change_page("books");
         }
     });
 
@@ -45,47 +51,34 @@
     //     return "none";
     // }
 
-    function EditButtonClicked() {
-        if ($page.params.display_mode == "edit") {
-            goto(base + "/books/" + $page.params.book_id + "/");
-        } else if ($page.params.display_mode == null) {
-            goto(base + "/books/" + $page.params.book_id + "/edit");
-        }
-    }
-
     function unselect_book() {
-        goto(base + "/books/");
+        global.change_page("books");
     }
 
     $inspect($page.params.book_id);
 </script>
 
-{#if selectedBookData != null}
-    <div
-        style="flex-grow: {$page.params.book_id == undefined ? 0 : 1};"
-        id="display_area"
-        class="display-area panel"
-    >
-        <button
-            onclick={unselect_book}
-            class="button-circle"
-            style="position:absolute; left:5px; top:5px; z-index:6; border:none; width:40px; height:40px"
-            ><span class="symbol">arrow_back</span></button
+{#if $page.params.book_id != undefined && visible}
+    <div style="" id="display_area" class="display-area panel">
+        <div
+            style="    border-bottom: 1px solid var(---surface-5);
+                    min-height: 50px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;"
         >
-
+            <button
+                onclick={unselect_book}
+                class="button-circle"
+                style="border:none; width:40px; height:40px; margin:5px"
+                ><span class="symbol">close</span></button
+            >
+            <span style="margin: 0em 0em;">Item</span>
+        </div>
         {#if $page.params.display_mode == "edit"}
-            <BookEdit
-                EditButton={EditButtonClicked}
-                bookUpdate={handleBookSave}
-                deleteButton={unselect_book}
-                {selectedBookData}
-            />
+            <BookEdit bookUpdate={handleBookSave} {selectedBookData} />
         {:else if $page.params.display_mode == "" || $page.params.display_mode == undefined}
-            <BookDisplay
-                style="opacity:1"
-                EditButton={EditButtonClicked}
-                {selectedBookData}
-            />
+            <BookDisplay style="opacity:1" {selectedBookData} />
         {/if}
     </div>
 {/if}
@@ -93,6 +86,6 @@
 <style>
     #display_area {
         width: 100%;
-        transition: 0.5s flex-grow ease-in-out;
+        transition: 0.5s translate cubic-bezier(0.4, 0, 0, 1);
     }
 </style>
