@@ -112,7 +112,7 @@
     let dialog = $state();
 </script>
 
-{#if !loaded}
+{#if loaded}
     <div class="display_panel_edit" id="display_panel_edit_details">
         <div class="display-area-quick-buttons">
             <div
