@@ -42,18 +42,18 @@
             extra.push(`legacy_book_id ~ '_'`);
         }
 
-        const bookLazyFields = ["title", "isbn"];
-        const bookExactFields = ["legacy_book_id", "book_id"];
+        const lazyFields = ["title", "isbn"];
+        const exactFields = ["legacy_book_id", "book_id"];
 
         let filter = state.query
             .split(" ")
             .map((token) => token.trim())
             .filter((token) => token !== "")
             .map((cleanToken) => {
-                const lazyConditions = bookLazyFields
+                const lazyConditions = lazyFields
                     .map((field) => `${field} ~ "%${cleanToken}%"`)
                     .join(" || ");
-                const exactConditions = bookExactFields
+                const exactConditions = exactFields
                     .map((field) => `${field} = "${cleanToken}"`)
                     .join(" || ");
                 return `(${lazyConditions}${exactConditions ? " || " + exactConditions : ""})`;

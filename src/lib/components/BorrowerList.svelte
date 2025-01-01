@@ -5,6 +5,7 @@
     import { browser } from "$app/environment";
     import LoadingBar from "./LoadingBar.svelte";
     import ListItemCreate from "./ListItemCreate.svelte";
+    import Input from "./Input.svelte";
 
     let {
         searchState = {},
@@ -47,7 +48,6 @@
 
         const borrowerLazyFields = ["name", "surname", "group"];
         const borrowerExactFields = ["borrower_id"];
-
         let filter = state.query
             .split(" ")
             .map((token) => token.trim())
@@ -107,12 +107,12 @@
                                 borrowers = borrowers.map((borrower) =>
                                     borrower.id === e.record.id
                                         ? e.record
-                                        : borrower,
+                                        : borrower
                                 );
                                 break;
                             case "delete":
                                 borrowers = borrowers.filter(
-                                    (borrower) => borrower.id !== e.record.id,
+                                    (borrower) => borrower.id !== e.record.id
                                 );
                                 break;
                         }
