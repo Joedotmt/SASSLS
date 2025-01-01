@@ -43,11 +43,19 @@
     function searchBarChanged(event) {
         searchState.query = event.target.value;
     }
+    import { objects } from "$lib/global.svelte.js";
 </script>
 
 <div class="container">
     <SearchPanel bind:searchState />
-    <div class="list-area panel">
+    <div
+        class="list-area panel"
+        style="border-top-left-radius:{objects.searchPanel.minimized
+            ? 0
+            : ''}; border-bottom-left-radius:{objects.searchPanel.minimized
+            ? 0
+            : ''}"
+    >
         <div
             style="    border-bottom: 1px solid var(---surface-5);
     min-height: 50px;

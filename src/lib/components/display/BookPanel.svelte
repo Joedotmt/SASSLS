@@ -59,7 +59,7 @@
 </script>
 
 {#if $page.params.book_id != undefined && visible}
-    <div style="" id="display_area" class="display-area panel">
+    <div id="display_area" class="panel">
         <div
             style="    border-bottom: 1px solid var(---surface-5);
                     min-height: 50px;
@@ -70,10 +70,10 @@
             <button
                 onclick={unselect_book}
                 class="button-circle"
-                style="border:none; width:40px; height:40px; margin:5px"
+                style="border:none; width:40px; height:40px; margin:5px; z-index: 6;"
                 ><span class="symbol">close</span></button
             >
-            <span style="margin: 0em 0em;">Item</span>
+            <span style="margin: 0em 0em; z-index: 6;">Item</span>
         </div>
         {#if $page.params.display_mode == "edit"}
             <BookEdit bookUpdate={handleBookSave} {selectedBookData} />
@@ -86,6 +86,7 @@
 <style>
     #display_area {
         width: 100%;
+        margin-inline-start: 10px;
         transition: 0.5s translate cubic-bezier(0.4, 0, 0, 1);
     }
 </style>

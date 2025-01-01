@@ -31,7 +31,7 @@
     import { global } from "$lib/global.svelte.js";
 </script>
 
-<div {style} class="display_panel_display">
+<div style="translate: 0 -3.2em; {style}" class="display_panel_display">
     <div class="display-area-quick-buttons">
         {#if lending_mode}
             <div>
@@ -48,8 +48,9 @@
         {:else}
             <div style="display: flex; margin-left: auto;">
                 <button
-                    style="border: 0; margin: 5px; margin-right: 0; margin-left: auto; width:8em"
+                    style="border: 0; margin: 5px; margin-right: 0px; height: 40px;"
                 >
+                    <span class="symbol"> tab_close </span>
                     Return
                 </button>
                 <button
@@ -58,8 +59,10 @@
                             "books/" + $page.params.book_id + "/edit"
                         );
                     }}
-                    style="margin: 5px; margin-right: 5px; width:8em"
+                    class="button-circle"
+                    style="margin: 5px; margin-right: 5px; height: 40px; width: 80px;"
                 >
+                    <span class="symbol"> edit </span>
                     Edit
                 </button>
             </div>

@@ -113,7 +113,11 @@
 </script>
 
 {#if loaded}
-    <div class="display_panel_edit" id="display_panel_edit_details">
+    <div
+        style="translate: 0 -3.2em;"
+        class="display_panel_edit"
+        id="display_panel_edit_details"
+    >
         <div class="display-area-quick-buttons">
             <div
                 style="display: flex; margin-left: auto;"
@@ -126,22 +130,18 @@
                             true
                         );
                     }}
-                    id="book_cancel_button"
-                    style="border: 0; margin: 5px; margin-right: 0; margin-left: auto; width:8em"
+                    style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"
                 >
-                    <div id="book_save_button_text">Cancel</div>
+                    <span class="symbol"> cancel </span>
+                    Cancel
                 </button>
                 <button
-                    id="book_save_button"
+                    class="button-circle"
                     onclick={saveChanges}
-                    style="background-color: var(---primary); border: none; margin: 5px; margin-right: 5px; width:8em"
+                    style="background-color: var(---primary-container); border: none; margin: 5px; margin-right: 5px; height: 40px; width: 80px;"
                 >
-                    <div
-                        style="color: var(---background);"
-                        id="book_save_button_text"
-                    >
-                        Save
-                    </div>
+                    <span class="symbol"> save </span>
+                    Save
                 </button>
             </div>
         </div>

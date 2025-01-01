@@ -29,3 +29,7 @@ export let confirmationDialog = $state({
     confirm: () => { },
     cancel: () => { }
 });
+
+export let objects = $state({
+    searchPanel: { minimized: false }
+});

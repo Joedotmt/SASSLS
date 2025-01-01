@@ -8,8 +8,8 @@
     let selectedBorrowerData = $derived(
         getSelectedBorrowerData(
             untrack(() => borrowers),
-            selectedBorrowerId,
-        ),
+            selectedBorrowerId
+        )
     );
 
     function getSelectedBorrowerData(borrowers, selectedBorrowerId) {

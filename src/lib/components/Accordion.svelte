@@ -3,7 +3,7 @@
     let {
         open = false,
         expandedHeight = null,
-        overflowy = "scroll",
+        overflowy = "auto",
         head,
         details,
     } = $props();

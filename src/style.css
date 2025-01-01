@@ -29,9 +29,6 @@ body {
     margin-right: 10px;
     margin-bottom: 10px;
 }
-.panel {
-    margin-inline-start: 10px;
-}
 
 body {
     margin: 0;
@@ -601,6 +598,8 @@ body.hasHover .button-circle:hover {
     padding-right: calc(1em - 12px);
     max-width: 18em;
     flex: 0.8;
+    margin-inline-start: 10px;
+    margin-inline-end: 10px;
 }
 
 .segmented-button-button {

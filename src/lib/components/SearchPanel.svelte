@@ -43,15 +43,21 @@
     $effect(() => {
         searchState.showingIdType = selectedIds_id_type[0];
     });
-
-    let minimised = $state(false);
+    import { objects } from "$lib/global.svelte.js";
 </script>
 
 <div
     class="search-area panel"
-    style="padding: 0; overflow:hidden; max-width:{!minimised * 250 +
-        minimised *
-            50}px; transition: max-width 0.3s cubic-bezier(0.4, 0, 0, 1);"
+    style="padding: 0; margin-inline-end:{!objects.searchPanel.minimized *
+        10}px; overflow:hidden; max-width:{!objects.searchPanel.minimized *
+        350 +
+        objects.searchPanel.minimized *
+            50}px; transition: max-width 0.3s cubic-bezier(0.4, 0, 0, 1); border-top-right-radius:{objects
+        .searchPanel.minimized
+        ? 0
+        : ''}; border-bottom-right-radius:{objects.searchPanel.minimized
+        ? 0
+        : ''}"
 >
     <div
         style="    border-bottom: 1px solid var(---surface-5);
@@ -61,17 +67,19 @@
     >
         <button
             onclick={() => {
-                minimised = !minimised;
+                objects.searchPanel.minimized = !objects.searchPanel.minimized;
             }}
             class="button-circle"
             style="border:none; width:40px; height:40px; margin:5px"
             ><span class="symbol"
-                >{minimised ? "left_panel_open" : "left_panel_close"}</span
+                >{objects.searchPanel.minimized
+                    ? "left_panel_open"
+                    : "left_panel_close"}</span
             ></button
         >
         <span style="margin: 0em 0em;">Filters</span>
     </div>
-    {#if minimised}
+    {#if objects.searchPanel.minimized}
         <div style="position: absolute; left: 0; top: 3.3em;">
             <SortButton
                 bind:isAscending={searchState.sortAscending}
@@ -99,12 +107,12 @@
     {/if}
 
     <div
-        style="padding: 1em {!minimised * 1 +
-            minimised *
+        style="padding: 1em {!objects.searchPanel.minimized * 1 +
+            objects.searchPanel.minimized *
                 5}em; overflow-y: auto; overflow-x:hidden; transition: padding 0.2s cubic-bezier(0.4, 0, 0, 1);"
-        inert={minimised ? "inert" : ""}
+        inert={objects.searchPanel.minimized ? "inert" : ""}
     >
-        {#if !minimised}
+        {#if !objects.searchPanel.minimized}
             <button
                 in:receive
                 out:send
@@ -126,7 +134,7 @@
             >
         {/if}
 
-        <Accordion expandedHeight={155} overflowy="none">
+        <Accordion overflowy="none">
             {#snippet head()}
                 <span>Sort by</span>
             {/snippet}
@@ -154,7 +162,7 @@
                 </div>
             {/snippet}
         </Accordion>
-        <Accordion expandedHeight={400}>
+        <Accordion expandedHeight={280}>
             {#snippet head()}
                 <span>Subjects</span>
             {/snippet}
@@ -178,7 +186,7 @@
                 </div>
             {/snippet}
         </Accordion>
-        <Accordion expandedHeight={192}>
+        <Accordion>
             {#snippet head()}
                 <span>Level</span>
             {/snippet}
@@ -191,7 +199,7 @@
                 </div>
             {/snippet}
         </Accordion>
-        <Accordion expandedHeight={155} overflowy="none">
+        <Accordion overflowy="none">
             {#snippet head()}
                 <span>ID Type</span>
             {/snippet}
@@ -214,10 +222,5 @@
                 </div>
             {/snippet}
         </Accordion>
-        <!-- <select style="width: 100%;" bind:value={searchState.showingIdType}>
-            <option value="both">Both</option>
-            <option value="old">Old ID</option>
-            <option value="new">New ID</option>
-        </select> -->
     </div>
 </div>
