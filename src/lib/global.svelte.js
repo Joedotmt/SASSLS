@@ -29,10 +29,12 @@ export const global = $state({
         try
         {
             const subjects = await pb.collection("books_subjects").getFullList({
-                sort: "+subject",
-                fields: "resource,subject,id",
+                sort: "+n",
+                fields: "n",
             });
-            constants.books.subjects = subjects;
+
+            // turns it into an array
+            constants.books.subjects = subjects.map(i => i.n);
         } catch (err)
         {
             console.error("Error fetching subjects:", err);

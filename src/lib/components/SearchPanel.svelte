@@ -6,7 +6,7 @@
     import SortButton from "$lib/components/SortButton.svelte";
     import TabSelector from "$lib/components/TabSelector.svelte";
     import TabView from "$lib/components/TabView.svelte";
-    import { constants } from "$lib/global.svelte.js";
+    import { objects, constants } from "$lib/global.svelte.js";
     import { browser } from "$app/environment";
     import { crossfade } from "svelte/transition";
     let [send, receive] = crossfade({
@@ -38,12 +38,35 @@
         }
     });
 
+    let subjects = $state([]);
+    let resources = $state([]);
+
+    import { untrack } from "svelte";
+
+    $effect(() => {
+        untrack(() => {
+            subjects = [];
+            resources = [];
+        });
+        constants.books.subjects.forEach((item) => {
+            untrack(() => {
+                if (item.endsWith("RES")) {
+                    resources.push({
+                        id: item,
+                        label: item.replace(" RES", ""),
+                    });
+                } else {
+                    subjects.push({ id: item, label: item });
+                }
+            });
+        });
+    });
+
     let selectedIds_id_type = $state(["both"]);
 
     $effect(() => {
         searchState.showingIdType = selectedIds_id_type[0];
     });
-    import { objects } from "$lib/global.svelte.js";
 </script>
 
 <div
@@ -173,13 +196,13 @@
                         {#snippet content1()}
                             <ChipGroup
                                 bind:selectedIds={searchState.subjects}
-                                items={subjectChips}
+                                items={subjects}
                             />
                         {/snippet}
                         {#snippet content2()}
                             <ChipGroup
                                 bind:selectedIds={searchState.subjects}
-                                items={resourceSubjectChips}
+                                items={resources}
                             />
                         {/snippet}
                     </TabView>

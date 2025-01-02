@@ -479,7 +479,7 @@ textarea {
     box-shadow: inset 0px 0px 0px 1.2px var(---neutral-variant60),
         0px 0px 0px 0px var(---neutral-variant60);
     font-family: var(--the-font);
-    width: calc(100% - 0.8em);
+    width: calc(100%);
     font-size: 19px;
     padding: 0.4em;
     padding-left: 0.6em;

@@ -19,22 +19,13 @@
         min = "0",
         autocomplete = "off",
         type = "text",
+        children,
     } = $props();
 
     let inputElement = $state(null);
 </script>
 
-{#if type != "textarea"}
-    <div {style} class="input-container">
-        <input
-            {placeholder}
-            bind:this={inputElement}
-            bind:value
-            class="input-google {placeholder.length >= 1 ? 'force-up' : ''}"
-        />
-        <label class="input-placeholder">{label}</label>
-    </div>
-{:else if type == "textarea"}
+{#if type == "textarea"}
     <div
         style="margin-bottom: 1em; align-items: normal;"
         class="input-container"
@@ -51,6 +42,27 @@
         <label style="--translateamount: -1.15em;" class="input-placeholder"
             >{label}</label
         >
+    </div>
+{:else if type == "select"}
+    <div {style} class="input-container">
+        <select
+            bind:this={inputElement}
+            bind:value
+            class="input-google force-up"
+        >
+            {@render children()}
+        </select>
+        <label class="input-placeholder">{label}</label>
+    </div>
+{:else}
+    <div {style} class="input-container">
+        <input
+            {placeholder}
+            bind:this={inputElement}
+            bind:value
+            class="input-google {placeholder.length >= 1 ? 'force-up' : ''}"
+        />
+        <label class="input-placeholder">{label}</label>
     </div>
 {/if}
 

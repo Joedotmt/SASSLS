@@ -5,7 +5,6 @@
     global.unsaved_changes = true;
 
     let { selectedBookData, bookUpdate } = $props();
-    let levelChips = constants.books.levels;
 
     let loaded = $state(false);
     let localBookData = $state(null);
@@ -185,40 +184,29 @@
                 label="Classification Label"
                 bind:value={localBookData.classification_label}
             />
-            <div style="margin-bottom: 1em;" class="input-container">
-                <select
-                    bind:value={localBookData.level}
-                    style="width: 100%;"
-                    id="display_panel_book_level_editing"
-                    type="text"
-                    class="input-google"
-                >
-                    {#each levelChips as { label, id }}
-                        <option value={id}>{label}</option>
-                    {/each}
-                </select>
-                <label class="input-placeholder">Level</label>
-            </div>
 
-            <div
-                style="margin-bottom: 1em; flex-basis: 8em;"
-                class="input-container"
+            <Input
+                style="margin-bottom:1em"
+                label="Level"
+                type="select"
+                bind:value={localBookData.level}
             >
-                <select
-                    id="display_panel_book_subject_editing"
-                    style="width: 100%;"
-                    bind:value={localBookData.subject}
-                    type="text"
-                    class="input-google"
-                >
-                    <optgroup style="font-size: 0;" id="kej0f4jj05___2" label=""
-                    ></optgroup>
-                    <optgroup style="font-size: 1px;" id="kj0f4jj05__2" label=""
-                    ></optgroup>
-                    <optgroup id="nv9tuni9_2" label="Resources"></optgroup>
-                </select>
-                <label class="input-placeholder">Subject</label>
-            </div>
+                {#each constants.books.levels as { label, id }}
+                    <option value={id}>{label}</option>
+                {/each}</Input
+            >
+
+            <Input
+                style="margin-bottom:1em"
+                label="Subject"
+                type="select"
+                bind:value={localBookData.subject}
+            >
+                {#each constants.books.subjects as { subject, id }}
+                    <option value={id}>{subject}</option>
+                {/each}</Input
+            >
+
             <div style="margin-bottom: 0.8em; font-size: 1.4em;">
                 <div style="display: flex; margin-bottom: 0.5em;">
                     <input

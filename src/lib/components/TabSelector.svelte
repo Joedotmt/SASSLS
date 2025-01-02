@@ -38,6 +38,7 @@
     .tabs {
         display: flex; /* Align tabs horizontally */
         width: 100%;
+        flex-direction: row;
     }
 
     .tab {
