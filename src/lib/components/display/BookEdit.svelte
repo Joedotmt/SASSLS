@@ -58,7 +58,7 @@
             }
             // the updated record from the server
             bookUpdate(updatedRecord);
-            global.change_page("books/" + $page.params.book_id, true);
+            global.change_page("books/" + $page.params.item_id, true);
         } catch (error) {
             console.error(error);
         }
@@ -100,7 +100,7 @@
                 <button
                     onclick={() => {
                         global.change_page(
-                            "books/" + $page.params.book_id,
+                            "books/" + $page.params.item_id,
                             true
                         );
                     }}

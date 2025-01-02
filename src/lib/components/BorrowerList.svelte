@@ -118,13 +118,13 @@
     {:else}
         <ListItemCreate
             itemType="borrowers"
-            isSelected={"create" == $page.params.borrower_id}
+            isSelected={"create" == $page.params.item_id}
         />
         {#each items as borrower (borrower.id)}
             <ListItem
                 itemType="borrowers"
                 item={borrower}
-                isSelected={borrower.borrower_id == $page.params.borrower_id}
+                isSelected={borrower.borrower_id == $page.params.item_id}
             />
         {/each}
     {/if}

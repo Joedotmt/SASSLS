@@ -79,7 +79,7 @@
         </div>
         <BookList {searchState} />
     </div>
-    <BookPanel selectedBookBook_id={$page.params.book_id} />
+    <BookPanel selectedBookBook_id={$page.params.item_id} />
 </div>
 
 <style>

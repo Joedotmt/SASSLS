@@ -39,10 +39,10 @@
         global.change_page("books");
     }
 
-    $inspect($page.params.book_id);
+    $inspect($page.params.item_id);
 </script>
 
-{#if $page.params.book_id != undefined && visible}
+{#if $page.params.item_id != undefined && visible}
     <div id="display_area" class="panel">
         <div
             style="    border-bottom: 1px solid var(---surface-5);

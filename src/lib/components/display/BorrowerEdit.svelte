@@ -58,7 +58,7 @@
             }
             // the updated record from the server
             borrowerUpdate(updatedRecord);
-            global.change_page("borrowers/" + $page.params.borrower_id, true);
+            global.change_page("borrowers/" + $page.params.item_id, true);
         } catch (error) {
             console.error(error);
         }
@@ -97,7 +97,7 @@
                 <button
                     onclick={() => {
                         global.change_page(
-                            "borrowers/" + $page.params.borrower_id,
+                            "borrowers/" + $page.params.item_id,
                             true
                         );
                     }}

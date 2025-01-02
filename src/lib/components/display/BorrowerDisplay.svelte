@@ -29,7 +29,7 @@
         <button
             onclick={() => {
                 global.change_page(
-                    "borrowers/" + $page.params.borrower_id + "/edit"
+                    "borrowers/" + $page.params.item_id + "/edit"
                 );
             }}
             class="button-circle"

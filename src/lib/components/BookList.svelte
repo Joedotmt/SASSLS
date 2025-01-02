@@ -146,14 +146,14 @@
     {:else}
         <ListItemCreate
             itemType="books"
-            isSelected={"create" == $page.params.book_id}
+            isSelected={"create" == $page.params.item_id}
         />
         {#each items as book (book.book_id)}
             <div>
                 <ListItem
                     itemType="books"
                     item={book}
-                    isSelected={book.book_id == $page.params.book_id}
+                    isSelected={book.book_id == $page.params.item_id}
                 />
             </div>
         {/each}

@@ -56,7 +56,7 @@
                 <button
                     onclick={() => {
                         global.change_page(
-                            "books/" + $page.params.book_id + "/edit"
+                            "books/" + $page.params.item_id + "/edit"
                         );
                     }}
                     class="button-circle"

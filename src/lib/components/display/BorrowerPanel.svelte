@@ -44,10 +44,10 @@
         global.change_page("borrowers");
     }
 
-    $inspect($page.params.borrower_id);
+    $inspect($page.params.item_id);
 </script>
 
-{#if $page.params.borrower_id != undefined && visible}
+{#if $page.params.item_id != undefined && visible}
     <div id="display_area" class="panel">
         <div
             style="    border-bottom: 1px solid var(---surface-5);
