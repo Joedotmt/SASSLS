@@ -107,9 +107,9 @@
                     Cancel
                 </button>
                 <button
-                    class="button-circle"
+                    class="icon-button"
                     onclick={saveChanges}
-                    style="background-color: var(---primary-container); border: none; margin: 5px; margin-right: 5px; height: 40px; width: 80px;"
+                    style="--bg: var(---primary-container); border: none; margin: 5px; margin-right: 5px; height: 40px; width: 80px;"
                 >
                     <span class="symbol"> save </span>
                     Save

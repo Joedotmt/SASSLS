@@ -542,7 +542,7 @@ button.text {
 }
 
 button:active {
-    --active-border-radius: 5px;
+    --active-border-radius: 7px;
     border-radius: var(--active-border-radius);
 }
 
