@@ -9,8 +9,6 @@
         sortAscending: false,
         sortType: "created",
     });
-    let borrowers = $state([]);
-    let selectedBorrowerId = $state("");
 
     onMount(() => {
         // fetchGlobalSubjects();
@@ -56,7 +54,7 @@
                 />
             </div>
         </div>
-        <BorrowerList {searchState} bind:borrowers bind:selectedBorrowerId />
+        <BorrowerList {searchState} />
     </div>
     <BorrowerPanel selectedBorrowerBorrower_id={$page.params.borrower_id} />
 </div>

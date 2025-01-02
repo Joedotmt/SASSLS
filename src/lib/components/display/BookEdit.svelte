@@ -18,28 +18,7 @@
         }
     });
 
-    let isCreation = $derived(false); //localBookData?.id == null);
-    // function updateLocalBookData() {
-    //     if (selectedBookData?.id != "create") {
-    //         return selectedBookData;
-    //     }
-
-    //     return {
-    //         title: "",
-    //         author: "",
-    //         legacy_book_id: "_",
-    //         isbn: "",
-    //         description: "",
-    //         book_id: "",
-    //         classification_label: "",
-    //         level: "",
-    //         subject: "",
-    //         scrapped: false,
-    //         lost: false,
-    //         preview_url_override: "",
-    //         price: "",
-    //     };
-    // }
+    let isCreation = $derived(false);
 
     function create_random_string(length) {
         const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -50,7 +29,7 @@
         return result;
     }
 
-    async function generate_unique_book_id() {
+    async function generate_unique_id() {
         let generated_id = "";
         for (let i = 0; i < 1000; i++) {
             try {
@@ -73,9 +52,9 @@
         try {
             let updatedRecord;
             if (isCreation) {
-                updatedRecord = await createBook(localBookData);
+                updatedRecord = await createItem(localBookData);
             } else {
-                updatedRecord = await updateBook(localBookData);
+                updatedRecord = await updateItem(localBookData);
             }
             // the updated record from the server
             bookUpdate(updatedRecord);
@@ -85,8 +64,8 @@
         }
     }
 
-    async function createBook(data) {
-        await generate_unique_book_id().then((generated_id_response) => {
+    async function createItem(data) {
+        await generate_unique_id().then((generated_id_response) => {
             localBookData.book_id = generated_id_response;
         });
         console.log("CREATING BOOK RECORD WITH DATA: ", data);
@@ -94,11 +73,11 @@
         return record;
     }
 
-    async function updateBook(data) {
+    async function updateItem(data) {
         return await pb.collection("books").update(data.id, { ...data });
     }
 
-    async function deleteBook(id) {
+    async function deleteItem(id) {
         if (id == "creation" || id == null) {
             return;
         }
@@ -109,15 +88,10 @@
     }
 
     import { page } from "$app/stores";
-    let dialog = $state();
 </script>
 
 {#if loaded}
-    <div
-        style="translate: 0 -3.2em;"
-        class="display_panel_edit"
-        id="display_panel_edit_details"
-    >
+    <div class="display_panel_edit" id="display_panel_edit_details">
         <div class="display-area-quick-buttons">
             <div
                 style="display: flex; margin-left: auto;"
@@ -288,7 +262,7 @@
             />
             <button
                 style="display:{isCreation ? 'none' : 'flex'}"
-                onclick={() => deleteBook(localBookData.id)}
+                onclick={() => deleteItem(localBookData.id)}
                 >Delete Book Forever</button
             >
         </div>

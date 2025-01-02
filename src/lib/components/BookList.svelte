@@ -8,7 +8,7 @@
 
     let { searchState = {} } = $props();
 
-    let books = $state([]);
+    let items = $state([]);
     let isLoading = $state(true);
     let error = $state(null);
 
@@ -92,22 +92,22 @@
                 `Request duration: ${(endTime - startTime).toFixed(2)} ms`
             );
 
-            books = records.items;
+            items = records.items;
 
             // Subscribe to the entire collection
             pb.collection("books").subscribe("*", (e) => {
                 document.startViewTransition(() => {
                     switch (e.action) {
                         case "create":
-                            books = [e.record, ...books];
+                            items = [e.record, ...items];
                             break;
                         case "update":
-                            books = books.map((book) =>
+                            items = items.map((book) =>
                                 book.id === e.record.id ? e.record : book
                             );
                             break;
                         case "delete":
-                            books = books.filter(
+                            items = items.filter(
                                 (book) => book.id !== e.record.id
                             );
                             break;
@@ -148,7 +148,7 @@
             itemType="books"
             isSelected={"create" == $page.params.book_id}
         />
-        {#each books as book (book.book_id)}
+        {#each items as book (book.book_id)}
             <div>
                 <ListItem
                     itemType="books"

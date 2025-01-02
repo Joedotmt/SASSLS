@@ -30,6 +30,10 @@ body {
     margin-bottom: 10px;
 }
 
+.display_panel_edit {
+    translate: 0 -3.2em;
+}
+
 body {
     margin: 0;
     background-color: var(---surface-1);
@@ -585,7 +589,7 @@ body.hasHover .button-circle:hover {
     flex: 1;
     overflow: hidden;
     display: flex;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: var(---background);
     border-radius: var(--global-radius);
     transition: translate 0.1s linear, opacity 0.1s linear,

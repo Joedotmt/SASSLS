@@ -3,6 +3,10 @@
 
     import LoadingBar from "$lib/components/LoadingBar.svelte";
 
+    let item_id = $derived(
+        itemType === "books" ? item.book_id : item.borrower_id
+    );
+
     function getBorrowerImageGroup(group) {
         const imageGroups = {
             Teacher: "/figure_one_purple.png",
@@ -17,13 +21,9 @@
 
     function handleClick() {
         if (!isSelected) {
-            global.loading_items.add(
-                itemType === "books" ? item.book_id : item.borrower_id
-            );
+            global.loading_items.add(item_id);
         }
-        global.change_page(
-            `${itemType}/${itemType === "books" ? item.book_id : item.borrower_id}`
-        );
+        global.change_page(`${itemType}/${item_id}`);
     }
 </script>
 
@@ -59,18 +59,18 @@
             <div class="id-div">
                 {#if itemType === "books"}
                     {#if item.legacy_book_id.match("_")}
-                        <div>{item.book_id}</div>
+                        <div>{item_id}</div>
                     {:else}
                         <div>{item.legacy_book_id}</div>
-                        <div>{item.book_id}</div>
+                        <div>{item_id}</div>
                     {/if}
                 {:else}
-                    <div>{item.borrower_id}</div>
+                    <div>{item_id}</div>
                 {/if}
             </div>
         </div>
     </div>
-    {#if global.loading_items.has(item.book_id)}
+    {#if global.loading_items.has(item_id)}
         <div
             class="fade-in"
             style="position:absolute; bottom:0; left:0; width:calc(100% - 1em); margin:0em 0.5em"
