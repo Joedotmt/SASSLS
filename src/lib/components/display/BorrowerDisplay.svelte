@@ -1,30 +1,23 @@
 <script>
     import { run } from "svelte/legacy";
+    import { page } from "$app/stores";
+    import { global } from "$lib/global.svelte.js";
 
-    const defaultselectedBorrowerData = {};
-
-    import { createEventDispatcher } from "svelte";
-
-    const dispatch = createEventDispatcher();
-
-    function editButton() {
-        dispatch("EditButton");
-    }
+    const defaultSelectedBorrowerData = {};
 
     let {
         style = "",
-        selectedBorrowerData = $bindable(defaultselectedBorrowerData),
+        selectedBorrowerData = $bindable(defaultSelectedBorrowerData),
         lending_mode = false,
     } = $props();
-    let subjectLabel = $state("");
     run(() => {
         if (selectedBorrowerData == undefined) {
-            selectedBorrowerData = defaultselectedBorrowerData;
+            selectedBorrowerData = defaultSelectedBorrowerData;
         }
     });
 </script>
 
-<div {style} class="display_panel_display">
+<div {style} class="display-panel-display">
     <div class="display-area-quick-buttons">
         <button
             id="returnbutton54985t8_borrower"
@@ -32,13 +25,18 @@
         >
             <div id="returntextjinfo4_borrower">Return All</div>
         </button>
+
         <button
-            id="edit_button_borrower"
-            style="margin: 5px; margin-right: 5px; width:8em"
+            onclick={() => {
+                global.change_page(
+                    "borrowers/" + $page.params.borrower_id + "/edit"
+                );
+            }}
+            class="button-circle"
+            style="margin: 5px; margin-right: 5px; height: 40px; width: 80px;"
         >
-            <div style="pointer-events: none;" id="edit_button_borrower_label">
-                Edit
-            </div>
+            <span class="symbol"> edit </span>
+            Edit
         </button>
     </div>
     <div style="margin: 1em;" id="display_panel_details_borrower">

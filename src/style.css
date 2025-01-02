@@ -1108,6 +1108,10 @@ body.hasHover ::-webkit-scrollbar-thumb:hover {
     cursor: grabbing;
 }
 
+.display-panel-display {
+    translate: 0 -3.2em;
+}
+
 .display_panel_book_cover {
     object-fit: fill;
     padding: 0.2em;

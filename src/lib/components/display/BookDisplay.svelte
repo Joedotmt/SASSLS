@@ -1,6 +1,7 @@
 <script>
     import { run } from "svelte/legacy";
     import { page } from "$app/stores";
+    import { global } from "$lib/global.svelte.js";
 
     const defaultSelectedBookData = {};
 
@@ -28,10 +29,9 @@
                 : "Unknown subject";
         }
     });
-    import { global } from "$lib/global.svelte.js";
 </script>
 
-<div style="translate: 0 -3.2em; {style}" class="display_panel_display">
+<div {style} class="display-panel-display">
     <div class="display-area-quick-buttons">
         {#if lending_mode}
             <div>

@@ -35,22 +35,6 @@
         selectedBookBook_id = old;
     }
 
-    // let display_mode = $state("none");
-    // $effect.pre(() => {
-    //     display_mode = getDisplayMode(selectedBookBook_id);
-    // });
-    // function getDisplayMode(id) {
-    //     if (id == "create") {
-    //         return "edit";
-    //     }
-    //     if (id != "") {
-    //         return "display";
-    //     } else {
-    //         return "none";
-    //     }
-    //     return "none";
-    // }
-
     function unselect_book() {
         global.change_page("books");
     }

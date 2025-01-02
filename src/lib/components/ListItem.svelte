@@ -17,7 +17,9 @@
 
     function handleClick() {
         if (!isSelected) {
-            global.loading_items.add(item.book_id);
+            global.loading_items.add(
+                itemType === "books" ? item.book_id : item.borrower_id
+            );
         }
         global.change_page(
             `${itemType}/${itemType === "books" ? item.book_id : item.borrower_id}`
