@@ -1,5 +1,4 @@
 <script>
-    import Input from "../Input.svelte";
     import pb from "$lib/pocketbase";
     import { global } from "$lib/global.svelte.js";
     global.unsaved_changes = true;
@@ -88,6 +87,7 @@
     }
 
     import { page } from "$app/stores";
+    import Input from "../Input.svelte";
 </script>
 
 {#if loaded}
@@ -117,24 +117,16 @@
             </div>
         </div>
         <div style="padding: 2em;">
-            <div style="margin-bottom: 1em;" class="input-container">
-                <input
-                    id="display_panel_borrower_name_editing"
-                    type="text"
-                    class="input-google"
-                    bind:value={localBorrowerData.name}
-                />
-                <label class="input-placeholder">Name</label>
-            </div>
-            <div style="margin-bottom: 1em;" class="input-container">
-                <input
-                    id="display_panel_borrower_surname_editing"
-                    type="text"
-                    class="input-google"
-                    bind:value={localBorrowerData.surname}
-                />
-                <label class="input-placeholder"> Surname </label>
-            </div>
+            <Input
+                style="margin-bottom:1em"
+                label="Name"
+                bind:value={localBorrowerData.name}
+            />
+            <Input
+                style="margin-bottom:1em"
+                label="Surname"
+                bind:value={localBorrowerData.surname}
+            />
             <div
                 style="
                             background-color: var(---surface-5);
