@@ -21,9 +21,6 @@
         type = "text",
     } = $props();
 
-    let extra_classes =
-        placeholder.length >= 1 ? "input_placeholder_force_up" : "";
-
     let inputElement = $state(null);
 </script>
 
@@ -33,9 +30,9 @@
             {placeholder}
             bind:this={inputElement}
             bind:value
-            class="input-google"
+            class="input-google {placeholder.length >= 1 ? 'force-up' : ''}"
         />
-        <label class="input-placeholder {extra_classes}">{label}</label>
+        <label class="input-placeholder">{label}</label>
     </div>
 {:else if type == "textarea"}
     <div
@@ -48,11 +45,11 @@
             bind:this={inputElement}
             bind:value
             {placeholder}
-            class="input-google"
+            class="input-google {placeholder.length >= 1 ? 'force-up' : ''}"
         ></textarea>
 
         <label style="--translateamount: -1.15em;" class="input-placeholder"
-            >{label}s</label
+            >{label}</label
         >
     </div>
 {/if}
@@ -65,8 +62,18 @@
         flex-direction: row;
     }
 
-    .input-container
+    /* .input-container
         .input-google:is(:focus, :not(:placeholder-shown))
+        + .input-placeholder {
+        font-size: 13px;
+        translate: 0px -20px;
+        background-color: var(---surface-0);
+        opacity: 1;
+        transition-delay: 0s;
+        color: var(---on-background);
+    } */
+    .input-container
+        .input-google:is(:focus, :not(:placeholder-shown), .force-up)
         + .input-placeholder {
         font-size: 13px;
         translate: 0px -20px;
