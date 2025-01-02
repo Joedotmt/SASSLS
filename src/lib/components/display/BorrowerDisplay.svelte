@@ -18,7 +18,7 @@
 </script>
 
 <div {style} class="display-panel-display">
-    <div class="display-area-quick-buttons">
+    <div class="quick-buttons">
         <button
             id="returnbutton54985t8_borrower"
             style="border: 0; margin: 5px; margin-right: 0; margin-left: auto; width:8em"

@@ -21,17 +21,22 @@ body {
     background-color: var(---surface-3) !important;
     gap: 0 !important;
 }
-.display-area-quick-buttons {
-    background: none !important;
-}
+
 .container {
     gap: 0 !important;
     margin-right: 10px;
     margin-bottom: 10px;
 }
+/* ------------- */
 
-.display_panel_edit {
-    translate: 0 -3.2em;
+.quick-buttons {
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+div {
+    flex-direction: column;
+    display: flex;
 }
 
 body {
@@ -61,6 +66,17 @@ body {
     font-weight: normal;
     font-display: block;
     src: url("/icons.woff2") format("woff2");
+}
+.search-input-wrapper {
+    position: relative;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+}
+.search-icon {
+    position: absolute;
+    left: 0.8em;
+    opacity: 0.7;
 }
 
 .symbol {
@@ -175,17 +191,6 @@ body {
     width: 100%;
 }
 
-.display-area-quick-buttons {
-    display: flex;
-    z-index: 5;
-    border-bottom: 0px solid var(---neutral-variant60);
-    position: relative;
-    top: 0;
-    background: var(---surface-3);
-    height: 50px;
-    width: 100%;
-}
-
 .account-dialog {
     box-shadow: 0 0 10px 0px #00000075;
     z-index: -1;
@@ -209,19 +214,6 @@ dialog:not([open]) {
 
 .account-dialog::backdrop {
     opacity: 0;
-}
-
-.display-panel-book-general {
-    display: flex;
-    margin: 0em;
-    flex-direction: row;
-}
-
-@media (max-width: 270px) {
-    .display-panel-book-general {
-        flex-direction: column;
-        align-items: center;
-    }
 }
 
 .page-number-changer {
@@ -582,19 +574,18 @@ body.hasHover .button-circle:hover {
     overflow-x: scroll;
     overflow-y: hidden;
     height: 100%;
+    flex-direction: row;
 }
 
 .panel {
     position: relative;
     flex: 1;
     overflow: hidden;
-    display: flex;
     overflow-y: auto;
     background-color: var(---background);
     border-radius: var(--global-radius);
     transition: translate 0.1s linear, opacity 0.1s linear,
         background 225ms ease;
-    flex-direction: column;
 }
 
 .search-area {
@@ -707,6 +698,11 @@ body.hasHover .tooltip:hover .tooltiptext {
     transition: 0.5s cubic-bezier(0, 1, 0, 1),
         0.2s opacity cubic-bezier(1, 0, 1, 1);
     transition-delay: 0s;
+}
+
+.site-logo {
+    flex-direction: row;
+    justify-content: center;
 }
 
 @media (max-width: 550px) {
@@ -945,12 +941,6 @@ body.hasHover ::-webkit-scrollbar-thumb:hover {
     padding-left: 1em;
 }
 
-.input-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
 .input-placeholder {
     position: absolute;
     margin: 0.5em;
@@ -965,48 +955,6 @@ body.hasHover ::-webkit-scrollbar-thumb:hover {
     padding-bottom: 0;
     padding-top: 0;
     background-color: transparent;
-}
-
-.input-container input:not(:focus):not(:placeholder-shown) + .input-placeholder,
-.input-container
-    select:not(:focus):not(:placeholder-shown)
-    + .input-placeholder,
-.input-container
-    textarea:not(:focus):not(:placeholder-shown)
-    + .input-placeholder {
-    font-size: 13px;
-    translate: 0px -1.2rem;
-    background-color: var(---surface-0);
-    opacity: 1;
-    transition-delay: 0s;
-    color: var(---on-background);
-}
-
-.input-container input:focus + .input-placeholder,
-.input-container select:focus + .input-placeholder,
-.input-container textarea:focus + .input-placeholder {
-    font-size: calc(min(4vw, 23px) * 0.6);
-    translate: 0px -1.25rem;
-    background-color: var(---surface-0);
-    opacity: 1;
-    transition-delay: 0s;
-    color: var(---primary-80);
-}
-
-.input-container
-    textarea:not(:focus):not(:placeholder-shown)
-    + .input-placeholder,
-.input-container textarea:focus + .input-placeholder {
-    translate: 0px -1.15em;
-}
-
-.input_placeholder_force_up {
-    font-size: calc(min(4vw, 23px) * 0.6);
-    translate: 0px -1.25rem;
-    background-color: var(---surface-0);
-    opacity: 1;
-    transition-delay: 0s;
-    color: var(---on-background);
 }
 
 .theme-picker-body {
@@ -1110,20 +1058,6 @@ body.hasHover ::-webkit-scrollbar-thumb:hover {
 .list__item:not(.is-idle) {
     z-index: 1000 !important;
     cursor: grabbing;
-}
-
-.display-panel-display {
-    translate: 0 -3.2em;
-}
-
-.display_panel_book_cover {
-    object-fit: fill;
-    padding: 0.2em;
-    width: min(8em, 30vw);
-    height: 13em;
-    background-color: var(---inverse-surface);
-    border-radius: 0.6em;
-    view-transition-name: book-cover;
 }
 
 .list-item.selected {

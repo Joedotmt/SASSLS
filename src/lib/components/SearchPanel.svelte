@@ -60,7 +60,7 @@
         : ''}"
 >
     <div
-        style="    border-bottom: 1px solid var(---surface-5);
+        style="flex-direction: row;    border-bottom: 1px solid var(---surface-5);
     width: 100%;
     display: flex;
     align-items: center;"

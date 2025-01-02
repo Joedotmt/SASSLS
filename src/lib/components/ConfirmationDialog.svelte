@@ -13,7 +13,7 @@
     <div style="padding: 1rem 11rem 3rem 1rem; font-size: 1.2em;">
         {message}
     </div>
-    <div style="display: flex; justify-content: flex-end;">
+    <div style="display: flex; justify-content: flex-end; flex-direction: row;">
         <button
             onclick={() => {
                 cancel();

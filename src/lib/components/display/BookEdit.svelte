@@ -91,9 +91,9 @@
 
 {#if loaded}
     <div class="display_panel_edit" id="display_panel_edit_details">
-        <div class="display-area-quick-buttons">
+        <div>
             <div
-                style="display: flex; margin-left: auto;"
+                style="display: flex; margin-left: auto; flex-direction: row;"
                 id="display_area_top_book_view_edit"
             >
                 <button
@@ -105,15 +105,14 @@
                     }}
                     style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"
                 >
-                    <span class="symbol"> cancel </span>
+                    <span class="symbol button-icon"> cancel </span>
                     Cancel
                 </button>
                 <button
-                    class="button-circle"
                     onclick={saveChanges}
-                    style="background-color: var(---primary-container); border: none; margin: 5px; margin-right: 5px; height: 40px; width: 80px;"
+                    style="--bg: var(---primary-container); border: none; margin: 5px; margin-right: 5px; height: 40px; width: 80px;"
                 >
-                    <span class="symbol"> save </span>
+                    <span class="symbol button-icon"> save </span>
                     Save
                 </button>
             </div>
@@ -174,21 +173,13 @@
                 label="ISBN"
                 bind:value={localBookData.isbn}
             />
-            <div
-                style="margin-bottom: 1em; align-items: normal;"
-                class="input-container"
-            >
-                <textarea
-                    style="resize: none; font-size: 1em; height: 100px;"
-                    bind:value={localBookData.description}
-                    type="text"
-                    class="input-google"
-                ></textarea>
-                <label
-                    style="--translateamount: -1.15em;"
-                    class="input-placeholder">Description</label
-                >
-            </div>
+
+            <Input
+                style="margin-bottom:1em"
+                label="Description"
+                type="textarea"
+                bind:value={localBookData.description}
+            />
             <Input
                 style="margin-bottom:1em"
                 label="Classification Label"

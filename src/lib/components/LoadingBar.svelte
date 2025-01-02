@@ -12,6 +12,7 @@
         overflow: hidden;
         width: 100%;
         pointer-events: none;
+        flex-direction: row;
     }
 
     .loading-bar > div {

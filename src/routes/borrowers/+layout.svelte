@@ -57,17 +57,3 @@
     </div>
     <BorrowerPanel selectedBorrowerBorrower_id={$page.params.item_id} />
 </div>
-
-<style>
-    .search-input-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-
-    .search-icon {
-        position: absolute;
-        left: 0.8em;
-        opacity: 0.7;
-    }
-</style>

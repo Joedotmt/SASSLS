@@ -57,7 +57,7 @@
             : ''}"
     >
         <div
-            style="    border-bottom: 1px solid var(---surface-5);
+            style="flex-direction: row;    border-bottom: 1px solid var(---surface-5);
     min-height: 50px;
     width: 100%;
     display: flex;
@@ -81,17 +81,3 @@
     </div>
     <BookPanel selectedBookBook_id={$page.params.item_id} />
 </div>
-
-<style>
-    .search-input-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-
-    .search-icon {
-        position: absolute;
-        left: 0.8em;
-        opacity: 0.7;
-    }
-</style>

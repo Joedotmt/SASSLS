@@ -33,8 +33,8 @@
     });*/
 </script>
 
-<div class="top-bar panel" style="border: 0;">
-    <div class="site-logo" style="display: flex; align-items: center">
+<div class="top-bar panel">
+    <div class="site-logo">
         <button
             class="button-circle"
             onclick={logoEasterEgg}

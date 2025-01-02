@@ -92,8 +92,8 @@
 
 {#if loaded}
     <div id="display_panel_edit_details_borrower" class="display_panel_edit">
-        <div class="display-area-quick-buttons">
-            <div style="display: flex; margin-left: auto;">
+        <div>
+            <div style="display: flex; margin-left: auto; flex-direction: row;">
                 <button
                     onclick={() => {
                         global.change_page(
@@ -107,7 +107,6 @@
                     Cancel
                 </button>
                 <button
-                    class="icon-button"
                     onclick={saveChanges}
                     style="--bg: var(---primary-container); border: none; margin: 5px; margin-right: 5px; height: 40px; width: 80px;"
                 >

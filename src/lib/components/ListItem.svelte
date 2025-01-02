@@ -85,6 +85,7 @@
         font-family: var(--the-font);
         display: flex;
         width: 100%;
+        flex-direction: row;
         justify-content: space-between;
         align-items: flex-end;
     }

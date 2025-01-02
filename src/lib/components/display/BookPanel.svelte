@@ -43,7 +43,7 @@
 {#if $page.params.item_id != undefined && visible}
     <div id="display_area" class="panel">
         <div
-            style="    border-bottom: 1px solid var(---surface-5);
+            style=" flex-direction: row;   border-bottom: 1px solid var(---surface-5);
                     min-height: 50px;
                     width: 100%;
                     display: flex;
@@ -57,11 +57,13 @@
             >
             <span style="margin: 0em 0em; z-index: 6;">Item</span>
         </div>
-        {#if $page.params.display_mode == "edit"}
-            <BookEdit bookUpdate={handleBookSave} {selectedBookData} />
-        {:else if $page.params.display_mode == "" || $page.params.display_mode == undefined}
-            <BookDisplay style="opacity:1" {selectedBookData} />
-        {/if}
+        <div style="translate: 0 -3.2em;">
+            {#if $page.params.display_mode == "edit"}
+                <BookEdit bookUpdate={handleBookSave} {selectedBookData} />
+            {:else if $page.params.display_mode == "" || $page.params.display_mode == undefined}
+                <BookDisplay style="opacity:1" {selectedBookData} />
+            {/if}
+        </div>
     </div>
 {/if}
 
