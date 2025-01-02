@@ -941,22 +941,6 @@ body.hasHover ::-webkit-scrollbar-thumb:hover {
     padding-left: 1em;
 }
 
-.input-placeholder {
-    position: absolute;
-    margin: 0.5em;
-    font-size: 1rem;
-    opacity: 0.7;
-    pointer-events: none;
-    color: var(---on-background);
-    transition: translate 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
-        color 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
-        font-size 0.4s cubic-bezier(0.075, 0.82, 0.165, 1), background-color 0s;
-    padding: 5px;
-    padding-bottom: 0;
-    padding-top: 0;
-    background-color: transparent;
-}
-
 .theme-picker-body {
     --left-color: var(---surface-1);
     --text-color: invert(var(---base));

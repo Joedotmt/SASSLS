@@ -50,9 +50,9 @@
             {placeholder}
             class="input-google"
         ></textarea>
-        <label
-            style="--translateamount: -1.15em;"
-            class="input-placeholder {extra_classes}">{label}</label
+
+        <label style="--translateamount: -1.15em;" class="input-placeholder"
+            >{label}s</label
         >
     </div>
 {/if}
@@ -66,10 +66,10 @@
     }
 
     .input-container
-        input:not(:focus):not(:placeholder-shown)
+        .input-google:is(:focus, :not(:placeholder-shown))
         + .input-placeholder {
         font-size: 13px;
-        translate: 0px -1.2rem;
+        translate: 0px -20px;
         background-color: var(---surface-0);
         opacity: 1;
         transition-delay: 0s;
@@ -77,31 +77,43 @@
     }
 
     /* When focused */
-    .input-container input:focus + .input-placeholder,
-    .input-container select:focus + .input-placeholder,
-    .input-container textarea:focus + .input-placeholder {
-        /* Move up and turn blue */
-        font-size: calc(min(4vw, 23px) * 0.6);
-        translate: 0px -1.25rem;
-        background-color: var(---surface-0);
-        opacity: 1;
-        transition-delay: 0s;
+    .input-container .input-google:focus + .input-placeholder {
+        /* turn blue */
+        font-size: 15px;
         color: var(---primary-80);
     }
 
-    .input-container
-        textarea:not(:focus):not(:placeholder-shown)
+    /* .input-container
+        .input-google:not(:focus):not(:placeholder-shown)
         + .input-placeholder,
-    .input-container textarea:focus + .input-placeholder {
-        translate: 0px -1.15em;
-    }
+    .input-container .input-google:focus + .input-placeholder { */
+    /* translate: 0px -1.15em; */
+    /* } */
 
     .input_placeholder_force_up {
-        font-size: calc(min(4vw, 23px) * 0.6);
-        translate: 0px -1.25rem;
+        /* font-size: calc(min(4vw, 23px) * 0.6);
+        translate: 0px -20px;
         background-color: var(---surface-0);
         opacity: 1;
         transition-delay: 0s;
+        color: var(---on-background); */
+    }
+
+    .input-placeholder {
+        position: absolute;
+        margin: 6px;
+        font-size: 1.3rem;
+        opacity: 0.8;
+        pointer-events: none;
         color: var(---on-background);
+        transition:
+            translate 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
+            color 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
+            font-size 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
+            background-color 0s;
+        padding: 5px;
+        padding-bottom: 0;
+        padding-top: 0;
+        background-color: transparent;
     }
 </style>
