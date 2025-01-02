@@ -16,7 +16,12 @@ const config = {
 	compilerOptions:
 	{
 		runes: true
-	}
+	},
+	vitePlugin: {
+		experimental: {
+			inspector: true,
+		},
+	},
 };
 
 export default config;
