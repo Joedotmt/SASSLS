@@ -1,12 +1,11 @@
 <script>
     import Input from "../Input.svelte";
     import pb from "$lib/pocketbase";
-    import { BookLevelsStore } from "$lib/levels.js";
-    import { global } from "$lib/global.svelte.js";
+    import { global, constants } from "$lib/global.svelte.js";
     global.unsaved_changes = true;
 
     let { selectedBookData, bookUpdate } = $props();
-    let levelChips = $BookLevelsStore;
+    let levelChips = constants.books.levels;
 
     let loaded = $state(false);
     let localBookData = $state(null);

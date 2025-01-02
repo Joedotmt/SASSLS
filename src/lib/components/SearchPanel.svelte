@@ -6,7 +6,7 @@
     import SortButton from "$lib/components/SortButton.svelte";
     import TabSelector from "$lib/components/TabSelector.svelte";
     import TabView from "$lib/components/TabView.svelte";
-    import { BookLevelsStore, BookSubjectsStore } from "$lib/levels.js";
+    import { constants } from "$lib/global.svelte.js";
     import { browser } from "$app/environment";
     import { crossfade } from "svelte/transition";
     let [send, receive] = crossfade({
@@ -33,8 +33,8 @@
     let currentTab = $state(0);
     // Subscribe to the store and reactively update when it changes
     run(() => {
-        if (browser && $BookSubjectsStore != null) {
-            mapToChips($BookSubjectsStore);
+        if (browser && constants.books.subjects != null) {
+            mapToChips(constants.books.subjects);
         }
     });
 
@@ -194,7 +194,7 @@
                 <div>
                     <ChipGroup
                         bind:selectedIds={searchState.levels}
-                        items={$BookLevelsStore}
+                        items={constants.books.levels}
                     />
                 </div>
             {/snippet}

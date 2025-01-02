@@ -11,7 +11,6 @@
     });
 
     onMount(() => {
-        // fetchGlobalSubjects();
         // const hashParams = new URLSearchParams(window.location.hash.slice(1));
         // if (hashParams.size) {
         //     searchState = JSON.parse(hashParams.get("search"));

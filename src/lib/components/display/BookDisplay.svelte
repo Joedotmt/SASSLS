@@ -1,11 +1,9 @@
 <script>
     import { run } from "svelte/legacy";
     import { page } from "$app/stores";
-    import { global } from "$lib/global.svelte.js";
+    import { global, constants } from "$lib/global.svelte.js";
 
     const defaultSelectedBookData = {};
-
-    import { BookSubjectsStore } from "$lib/levels.js";
 
     let {
         style = "",
@@ -20,8 +18,8 @@
     });
     // Subscribe to the BookSubjectsStore to get the list of subjects
     run(() => {
-        if (selectedBookData.subject && $BookSubjectsStore) {
-            const foundSubject = $BookSubjectsStore.find(
+        if (selectedBookData.subject && constants.books.subjects) {
+            const foundSubject = constants.books.subjects.find(
                 (subj) => subj.id === selectedBookData.subject
             );
             subjectLabel = foundSubject

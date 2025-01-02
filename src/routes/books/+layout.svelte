@@ -2,7 +2,7 @@
     import BookList from "$lib/components/BookList.svelte";
     import SearchPanel from "$lib/components/SearchPanel.svelte";
     import { onMount } from "svelte";
-    import { fetchGlobalSubjects } from "$lib/levels.js";
+    import { global } from "$lib/global.svelte.js";
     import BookPanel from "$lib/components/display/BookPanel.svelte";
     import { page } from "$app/stores";
 
@@ -15,7 +15,7 @@
     });
 
     onMount(() => {
-        fetchGlobalSubjects();
+        global.fetchSubjects();
         // const hashParams = new URLSearchParams(window.location.hash.slice(1));
         // if (hashParams.size) {
         //     searchState = JSON.parse(hashParams.get("search"));

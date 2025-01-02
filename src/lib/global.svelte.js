@@ -1,6 +1,7 @@
 import { goto } from "$app/navigation";
 import { base } from "$app/paths";
 import { SvelteSet } from "svelte/reactivity";
+import pb from "$lib/pocketbase";
 
 export const global = $state({
     // App Manager
@@ -22,7 +23,21 @@ export const global = $state({
         confirmationDialog.confirm = navigate;
     },
     unsaved_changes: false,
-    loading_items: new SvelteSet()
+    loading_items: new SvelteSet(),
+    fetchSubjects: async () =>
+    {
+        try
+        {
+            const subjects = await pb.collection("books_subjects").getFullList({
+                sort: "+subject",
+                fields: "resource,subject,id",
+            });
+            constants.books.subjects = subjects;
+        } catch (err)
+        {
+            console.error("Error fetching subjects:", err);
+        }
+    }
 });
 export let confirmationDialog = $state({
     dialog: null,
@@ -32,4 +47,18 @@ export let confirmationDialog = $state({
 
 export let objects = $state({
     searchPanel: { minimized: false }
+});
+
+export const constants = $state({
+    borrowers: {},
+    books: {
+        levels: [
+            { label: "Brown", id: "Brown" },
+            { label: "Yellow", id: "Yellow" },
+            { label: "Blue", id: "Blue" },
+            { label: "Green", id: "Green" },
+            { label: "Red", id: "Red" }
+        ],
+        subjects: []
+    }
 });
