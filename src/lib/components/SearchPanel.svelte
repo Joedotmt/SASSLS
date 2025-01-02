@@ -109,7 +109,7 @@
     <div
         style="padding: 1em {!objects.searchPanel.minimized * 1 +
             objects.searchPanel.minimized *
-                5}em; overflow-y: auto; overflow-x:hidden; transition: padding 0.2s cubic-bezier(0.4, 0, 0, 1);"
+                5}em; overflow-y: auto; overflow-x:hidden; transition: padding 0.2s cubic-bezier(0.4, 0, 0, 1); gap:0.3em; display: flex; flex-direction: column;"
         inert={objects.searchPanel.minimized ? "inert" : ""}
     >
         {#if !objects.searchPanel.minimized}
@@ -127,14 +127,14 @@
                     };
                 }}
                 class=""
-                style="justify-content:center;margin:auto; margin-bottom:1em; padding: 0.5em 1em; width: calc(100% - 2em); border:none; border-radius: 100px;"
+                style="justify-content:center;margin:auto; margin-bottom:0.6em; padding: 0.5em 1em; width: calc(100% - 2em); border:none; border-radius: 100px;"
                 ><span style="scale:1; margin-right: 0.5em;" class="symbol"
                     >reset_settings</span
                 >Reset Filters</button
             >
         {/if}
 
-        <Accordion overflowy="none">
+        <Accordion overflowy="hidden">
             {#snippet head()}
                 <span>Sort by</span>
             {/snippet}
@@ -186,7 +186,7 @@
                 </div>
             {/snippet}
         </Accordion>
-        <Accordion>
+        <Accordion overflowy="hidden">
             {#snippet head()}
                 <span>Level</span>
             {/snippet}
@@ -199,7 +199,7 @@
                 </div>
             {/snippet}
         </Accordion>
-        <Accordion overflowy="none">
+        <Accordion overflowy="hidden">
             {#snippet head()}
                 <span>ID Type</span>
             {/snippet}

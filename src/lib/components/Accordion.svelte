@@ -5,6 +5,7 @@
         expandedHeight = null,
         overflowy = "auto",
         head,
+        style = "",
         details,
     } = $props();
     import { slide } from "svelte/transition";
@@ -26,7 +27,7 @@
     }
 </script>
 
-<div class="accordion {open ? 'open' : ''}">
+<div {style} class="accordion {open ? 'open' : ''}">
     <div class="header">
         <button class={open ? "open" : ""} onclick={handleClick}>
             {@render head?.()}
@@ -37,7 +38,8 @@
     </div>
 
     <div
-        style="overflow-y:{overflowy}; margin-top: 0.3em; height: {heightcss};"
+        style="overflow-y: {overflowy}; margin-top: {open *
+            0.3}em; height: {heightcss};"
         class="details"
         transition:slide
         bind:this={contentEle}
