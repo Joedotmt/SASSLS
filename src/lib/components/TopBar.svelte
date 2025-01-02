@@ -1,5 +1,6 @@
 <script>
     import { createEventDispatcher } from "svelte";
+    import { global } from "$lib/global.svelte.js";
 
     const dispatch = createEventDispatcher();
 
@@ -56,7 +57,11 @@
                     href="https://www.joe.mt#sassls">Joe Esposito</a
                 >
             {:else}
-                <a href="/">{logoText}</a>
+                <a
+                    onclick={() => {
+                        global.change_page("");
+                    }}>{logoText}</a
+                >
             {/if}
         </div>
     </div>

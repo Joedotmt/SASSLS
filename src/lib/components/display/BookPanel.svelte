@@ -38,8 +38,6 @@
     function unselect_book() {
         global.change_page("books");
     }
-
-    $inspect($page.params.item_id);
 </script>
 
 {#if $page.params.item_id != undefined && visible}

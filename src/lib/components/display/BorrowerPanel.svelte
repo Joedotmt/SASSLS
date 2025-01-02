@@ -43,8 +43,6 @@
     function unselect_borrower() {
         global.change_page("borrowers");
     }
-
-    $inspect($page.params.item_id);
 </script>
 
 {#if $page.params.item_id != undefined && visible}

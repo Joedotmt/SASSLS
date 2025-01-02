@@ -10,7 +10,7 @@ export const global = $state({
         const navigate = () =>
         {
             global.unsaved_changes = false;
-            goto(`${base}/${page}/`);
+            goto(`${base}/${page}`);
         };
 
         if (!global.unsaved_changes || skip_confirmation)
