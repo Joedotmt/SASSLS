@@ -6,3 +6,9 @@
 ## How it was made
 
 SvelteKit + Pocketbase
+
+## How to make a local copy and run it
+
+- Make sure you have node.js installed
+- run install dependencies.bat
+- run run.bat
