@@ -92,7 +92,8 @@
                     onclick={() => {
                         global.change_page("books/" + $page.params.item_id, true);
                     }}
-                    style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;">
+                    style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"
+                >
                     <span class="symbol button-icon"> cancel </span>
                     Cancel
                 </button>
@@ -119,7 +120,8 @@
                 flex-direction: row;
                 justify-content: space-between;
                 margin-bottom: 1em;
-            ">
+            "
+            >
                 <div style="display:flex; height:2.5em; margin-right: 1em; flex-direction: column; justify-content: center; font-family: 'roboto mono';">
                     <div style="text-wrap: nowrap;">
                         ID: {localBookData.book_id}
@@ -142,12 +144,14 @@
             <Input style="margin-bottom:1em" label="Level" type="select" bind:value={localBookData.level}>
                 {#each constants.books.levels as { label, id }}
                     <option value={id}>{label}</option>
-                {/each}</Input>
+                {/each}</Input
+            >
 
             <Input style="margin-bottom:1em" label="Subject" type="select" bind:value={localBookData.subject}>
                 {#each constants.books.subjects as { subject, id }}
                     <option value={id}>{subject}</option>
-                {/each}</Input>
+                {/each}</Input
+            >
 
             <div style="margin-bottom: 0.8em; font-size: 1.4em;">
                 <div style="display: flex; margin-bottom: 0.5em;">
