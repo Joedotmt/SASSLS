@@ -20,16 +20,12 @@
         let levelFilter = "";
 
         if (state.subjects.length >= 1) {
-            subjectFilter = state.subjects
-                .map((subject) => `subject.id='${subject}'`)
-                .join(" || ");
+            subjectFilter = state.subjects.map((subject) => `subject.id='${subject}'`).join(" || ");
             subjectFilter = `(${subjectFilter})`;
         }
 
         if (state.levels.length >= 1) {
-            levelFilter = state.levels
-                .map((label) => `level='${label}'`)
-                .join(" || ");
+            levelFilter = state.levels.map((label) => `level='${label}'`).join(" || ");
 
             levelFilter = `(${levelFilter})`;
         }
@@ -50,12 +46,8 @@
             .map((token) => token.trim())
             .filter((token) => token !== "")
             .map((cleanToken) => {
-                const lazyConditions = lazyFields
-                    .map((field) => `${field} ~ "%${cleanToken}%"`)
-                    .join(" || ");
-                const exactConditions = exactFields
-                    .map((field) => `${field} = "${cleanToken}"`)
-                    .join(" || ");
+                const lazyConditions = lazyFields.map((field) => `${field} ~ "%${cleanToken}%"`).join(" || ");
+                const exactConditions = exactFields.map((field) => `${field} = "${cleanToken}"`).join(" || ");
                 return `(${lazyConditions}${exactConditions ? " || " + exactConditions : ""})`;
             })
             .join(" && ");
@@ -79,18 +71,14 @@
         try {
             const startTime = performance.now();
 
-            const records = await pb
-                .collection("books")
-                .getList(page, pageSize, {
-                    filter,
-                    sort,
-                    fields: "title, author, legacy_book_id, book_id, id, preview_url_override",
-                });
+            const records = await pb.collection("books").getList(page, pageSize, {
+                filter,
+                sort,
+                fields: "title, author, legacy_book_id, book_id, id, preview_url_override",
+            });
 
             const endTime = performance.now();
-            console.log(
-                `Request duration: ${(endTime - startTime).toFixed(2)} ms`
-            );
+            console.log(`Request duration: ${(endTime - startTime).toFixed(2)} ms`);
 
             items = records.items;
 
@@ -102,14 +90,10 @@
                             items = [e.record, ...items];
                             break;
                         case "update":
-                            items = items.map((book) =>
-                                book.id === e.record.id ? e.record : book
-                            );
+                            items = items.map((book) => (book.id === e.record.id ? e.record : book));
                             break;
                         case "delete":
-                            items = items.filter(
-                                (book) => book.id !== e.record.id
-                            );
+                            items = items.filter((book) => book.id !== e.record.id);
                             break;
                     }
                 });
@@ -134,8 +118,7 @@
 <div
     style="overflow:hidden; overflow-y: auto;
     border-radius: 0.6em;
-    height: 100%;"
->
+    height: 100%;">
     {#if isLoading}
         <div class="fade-in" style="width: 50%; margin:auto;">
             <LoadingBar />
@@ -144,17 +127,10 @@
     {:else if error}
         <p style="color: red;">{error}</p>
     {:else}
-        <ListItemCreate
-            itemType="books"
-            isSelected={"create" == $page.params.item_id}
-        />
+        <ListItemCreate itemType="books" isSelected={"create" == $page.params.item_id} />
         {#each items as book (book.book_id)}
             <div>
-                <ListItem
-                    itemType="books"
-                    item={book}
-                    isSelected={book.book_id == $page.params.item_id}
-                />
+                <ListItem itemType="books" item={book} isSelected={book.book_id == $page.params.item_id} />
             </div>
         {/each}
     {/if}

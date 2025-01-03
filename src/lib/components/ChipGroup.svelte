@@ -2,14 +2,7 @@
     import { createEventDispatcher, onMount } from "svelte";
     import Chip from "$lib/components/Chip.svelte";
 
-    let {
-        style = "",
-        items = [],
-        selectedIds = $bindable([]),
-        multiple = true,
-        optional = true,
-        defaultId = null,
-    } = $props();
+    let { style = "", items = [], selectedIds = $bindable([]), multiple = true, optional = true, defaultId = null } = $props();
 
     const dispatch = createEventDispatcher();
 
@@ -55,11 +48,7 @@
 
 <div {style} class="chip-group">
     {#each items as item (item.id)}
-        <Chip
-            checked={selectedIds.includes(item.id)}
-            on:clicked={(event) =>
-                handleChipChange(item.id, event.detail.checked)}
-        >
+        <Chip checked={selectedIds.includes(item.id)} on:clicked={(event) => handleChipChange(item.id, event.detail.checked)}>
             {item.label}
         </Chip>
     {/each}

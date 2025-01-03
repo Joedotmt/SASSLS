@@ -1,9 +1,5 @@
 <script>
-    let {
-        tabs = ["Subjects", "Resources"],
-        currentTab = $bindable(0),
-        style = "",
-    } = $props();
+    let { tabs = ["Subjects", "Resources"], currentTab = $bindable(0), style = "" } = $props();
 
     // Function to change the active tab
     function setActive(index) {
@@ -14,19 +10,12 @@
 <div {style} class="tab-container">
     <div class="tabs">
         {#each tabs as tab, index}
-            <button
-                class="tab {currentTab === index ? 'selected' : ''}"
-                onclick={() => setActive(index)}
-            >
+            <button class="tab {currentTab === index ? 'selected' : ''}" onclick={() => setActive(index)}>
                 {tab}
             </button>
         {/each}
     </div>
-    <div
-        class="active-indicator"
-        style="width:{(1 / tabs.length) *
-            100}%; transform: translateX({currentTab * 100}%);"
-    ></div>
+    <div class="active-indicator" style="width:{(1 / tabs.length) * 100}%; transform: translateX({currentTab * 100}%);"></div>
 </div>
 
 <style>
@@ -55,18 +44,10 @@
         transition: 0.1s; /* Smooth background transition */
     }
     .tab.selected {
-        background-color: color-mix(
-            in hsl,
-            var(---primary),
-            var(---surface-5) 98%
-        );
+        background-color: color-mix(in hsl, var(---primary), var(---surface-5) 98%);
     }
     .tab.selected:hover {
-        background-color: color-mix(
-            in hsl,
-            var(---primary),
-            var(---surface-4) 98%
-        );
+        background-color: color-mix(in hsl, var(---primary), var(---surface-4) 98%);
     }
     .tab:hover {
         background: var(---surface-4);

@@ -35,57 +35,26 @@
 
 <div class="top-bar panel">
     <div class="site-logo">
-        <button
-            class="button-circle"
-            onclick={logoEasterEgg}
-            style="padding: 0; height: auto; width: auto; border-width: 0;"
-        >
-            <img
-                src={logo}
-                class="logo-image"
-                style="height: 2.7em; width: 2.7em; opacity: 0.8;"
-                alt="Main Logo"
-            />
+        <button class="button-circle" onclick={logoEasterEgg} style="padding: 0; height: auto; width: auto; border-width: 0;">
+            <img src={logo} class="logo-image" style="height: 2.7em; width: 2.7em; opacity: 0.8;" alt="Main Logo" />
         </button>
 
         <div class="logo-text" style="font-weight: {fontWeight};">
             {#if fontWeight > 900}
-                Made by <a
-                    target="_blank"
-                    rel="external"
-                    class="joeweblink"
-                    href="https://www.joe.mt#sassls">Joe Esposito</a
-                >
+                Made by <a target="_blank" rel="external" class="joeweblink" href="https://www.joe.mt#sassls">Joe Esposito</a>
             {:else}
                 <a
                     onclick={() => {
                         global.change_page("");
-                    }}>{logoText}</a
-                >
+                    }}>{logoText}</a>
             {/if}
         </div>
     </div>
-    <div
-        style="width: 100%; display: flex; flex-direction: row-reverse; align-items: center;"
-    >
-        <button
-            class="button-circle"
-            id="account_button"
-            onclick={openAccountDialog}
-            style="padding: 0; border-width: 0;"
-        >
-            <span
-                class="symbol"
-                style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"
-            >
-                account_circle
-            </span>
+    <div style="width: 100%; display: flex; flex-direction: row-reverse; align-items: center;">
+        <button class="button-circle" id="account_button" onclick={openAccountDialog} style="padding: 0; border-width: 0;">
+            <span class="symbol" style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"> account_circle </span>
         </button>
-        <select
-            id="collection_select"
-            onchange={onCollectionSelectChange}
-            style="width: 10em; margin: 0.2em; font-size: 18px;"
-        >
+        <select id="collection_select" onchange={onCollectionSelectChange} style="width: 10em; margin: 0.2em; font-size: 18px;">
             {#each collections as collection}
                 <option value={collection.toLowerCase()}>{collection}</option>
             {/each}

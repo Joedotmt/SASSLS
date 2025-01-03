@@ -44,13 +44,7 @@
         <div class="list-area-search">
             <div class="search-input-wrapper">
                 <span class="symbol search-icon">search</span>
-                <input
-                    type="text"
-                    class="main-search-bar"
-                    placeholder="Search borrowers"
-                    onchange={searchBarChanged}
-                    onkeydown={handleSearchKeyDown}
-                />
+                <input type="text" class="main-search-bar" placeholder="Search borrowers" onchange={searchBarChanged} onkeydown={handleSearchKeyDown} />
             </div>
         </div>
         <BorrowerList {searchState} />

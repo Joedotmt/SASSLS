@@ -31,8 +31,7 @@
     .loading-bar > div:nth-child(2) {
         margin: 0 10px;
         background-color: var(---primary);
-        animation: loading-bar-anim-width 1s cubic-bezier(1, 0, 0.31, 1)
-            infinite;
+        animation: loading-bar-anim-width 1s cubic-bezier(1, 0, 0.31, 1) infinite;
     }
 
     .loading-bar > div:last-child {

@@ -1,12 +1,5 @@
 <script>
-    let {
-        message = "Are you sure?",
-        confirmText = "Confirm",
-        cancelText = "Cancel",
-        dialog = $bindable(),
-        confirm = $bindable(),
-        cancel = $bindable(),
-    } = $props();
+    let { message = "Are you sure?", confirmText = "Confirm", cancelText = "Cancel", dialog = $bindable(), confirm = $bindable(), cancel = $bindable() } = $props();
 </script>
 
 <dialog style="padding: 1em;" bind:this={dialog} class="confirmation-dialog">
@@ -19,8 +12,7 @@
                 cancel();
                 dialog.close();
             }}
-            style="margin-right: 0.6em; border: 0; width: 7em;"
-        >
+            style="margin-right: 0.6em; border: 0; width: 7em;">
             {cancelText}
         </button>
         <button
@@ -28,8 +20,7 @@
                 confirm();
                 dialog.close();
             }}
-            style="border: 0; width: 7em;"
-        >
+            style="border: 0; width: 7em;">
             {confirmText}
         </button>
     </div>

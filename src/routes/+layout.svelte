@@ -34,21 +34,12 @@
     import "../style.css";
 </script>
 
-<div
-    style="position: fixed; z-index:2; right:50%; scale:0.3; opacity:0.3"
-></div>
+<div style="position: fixed; z-index:2; right:50%; scale:0.3; opacity:0.3"></div>
 
 <TopBar on:accBtnPress={openDialog} />
 
 <AccountDialog bind:isOpen={isDialogOpen} onclose={closeDialog} />
 
-<ConfirmationDialog
-    message="Discard Draft?"
-    confirmText="Discard"
-    cancelText="Cancel"
-    confirm={confirmationDialog.confirm}
-    cancel={confirmationDialog.cancel}
-    bind:dialog={confirmationDialog.dialog}
-></ConfirmationDialog>
+<ConfirmationDialog message="Discard Draft?" confirmText="Discard" cancelText="Cancel" confirm={confirmationDialog.confirm} cancel={confirmationDialog.cancel} bind:dialog={confirmationDialog.dialog}></ConfirmationDialog>
 
 {@render children()}

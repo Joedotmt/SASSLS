@@ -25,13 +25,7 @@
 </script>
 
 <div id="container">
-    <div
-        class="tab-container {animating
-            ? direction === 1
-                ? 'slide-left'
-                : 'slide-right'
-            : ''}"
-    ></div>
+    <div class="tab-container {animating ? (direction === 1 ? 'slide-left' : 'slide-right') : ''}"></div>
 
     {#if currentTabReal == 0}{@render content1()}{/if}
     {#if currentTabReal == 1}{@render content2()}{/if}

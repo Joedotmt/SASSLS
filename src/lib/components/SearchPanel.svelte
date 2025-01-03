@@ -25,9 +25,7 @@
             id: subject.id,
         });
         subjectChips = records.filter((s) => !s.resource).map(mapToChips);
-        resourceSubjectChips = records
-            .filter((s) => s.resource)
-            .map(mapToChips);
+        resourceSubjectChips = records.filter((s) => s.resource).map(mapToChips);
     }
 
     let currentTab = $state(0);
@@ -69,46 +67,23 @@
     });
 </script>
 
-<div
-    class="search-area panel"
-    style="padding: 0; margin-inline-end:{!objects.searchPanel.minimized *
-        10}px; overflow:hidden; max-width:{!objects.searchPanel.minimized *
-        350 +
-        objects.searchPanel.minimized *
-            50}px; transition: max-width 0.3s cubic-bezier(0.4, 0, 0, 1); border-top-right-radius:{objects
-        .searchPanel.minimized
-        ? 0
-        : ''}; border-bottom-right-radius:{objects.searchPanel.minimized
-        ? 0
-        : ''}"
->
+<div class="search-area panel" style="padding: 0; margin-inline-end:{!objects.searchPanel.minimized * 10}px; overflow:hidden; max-width:{!objects.searchPanel.minimized * 350 + objects.searchPanel.minimized * 50}px; transition: max-width 0.3s cubic-bezier(0.4, 0, 0, 1); border-top-right-radius:{objects.searchPanel.minimized ? 0 : ''}; border-bottom-right-radius:{objects.searchPanel.minimized ? 0 : ''}">
     <div
         style="flex-direction: row;    border-bottom: 1px solid var(---surface-5);
     width: 100%;
     display: flex;
-    align-items: center;"
-    >
+    align-items: center;">
         <button
             onclick={() => {
                 objects.searchPanel.minimized = !objects.searchPanel.minimized;
             }}
             class="button-circle"
-            style="border:none; width:40px; height:40px; margin:5px"
-            ><span class="symbol"
-                >{objects.searchPanel.minimized
-                    ? "left_panel_open"
-                    : "left_panel_close"}</span
-            ></button
-        >
+            style="border:none; width:40px; height:40px; margin:5px"><span class="symbol">{objects.searchPanel.minimized ? "left_panel_open" : "left_panel_close"}</span></button>
         <span style="margin: 0em 0em;">Filters</span>
     </div>
     {#if objects.searchPanel.minimized}
         <div style="position: absolute; left: 0; top: 3.3em;">
-            <SortButton
-                bind:isAscending={searchState.sortAscending}
-                class="button-circle"
-                style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;"
-            />
+            <SortButton bind:isAscending={searchState.sortAscending} class="button-circle" style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;" />
             <button
                 in:receive
                 out:send
@@ -123,18 +98,11 @@
                     };
                 }}
                 class="button-circle"
-                style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;"
-                ><span class="symbol">reset_settings</span></button
-            >
+                style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;"><span class="symbol">reset_settings</span></button>
         </div>
     {/if}
 
-    <div
-        style="padding: 1em {!objects.searchPanel.minimized * 1 +
-            objects.searchPanel.minimized *
-                5}em; overflow-y: auto; overflow-x:hidden; transition: padding 0.2s cubic-bezier(0.4, 0, 0, 1); gap:0.3em; display: flex; flex-direction: column;"
-        inert={objects.searchPanel.minimized ? "inert" : ""}
-    >
+    <div style="padding: 1em {!objects.searchPanel.minimized * 1 + objects.searchPanel.minimized * 5}em; overflow-y: auto; overflow-x:hidden; transition: padding 0.2s cubic-bezier(0.4, 0, 0, 1); gap:0.3em; display: flex; flex-direction: column;" inert={objects.searchPanel.minimized ? "inert" : ""}>
         {#if !objects.searchPanel.minimized}
             <button
                 in:receive
@@ -150,11 +118,7 @@
                     };
                 }}
                 class=""
-                style="justify-content:center;margin:auto; margin-bottom:0.6em; padding: 0.5em 1em; width: calc(100% - 2em); border:none;"
-                ><span style="margin-right: 0.5em;" class="symbol"
-                    >reset_settings</span
-                >Reset Filters</button
-            >
+                style="justify-content:center;margin:auto; margin-bottom:0.6em; padding: 0.5em 1em; width: calc(100% - 2em); border:none;"><span style="margin-right: 0.5em;" class="symbol">reset_settings</span>Reset Filters</button>
         {/if}
 
         <Accordion overflowy="hidden">
@@ -162,9 +126,7 @@
                 <span>Sort by</span>
             {/snippet}
             {#snippet details()}
-                <div
-                    style="flex-direction: row; display:flex; justify-content: space-between;"
-                >
+                <div style="flex-direction: row; display:flex; justify-content: space-between;">
                     <ChipGroup
                         bind:selectedIds={searchState.sortType}
                         multiple={false}
@@ -176,12 +138,8 @@
                             { id: "updated", label: "Updated" },
                             { id: "title", label: "Title" },
                             { id: "price", label: "Price" },
-                        ]}
-                    />
-                    <SortButton
-                        bind:isAscending={searchState.sortAscending}
-                        style="margin:0.5em; width:100px"
-                    />
+                        ]} />
+                    <SortButton bind:isAscending={searchState.sortAscending} style="margin:0.5em; width:100px" />
                 </div>
             {/snippet}
         </Accordion>
@@ -194,16 +152,10 @@
                     <TabSelector bind:currentTab />
                     <TabView bind:currentTab>
                         {#snippet content1()}
-                            <ChipGroup
-                                bind:selectedIds={searchState.subjects}
-                                items={subjects}
-                            />
+                            <ChipGroup bind:selectedIds={searchState.subjects} items={subjects} />
                         {/snippet}
                         {#snippet content2()}
-                            <ChipGroup
-                                bind:selectedIds={searchState.subjects}
-                                items={resources}
-                            />
+                            <ChipGroup bind:selectedIds={searchState.subjects} items={resources} />
                         {/snippet}
                     </TabView>
                 </div>
@@ -215,10 +167,7 @@
             {/snippet}
             {#snippet details()}
                 <div>
-                    <ChipGroup
-                        bind:selectedIds={searchState.levels}
-                        items={constants.books.levels}
-                    />
+                    <ChipGroup bind:selectedIds={searchState.levels} items={constants.books.levels} />
                 </div>
             {/snippet}
         </Accordion>
@@ -227,9 +176,7 @@
                 <span>ID Type</span>
             {/snippet}
             {#snippet details()}
-                <div
-                    style="flex-direction: row; display:flex; justify-content: space-between;"
-                >
+                <div style="flex-direction: row; display:flex; justify-content: space-between;">
                     <ChipGroup
                         bind:selectedIds={selectedIds_id_type}
                         multiple={false}
@@ -240,8 +187,7 @@
                             { id: "both", label: "Both" },
                             { id: "old", label: "Old" },
                             { id: "new", label: "New" },
-                        ]}
-                    />
+                        ]} />
                 </div>
             {/snippet}
         </Accordion>

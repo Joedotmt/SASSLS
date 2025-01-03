@@ -26,12 +26,8 @@
             .map((token) => token.trim())
             .filter((token) => token !== "")
             .map((cleanToken) => {
-                const lazyConditions = borrowerLazyFields
-                    .map((field) => `${field} ~ "%${cleanToken}%"`)
-                    .join(" || ");
-                const exactConditions = borrowerExactFields
-                    .map((field) => `${field} = "${cleanToken}"`)
-                    .join(" || ");
+                const lazyConditions = borrowerLazyFields.map((field) => `${field} ~ "%${cleanToken}%"`).join(" || ");
+                const exactConditions = borrowerExactFields.map((field) => `${field} = "${cleanToken}"`).join(" || ");
                 return `(${lazyConditions}${exactConditions ? " || " + exactConditions : ""})`;
             })
             .join(" && ");
@@ -53,13 +49,11 @@
             isLoading = true;
             error = null;
             try {
-                const records = await pb
-                    .collection("borrowers")
-                    .getList(1, 10, {
-                        filter: filter,
-                        sort: sort,
-                        requestKey: null,
-                    });
+                const records = await pb.collection("borrowers").getList(1, 10, {
+                    filter: filter,
+                    sort: sort,
+                    requestKey: null,
+                });
                 items = records.items;
             } catch (err) {
                 console.error("Error fetching borrowers:", err);
@@ -69,27 +63,19 @@
             }
 
             items.forEach((borrower) => {
-                let t = pb
-                    .collection("borrowers")
-                    .subscribe(borrower.id, (e) => {
-                        switch (e.action) {
-                            case "create":
-                                items = [...items, e.record];
-                                break;
-                            case "update":
-                                items = items.map((borrower) =>
-                                    borrower.id === e.record.id
-                                        ? e.record
-                                        : borrower
-                                );
-                                break;
-                            case "delete":
-                                items = items.filter(
-                                    (borrower) => borrower.id !== e.record.id
-                                );
-                                break;
-                        }
-                    });
+                let t = pb.collection("borrowers").subscribe(borrower.id, (e) => {
+                    switch (e.action) {
+                        case "create":
+                            items = [...items, e.record];
+                            break;
+                        case "update":
+                            items = items.map((borrower) => (borrower.id === e.record.id ? e.record : borrower));
+                            break;
+                        case "delete":
+                            items = items.filter((borrower) => borrower.id !== e.record.id);
+                            break;
+                    }
+                });
             });
         }
     }
@@ -106,8 +92,7 @@
 <div
     style="overflow-y: auto;
     border-radius: 0.6em;
-    height: 100%;"
->
+    height: 100%;">
     {#if isLoading}
         <div class="fade-in" style="width: 50%; margin:auto;">
             <LoadingBar />
@@ -116,16 +101,9 @@
     {:else if error}
         <p style="color: red;">{error}</p>
     {:else}
-        <ListItemCreate
-            itemType="borrowers"
-            isSelected={"create" == $page.params.item_id}
-        />
+        <ListItemCreate itemType="borrowers" isSelected={"create" == $page.params.item_id} />
         {#each items as borrower (borrower.id)}
-            <ListItem
-                itemType="borrowers"
-                item={borrower}
-                isSelected={borrower.borrower_id == $page.params.item_id}
-            />
+            <ListItem itemType="borrowers" item={borrower} isSelected={borrower.borrower_id == $page.params.item_id} />
         {/each}
     {/if}
 </div>

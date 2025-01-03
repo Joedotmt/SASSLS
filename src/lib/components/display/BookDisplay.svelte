@@ -5,32 +5,21 @@
 
     const defaultSelectedBookData = {};
 
-    let {
-        style = "",
-        selectedBookData = $bindable(defaultSelectedBookData),
-        lending_mode = false,
-    } = $props();
+    let { style = "", selectedBookData = $bindable(defaultSelectedBookData), lending_mode = false } = $props();
     let subjectLabel = $state("");
     run(() => {
         if (selectedBookData == undefined) {
             selectedBookData = defaultSelectedBookData;
         }
     });
-    
-
 
     // Subscribe to the BookSubjectsStore to get the list of subjects
     run(() => {
         if (selectedBookData.subject && constants.books.subjects) {
-            const foundSubject = constants.books.subjects.find(
-                (subj) => subj.id === selectedBookData.subject
-            );
-            subjectLabel = foundSubject
-                ? foundSubject.subject
-                : "Unknown subject";
+            const foundSubject = constants.books.subjects.find((subj) => subj.id === selectedBookData.subject);
+            subjectLabel = foundSubject ? foundSubject.subject : "Unknown subject";
         }
     });
-   
 </script>
 
 <div class="quick-buttons">
@@ -47,11 +36,8 @@
             <button
                 class="edit-button"
                 onclick={() => {
-                    global.change_page(
-                        "books/" + $page.params.item_id + "/edit"
-                    );
-                }}
-            >
+                    global.change_page("books/" + $page.params.item_id + "/edit");
+                }}>
                 <span class="symbol">edit</span>
                 Edit
             </button>
@@ -61,11 +47,7 @@
 <div class="display-panel-display">
     <div class="book-general">
         <div class="cover-container">
-            <img
-                class="book-cover"
-                src={selectedBookData.preview_url_override || global.getRandomBookCover(selectedBookData.book_id)}
-                alt="book cover"
-            />
+            <img class="book-cover" src={selectedBookData.preview_url_override || global.getRandomBookCover(selectedBookData.book_id)} alt="book cover" />
         </div>
         <div class="book-info">
             <h1 class="book-title">{selectedBookData.title}</h1>
@@ -119,7 +101,7 @@
 </div>
 
 <style>
-    .symbol{
+    .symbol {
         margin-right: 0.5em;
     }
 

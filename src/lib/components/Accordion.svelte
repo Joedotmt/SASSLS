@@ -1,13 +1,6 @@
 <!-- @migration-task Error while migrating Svelte code: Unexpected token -->
 <script>
-    let {
-        open = false,
-        expandedHeight = null,
-        overflowy = "auto",
-        head,
-        style = "",
-        details,
-    } = $props();
+    let { open = false, expandedHeight = null, overflowy = "auto", head, style = "", details } = $props();
     import { slide } from "svelte/transition";
     const handleClick = () => {
         open = !open;
@@ -31,19 +24,11 @@
     <div class="header">
         <button class={open ? "open" : ""} onclick={handleClick}>
             {@render head?.()}
-            <span style="rotate: {open ? 0 : 180}deg;" class="symbol">
-                keyboard_arrow_down
-            </span>
+            <span style="rotate: {open ? 0 : 180}deg;" class="symbol"> keyboard_arrow_down </span>
         </button>
     </div>
 
-    <div
-        style="overflow-y: {overflowy}; margin-top: {open *
-            0.3}em; height: {heightcss};"
-        class="details"
-        transition:slide
-        bind:this={contentEle}
-    >
+    <div style="overflow-y: {overflowy}; margin-top: {open * 0.3}em; height: {heightcss};" class="details" transition:slide bind:this={contentEle}>
         {@render details?.()}
     </div>
 </div>

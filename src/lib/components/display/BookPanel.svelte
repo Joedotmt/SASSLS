@@ -16,9 +16,7 @@
             return;
         }
         try {
-            selectedBookData = await pb
-                .collection("books")
-                .getFirstListItem(`book_id="${selectedBookBook_id}"`, {});
+            selectedBookData = await pb.collection("books").getFirstListItem(`book_id="${selectedBookBook_id}"`, {});
             global.loading_items.delete(selectedBookBook_id);
             visible = true;
         } catch (error) {
@@ -47,14 +45,8 @@
                     min-height: 50px;
                     width: 100%;
                     display: flex;
-                    align-items: center;"
-        >
-            <button
-                onclick={unselect_book}
-                class="button-circle"
-                style="border:none; width:40px; height:40px; margin:5px; z-index: 6;"
-                ><span class="symbol">close</span></button
-            >
+                    align-items: center;">
+            <button onclick={unselect_book} class="button-circle" style="border:none; width:40px; height:40px; margin:5px; z-index: 6;"><span class="symbol">close</span></button>
             <span style="margin: 0em 0em; z-index: 6;">Item</span>
         </div>
         <div style="translate: 0 -3.2em;">

@@ -12,12 +12,7 @@
      */
 
     /** @type {Props} */
-    let {
-        checked = $bindable(false),
-        disabled = false,
-        ariaLabel = "Toggle",
-        children,
-    } = $props();
+    let { checked = $bindable(false), disabled = false, ariaLabel = "Toggle", children } = $props();
 
     let data = $state();
     const dispatch = createEventDispatcher();
@@ -36,20 +31,8 @@
     });
 </script>
 
-<button
-    class={`toggle ${checked ? "checked" : ""} ${disabled ? "disabled" : ""}`}
-    bind:this={data}
-    onclick={handleClick}
-    aria-label={ariaLabel}
-    role="switch"
-    {disabled}
->
-    <span
-        style="font-size:{checked ? '20' : '0'}px; margin-right: 0.3em;"
-        class="symbol"
-    >
-        check
-    </span>
+<button class={`toggle ${checked ? "checked" : ""} ${disabled ? "disabled" : ""}`} bind:this={data} onclick={handleClick} aria-label={ariaLabel} role="switch" {disabled}>
+    <span style="font-size:{checked ? '20' : '0'}px; margin-right: 0.3em;" class="symbol"> check </span>
     {@render children?.()}
 </button>
 
@@ -63,11 +46,7 @@
         color: var(---on-background);
     }
     button:hover {
-        background-color: color-mix(
-            in srgb,
-            var(---surface-5) 90%,
-            black 10%
-        ) !important;
+        background-color: color-mix(in srgb, var(---surface-5) 90%, black 10%) !important;
     }
 
     button.checked {
@@ -75,11 +54,7 @@
         color: var(---neutral-90);
     }
     button.checked:hover {
-        background-color: color-mix(
-            in srgb,
-            var(---primary-30) 80%,
-            black 20%
-        ) !important;
+        background-color: color-mix(in srgb, var(---primary-30) 80%, black 20%) !important;
     }
 
     span {
