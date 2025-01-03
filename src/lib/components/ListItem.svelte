@@ -3,18 +3,10 @@
 
     import LoadingBar from "$lib/components/LoadingBar.svelte";
 
-    let item_id = $derived(
-        itemType === "books" ? item.book_id : item.borrower_id
-    );
-    let IDL = $derived(
-        itemType === "books" && item.legacy_book_id[0]!="_" ? item.legacy_book_id : ""
-    );
-    let line_1 = $derived(
-        itemType === "books" ? item.title : `${item.name} ${item.surname}`
-    );
-        let line_2 = $derived(
-        itemType === "books" ? `by ${item.author}` : `${item.group}`
-    );
+    let item_id = $derived(itemType === "books" ? item.book_id : item.borrower_id);
+    let IDL = $derived(itemType === "books" && item.legacy_book_id[0] != "_" ? item.legacy_book_id : "");
+    let line_1 = $derived(itemType === "books" ? item.title : `${item.name} ${item.surname}`);
+    let line_2 = $derived(itemType === "books" ? `by ${item.author}` : `${item.group}`);
 
     function getBorrowerImageGroup(group) {
         const imageGroups = {
@@ -34,24 +26,10 @@
         }
         global.change_page(`${itemType}/${item_id}`);
     }
-
 </script>
 
-<button
-    class="list-button list-item {isSelected ? 'selected' : ''}"
-    onclick={handleClick}
-    style="view-transition-name: id-{item.id};"
->
-    <img
-        class="preview-image"
-        src={itemType === "books" ? item.preview_url_override || global.getRandomBookCover(item_id) : getBorrowerImageGroup(item.group)}
-        alt={itemType === "books"
-            ? `Cover of ${item.title}`
-            : `${item.name} ${item.surname}`}
-        style={itemType !== "books"
-            ? "background: transparent; border: transparent; margin-right: 0.5em;"
-            : ""}
-    />
+<button class="list-button list-item {isSelected ? 'selected' : ''}" onclick={handleClick} style="view-transition-name: id-{item.id};">
+    <img class="preview-image" src={itemType === "books" ? item.preview_url_override || global.getRandomBookCover(item_id) : getBorrowerImageGroup(item.group)} alt="item cover" />
     <div class="cont list-item-info-text">
         <div class="cont">
             <div style="text-align: left;">
@@ -59,15 +37,13 @@
                 <div>{line_2}</div>
             </div>
             <div class="id-div">
-                {#if IDL != ""}{IDL}<br>{/if}{item_id}
+                {#if IDL != ""}{IDL}<br />
+                {/if}{item_id}
             </div>
         </div>
     </div>
     {#if global.loading_items.has(item_id)}
-        <div
-            class="fade-in"
-            style="position:absolute; bottom:0; left:0; width:calc(100% - 1em); margin:0em 0.5em"
-        >
+        <div class="fade-in" style="position:absolute; bottom:0; left:0; width:calc(100% - 1em); margin:0em 0.5em">
             <LoadingBar />
         </div>
     {/if}

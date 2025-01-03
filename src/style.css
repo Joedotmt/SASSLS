@@ -163,8 +163,6 @@ body {
     padding: 0em;
     margin: 0em;
     pointer-events: none;
-    background-color: white;
-    border: solid aliceblue 1px;
     border-radius: 2px;
     margin-right: 0.5em;
 }
@@ -1080,7 +1078,7 @@ loading-bar {
     display: flex;
     flex-direction: row;
     justify-content: unset;
-    height: 100%;
+    height: auto;
     transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), 0s margin, 0s padding;
     background-color: var(---background);
     margin: 0.3em !important;
