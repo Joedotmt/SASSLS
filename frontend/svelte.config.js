@@ -18,9 +18,7 @@ const config = {
 		runes: true
 	},
 	vitePlugin: {
-		experimental: {
-			inspector: true,
-		},
+		inspector: true,
 	},
 };
 
