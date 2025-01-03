@@ -1,1 +1,1 @@
-pocketbase serve --http="192.168.0.252:5070"
+pocketbase serve --http="192.168.1.193:5173"
