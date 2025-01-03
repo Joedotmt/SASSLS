@@ -1216,10 +1216,10 @@ function createInfoDiv(itemType, item)
 
 function updatePagination(queryResponse, pageNumberChanger)
 {
-    const pageInfoElement = document.getElementById('page-info');
+    //const pageInfoElement = document.getElementById('page-info');
     if (queryResponse.totalPages > 1)
     {
-        pageInfoElement.textContent = `Page ${pageNumberChanger.dataset.pagenumber} of ${queryResponse.totalPages}`;
+        //pageInfoElement.textContent = `Page ${pageNumberChanger.dataset.pagenumber} of ${queryResponse.totalPages}`;
         pageNumberChanger.dataset.maxpages = queryResponse.totalPages;
         pageNumberChanger.dataset.pagenumber = Math.min(pageNumberChanger.dataset.pagenumber, queryResponse.totalPages);
         pageNumberChanger.style.display = 'flex';
