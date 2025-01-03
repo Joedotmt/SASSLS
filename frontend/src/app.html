@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>[NEW] San Andrea Library</title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" />
+
+	%sveltekit.head%
+</head>
+<body class="blue-dark" data-sveltekit-preload-data="hover">
+	<script>
+		const transitionManager = () =>
+		{
+			// Create HTML style element with CSS selector that targets all
+			// elements and applies CSS to disable transitions
+			const style = document.createElement("style");
+			const css = document.createTextNode(`* {
+	                -webkit-transition: none !important;
+	                -moz-transition: none !important;
+	                -o-transition: none !important;
+	                -ms-transition: none !important;
+	                transition: none !important;
+	            }`);
+			style.appendChild(css);
+
+			// Create functions for adding and remove the style element from
+			// the page <head> tag
+			const enable = () => document.head.removeChild(style);
+			const disable = () => document.head.appendChild(style);
+			return { enable, disable, style };
+		};
+
+
+		let currentTheme = JSON.parse(localStorage.getItem("theme")) || {
+			mode: "dark",
+			books: "blue",
+			borrowers: "green",
+			transactions: "red"
+		};
+
+		const transitions = transitionManager();
+		transitions.disable();
+
+		document.body.className = `${currentTheme[window.location.pathname.split("/")[1]] || "blue"}-${currentTheme.mode}`;
+
+		window.getComputedStyle(transitions.style).opacity;
+
+		transitions.enable();
+	</script>
+	<div style="display: contents">%sveltekit.body%</div>
+</body>
+</html>
