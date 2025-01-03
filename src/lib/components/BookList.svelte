@@ -132,7 +132,7 @@
 </script>
 
 <div
-    style="overflow:hidden; overflow-y: scroll;
+    style="overflow:hidden; overflow-y: auto;
     border-radius: 0.6em;
     height: 100%;"
 >

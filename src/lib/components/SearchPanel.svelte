@@ -150,8 +150,8 @@
                     };
                 }}
                 class=""
-                style="justify-content:center;margin:auto; margin-bottom:0.6em; padding: 0.5em 1em; width: calc(100% - 2em); border:none; border-radius: 100px;"
-                ><span style="scale:1; margin-right: 0.5em;" class="symbol"
+                style="justify-content:center;margin:auto; margin-bottom:0.6em; padding: 0.5em 1em; width: calc(100% - 2em); border:none;"
+                ><span style="margin-right: 0.5em;" class="symbol"
                     >reset_settings</span
                 >Reset Filters</button
             >

@@ -20,10 +20,10 @@
 <div {style} class="display-panel-display">
     <div class="quick-buttons">
         <button
-            id="returnbutton54985t8_borrower"
-            style="border: 0; margin: 5px; margin-right: 0; margin-left: auto; width:8em"
+            style="border:none; margin: 5px; margin-right: 5px; height: 40px;"
         >
-            <div id="returntextjinfo4_borrower">Return All</div>
+            <span class="symbol" style="margin-right: 0.5em;">tab_close</span>
+                Return All
         </button>
 
         <button
@@ -32,10 +32,9 @@
                     "borrowers/" + $page.params.item_id + "/edit"
                 );
             }}
-            class="button-circle"
-            style="margin: 5px; margin-right: 5px; height: 40px; width: 80px;"
+            style="margin: 5px; margin-right: 5px; height: 40px;"
         >
-            <span class="symbol"> edit </span>
+            <span class="symbol" style="margin-right: 0.5em;"> edit </span>
             Edit
         </button>
     </div>

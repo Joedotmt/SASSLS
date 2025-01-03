@@ -39,7 +39,20 @@ export const global = $state({
         {
             console.error("Error fetching subjects:", err);
         }
-    }
+    },
+    getRandomBookCover: (id) =>
+    {
+        if (id == null) return;
+        let hash = 0;
+        for (let i = 0; i < id.length; i++)
+        {
+            hash = (hash * 31 + id.charCodeAt(i)) % 1000000007; // Hash function with a prime modulus
+        }
+
+        // Use the hash to determine the index
+        const index = (hash % 5) + 1; // Modulus ensures the index is between 1 and 5
+        return `/book_placeholder_covers/book_placeholder_${index}.png`;
+    },
 });
 export let confirmationDialog = $state({
     dialog: null,

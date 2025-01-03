@@ -16,6 +16,9 @@
             selectedBookData = defaultSelectedBookData;
         }
     });
+    
+
+
     // Subscribe to the BookSubjectsStore to get the list of subjects
     run(() => {
         if (selectedBookData.subject && constants.books.subjects) {
@@ -27,6 +30,7 @@
                 : "Unknown subject";
         }
     });
+   
 </script>
 
 <div class="quick-buttons">
@@ -59,7 +63,7 @@
         <div class="cover-container">
             <img
                 class="book-cover"
-                src={selectedBookData.preview_url_override}
+                src={selectedBookData.preview_url_override || global.getRandomBookCover(selectedBookData.book_id)}
                 alt="book cover"
             />
         </div>
@@ -115,6 +119,10 @@
 </div>
 
 <style>
+    .symbol{
+        margin-right: 0.5em;
+    }
+
     .display-panel-display {
         gap: 0.5em;
     }
@@ -135,6 +143,7 @@
     .action-buttons {
         flex-direction: row;
         margin-left: auto;
+        margin-bottom: 0.8em;
     }
 
     .return-button {
@@ -147,7 +156,6 @@
     .edit-button {
         margin: 5px;
         height: 40px;
-        width: 80px;
     }
 
     .book-general {
@@ -178,6 +186,7 @@
         background-color: var(---inverse-surface);
         border-radius: 0.6em;
         view-transition-name: book-cover;
+        image-rendering: pixelated;
     }
 
     .book-info {

@@ -104,7 +104,7 @@
 </script>
 
 <div
-    style="overflow-y: scroll;
+    style="overflow-y: auto;
     border-radius: 0.6em;
     height: 100%;"
 >

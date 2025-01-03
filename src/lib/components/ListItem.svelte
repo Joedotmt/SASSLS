@@ -6,6 +6,15 @@
     let item_id = $derived(
         itemType === "books" ? item.book_id : item.borrower_id
     );
+    let IDL = $derived(
+        itemType === "books" && item.legacy_book_id[0]!="_" ? item.legacy_book_id : ""
+    );
+    let line_1 = $derived(
+        itemType === "books" ? item.title : `${item.name} ${item.surname}`
+    );
+        let line_2 = $derived(
+        itemType === "books" ? `by ${item.author}` : `${item.group}`
+    );
 
     function getBorrowerImageGroup(group) {
         const imageGroups = {
@@ -25,6 +34,7 @@
         }
         global.change_page(`${itemType}/${item_id}`);
     }
+
 </script>
 
 <button
@@ -34,10 +44,7 @@
 >
     <img
         class="preview-image"
-        src={itemType === "books"
-            ? item.preview_url_override //||
-            : //`https://covers.openlibrary.org/b/isbn/${item.isbn}-S.jpg`
-              getBorrowerImageGroup(item.group)}
+        src={itemType === "books" ? item.preview_url_override || global.getRandomBookCover(item_id) : getBorrowerImageGroup(item.group)}
         alt={itemType === "books"
             ? `Cover of ${item.title}`
             : `${item.name} ${item.surname}`}
@@ -48,25 +55,11 @@
     <div class="cont list-item-info-text">
         <div class="cont">
             <div style="text-align: left;">
-                {#if itemType === "books"}
-                    <div>{item.title}</div>
-                    <div>by {item.author}</div>
-                {:else}
-                    <div>{item.name} {item.surname}</div>
-                    <div>{item.group}</div>
-                {/if}
+                <div>{line_1}</div>
+                <div>{line_2}</div>
             </div>
             <div class="id-div">
-                {#if itemType === "books"}
-                    {#if item.legacy_book_id.match("_")}
-                        <div>{item_id}</div>
-                    {:else}
-                        <div>{item.legacy_book_id}</div>
-                        <div>{item_id}</div>
-                    {/if}
-                {:else}
-                    <div>{item_id}</div>
-                {/if}
+                {#if IDL != ""}{IDL}<br>{/if}{item_id}
             </div>
         </div>
     </div>
