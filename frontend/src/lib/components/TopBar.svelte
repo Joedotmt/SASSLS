@@ -16,21 +16,6 @@
     function openAccountDialog() {
         dispatch("accBtnPress");
     }
-
-    function onCollectionSelectChange(event) {
-        //window.location.hash = event.target.value;
-    }
-
-    let collections = ["Books", "Borrowers", "Prints", "Transactions"];
-
-    /*
-    onMount(() => {
-        if (collections.includes(window.location.hash.substring(1))) {
-            collection_select.value = window.location.hash.substring(1);
-        } else {
-            window.location.hash = collection_select.value;
-        }
-    });*/
 </script>
 
 <div class="top-bar panel">
@@ -51,14 +36,9 @@
             {/if}
         </div>
     </div>
-    <div style="width: 100%; flex-direction: row; align-items: center;">
-        <select id="collection_select" onchange={onCollectionSelectChange} style="width: 10em; margin: 0.2em; font-size: 18px;">
-            {#each collections as collection}
-                <option value={collection.toLowerCase()}>{collection}</option>
-            {/each}
-        </select>
-        <button onclick={() => global.change_page("books")}> Go to books </button>
-        <button onclick={() => global.change_page("borrowers")}> Go to borrowers </button>
+    <div style="flex-direction: row; align-items: center; margin-left: auto;">
+        <button style="width: 7em; height: 2em;" onclick={() => global.change_page("books")}> Books </button>
+        <button style="margin-right: 1em; margin-left: 0.2em; width: 7em; height: 2em" onclick={() => global.change_page("borrowers")}> Borrowers </button>
         <button class="button-circle" id="account_button" onclick={openAccountDialog} style="padding: 0; border-width: 0;">
             <span class="symbol" style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"> account_circle </span>
         </button>
