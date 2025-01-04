@@ -65,12 +65,21 @@
     $effect(() => {
         searchState.showingIdType = selectedIds_id_type[0];
     });
+
+    function reset_filters() {
+        searchState = {
+            query: "",
+            subjects: [],
+            levels: [],
+            sortType: "created",
+            sortAscending: "true",
+            showingIdType: "both",
+        };
+    }
 </script>
 
 <div class="search-area panel" style="padding: 0; margin-inline-end:{!objects.searchPanel.minimized * 10}px; overflow:hidden; max-width:{!objects.searchPanel.minimized * 350 + objects.searchPanel.minimized * 50}px; transition: max-width 0.3s cubic-bezier(0.4, 0, 0, 1); border-top-right-radius:{objects.searchPanel.minimized ? 0 : ''}; border-bottom-right-radius:{objects.searchPanel.minimized ? 0 : ''}">
-    <div
-        style="flex-direction: row; border-bottom: 1px solid var(---surface-5); width: 100%; display: flex; align-items: center;"
-    >
+    <div style="flex-direction: row; border-bottom: 1px solid var(---surface-5); width: 100%; display: flex; align-items: center;">
         <button
             onclick={() => {
                 objects.searchPanel.minimized = !objects.searchPanel.minimized;
@@ -83,43 +92,13 @@
     {#if objects.searchPanel.minimized}
         <div style="position: absolute; left: 0; top: 3.3em;">
             <SortButton bind:isAscending={searchState.sortAscending} class="button-circle" style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;" />
-            <button
-                in:receive
-                out:send
-                onclick={() => {
-                    searchState = {
-                        query: "",
-                        subjects: [],
-                        levels: [],
-                        sortType: "created",
-                        sortAscending: "true",
-                        showingIdType: "both",
-                    };
-                }}
-                class="button-circle"
-                style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;"><span class="symbol">reset_settings</span></button
-            >
+            <button in:receive out:send onclick={reset_filters} class="button-circle" style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;"><span class="symbol">reset_settings</span></button>
         </div>
     {/if}
 
     <div style="padding: 1em {!objects.searchPanel.minimized * 1 + objects.searchPanel.minimized * 5}em; overflow-y: auto; overflow-x:hidden; transition: padding 0.2s cubic-bezier(0.4, 0, 0, 1); gap:0.3em; display: flex; flex-direction: column;" inert={objects.searchPanel.minimized ? "inert" : ""}>
         {#if !objects.searchPanel.minimized}
-            <button
-                in:receive
-                out:send
-                onclick={() => {
-                    searchState = {
-                        query: "",
-                        subjects: [],
-                        levels: [],
-                        sortType: "created",
-                        sortAscending: "true",
-                        showingIdType: "both",
-                    };
-                }}
-                class=""
-                style="justify-content:center;margin:auto; margin-bottom:0.6em; padding: 0.5em 1em; width: calc(100% - 2em); border:none;"><span style="margin-right: 0.5em;" class="symbol">reset_settings</span>Reset Filters</button
-            >
+            <button in:receive out:send onclick={reset_filters} style="flex-shrink: 0; justify-content:center;margin:auto; margin-bottom:0.6em; padding: 0.5em 1em; width: calc(100% - 2em); border:none;"><span style="margin-right: 0.5em;" class="symbol">reset_settings</span>Reset Filters</button>
         {/if}
 
         <Accordion overflowy="hidden">
