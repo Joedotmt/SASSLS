@@ -41,7 +41,7 @@
 {#if $page.params.id != undefined && visible}
     <div id="display_area" class="panel">
         <div
-            style="  flex-direction: row;  border-bottom: 1px solid var(---surface-5);
+            style="flex-direction: row;  border-bottom: 1px solid var(---surface-5);
                     min-height: 50px;
                     width: 100%;
                     display: flex;
