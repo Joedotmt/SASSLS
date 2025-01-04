@@ -1,3 +1,39 @@
+/* BOXY UI */
+/* body
+{
+    --global-gap: 0em !important;
+    --global-radius: 0em !important;
+}
+
+.top-bar
+{
+    border-bottom: 0.1em solid var(---neutral-variant60) !important;
+    background-color: var(---inverse-on-surface) !important;
+} */
+/* END OF BOXY UI */
+
+/* NotebookLM */
+.top-bar {
+    background: none !important;
+    margin-left: 0 !important;
+}
+body {
+    background-color: var(---surface-3) !important;
+    gap: 0 !important;
+}
+
+.container {
+    gap: 0 !important;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.list-area {
+    margin-right: 10px;
+}
+/* ------------- */
+
 .quick-buttons {
     flex-direction: row;
     justify-content: flex-end;
@@ -25,9 +61,6 @@ body {
 
     padding: 0;
     gap: var(--global-gap);
-
-    background-color: var(---surface-3) !important;
-    gap: 0 !important;
 }
 
 @font-face {
@@ -181,6 +214,14 @@ dialog:not([open]) {
     --button-size: 50px;
 }
 
+@media (max-width: 1124px) {
+    .page-number-changer {
+        margin: 0.5em;
+        padding: 0.5em;
+        --button-size: 40px;
+    }
+}
+
 .copy-icon {
     font-size: 1em;
     margin-left: 0.1em;
@@ -265,6 +306,49 @@ body.hasHover .delete-forever-button:hover {
     height: 100%;
 }
 
+@media (max-width: 800px) {
+    .panel {
+        border-radius: 0 !important;
+        width: 500px;
+    }
+    .container {
+        margin: 0;
+        width: fit-content;
+    }
+
+    .list-area {
+        margin-right: 1px;
+    }
+    .search-area {
+        margin-inline-end: 1px !important;
+    }
+
+    .account-dialog::backdrop {
+        opacity: 1;
+    }
+
+    .account-dialog {
+        margin: auto;
+        left: 50%;
+        translate: -50%;
+        width: min(95vw, 23em);
+    }
+}
+
+@media (max-height: 610px) {
+    .account-dialog {
+        margin: auto;
+        left: 50%;
+        translate: -50%;
+        width: min(95vw, 23em);
+        height: min(95vh, 33em);
+    }
+
+    .account-dialog::backdrop {
+        opacity: 1;
+    }
+}
+
 /*
 @starting-style {
     dialog[open] {
@@ -311,6 +395,49 @@ span.ripple {
 span.ripple.animate {
     transform: scale(3);
     opacity: 0;
+}
+
+@media (min-width: 550px) {
+    .book-add-inputs {
+        padding: 2em;
+        display: grid;
+        font-size: 10px;
+        height: 736px;
+        grid-template-columns: 1fr;
+        grid-column-gap: 1em;
+        grid-row-gap: 1em;
+    }
+}
+
+@media (max-width: 550px) {
+    .book-add-inputs {
+        padding: 2em;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 1em;
+        grid-row-gap: 1em;
+    }
+}
+
+@media (min-width: 590px) {
+    .dialog-header-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 590px) {
+    .dialog-header-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        padding: 1rem;
+    }
+
+    .color-picker {
+        flex-direction: column !important;
+        font-size: 1.5em;
+    }
 }
 
 ::placeholder {
@@ -427,10 +554,6 @@ body.hasHover .button-circle:hover {
     height: 100%;
     flex-direction: row;
     width: 100%;
-    gap: 0 !important;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
 }
 
 .panel {
@@ -562,6 +685,18 @@ body.hasHover .tooltip:hover .tooltiptext {
     justify-content: center;
 }
 
+@media (max-width: 550px) {
+    .site-logo {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logo-image {
+        height: 2em !important;
+        width: 2em !important;
+    }
+}
+
 .top-bar {
     min-height: 2.5em;
     padding: 0.8em;
@@ -571,8 +706,6 @@ body.hasHover .tooltip:hover .tooltiptext {
     flex-direction: row;
     flex-grow: 0;
     width: auto !important;
-    background: none !important;
-    margin-left: 0 !important;
 }
 
 .top-bar::-webkit-scrollbar {
@@ -592,7 +725,6 @@ body.hasHover .tooltip:hover .tooltiptext {
 
 .list-area {
     overflow-y: hidden;
-    margin-right: 10px;
 }
 
 .list-area-search {
@@ -926,109 +1058,4 @@ body.hasHover .list-item:hover {
 .page-number-changer {
     box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
     margin: 0.3em !important;
-}
-
-@media (max-width: 1124px) {
-    .page-number-changer {
-        margin: 0.5em;
-        padding: 0.5em;
-        --button-size: 40px;
-    }
-}
-
-@media (max-width: 550px) {
-    .site-logo {
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .logo-image {
-        height: 2em !important;
-        width: 2em !important;
-    }
-}
-
-@media (min-width: 550px) {
-    .book-add-inputs {
-        padding: 2em;
-        display: grid;
-        font-size: 10px;
-        height: 736px;
-        grid-template-columns: 1fr;
-        grid-column-gap: 1em;
-        grid-row-gap: 1em;
-    }
-}
-
-@media (max-width: 550px) {
-    .book-add-inputs {
-        padding: 2em;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: 1em;
-        grid-row-gap: 1em;
-    }
-}
-
-@media (min-width: 590px) {
-    .dialog-header-grid {
-        display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
-        padding: 2rem;
-    }
-}
-
-@media (max-width: 590px) {
-    .dialog-header-grid {
-        display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
-        padding: 1rem;
-    }
-
-    .color-picker {
-        flex-direction: column !important;
-        font-size: 1.5em;
-    }
-}
-
-@media (max-width: 800px) {
-    .panel {
-        border-radius: 0 !important;
-        width: 500px;
-    }
-    .container {
-        margin: 0;
-    }
-
-    .list-area {
-        margin-right: 1px;
-    }
-    .search-area {
-        margin-inline-end: 1px !important;
-    }
-
-    .account-dialog::backdrop {
-        opacity: 1;
-    }
-
-    .account-dialog {
-        margin: auto;
-        left: 50%;
-        translate: -50%;
-        width: min(95vw, 23em);
-    }
-}
-
-@media (max-height: 610px) {
-    .account-dialog {
-        margin: auto;
-        left: 50%;
-        translate: -50%;
-        width: min(95vw, 23em);
-        height: min(95vh, 33em);
-    }
-
-    .account-dialog::backdrop {
-        opacity: 1;
-    }
 }
