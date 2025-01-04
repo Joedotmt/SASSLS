@@ -121,19 +121,7 @@
             <Input style="margin-bottom:1em" label="Author" bind:value={localBookData.author} />
 
             <div
-                style="
-                background-color: var(---surface-1);
-                padding: 0.5em;
-                flex-grow: 1;
-                font-size: 1.2em;
-                border-radius: 0.5em;
-                margin-top: 0.2em;
-                font-family: var(--the-font);
-                display:{isCreation ? 'none' : 'flex'};
-                flex-direction: row;
-                justify-content: space-between;
-                margin-bottom: 1em;
-            "
+                style=" background-color: var(---surface-1); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display:{isCreation ? 'none' : 'flex'}; flex-direction: row; justify-content: space-between; margin-bottom: 1em; "
             >
                 <div style="display:flex; height:2.5em; margin-right: 1em; flex-direction: column; justify-content: center; font-family: 'roboto mono';">
                     <div style="text-wrap: nowrap;">

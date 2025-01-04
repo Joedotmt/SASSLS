@@ -89,19 +89,7 @@
             <Input style="margin-bottom:1em" label="Name" bind:value={localBorrowerData.name} />
             <Input style="margin-bottom:1em" label="Surname" bind:value={localBorrowerData.surname} />
             <div
-                style="
-                            background-color: var(---surface-5);
-                            padding: 0.5em;
-                            flex-grow: 1;
-                            font-size: 1.2em;
-                            border-radius: 0.5em;
-                            margin-top: 0.2em;
-                            font-family: var(--the-font);
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: space-between;
-                            margin-bottom: 1em;
-                        "
+                style=" background-color: var(---surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em; "
             >
                 <div style="font-family: 'roboto mono'; display: flex; flex-direction: column; justify-content: center;">
                     <div id="display_panel_borrower_borrower_id_editing">

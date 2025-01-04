@@ -90,9 +90,7 @@
 </script>
 
 <div
-    style="overflow-y: auto;
-    border-radius: 0.6em;
-    height: 100%;"
+    style="overflow-y: auto; border-radius: 0.6em; height: 100%;"
 >
     {#if isLoading}
         <div class="fade-in" style="width: 50%; margin:auto;">

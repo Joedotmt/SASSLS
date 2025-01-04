@@ -1,6 +1,6 @@
 from pathlib import Path
 import re
-import shutil
+import os
 
 def format_style_attributes(content):
     # Pattern to match style attributes that span multiple lines
@@ -37,5 +37,5 @@ def process_svelte_files(directory):
             print(f"Error processing {file_path}: {str(e)}")
 
 if __name__ == "__main__":
-    directory = input("Enter directory path containing Svelte files: ")
+    directory = os.path.dirname(os.path.abspath(__file__))
     process_svelte_files(directory)
