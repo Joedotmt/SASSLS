@@ -28,11 +28,14 @@
             {#if fontWeight > 900}
                 Made by <a target="_blank" rel="external" class="joeweblink" href="https://www.joe.mt#sassls">Joe Esposito</a>
             {:else}
-                <a
+                <button
+                    class="link-button"
                     onclick={() => {
                         global.change_page("");
-                    }}>{logoText}</a
+                    }}
                 >
+                    {logoText}
+                </button>
             {/if}
         </div>
     </div>
@@ -44,3 +47,23 @@
         </button>
     </div>
 </div>
+
+<style>
+    .logo-text {
+        user-select: none;
+        align-self: center;
+        font-size: min(5vw, 30px);
+        font-family: "Montserrat", "Poppins", "Trebuchet MS", Helvetica, sans-serif;
+        margin: 0em 0.2em;
+        font-weight: 600;
+        flex-direction: row;
+        text-wrap: nowrap;
+    }
+
+    @media (max-width: 550px) {
+        .logo-text {
+            font-size: 1em;
+            padding: 0;
+        }
+    }
+</style>

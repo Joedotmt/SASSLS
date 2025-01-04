@@ -593,15 +593,7 @@ body.hasHover .button-circle:hover {
     width: 9em;
 }
 
-.logo-text {
-    user-select: none;
-    align-self: center;
-    font-size: min(5vw, 30px);
-    font-family: "Montserrat", "Poppins", "Trebuchet MS", Helvetica, sans-serif;
-    margin: 0em 0.2em;
-    font-weight: 600;
-    text-wrap: nowrap;
-}
+
 
 .joeweblink {
     text-decoration: underline;
@@ -612,13 +604,21 @@ body.hasHover .button-circle:hover {
     transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-a {
+.link-button {
     color: var(--text-color);
     text-decoration: none;
+    font-family: unset;
+    font-size: unset;
+    transition: unset;
+    padding: unset;
+    border: unset;
+    border-radius: unset;
+    font-weight: unset;
 }
-a:hover {
+.link-button:hover {
     color: var(--text-color);
     text-decoration: underline;
+    background: transparent !important;
 }
 
 body.hasHover .joeweblink:hover {
@@ -700,11 +700,6 @@ body.hasHover .tooltip:hover .tooltiptext {
 }
 
 @media (max-width: 550px) {
-    .logo-text {
-        font-size: 1em;
-        padding: 0;
-    }
-
     .site-logo {
         flex-direction: column;
         justify-content: center;
