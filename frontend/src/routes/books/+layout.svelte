@@ -2,9 +2,11 @@
     import BookList from "$lib/components/BookList.svelte";
     import SearchPanel from "$lib/components/SearchPanel.svelte";
     import { onMount } from "svelte";
-    import { global } from "$lib/global.svelte.js";
+    import { global, objects } from "$lib/global.svelte.js";
     import BookPanel from "$lib/components/display/BookPanel.svelte";
     import { page } from "$app/stores";
+
+    let { children } = $props();
 
     let searchState = $state({
         query: "",
@@ -43,9 +45,9 @@
     function searchBarChanged(event) {
         searchState.query = event.target.value;
     }
-    import { objects } from "$lib/global.svelte.js";
 </script>
 
+{@render children()}
 <div class="container">
     <SearchPanel bind:searchState />
     <div class="list-area panel" style="border-top-left-radius:{objects.searchPanel.minimized ? 0 : ''}; border-bottom-left-radius:{objects.searchPanel.minimized ? 0 : ''}">
@@ -54,7 +56,8 @@
     min-height: 50px;
     width: 100%;
     display: flex;
-    align-items: center;">
+    align-items: center;"
+        >
             <span style="margin: 0em 1em;">Search</span>
         </div>
         <div class="list-area-search">
@@ -65,5 +68,5 @@
         </div>
         <BookList {searchState} />
     </div>
-    <BookPanel selectedBookBook_id={$page.params.item_id} />
+    <BookPanel selectedBookBook_id={$page.params.id} />
 </div>

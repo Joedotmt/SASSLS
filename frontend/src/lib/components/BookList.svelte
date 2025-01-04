@@ -39,7 +39,7 @@
         }
 
         const lazyFields = ["title", "isbn"];
-        const exactFields = ["legacy_book_id", "book_id"];
+        const exactFields = ["legacy_book_id", "id"];
 
         let filter = state.query
             .split(" ")
@@ -74,7 +74,7 @@
             const records = await pb.collection("books").getList(page, pageSize, {
                 filter,
                 sort,
-                fields: "title, author, legacy_book_id, book_id, id, preview_url_override",
+                fields: "title, author, legacy_book_id, id, preview_url_override",
             });
 
             const endTime = performance.now();
@@ -118,7 +118,8 @@
 <div
     style="overflow:hidden; overflow-y: auto;
     border-radius: 0.6em;
-    height: 100%;">
+    height: 100%;"
+>
     {#if isLoading}
         <div class="fade-in" style="width: 50%; margin:auto;">
             <LoadingBar />
@@ -127,10 +128,10 @@
     {:else if error}
         <p style="color: red;">{error}</p>
     {:else}
-        <ListItemCreate itemType="books" isSelected={"create" == $page.params.item_id} />
-        {#each items as book (book.book_id)}
+        <ListItemCreate itemType="books" isSelected={"create" == $page.params.id} />
+        {#each items as book (book.id)}
             <div>
-                <ListItem itemType="books" item={book} isSelected={book.book_id == $page.params.item_id} />
+                <ListItem itemType="books" item={book} isSelected={book.id == $page.params.id} />
             </div>
         {/each}
     {/if}

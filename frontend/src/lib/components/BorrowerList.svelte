@@ -20,7 +20,7 @@
         let extra = [];
 
         const borrowerLazyFields = ["name", "surname", "group"];
-        const borrowerExactFields = ["borrower_id"];
+        const borrowerExactFields = ["id"];
         let filter = state.query
             .split(" ")
             .map((token) => token.trim())
@@ -92,7 +92,8 @@
 <div
     style="overflow-y: auto;
     border-radius: 0.6em;
-    height: 100%;">
+    height: 100%;"
+>
     {#if isLoading}
         <div class="fade-in" style="width: 50%; margin:auto;">
             <LoadingBar />
@@ -101,9 +102,9 @@
     {:else if error}
         <p style="color: red;">{error}</p>
     {:else}
-        <ListItemCreate itemType="borrowers" isSelected={"create" == $page.params.item_id} />
+        <ListItemCreate itemType="borrowers" isSelected={"create" == $page.params.id} />
         {#each items as borrower (borrower.id)}
-            <ListItem itemType="borrowers" item={borrower} isSelected={borrower.borrower_id == $page.params.item_id} />
+            <ListItem itemType="borrowers" item={borrower} isSelected={borrower.id == $page.params.id} />
         {/each}
     {/if}
 </div>

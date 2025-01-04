@@ -2,22 +2,15 @@
     import { run } from "svelte/legacy";
     import { page } from "$app/stores";
     import { global, constants } from "$lib/global.svelte.js";
+    import IsbnText from "../isbnText.svelte";
 
     const defaultSelectedBookData = {};
 
-    let { style = "", selectedBookData = $bindable(defaultSelectedBookData), lending_mode = false } = $props();
+    let { selectedBookData = $bindable(defaultSelectedBookData), lending_mode = false } = $props();
     let subjectLabel = $state("");
     run(() => {
         if (selectedBookData == undefined) {
             selectedBookData = defaultSelectedBookData;
-        }
-    });
-
-    // Subscribe to the BookSubjectsStore to get the list of subjects
-    run(() => {
-        if (selectedBookData.subject && constants.books.subjects) {
-            const foundSubject = constants.books.subjects.find((subj) => subj.id === selectedBookData.subject);
-            subjectLabel = foundSubject ? foundSubject.subject : "Unknown subject";
         }
     });
 </script>
@@ -36,8 +29,9 @@
             <button
                 class="edit-button"
                 onclick={() => {
-                    global.change_page("books/" + $page.params.item_id + "/edit");
-                }}>
+                    global.change_page("books/" + $page.params.id + "/edit");
+                }}
+            >
                 <span class="symbol">edit</span>
                 Edit
             </button>
@@ -47,7 +41,7 @@
 <div class="display-panel-display">
     <div class="book-general">
         <div class="cover-container">
-            <img class="book-cover" src={selectedBookData.preview_url_override || global.getRandomBookCover(selectedBookData.book_id)} alt="book cover" />
+            <img class="book-cover" src={selectedBookData.preview_url_override || global.getRandomBookCover(selectedBookData.id)} alt="book cover" />
         </div>
         <div class="book-info">
             <h1 class="book-title">{selectedBookData.title}</h1>
@@ -56,8 +50,9 @@
             </div>
             <div class="book-details">
                 <div>CLL: {selectedBookData.classification_label}</div>
-                <div>ISBN: {selectedBookData.isbn}</div>
-                <div>ID: {selectedBookData.book_id}</div>
+                <div>ISBN: <IsbnText isbn={selectedBookData.isbn} /></div>
+
+                <div>ID: {selectedBookData.id}</div>
                 {#if !selectedBookData.legacy_book_id?.includes("_")}
                     <div>IDL: {selectedBookData.legacy_book_id}</div>
                 {/if}
@@ -66,7 +61,7 @@
     </div>
 
     <div class="description-section">
-        <label>Description</label>
+        <div>Description</div>
         <div class="description-box">{selectedBookData.description}</div>
     </div>
 
@@ -84,19 +79,15 @@
         </div>
     {/if}
 
-    {#if selectedBookData.price > 0}
-        <div class="price">Price: {selectedBookData.price} EUR</div>
-    {/if}
-
     <div class="metadata">
+        <div>Price: {selectedBookData.price} EUR</div>
         <div>Level: {selectedBookData.level}</div>
-        <div>Subject: {subjectLabel}</div>
+        <div>Subject: {selectedBookData?.expand?.subject.n}</div>
         <div>Updated: {selectedBookData.updated}</div>
         {#if selectedBookData.legacy_date_entered !== ""}
             <div>Legacy Created: {selectedBookData.legacy_date_entered}</div>
         {/if}
-        <div>SYS_CREATED: {selectedBookData.created}</div>
-        <div>SYS_ID: {selectedBookData.id}</div>
+        <div>Created: {selectedBookData.created}</div>
     </div>
 </div>
 
@@ -205,9 +196,10 @@
     .description-box {
         padding: 0.5em;
         width: calc(100% - 1em);
-        height: 5em;
+        height: fit-content;
         border-radius: 0.5em;
         background-color: var(---surface-1);
+        overflow: auto;
     }
 
     .notice {
@@ -220,11 +212,6 @@
 
     .warning-icon {
         translate: 0 5px;
-    }
-
-    .price {
-        margin: 0.8em;
-        margin-top: 0.5em;
     }
 
     .metadata {

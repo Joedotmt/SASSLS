@@ -180,53 +180,27 @@
 
 
 
-        async function generate_unique_book_id()
-        {
-            generated_id = "";
-            for (let i = 0; i < 1000; i++)
-            {
-                try
-                {
-                    generated_id = create_random_string(4);
-                    await pb.collection('books').getFirstListItem(`book_id="${generated_id}"`);
-                    console.error("trying to generate a book id again because of a collision");
-                } catch (err)
-                {
-                    if (err.data.code == '404')
-                    {
-                        return generated_id;
-                    }
-                }
-            }
-        }
-
-
-
         async function createBooks()
         {
             counter = 0;
             for (const row of csvData)
             {
                 let data = { "": "" };
-                await generate_unique_book_id().then(generated_id =>
-                {
-                    data = {
-                        "book_id": generated_id,
-                        "legacy_book_id": row.legacy_book_id,
-                        "title": row.title,
-                        "author": row.author,
-                        "isbn": row.isbn,
-                        "description": row.description,
-                        "classification_label": row.classification_label,
-                        "level": row.level,
-                        "subject": "la303mtkbxgrr0v",
-                        "lost": row.lost,
-                        "scrapped": row.scrapped,
-                        "price": row.price,
-                        "legacy_date_entered": row.legacy_date_entered,
-                        "preview_url_override": row.preview_url_override
-                    };
-                });
+                data = {
+                    "legacy_book_id": row.legacy_book_id,
+                    "title": row.title,
+                    "author": row.author,
+                    "isbn": row.isbn,
+                    "description": row.description,
+                    "classification_label": row.classification_label,
+                    "level": row.level,
+                    "subject": "la303mtkbxgrr0v",
+                    "lost": row.lost,
+                    "scrapped": row.scrapped,
+                    "price": row.price,
+                    "legacy_date_entered": row.legacy_date_entered,
+                    "preview_url_override": row.preview_url_override
+                };
                 await console.log(data);
                 try
                 {

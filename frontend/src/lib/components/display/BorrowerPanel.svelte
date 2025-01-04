@@ -16,7 +16,7 @@
             return;
         }
         try {
-            selectedBorrowerData = await pb.collection("borrowers").getFirstListItem(`borrower_id="${selectedBorrowerBorrower_id}"`, {});
+            selectedBorrowerData = await pb.collection("borrowers").getOne(selectedBorrowerBorrower_id, {});
             global.loading_items.delete(selectedBorrowerBorrower_id);
             visible = true;
         } catch (error) {
@@ -38,14 +38,15 @@
     }
 </script>
 
-{#if $page.params.item_id != undefined && visible}
+{#if $page.params.id != undefined && visible}
     <div id="display_area" class="panel">
         <div
             style="  flex-direction: row;  border-bottom: 1px solid var(---surface-5);
                     min-height: 50px;
                     width: 100%;
                     display: flex;
-                    align-items: center;">
+                    align-items: center;"
+        >
             <button onclick={unselect_borrower} class="button-circle" style="border:none; width:40px; height:40px; margin:5px; z-index: 6;"><span class="symbol">close</span></button>
             <span style="margin: 0em 0em; z-index: 6;">Borrower</span>
         </div>

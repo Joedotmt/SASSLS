@@ -2,6 +2,7 @@
     import Input from "../Input.svelte";
     import pb from "$lib/pocketbase";
     import { global, constants } from "$lib/global.svelte.js";
+    import { slide } from "svelte/transition";
     global.unsaved_changes = true;
 
     let { selectedBookData, bookUpdate } = $props();
@@ -18,67 +19,73 @@
 
     let isCreation = $derived(false);
 
-    function create_random_string(length) {
-        const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-        let result = "";
-        for (let i = 0; i < length; i++) {
-            result += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return result;
-    }
-
-    async function generate_unique_id() {
-        let generated_id = "";
-        for (let i = 0; i < 1000; i++) {
-            try {
-                generated_id = create_random_string(4);
-
-                await pb.collection("books").getFirstListItem(`book_id="${generated_id}"`);
-                console.error("trying to generate a book id again because of collisions");
-            } catch (err) {
-                console.log("Sucessfully creaded book_id: ", generated_id);
-                return generated_id;
-            }
-        }
-    }
-
     async function saveChanges() {
+        let updatedRecord;
+        if (isCreation) {
+            updatedRecord = await createItem(localBookData);
+        } else {
+            updatedRecord = await updateItem(localBookData);
+        }
+        // the updated record from the server
+        bookUpdate(updatedRecord);
+        global.change_page("books/" + $page.params.id, true);
+    }
+
+    let errorMessage = $state("");
+    let fieldErrors = $state({});
+
+    function showErrorAlert(errorData) {
         try {
-            let updatedRecord;
-            if (isCreation) {
-                updatedRecord = await createItem(localBookData);
-            } else {
-                updatedRecord = await updateItem(localBookData);
+            const errorFields = errorData.response.data;
+            errorMessage = "Error updating book record <br>";
+
+            // Reset all field errors
+            fieldErrors = {};
+
+            // Set error states for fields with errors
+            for (const field in errorFields) {
+                if (errorFields.hasOwnProperty(field)) {
+                    errorMessage += `${field}: ${errorFields[field].message}\n`;
+                    fieldErrors[field] = true;
+                }
             }
-            // the updated record from the server
-            bookUpdate(updatedRecord);
-            global.change_page("books/" + $page.params.item_id, true);
-        } catch (error) {
-            console.error(error);
+        } catch (e) {
+            errorMessage = "An unexpected error occurred.";
         }
     }
 
     async function createItem(data) {
-        await generate_unique_id().then((generated_id_response) => {
-            localBookData.book_id = generated_id_response;
-        });
-        console.log("CREATING BOOK RECORD WITH DATA: ", data);
-        const record = await pb.collection("books").create(data);
-        return record;
+        try {
+            console.log("CREATING BOOK RECORD WITH DATA: ", data);
+            const record = await pb.collection("books").create(data);
+            return record;
+        } catch (error) {
+            showErrorAlert(error);
+        }
     }
 
     async function updateItem(data) {
-        return await pb.collection("books").update(data.id, { ...data });
+        try {
+            return await pb.collection("books").update(data.id, { ...data });
+        } catch (error) {
+            showErrorAlert(error);
+            throw error;
+        }
     }
 
     async function deleteItem(id) {
         if (id == "creation" || id == null) {
             return;
         }
-        await pb.collection("books").delete(id);
-        setTimeout(() => {
-            global.change_page("books", true);
-        }, 500);
+        try {
+            await pb.collection("books").delete(id);
+            setTimeout(() => {
+                global.change_page("books", true);
+            }, 500);
+        } catch (error) {
+            alert("Error deleting book record: " + error.message);
+            throw error;
+        }
     }
 
     import { page } from "$app/stores";
@@ -90,7 +97,7 @@
             <div style="display: flex; margin-left: auto; flex-direction: row;" id="display_area_top_book_view_edit">
                 <button
                     onclick={() => {
-                        global.change_page("books/" + $page.params.item_id, true);
+                        global.change_page("books/" + $page.params.id, true);
                     }}
                     style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"
                 >
@@ -104,6 +111,12 @@
             </div>
         </div>
         <div style="padding: 2em;">
+            {#if errorMessage != ""}
+                <div transition:slide style="margin-bottom: 2rem; color: rgb(255, 80, 80) !important;">
+                    {@html errorMessage}
+                </div>
+            {/if}
+
             <Input style="margin-bottom:1em" label="Title" bind:value={localBookData.title} />
             <Input style="margin-bottom:1em" label="Author" bind:value={localBookData.author} />
 
@@ -124,7 +137,7 @@
             >
                 <div style="display:flex; height:2.5em; margin-right: 1em; flex-direction: column; justify-content: center; font-family: 'roboto mono';">
                     <div style="text-wrap: nowrap;">
-                        ID: {localBookData.book_id}
+                        ID: {localBookData.id}
                     </div>
                     {#if !localBookData.legacy_book_id?.includes("_")}
                         <div style="text-wrap: nowrap;" id="display_panel_book_legacy_book_id_editing">
@@ -136,7 +149,7 @@
                     <button id="j5498" style="text-wrap:balance; width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;"> Migrate to New ID </button>
                 {/if}
             </div>
-            <Input style="margin-bottom:1em" label="ISBN" bind:value={localBookData.isbn} />
+            <Input style="margin-bottom:1em" error={fieldErrors["isbn"] || false} label="ISBN" bind:value={localBookData.isbn} />
 
             <Input style="margin-bottom:1em" label="Description" type="textarea" bind:value={localBookData.description} />
             <Input style="margin-bottom:1em" label="Classification Label" bind:value={localBookData.classification_label} />

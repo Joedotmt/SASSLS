@@ -22,9 +22,10 @@
 
         <button
             onclick={() => {
-                global.change_page("borrowers/" + $page.params.item_id + "/edit");
+                global.change_page("borrowers/" + $page.params.id + "/edit");
             }}
-            style="margin: 5px; margin-right: 5px; height: 40px;">
+            style="margin: 5px; margin-right: 5px; height: 40px;"
+        >
             <span class="symbol" style="margin-right: 0.5em;"> edit </span>
             Edit
         </button>
@@ -39,7 +40,7 @@
         <div style="background-color: var(---surface-3); border-radius: 0.4em; padding: 0.5em; font-size: 1.2em; font-family: var(--the-robo-font);">
             <div id="dpdb_group">Group: {selectedBorrowerData.group}</div>
             <div id="dpdb_borrower_id">
-                ID: {selectedBorrowerData.borrower_id}
+                ID: {selectedBorrowerData.id}
             </div>
         </div>
         <div style="font-size: 1.3em; font-weight: bold; margin-top: 0.5em;">Currently borrowing books:</div>

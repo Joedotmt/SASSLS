@@ -11,7 +11,7 @@
      */
 
     /** @type {Props} */
-    let { label = "label", placeholder = "", value = $bindable(""), style = "", min = "0", autocomplete = "off", type = "text", children } = $props();
+    let { label = "label", placeholder = "", value = $bindable(""), style = "", min = "0", autocomplete = "off", type = "text", children, error } = $props();
 
     let inputElement = $state(null);
 </script>
@@ -31,12 +31,21 @@
     </div>
 {:else}
     <div {style} class="input-container">
-        <input {placeholder} bind:this={inputElement} bind:value class="input-google {placeholder.length >= 1 ? 'force-up' : ''}" />
-        <label class="input-placeholder">{label}</label>
+        <input {placeholder} bind:this={inputElement} bind:value class="input-google {placeholder.length >= 1 ? 'force-up' : ''} {error ? 'error' : ''}" />
+        <label class="input-placeholder {error ? 'error' : ''}">{label}</label>
     </div>
 {/if}
 
 <style>
+    .input-google.error {
+        box-shadow:
+            inset 0px 0px 0px 1.2px rgb(255, 80, 80),
+            0px 0px 0px 0px var(---neutral-variant60);
+    }
+    .input-placeholder.error {
+        color: rgb(255, 80, 80) !important;
+    }
+
     .input-container {
         display: flex;
         align-items: center;

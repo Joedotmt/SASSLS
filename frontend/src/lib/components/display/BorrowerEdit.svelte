@@ -26,21 +26,6 @@
         return result;
     }
 
-    async function generate_unique_id() {
-        let generated_id = "";
-        for (let i = 0; i < 1000; i++) {
-            try {
-                generated_id = create_random_string(3);
-
-                await pb.collection("borrowers").getFirstListItem(`borrower_id="${generated_id}"`);
-                console.error("trying to generate a borrower id again because of collisions");
-            } catch (err) {
-                console.log("Successfully created borrower_id: ", generated_id);
-                return generated_id;
-            }
-        }
-    }
-
     async function saveChanges() {
         try {
             let updatedRecord;
@@ -51,16 +36,13 @@
             }
             // the updated record from the server
             borrowerUpdate(updatedRecord);
-            global.change_page("borrowers/" + $page.params.item_id, true);
+            global.change_page("borrowers/" + $page.params.id, true);
         } catch (error) {
             console.error(error);
         }
     }
 
     async function createItem(data) {
-        await generate_unique_id().then((generated_id_response) => {
-            localBorrowerData.borrower_id = generated_id_response;
-        });
         console.log("CREATING BORROWER RECORD WITH DATA: ", data);
         const record = await pb.collection("borrowers").create(data);
         return record;
@@ -90,9 +72,10 @@
             <div style="display: flex; margin-left: auto; flex-direction: row;">
                 <button
                     onclick={() => {
-                        global.change_page("borrowers/" + $page.params.item_id, true);
+                        global.change_page("borrowers/" + $page.params.id, true);
                     }}
-                    style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;">
+                    style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"
+                >
                     <span class="symbol"> cancel </span>
                     Cancel
                 </button>
@@ -118,10 +101,11 @@
                             flex-direction: row;
                             justify-content: space-between;
                             margin-bottom: 1em;
-                        ">
+                        "
+            >
                 <div style="font-family: 'roboto mono'; display: flex; flex-direction: column; justify-content: center;">
                     <div id="display_panel_borrower_borrower_id_editing">
-                        ID: {localBorrowerData.borrower_id}
+                        ID: {localBorrowerData.id}
                     </div>
                 </div>
             </div>

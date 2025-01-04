@@ -49,5 +49,5 @@
         </div>
         <BorrowerList {searchState} />
     </div>
-    <BorrowerPanel selectedBorrowerBorrower_id={$page.params.item_id} />
+    <BorrowerPanel selectedBorrowerBorrower_id={$page.params.id} />
 </div>
