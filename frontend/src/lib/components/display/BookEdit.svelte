@@ -167,7 +167,7 @@
             >
 
             <div style="margin-bottom: 0.8em; font-size: 1.4em;">
-                <div style="display: flex; margin-bottom: 0.5em;">
+                <div style=" margin-bottom: 0.5em;">
                     <input bind:checked={localBookData.scrapped} id="display_panel_book_scrapped_editing" type="checkbox" />
                     <label style="margin-left: 0.3em;">Scrapped</label>
                 </div>

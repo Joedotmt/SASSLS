@@ -46,18 +46,21 @@
                 <a
                     onclick={() => {
                         global.change_page("");
-                    }}>{logoText}</a>
+                    }}>{logoText}</a
+                >
             {/if}
         </div>
     </div>
-    <div style="width: 100%; display: flex; flex-direction: row-reverse; align-items: center;">
-        <button class="button-circle" id="account_button" onclick={openAccountDialog} style="padding: 0; border-width: 0;">
-            <span class="symbol" style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"> account_circle </span>
-        </button>
+    <div style="width: 100%; flex-direction: row; align-items: center;">
         <select id="collection_select" onchange={onCollectionSelectChange} style="width: 10em; margin: 0.2em; font-size: 18px;">
             {#each collections as collection}
                 <option value={collection.toLowerCase()}>{collection}</option>
             {/each}
         </select>
+        <button onclick={() => global.change_page("books")}> Go to books </button>
+        <button onclick={() => global.change_page("borrowers")}> Go to borrowers </button>
+        <button class="button-circle" id="account_button" onclick={openAccountDialog} style="padding: 0; border-width: 0;">
+            <span class="symbol" style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"> account_circle </span>
+        </button>
     </div>
 </div>

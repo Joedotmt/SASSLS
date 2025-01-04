@@ -2,7 +2,7 @@
     import BookDisplay from "./BookDisplay.svelte";
     import BookEdit from "./BookEdit.svelte";
     import pb from "$lib/pocketbase";
-    import { global } from "$lib/global.svelte.js";
+    import { global, objects } from "$lib/global.svelte.js";
 
     let { selectedBookBook_id = "" } = $props();
     import { page } from "$app/stores";
@@ -18,6 +18,9 @@
         try {
             selectedBookData = await pb.collection("books").getOne(selectedBookBook_id, { expand: "subject" });
             global.loading_items.delete(selectedBookBook_id);
+            if (window.innerWidth < 1100) {
+                objects.searchPanel.minimized = true;
+            }
             visible = true;
         } catch (error) {
             console.log("Error with selected book data " + selectedBookData);
@@ -63,7 +66,6 @@
 <style>
     #display_area {
         width: 100%;
-        margin-inline-start: 10px;
         transition: 0.5s translate cubic-bezier(0.4, 0, 0, 1);
     }
 </style>

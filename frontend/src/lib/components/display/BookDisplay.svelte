@@ -1,7 +1,7 @@
 <script>
     import { run } from "svelte/legacy";
     import { page } from "$app/stores";
-    import { global, constants } from "$lib/global.svelte.js";
+    import { global } from "$lib/global.svelte.js";
     import IsbnText from "../isbnText.svelte";
 
     const defaultSelectedBookData = {};
@@ -62,7 +62,7 @@
 
     <div class="description-section">
         <div>Description</div>
-        <div class="description-box">{selectedBookData.description}</div>
+        <div class="description-box">{selectedBookData.description == "" ? "None" : selectedBookData.description}</div>
     </div>
 
     {#if selectedBookData.lost}
@@ -98,6 +98,7 @@
 
     .display-panel-display {
         gap: 0.5em;
+        padding: 0.8em;
     }
 
     .lend-button {
@@ -116,7 +117,6 @@
     .action-buttons {
         flex-direction: row;
         margin-left: auto;
-        margin-bottom: 0.8em;
     }
 
     .return-button {
@@ -146,7 +146,7 @@
 
     .cover-container {
         justify-content: center;
-        margin: 0em 0.8em;
+        margin-right: 0.8em;
     }
 
     .book-cover {
@@ -163,7 +163,7 @@
     }
 
     .book-info {
-        padding: 0em 0.8em;
+        padding-left: 0;
         font-size: 1.1em;
         width: 100%;
     }
@@ -187,10 +187,10 @@
         margin-top: 0.2em;
         font-family: var(--the-font);
         justify-content: center;
+        height: 100%;
     }
 
     .description-section {
-        margin: 0em 0.8em;
     }
 
     .description-box {
@@ -207,7 +207,6 @@
         border-radius: 0.5em;
         background-color: var(---primary-container);
         display: inline;
-        margin: 0em 0.8em;
     }
 
     .warning-icon {
@@ -215,7 +214,6 @@
     }
 
     .metadata {
-        margin: 0.8em;
         margin-top: 0.5em;
         gap: 0.8em;
     }

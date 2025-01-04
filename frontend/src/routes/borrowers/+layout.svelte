@@ -40,7 +40,7 @@
 
 <div class="container">
     <!-- <SearchPanel bind:searchState /> -->
-    <div class="list-area panel" style="margin-inline-start: 10px;">
+    <div class="list-area panel">
         <div class="list-area-search">
             <div class="search-input-wrapper">
                 <span class="symbol search-icon">search</span>

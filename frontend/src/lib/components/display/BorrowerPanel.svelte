@@ -63,7 +63,6 @@
 <style>
     #display_area {
         width: 100%;
-        margin-inline-start: 10px;
         transition: 0.5s translate cubic-bezier(0.4, 0, 0, 1);
     }
 </style>

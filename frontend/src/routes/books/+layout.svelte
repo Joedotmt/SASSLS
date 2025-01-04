@@ -48,25 +48,27 @@
 </script>
 
 {@render children()}
-<div class="container">
-    <SearchPanel bind:searchState />
-    <div class="list-area panel" style="border-top-left-radius:{objects.searchPanel.minimized ? 0 : ''}; border-bottom-left-radius:{objects.searchPanel.minimized ? 0 : ''}">
-        <div
-            style="flex-direction: row;    border-bottom: 1px solid var(---surface-5);
+<div class="container-scroller">
+    <div class="container">
+        <SearchPanel bind:searchState />
+        <div class="list-area panel" style="border-top-left-radius:{objects.searchPanel.minimized ? 0 : ''}; border-bottom-left-radius:{objects.searchPanel.minimized ? 0 : ''}">
+            <div
+                style="flex-direction: row;    border-bottom: 1px solid var(---surface-5);
     min-height: 50px;
     width: 100%;
     display: flex;
     align-items: center;"
-        >
-            <span style="margin: 0em 1em;">Search</span>
-        </div>
-        <div class="list-area-search">
-            <div class="search-input-wrapper">
-                <span class="symbol search-icon">search</span>
-                <input type="text" class="main-search-bar" placeholder="Search Books" onchange={searchBarChanged} onkeydown={handleSearchKeyDown} />
+            >
+                <span style="margin: 0em 1em;">Search</span>
             </div>
+            <div class="list-area-search">
+                <div class="search-input-wrapper">
+                    <span class="symbol search-icon">search</span>
+                    <input type="text" class="main-search-bar" placeholder="Search Books" onchange={searchBarChanged} onkeydown={handleSearchKeyDown} />
+                </div>
+            </div>
+            <BookList {searchState} />
         </div>
-        <BookList {searchState} />
+        <BookPanel selectedBookBook_id={$page.params.id} />
     </div>
-    <BookPanel selectedBookBook_id={$page.params.id} />
 </div>

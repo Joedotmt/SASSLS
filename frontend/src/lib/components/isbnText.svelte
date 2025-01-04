@@ -19,4 +19,4 @@
     }
 </script>
 
-<div>{formatISBN(isbn)}</div>
+{formatISBN(isbn)}
