@@ -37,7 +37,6 @@
     div.accordion {
         margin: 0;
         transition: 0.2s;
-        interpolate-size: allow-keywords;
     }
     div.accordion.open {
         margin-bottom: 0.6em;

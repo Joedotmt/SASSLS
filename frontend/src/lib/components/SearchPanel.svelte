@@ -78,7 +78,7 @@
     }
 </script>
 
-<div class="search-area panel" style="padding: 0; margin-inline-end:{!objects.searchPanel.minimized * 10}px; overflow:hidden; max-width:{!objects.searchPanel.minimized * 350 + objects.searchPanel.minimized * 50}px !important; min-width:0; transition: max-width 0.3s cubic-bezier(0.4, 0, 0, 1); border-top-right-radius:{objects.searchPanel.minimized ? 0 : ''}; border-bottom-right-radius:{objects.searchPanel.minimized ? 0 : ''}">
+<div class="search-area panel {objects.searchPanel.minimized ? 'minimized' : ''}">
     <div style="flex-direction: row; border-bottom: 1px solid var(---surface-5); width: 100%; display: flex; align-items: center;">
         <button
             onclick={() => {

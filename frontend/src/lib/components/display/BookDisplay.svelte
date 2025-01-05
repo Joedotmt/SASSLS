@@ -40,7 +40,7 @@
 </div>
 <div class="display-panel-display">
     <div class="book-general">
-        <div class="cover-container">
+        <div style="justify-content: center;">
             <img class="book-cover" src={selectedBookData.preview_url_override || global.getRandomBookCover(selectedBookData.id)} alt="book cover" />
         </div>
         <div class="book-info">
@@ -126,13 +126,16 @@
         height: 40px;
     }
 
+    .book-info {
+        width: 100%;
+    }
+
     .edit-button {
         margin: 5px;
         height: 40px;
     }
 
     .book-general {
-        display: flex;
         margin: 0em;
         flex-direction: row;
     }
@@ -144,28 +147,15 @@
         }
     }
 
-    .cover-container {
-        justify-content: center;
-        margin-right: 0.8em;
-    }
-
     .book-cover {
-        width: auto;
-        height: auto;
-        object-fit: fill;
-        padding: 0.2em;
-        width: min(8em, 30vw);
-        height: 13em;
-        background-color: var(---inverse-surface);
+        object-fit: contain;
+        overflow: hidden;
+        height: 12em;
+        background-color: transparent;
+        flex-shrink: 0;
         border-radius: 0.6em;
-        view-transition-name: book-cover;
         image-rendering: pixelated;
-    }
-
-    .book-info {
-        padding-left: 0;
-        font-size: 1.1em;
-        width: 100%;
+        margin-right: 0.8em;
     }
 
     .book-title {
