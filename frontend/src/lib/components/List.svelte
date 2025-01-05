@@ -14,7 +14,9 @@
     {:else if error}
         <p style="color: red;">{error}</p>
     {:else}
-        <ListItemCreate itemType={collection_name} isSelected={"create" == selectedId} />
+        <div>
+            <ListItemCreate itemType={collection_name} isSelected={"create" == selectedId} />
+        </div>
         {#each items as item (item.id)}
             <div>
                 <ListItem itemType={collection_name} {item} isSelected={item.id == selectedId} />
