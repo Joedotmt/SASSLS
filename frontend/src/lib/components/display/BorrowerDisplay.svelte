@@ -36,8 +36,8 @@
 
         var zeBOX = dpdb_add_button.getBoundingClientRect();
 
-        let finaltargetWidth = add_book_to_borrow_dialog.getBoundingClientRect().width;
-        let finaltargetHeight = add_book_to_borrow_dialog.getBoundingClientRect().height;
+        let finaltargetWidth = document.body.getBoundingClientRect().width;
+        let finaltargetHeight = document.body.getBoundingClientRect().height;
 
         dpdb_add_button_FAKE.style.display = "flex";
         iirirri9i49.style.transform = `scaleX(1) scaleY(1)`;
@@ -123,14 +123,8 @@
                 </button>
                 <div style="text-wrap: nowrap; font-size: 1.2em; margin-left: 0.3em;">Lend book to borrower</div>
             </div>
-            {#if false && dialog_open}
-                <div class="container-scroller">
-                    <div class="container">
-                        <SearchPanel bind:searchState />
-                        <ListPanel bind:searchState collection="books" />
-                        <BookPanel />
-                    </div>
-                </div>
+            {#if dialog_open}
+                <embed title="books" width="1000" height="1000" src="/books" />
             {/if}
         </div>
     </dialog>

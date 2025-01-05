@@ -63,6 +63,9 @@ body {
     font-display: block;
     src: url("/icons.woff2") format("woff2");
 }
+iframe {
+    border: none;
+}
 .search-input-wrapper {
     position: relative;
     flex-direction: row;
