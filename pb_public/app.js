@@ -1555,11 +1555,8 @@ function add_borrower_book_button_handler(event)
 
     book_enable_lend_view(true);
 
-
-
     finaltargetWidth = add_book_to_borrow_dialog.getBoundingClientRect().width;
-    finaltargetHeight =
-        add_book_to_borrow_dialog.getBoundingClientRect().height;
+    finaltargetHeight = add_book_to_borrow_dialog.getBoundingClientRect().height;
 
     dpdb_add_button_FAKE.style.display = "flex";
     iirirri9i49.style.transform = `scaleX(1) scaleY(1)`;
@@ -1570,8 +1567,6 @@ function add_borrower_book_button_handler(event)
 
     add_book_to_borrow_dialog.style.transition = "0s";
     add_book_to_borrow_dialog.style.display = "flex";
-    //add_book_to_borrow_dialog.style.transform = `scaleX(0.1) scaleY(0.1)`;
-    //add_book_to_borrow_dialog.style.transform = `scaleX(${zeBOX.width / finaltargetWidth}) scaleY(${zeBOX.height / finaltargetHeight})`;
     add_book_to_borrow_dialog.style.width = zeBOX.width + "px";
     add_book_to_borrow_dialog.style.height = zeBOX.height + "px";
     add_book_to_borrow_dialog.style.left = zeBOX.left + "px";
@@ -1595,7 +1590,6 @@ function add_borrower_book_button_handler(event)
         dpdb_add_button_FAKE.style.top = "50%";
         dpdb_add_button_FAKE.style.translate = "-50% -50%";
 
-        //add_book_to_borrow_dialog.style.transform = `scaleX(1) scaleY(1)`;
         add_book_to_borrow_dialog.style.width = finaltargetWidth + "px";
         add_book_to_borrow_dialog.style.height = finaltargetHeight + "px";
         add_book_to_borrow_dialog.style.left = "50%";
@@ -1613,7 +1607,6 @@ function add_borrower_book_button_handler(event)
     setTimeout(() =>
     {
         dpdb_add_button_FAKE.style = null;
-        //iirirri9i49.style.transform = "scaleX(1) scaleY(1)"
         iirirri9i49.style.opacity = "1";
     }, 1000);
 }

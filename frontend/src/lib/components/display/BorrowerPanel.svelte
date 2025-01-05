@@ -10,7 +10,7 @@
     import Edit from "./BorrowerEdit.svelte";
     const collection_name = "borrowers";
     const item_type = "borrower";
-    const defaultItem = $derived(constants.borrower.defaultItem);
+    const defaultItem = $derived(constants.borrowers.defaultItem);
     const request_options = {};
 
     let selectedId = $derived(page.params.id);
@@ -40,7 +40,7 @@
             selectedData = defaultItem;
             global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
-                objects.searchPanel.minimized = true;
+                //objects.searchPanel.minimized = true;
             }
             visible = true;
             return;
@@ -49,7 +49,7 @@
             selectedData = await pb.collection(collection_name).getOne(selectedId, request_options);
             global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
-                objects.searchPanel.minimized = true;
+                //objects.searchPanel.minimized = true;
             }
             visible = true;
         } catch (error) {

@@ -9,12 +9,12 @@
 
     function getBorrowerImageGroup(group) {
         const imageGroups = {
-            Teacher: "/figure_one_purple.png",
-            Admin: "/figure_one_green.png",
-            LSE: "/figure_one_red.png",
-            Maintenance: "/figure_one_white.png",
+            Teacher: "/borrower_image/figure_one_purple.png",
+            Admin: "/borrower_image/figure_one_green.png",
+            LSE: "/borrower_image/figure_one_red.png",
+            Maintenance: "/borrower_image/figure_one_white.png",
         };
-        return imageGroups[group] || "/figure_one_blue.png";
+        return imageGroups[group] || "/borrower_image/figure_one_blue.png";
     }
 
     import { global } from "$lib/global.svelte.js";
