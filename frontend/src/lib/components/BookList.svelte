@@ -1,10 +1,8 @@
 <script>
     import { onDestroy } from "svelte";
     import pb from "$lib/pocketbase";
-    import ListItem from "./ListItem.svelte";
-    import LoadingBar from "./LoadingBar.svelte";
-    import ListItemCreate from "./ListItemCreate.svelte";
     import { page } from "$app/stores";
+    import List from "./List.svelte";
 
     let { searchState = {} } = $props();
 
@@ -23,27 +21,7 @@
         return (state.sortAscending ? "-" : "+") + state.sortType;
     }
     function createPbFilter(state) {
-        let subjectFilter = "";
-        let levelFilter = "";
-
-        if (state.subjects.length >= 1) {
-            subjectFilter = state.subjects.map((subject) => `subject.id='${subject}'`).join(" || ");
-            subjectFilter = `(${subjectFilter})`;
-        }
-
-        if (state.levels.length >= 1) {
-            levelFilter = state.levels.map((label) => `level='${label}'`).join(" || ");
-
-            levelFilter = `(${levelFilter})`;
-        }
-
-        let extra = [subjectFilter, levelFilter].filter(Boolean);
-
-        if (state.showingIdType === "old") {
-            extra.push(`legacy_book_id !~ '_'`);
-        } else if (state.showingIdType === "new") {
-            extra.push(`legacy_book_id ~ '_'`);
-        }
+        let extra = create_extra(state);
 
         let filter = state.query
             .split(" ")
@@ -66,6 +44,32 @@
             return extraFilter;
         }
         return filter;
+    }
+
+    function create_extra(state) {
+        let subjectFilter = "";
+        let levelFilter = "";
+
+        if (state.subjects.length >= 1) {
+            subjectFilter = state.subjects.map((subject) => `subject.id='${subject}'`).join(" || ");
+            subjectFilter = `(${subjectFilter})`;
+        }
+
+        if (state.levels.length >= 1) {
+            levelFilter = state.levels.map((label) => `level='${label}'`).join(" || ");
+
+            levelFilter = `(${levelFilter})`;
+        }
+
+        let extra = [subjectFilter, levelFilter].filter(Boolean);
+
+        if (state.showingIdType === "old") {
+            extra.push(`legacy_book_id !~ '_'`);
+        } else if (state.showingIdType === "new") {
+            extra.push(`legacy_book_id ~ '_'`);
+        }
+
+        return extra;
     }
 
     async function fetchItems(filter, sort, fields, page = 1, pageSize = 10) {
@@ -119,20 +123,4 @@
     });
 </script>
 
-<div style="overflow:hidden; overflow-y: auto; border-radius: 0.6em; height: 100%;">
-    {#if isLoading}
-        <div class="fade-in" style="width: 50%; margin:auto;">
-            <LoadingBar />
-            Loading Books
-        </div>
-    {:else if error}
-        <p style="color: red;">{error}</p>
-    {:else}
-        <ListItemCreate itemType="books" isSelected={"create" == $page.params.id} />
-        {#each items as book (book.id)}
-            <div>
-                <ListItem itemType="books" item={book} isSelected={book.id == $page.params.id} />
-            </div>
-        {/each}
-    {/if}
-</div>
+<List {collection_name} {isLoading} {error} selectedId={$page.params.id} {items}></List>

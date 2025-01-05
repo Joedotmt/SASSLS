@@ -1,10 +1,8 @@
 <script>
     import { onDestroy } from "svelte";
     import pb from "$lib/pocketbase";
-    import ListItem from "./ListItem.svelte";
-    import LoadingBar from "./LoadingBar.svelte";
-    import ListItemCreate from "./ListItemCreate.svelte";
     import { page } from "$app/stores";
+    import List from "./List.svelte";
 
     let { searchState = {} } = $props();
 
@@ -23,7 +21,7 @@
         return (state.sortAscending ? "-" : "+") + state.sortType;
     }
     function createPbFilter(state) {
-        let extra = [];
+        let extra = create_extra(state);
 
         let filter = state.query
             .split(" ")
@@ -46,6 +44,10 @@
             return extraFilter;
         }
         return filter;
+    }
+
+    function create_extra(state) {
+        return [];
     }
 
     async function fetchItems(filter, sort, fields, page = 1, pageSize = 10) {
@@ -99,18 +101,4 @@
     });
 </script>
 
-<div style="overflow-y: auto; border-radius: 0.6em; height: 100%;">
-    {#if isLoading}
-        <div class="fade-in" style="width: 50%; margin:auto;">
-            <LoadingBar />
-            Loading Borrowers
-        </div>
-    {:else if error}
-        <p style="color: red;">{error}</p>
-    {:else}
-        <ListItemCreate itemType="borrowers" isSelected={"create" == $page.params.id} />
-        {#each items as borrower (borrower.id)}
-            <ListItem itemType="borrowers" item={borrower} isSelected={borrower.id == $page.params.id} />
-        {/each}
-    {/if}
-</div>
+<List {collection_name} {isLoading} {error} selectedId={$page.params.id} {items}></List>
