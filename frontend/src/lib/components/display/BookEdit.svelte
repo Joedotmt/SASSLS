@@ -5,14 +5,16 @@
     import { slide } from "svelte/transition";
     global.unsaved_changes = true;
 
-    let { selectedBookData } = $props();
+    let { selectedData } = $props();
 
     let loaded = $state(false);
     let localBookData = $state(null);
 
+    let legacy_book = $derived(localBookData.legacy_book_id[0] == "_");
+
     $effect(() => {
-        if (selectedBookData !== null && !loaded) {
-            localBookData = JSON.parse(JSON.stringify(selectedBookData));
+        if (selectedData !== null && !loaded) {
+            localBookData = JSON.parse(JSON.stringify(selectedData));
             loaded = true;
         }
     });
@@ -126,14 +128,21 @@
                         <div style="text-wrap: nowrap;">
                             ID: {localBookData.id}
                         </div>
-                        {#if !localBookData.legacy_book_id?.includes("_")}
+                        {#if !legacy_book}
                             <div style="text-wrap: nowrap;" id="display_panel_book_legacy_book_id_editing">
                                 IDL: {localBookData.legacy_book_id}
                             </div>
                         {/if}
                     </div>
-                    {#if !localBookData.legacy_book_id?.includes("_")}
-                        <button id="j5498" style="text-wrap:balance; width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;"> Migrate to New ID </button>
+                    {#if !legacy_book}
+                        <button
+                            onclick={() => {
+                                localBookData.legacy_book_id = "_" + localBookData.legacy_book_id;
+                            }}
+                            style="text-wrap:balance; width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;"
+                        >
+                            Migrate to New ID
+                        </button>
                     {/if}
                 </div>
             {/if}

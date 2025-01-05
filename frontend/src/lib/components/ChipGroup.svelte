@@ -12,7 +12,6 @@
             if (selectedIds == []) {
                 selectedIds = [defaultId];
             }
-            dispatch("selectionChange", { selectedIds });
         }
     });
 
@@ -42,13 +41,12 @@
 
         // Update selectedIds and dispatch event
         selectedIds = updatedSelectedIds;
-        dispatch("selectionChange", { selectedIds });
     }
 </script>
 
 <div {style} class="chip-group">
     {#each items as item (item.id)}
-        <Chip checked={selectedIds.includes(item.id)} on:clicked={(event) => handleChipChange(item.id, event.detail.checked)}>
+        <Chip checked={selectedIds.includes(item.id)} clicked={(checked) => handleChipChange(item.id, checked)}>
             {item.label}
         </Chip>
     {/each}

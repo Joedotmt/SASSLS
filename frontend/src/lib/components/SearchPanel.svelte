@@ -1,6 +1,4 @@
 <script>
-    import { run } from "svelte/legacy";
-
     import Accordion from "$lib/components/Accordion.svelte";
     import ChipGroup from "$lib/components/ChipGroup.svelte";
     import SortButton from "$lib/components/SortButton.svelte";
@@ -30,7 +28,7 @@
 
     let currentTab = $state(0);
     // Subscribe to the store and reactively update when it changes
-    run(() => {
+    $effect(() => {
         if (browser && constants.books.subjects != null) {
             mapToChips(constants.books.subjects);
         }

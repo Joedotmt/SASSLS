@@ -6,7 +6,7 @@
     const defaultSelectedBorrowerData = {};
 
     let { style = "", selectedBorrowerData = $bindable(defaultSelectedBorrowerData), lending_mode = false } = $props();
-    run(() => {
+    $effect(() => {
         if (selectedBorrowerData == undefined) {
             selectedBorrowerData = defaultSelectedBorrowerData;
         }

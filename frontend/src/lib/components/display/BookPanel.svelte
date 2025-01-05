@@ -10,7 +10,7 @@
     let selectedId = $derived($page.params.id);
     let display_mode = $derived($page.params.display_mode);
 
-    let selectedBookData = $state(null);
+    let selectedData = $state(null);
     let visible = $state(true);
     let loaded = $state(true);
 
@@ -32,7 +32,7 @@
             return;
         }
         if (selectedId == "create") {
-            selectedBookData = constants.books.defaultBook;
+            selectedData = constants.books.defaultBook;
             global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
                 objects.searchPanel.minimized = true;
@@ -41,14 +41,14 @@
             return;
         }
         try {
-            selectedBookData = await pb.collection("books").getOne(selectedId, { expand: "subject" });
+            selectedData = await pb.collection("books").getOne(selectedId, { expand: "subject" });
             global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
                 objects.searchPanel.minimized = true;
             }
             visible = true;
         } catch (error) {
-            console.log("Error with selected book data " + selectedBookData);
+            console.log("Error with selected book data " + selectedData);
             global.change_page("books");
         }
     }
@@ -67,9 +67,9 @@
         {#if loaded}
             <div style="translate: 0 -3.2em;">
                 {#if display_mode == "edit"}
-                    <BookEdit {selectedBookData} />
+                    <BookEdit {selectedData} />
                 {:else if display_mode == "" || display_mode == undefined}
-                    <BookDisplay style="opacity:1" {selectedBookData} />
+                    <BookDisplay style="opacity:1" {selectedData} />
                 {/if}
             </div>
         {/if}

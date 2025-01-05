@@ -1,12 +1,8 @@
-<!-- @migration-task Error while migrating Svelte code: `$:` is not allowed in runes mode, use `$derived` or `$effect` instead -->
 <script>
-    import { createEventDispatcher } from "svelte";
     import { onMount } from "svelte";
     import { themeStore } from "$lib/theme.js";
 
     let { isOpen = $bindable(false) } = $props();
-
-    const dispatch = createEventDispatcher();
 
     let isDarkMode = $state(true);
 
@@ -14,13 +10,9 @@
         isOpen = false;
     }
 
-    function showSignInDialog() {
-        dispatch("showSignIn");
-    }
+    function showSignInDialog() {}
 
-    function showThemePickerModal() {
-        dispatch("showThemePicker");
-    }
+    function showThemePickerModal() {}
 
     function navigateToBookMigration() {
         window.location.href = "/book_migration.html";

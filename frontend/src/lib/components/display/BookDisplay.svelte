@@ -3,8 +3,8 @@
     import { global } from "$lib/global.svelte.js";
     import IsbnText from "../isbnText.svelte";
 
-    let { selectedBookData, lending_mode = false } = $props();
-    let loaded = $derived(selectedBookData != null && selectedBookData.id != undefined);
+    let { selectedData, lending_mode = false } = $props();
+    let loaded = $derived(selectedData != null && selectedData.id != undefined);
 </script>
 
 {#if loaded}
@@ -34,20 +34,20 @@
     <div class="display-panel-display">
         <div class="book-general">
             <div style="justify-content: center;">
-                <img class="book-cover" src={selectedBookData.preview_url_override || global.getRandomBookCover(selectedBookData.id)} alt="book cover" />
+                <img class="book-cover" src={selectedData.preview_url_override || global.getRandomBookCover(selectedData.id)} alt="book cover" />
             </div>
             <div class="book-info">
-                <h1 class="book-title">{selectedBookData.title}</h1>
+                <h1 class="book-title">{selectedData.title}</h1>
                 <div class="author-grid">
-                    <div>by {selectedBookData.author}</div>
+                    <div>by {selectedData.author}</div>
                 </div>
                 <div class="book-details">
-                    <div>CLL: {selectedBookData.classification_label}</div>
-                    <div>ISBN: <IsbnText isbn={selectedBookData.isbn} /></div>
+                    <div>CLL: {selectedData.classification_label}</div>
+                    <div>ISBN: <IsbnText isbn={selectedData.isbn} /></div>
 
-                    <div>ID: {selectedBookData.id}</div>
-                    {#if selectedBookData.legacy_book_id != "" && !selectedBookData.legacy_book_id?.includes("_")}
-                        <div>IDL: {selectedBookData.legacy_book_id}</div>
+                    <div>ID: {selectedData.id}</div>
+                    {#if selectedData.legacy_book_id != "" && !selectedData.legacy_book_id[0] == "_"}
+                        <div>IDL: {selectedData.legacy_book_id}</div>
                     {/if}
                 </div>
             </div>
@@ -55,17 +55,17 @@
 
         <div class="description-section">
             <div>Description</div>
-            <div class="description-box">{selectedBookData.description == "" ? "None" : selectedBookData.description}</div>
+            <div class="description-box">{selectedData.description == "" ? "None" : selectedData.description}</div>
         </div>
 
-        {#if selectedBookData.lost}
+        {#if selectedData.lost}
             <div class="notice">
                 <span class="symbol warning-icon">warning</span>
                 Book marked as lost
             </div>
         {/if}
 
-        {#if selectedBookData.scrapped}
+        {#if selectedData.scrapped}
             <div class="notice">
                 <span class="symbol warning-icon">warning</span>
                 Book marked as scrapped
@@ -73,14 +73,14 @@
         {/if}
 
         <div class="metadata">
-            <div>Price: {selectedBookData.price} EUR</div>
-            <div>Level: {selectedBookData.level || "None"}</div>
-            <div>Subject: {selectedBookData?.expand?.subject?.n || "None"}</div>
-            <div>Updated: {selectedBookData.updated}</div>
-            {#if selectedBookData.legacy_date_entered !== ""}
-                <div>Legacy Created: {selectedBookData.legacy_date_entered}</div>
+            <div>Price: {selectedData.price} EUR</div>
+            <div>Level: {selectedData.level || "None"}</div>
+            <div>Subject: {selectedData?.expand?.subject?.n || "None"}</div>
+            <div>Updated: {selectedData.updated}</div>
+            {#if selectedData.legacy_date_entered !== ""}
+                <div>Legacy Created: {selectedData.legacy_date_entered}</div>
             {/if}
-            <div>Created: {selectedBookData.created}</div>
+            <div>Created: {selectedData.created}</div>
         </div>
     </div>
 {/if}
