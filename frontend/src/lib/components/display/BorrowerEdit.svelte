@@ -4,17 +4,18 @@
     import { global, constants } from "$lib/global.svelte.js";
     import { slide } from "svelte/transition";
     import { page } from "$app/stores";
-    global.unsaved_changes = true;
 
     let { selectedData } = $props();
-
-    let loaded = $state(false);
     let localData = $state(null);
 
     // BORROWER SPESIFIC //
     let collection_name = "borrowers";
     let item_name = "borrower";
-    //////////////////////
+
+    let loaded = $state(false);
+    let isCreation = $derived(localData.id == undefined);
+
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     $effect(() => {
         if (selectedData !== null && !loaded) {
@@ -22,8 +23,6 @@
             loaded = true;
         }
     });
-
-    let isCreation = $derived(localData.id == undefined);
 
     async function saveChanges() {
         let updatedRecord;
@@ -123,23 +122,26 @@
 
             <Input style="margin-bottom:1em" label="Name" bind:value={localData.name} />
             <Input style="margin-bottom:1em" label="Surname" bind:value={localData.surname} />
-            <div style=" background-color: var(---surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em; ">
-                <div style="font-family: 'roboto mono'; display: flex; flex-direction: column; justify-content: center;">
-                    <div>
-                        ID: {localData.id}
+            {#if !isCreation}
+                <div style=" background-color: var(---surface-5); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 1em; ">
+                    <div style="font-family: 'roboto mono'; display: flex; flex-direction: column; justify-content: center;">
+                        <div>
+                            ID: {localData.id}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div style="margin-bottom: 1em;" class="input-container">
-                <select style="width: 100%;" type="text" class="input-google">
-                    <option> </option>
-                </select>
-                <label class="input-placeholder">Group</label>
-            </div>
-            <button onclick={() => deleteItem(localData.id)} class="delete-forever-button no-ripple" style="border-radius: 100em; border: 0; width: fit-content; padding: 0.5em 1em;">
-                <span class="button-icon symbol"> delete_forever </span>
-                <div>Delete Record</div>
-            </button>
+            {/if}
+            <Input style="margin-bottom:1em" label="Group" type="select" bind:value={localData.group}>
+                {#each constants.borrowers.groups as group}
+                    <option value={group}>{group}</option>
+                {/each}
+            </Input>
+            {#if !isCreation}
+                <button onclick={() => deleteItem(localData.id)} class="delete-forever-button no-ripple" style="border-radius: 100em; border: 0; width: fit-content; padding: 0.5em 1em;">
+                    <span class="button-icon symbol"> delete_forever </span>
+                    <div>Delete Record</div>
+                </button>
+            {/if}
         </div>
     </div>
 {/if}

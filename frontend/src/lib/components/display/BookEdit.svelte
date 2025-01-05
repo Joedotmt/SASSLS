@@ -4,18 +4,21 @@
     import { global, constants } from "$lib/global.svelte.js";
     import { slide } from "svelte/transition";
     import { page } from "$app/stores";
-    global.unsaved_changes = true;
 
     let { selectedData } = $props();
-
-    let loaded = $state(false);
     let localData = $state(null);
 
     // BOOK SPESIFIC //
     let collection_name = "books";
     let item_name = "book";
     let legacy_book = $derived(localData.legacy_book_id[0] == "_");
-    //////////////////////
+
+    let loaded = $state(false);
+    let isCreation = $derived(localData.id == undefined);
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    global.unsaved_changes = true;
 
     $effect(() => {
         if (selectedData !== null && !loaded) {
@@ -23,8 +26,6 @@
             loaded = true;
         }
     });
-
-    let isCreation = $derived(localData.id == undefined);
 
     async function saveChanges() {
         let updatedRecord;
@@ -157,14 +158,14 @@
             <Input style="margin-bottom:1em" label="Level" type="select" bind:value={localData.level}>
                 {#each constants.books.levels as { label, id }}
                     <option value={id}>{label}</option>
-                {/each}</Input
-            >
+                {/each}
+            </Input>
 
             <Input style="margin-bottom:1em" label="Subject" type="select" bind:value={localData.subject}>
                 {#each constants.books.subjects as { subject, id }}
                     <option value={id}>{subject}</option>
-                {/each}</Input
-            >
+                {/each}
+            </Input>
 
             <div style="margin-bottom: 0.8em; font-size: 1.4em;">
                 <div style=" margin-bottom: 0.5em; flex-direction: row;">
