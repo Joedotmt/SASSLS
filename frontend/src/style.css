@@ -1,3 +1,12 @@
+/* Scroll whole page */
+/* .container-scroller {
+    min-height: max-content;
+}
+.panel {
+    min-height: 100vh;
+} */
+/*  */
+
 body, div {
     display: flex;
 }
@@ -225,7 +234,6 @@ body.hasHover .delete-forever-button:hover {
 .container-scroller {
     overflow-x: auto;
     overflow-y: hidden;
-    min-height: max-content;
 }
 dialog::backdrop {
     background-color: rgb(0 0 0 / 0);
@@ -345,7 +353,6 @@ button:active {
     background-color: var(---background);
     border-radius: var(--global-radius);
     transition: translate 0.1s linear, opacity 0.1s linear, background 225ms;
-    min-height: 100vh;
 }
 .search-area {
     padding: 0;

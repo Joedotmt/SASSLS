@@ -5,7 +5,7 @@
     import { slide } from "svelte/transition";
     global.unsaved_changes = true;
 
-    let { selectedBookData, bookUpdate } = $props();
+    let { selectedBookData } = $props();
 
     let loaded = $state(false);
     let localBookData = $state(null);
@@ -17,7 +17,7 @@
         }
     });
 
-    let isCreation = $derived(false);
+    let isCreation = $derived(localBookData.id == undefined);
 
     async function saveChanges() {
         let updatedRecord;
@@ -26,9 +26,7 @@
         } else {
             updatedRecord = await updateItem(localBookData);
         }
-        // the updated record from the server
-        bookUpdate(updatedRecord);
-        global.change_page("books/" + $page.params.id, true);
+        global.change_page("books/" + updatedRecord.id, true);
     }
 
     let errorMessage = $state("");
@@ -56,10 +54,11 @@
 
     async function createItem(data) {
         try {
-            console.log("CREATING BOOK RECORD WITH DATA: ", data);
+            console.log("CREATING BOOK RECORD WITH DATA: ", $state.snapshot(data));
             const record = await pb.collection("books").create(data);
             return record;
         } catch (error) {
+            console.log(error.response);
             showErrorAlert(error);
         }
     }
@@ -74,9 +73,6 @@
     }
 
     async function deleteItem(id) {
-        if (id == "creation" || id == null) {
-            return;
-        }
         try {
             await pb.collection("books").delete(id);
             setTimeout(() => {
@@ -97,6 +93,10 @@
             <div style="display: flex; margin-left: auto; flex-direction: row;" id="display_area_top_book_view_edit">
                 <button
                     onclick={() => {
+                        if (isCreation) {
+                            global.change_page("books/", true);
+                            return;
+                        }
                         global.change_page("books/" + $page.params.id, true);
                     }}
                     style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"
@@ -120,23 +120,23 @@
             <Input style="margin-bottom:1em" label="Title" bind:value={localBookData.title} />
             <Input style="margin-bottom:1em" label="Author" bind:value={localBookData.author} />
 
-            <div
-                style=" background-color: var(---surface-1); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); display:{isCreation ? 'none' : 'flex'}; flex-direction: row; justify-content: space-between; margin-bottom: 1em; "
-            >
-                <div style="display:flex; height:2.5em; margin-right: 1em; flex-direction: column; justify-content: center; font-family: 'roboto mono';">
-                    <div style="text-wrap: nowrap;">
-                        ID: {localBookData.id}
+            {#if !isCreation}
+                <div style=" background-color: var(---surface-1); padding: 0.5em; flex-grow: 1; font-size: 1.2em; border-radius: 0.5em; margin-top: 0.2em; font-family: var(--the-font); flex-direction: row; justify-content: space-between; margin-bottom: 1em; ">
+                    <div style="display:flex; height:2.5em; margin-right: 1em; flex-direction: column; justify-content: center; font-family: 'roboto mono';">
+                        <div style="text-wrap: nowrap;">
+                            ID: {localBookData.id}
+                        </div>
+                        {#if !localBookData.legacy_book_id?.includes("_")}
+                            <div style="text-wrap: nowrap;" id="display_panel_book_legacy_book_id_editing">
+                                IDL: {localBookData.legacy_book_id}
+                            </div>
+                        {/if}
                     </div>
                     {#if !localBookData.legacy_book_id?.includes("_")}
-                        <div style="text-wrap: nowrap;" id="display_panel_book_legacy_book_id_editing">
-                            IDL: {localBookData.legacy_book_id}
-                        </div>
+                        <button id="j5498" style="text-wrap:balance; width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;"> Migrate to New ID </button>
                     {/if}
                 </div>
-                {#if !localBookData.legacy_book_id?.includes("_")}
-                    <button id="j5498" style="text-wrap:balance; width: fit-content; margin: auto; height: fit-content; letter-spacing: 0; margin-right: 0;"> Migrate to New ID </button>
-                {/if}
-            </div>
+            {/if}
             <Input style="margin-bottom:1em" error={fieldErrors["isbn"] || false} label="ISBN" bind:value={localBookData.isbn} />
 
             <Input style="margin-bottom:1em" label="Description" type="textarea" bind:value={localBookData.description} />
@@ -155,18 +155,20 @@
             >
 
             <div style="margin-bottom: 0.8em; font-size: 1.4em;">
-                <div style=" margin-bottom: 0.5em;">
+                <div style=" margin-bottom: 0.5em; flex-direction: row;">
                     <input bind:checked={localBookData.scrapped} id="display_panel_book_scrapped_editing" type="checkbox" />
                     <label style="margin-left: 0.3em;">Scrapped</label>
                 </div>
-                <div style="display: flex; margin-bottom: 0.5em;">
+                <div style="display: flex; margin-bottom: 0.5em; flex-direction: row;">
                     <input id="display_panel_book_lost_editing" type="checkbox" bind:checked={localBookData.lost} />
                     <label style="margin-left: 0.3em;">Lost</label>
                 </div>
             </div>
             <Input style="margin-bottom:1em" label="Price (EUR)" type="number" min="0" bind:value={localBookData.price} />
             <Input style="margin-bottom:1em" label="Cover Image URL" placeholder="Automatic" bind:value={localBookData.preview_url_override} />
-            <button style="display:{isCreation ? 'none' : 'flex'}" onclick={() => deleteItem(localBookData.id)}>Delete Book Forever</button>
+            {#if !isCreation}
+                <button onclick={() => deleteItem(localBookData.id)}>Delete Book Forever</button>
+            {/if}
         </div>
     </div>
 {/if}

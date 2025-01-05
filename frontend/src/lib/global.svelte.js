@@ -74,6 +74,20 @@ export const constants = $state({
             { label: "Green", id: "Green" },
             { label: "Red", id: "Red" }
         ],
-        subjects: []
+        subjects: [],
+        defaultBook: {
+            legacy_book_id: "_",
+            title: "",
+            author: "",
+            isbn: "",
+            description: "",
+            classification_label: "",
+            level: "",
+            subject: "",
+            scrapped: false,
+            lost: false,
+            price: 0,
+            preview_url_override: "",
+        }
     }
 });

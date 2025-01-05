@@ -4,7 +4,7 @@
     import IsbnText from "../isbnText.svelte";
 
     let { selectedBookData, lending_mode = false } = $props();
-    let loaded = $derived(selectedBookData != null);
+    let loaded = $derived(selectedBookData != null && selectedBookData.id != undefined);
 </script>
 
 {#if loaded}
@@ -46,7 +46,7 @@
                     <div>ISBN: <IsbnText isbn={selectedBookData.isbn} /></div>
 
                     <div>ID: {selectedBookData.id}</div>
-                    {#if !selectedBookData.legacy_book_id?.includes("_")}
+                    {#if selectedBookData.legacy_book_id != "" && !selectedBookData.legacy_book_id?.includes("_")}
                         <div>IDL: {selectedBookData.legacy_book_id}</div>
                     {/if}
                 </div>
@@ -74,8 +74,8 @@
 
         <div class="metadata">
             <div>Price: {selectedBookData.price} EUR</div>
-            <div>Level: {selectedBookData.level}</div>
-            <div>Subject: {selectedBookData?.expand?.subject.n}</div>
+            <div>Level: {selectedBookData.level || "None"}</div>
+            <div>Subject: {selectedBookData?.expand?.subject?.n || "None"}</div>
             <div>Updated: {selectedBookData.updated}</div>
             {#if selectedBookData.legacy_date_entered !== ""}
                 <div>Legacy Created: {selectedBookData.legacy_date_entered}</div>

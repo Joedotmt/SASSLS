@@ -2,22 +2,38 @@
     import BookDisplay from "./BookDisplay.svelte";
     import BookEdit from "./BookEdit.svelte";
     import pb from "$lib/pocketbase";
-    import { global, objects } from "$lib/global.svelte.js";
-
-    let { selectedBookBook_id = "" } = $props();
+    import { global, objects, constants } from "$lib/global.svelte.js";
     import { page } from "$app/stores";
+    import { untrack } from "svelte";
+    //let { } = $props();
+
+    let selectedId = $derived($page.params.id);
+    let display_mode = $derived($page.params.display_mode);
 
     let selectedBookData = $state(null);
     let visible = $state(true);
+    let loaded = $state(true);
 
     $effect(async () => {
-        if (selectedBookBook_id == "") {
+        loaded = false;
+        if (selectedId) {
+        }
+        if (display_mode) {
+        }
+        await untrack(async () => {
+            await update_kollox();
+            loaded = true;
+        });
+    });
+
+    async function update_kollox() {
+        if (selectedId == "") {
             visible = false;
             return;
         }
-        if (selectedBookBook_id == "create") {
-            selectedBookData = {};
-            global.loading_items.delete(selectedBookBook_id);
+        if (selectedId == "create") {
+            selectedBookData = constants.books.defaultBook;
+            global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
                 objects.searchPanel.minimized = true;
             }
@@ -25,8 +41,8 @@
             return;
         }
         try {
-            selectedBookData = await pb.collection("books").getOne(selectedBookBook_id, { expand: "subject" });
-            global.loading_items.delete(selectedBookBook_id);
+            selectedBookData = await pb.collection("books").getOne(selectedId, { expand: "subject" });
+            global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
                 objects.searchPanel.minimized = true;
             }
@@ -35,14 +51,6 @@
             console.log("Error with selected book data " + selectedBookData);
             global.change_page("books");
         }
-    });
-
-    function handleBookSave() {
-        // Forcing Triggering Reactivity
-        // So it updates the books details
-        const old = selectedBookBook_id;
-        selectedBookBook_id = "";
-        selectedBookBook_id = old;
     }
 
     function unselect_book() {
@@ -56,13 +64,15 @@
             <button onclick={unselect_book} class="button-circle" style="border:none; width:40px; height:40px; margin:5px; z-index: 6;"><span class="symbol">close</span></button>
             <span style="margin: 0em 0em; z-index: 6;">Item</span>
         </div>
-        <div style="translate: 0 -3.2em;">
-            {#if $page.params.display_mode == "edit"}
-                <BookEdit bookUpdate={handleBookSave} {selectedBookData} />
-            {:else if $page.params.display_mode == "" || $page.params.display_mode == undefined}
-                <BookDisplay style="opacity:1" {selectedBookData} />
-            {/if}
-        </div>
+        {#if loaded}
+            <div style="translate: 0 -3.2em;">
+                {#if display_mode == "edit"}
+                    <BookEdit {selectedBookData} />
+                {:else if display_mode == "" || display_mode == undefined}
+                    <BookDisplay style="opacity:1" {selectedBookData} />
+                {/if}
+            </div>
+        {/if}
     </div>
 {/if}
 

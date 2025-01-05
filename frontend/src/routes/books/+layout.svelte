@@ -52,9 +52,7 @@
     <div class="container">
         <SearchPanel bind:searchState />
         <div class="list-area panel" style="border-top-left-radius:{objects.searchPanel.minimized ? 0 : ''}; border-bottom-left-radius:{objects.searchPanel.minimized ? 0 : ''}">
-            <div
-                style="flex-direction: row; border-bottom: 1px solid var(---surface-5); min-height: 50px; width: 100%; display: flex; align-items: center;"
-            >
+            <div style="flex-direction: row; border-bottom: 1px solid var(---surface-5); min-height: 50px; width: 100%; display: flex; align-items: center;">
                 <span style="margin: 0em 1em;">Search</span>
             </div>
             <div class="list-area-search">
@@ -65,6 +63,6 @@
             </div>
             <BookList {searchState} />
         </div>
-        <BookPanel selectedBookBook_id={$page.params.id} />
+        <BookPanel />
     </div>
 </div>
