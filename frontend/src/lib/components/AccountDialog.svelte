@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import { themeStore } from "$lib/theme.js";
+    import { theme } from "$lib/global.svelte.js";
 
     let { isOpen = $bindable(false) } = $props();
 
@@ -21,10 +21,7 @@
     function changeDarkLightTheme() {
         isDarkMode = !isDarkMode;
 
-        themeStore.update((theme) => {
-            theme.mode = isDarkMode ? "dark" : "light";
-            return theme;
-        });
+        theme.currentTheme.mode = isDarkMode ? "dark" : "light";
     }
 
     let dialog;

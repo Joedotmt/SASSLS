@@ -30,8 +30,12 @@
     });
 
     import { page } from "$app/state";
-    $inspect(page.route.id.split("/")[1]);
-    //document.body.className;
+    import { theme } from "$lib/global.svelte.js";
+    $effect(() => {
+        let current_collection = page.route.id.split("/")[1];
+        document.body.className = `${theme.currentTheme[current_collection] || "blue"}-${theme.currentTheme.mode}`;
+        localStorage.setItem("theme", JSON.stringify(theme.currentTheme));
+    });
 
     let { children } = $props();
     import "../themes.css";
