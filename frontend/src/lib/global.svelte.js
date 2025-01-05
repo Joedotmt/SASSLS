@@ -65,7 +65,13 @@ export let objects = $state({
 });
 
 export const constants = $state({
-    borrowers: {},
+    borrowers: {
+        defaultItem: {
+            name: "",
+            surname: "",
+            group: "",
+        }
+    },
     books: {
         levels: [
             { label: "Brown", id: "Brown" },
@@ -75,7 +81,7 @@ export const constants = $state({
             { label: "Red", id: "Red" }
         ],
         subjects: [],
-        defaultBook: {
+        defaultItem: {
             legacy_book_id: "_",
             title: "",
             author: "",

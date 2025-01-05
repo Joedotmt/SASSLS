@@ -12,7 +12,7 @@
 
     let selectedData = $state(null);
     let visible = $state(true);
-    let loaded = $state(true);
+    let loaded = $state(false);
 
     $effect(async () => {
         loaded = false;
@@ -32,7 +32,7 @@
             return;
         }
         if (selectedId == "create") {
-            selectedData = constants.books.defaultBook;
+            selectedData = constants.books.defaultItem;
             global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
                 objects.searchPanel.minimized = true;
@@ -53,7 +53,7 @@
         }
     }
 
-    function unselect_book() {
+    function unselect_item() {
         global.change_page("books");
     }
 </script>
@@ -61,7 +61,7 @@
 {#if $page.params.id != undefined && visible}
     <div id="display_area" class="panel">
         <div style=" flex-direction: row; border-bottom: 1px solid var(---surface-5); min-height: 50px; width: 100%; display: flex; align-items: center;">
-            <button onclick={unselect_book} class="button-circle" style="border:none; width:40px; height:40px; margin:5px; z-index: 6;"><span class="symbol">close</span></button>
+            <button onclick={unselect_item} class="button-circle" style="border:none; width:40px; height:40px; margin:5px; z-index: 6;"><span class="symbol">close</span></button>
             <span style="margin: 0em 0em; z-index: 6;">Item</span>
         </div>
         {#if loaded}
