@@ -1,5 +1,5 @@
 <script>
-    import { page } from "$app/stores";
+    import { page } from "$app/state";
     import { global } from "$lib/global.svelte.js";
     import IsbnText from "../isbnText.svelte";
 
@@ -22,7 +22,7 @@
                 <button
                     class="edit-button"
                     onclick={() => {
-                        global.change_page("books/" + $page.params.id + "/edit");
+                        global.change_page("books/" + page.params.id + "/edit");
                     }}
                 >
                     <span class="symbol">edit</span>

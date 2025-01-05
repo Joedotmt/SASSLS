@@ -3,12 +3,12 @@
     import BookEdit from "./BookEdit.svelte";
     import pb from "$lib/pocketbase";
     import { global, objects, constants } from "$lib/global.svelte.js";
-    import { page } from "$app/stores";
+    import { page } from "$app/state";
     import { untrack } from "svelte";
     //let { } = $props();
 
-    let selectedId = $derived($page.params.id);
-    let display_mode = $derived($page.params.display_mode);
+    let selectedId = $derived(page.params.id);
+    let display_mode = $derived(page.params.display_mode);
 
     let selectedData = $state(null);
     let visible = $state(true);
@@ -58,7 +58,7 @@
     }
 </script>
 
-{#if $page.params.id != undefined && visible}
+{#if page.params.id != undefined && visible}
     <div id="display_area" class="panel">
         <div style=" flex-direction: row; border-bottom: 1px solid var(---surface-5); min-height: 50px; width: 100%; display: flex; align-items: center;">
             <button onclick={unselect_item} class="button-circle" style="border:none; width:40px; height:40px; margin:5px; z-index: 6;"><span class="symbol">close</span></button>

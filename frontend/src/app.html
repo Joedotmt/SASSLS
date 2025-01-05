@@ -15,17 +15,13 @@
 	%sveltekit.head%
 </head>
 <body class="blue-dark" data-sveltekit-preload-data="hover">
-	<script>
+	<!-- <script>
 		const transitionManager = () =>
 		{
 			// Create HTML style element with CSS selector that targets all
 			// elements and applies CSS to disable transitions
 			const style = document.createElement("style");
 			const css = document.createTextNode(`* {
-	                -webkit-transition: none !important;
-	                -moz-transition: none !important;
-	                -o-transition: none !important;
-	                -ms-transition: none !important;
 	                transition: none !important;
 	            }`);
 			style.appendChild(css);
@@ -53,7 +49,7 @@
 		window.getComputedStyle(transitions.style).opacity;
 
 		transitions.enable();
-	</script>
+	</script> -->
 	<div style="display: contents">%sveltekit.body%</div>
 </body>
 </html>

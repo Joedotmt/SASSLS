@@ -27,10 +27,6 @@ const transitionManager = () =>
     // elements and applies CSS to disable transitions
     const style = document.createElement("style");
     const css = document.createTextNode(`* {
-                    -webkit-transition: none !important;
-                    -moz-transition: none !important;
-                    -o-transition: none !important;
-                    -ms-transition: none !important;
                     transition: none !important;
                 }`);
     style.appendChild(css);
@@ -58,8 +54,6 @@ const transitionManager = () =>
     return { enable, disable, style };
 };
 
-
-// Reactive block in Svelte
 $: {
     if (browser)
     {

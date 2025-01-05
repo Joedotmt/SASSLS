@@ -3,7 +3,7 @@
     import pb from "$lib/pocketbase";
     import { global, constants } from "$lib/global.svelte.js";
     import { slide } from "svelte/transition";
-    import { page } from "$app/stores";
+    import { page } from "$app/state";
 
     let { selectedData } = $props();
     let localData = $state(null);
@@ -103,7 +103,7 @@
                             global.change_page(collection_name + "/", true);
                             return;
                         }
-                        global.change_page(collection_name + "/" + $page.params.id, true);
+                        global.change_page(collection_name + "/" + page.params.id, true);
                     }}
                     style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"
                 >

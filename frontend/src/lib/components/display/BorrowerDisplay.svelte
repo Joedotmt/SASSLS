@@ -1,5 +1,5 @@
 <script>
-    import { page } from "$app/stores";
+    import { page } from "$app/state";
     import { global } from "$lib/global.svelte.js";
 
     let { selectedData } = $props();
@@ -16,7 +16,7 @@
 
             <button
                 onclick={() => {
-                    global.change_page("borrowers/" + $page.params.id + "/edit");
+                    global.change_page("borrowers/" + page.params.id + "/edit");
                 }}
                 style="margin: 5px; margin-right: 5px; height: 40px;"
             >
