@@ -5,7 +5,7 @@
     let { collection_name, isLoading, error, selectedId, items } = $props();
 </script>
 
-<div style="overflow-y: auto; border-radius: 0.6em; height: 100%;">
+<div style="overflow:hidden; overflow-y: auto; border-radius: 0.6em; height: 100%;">
     {#if isLoading}
         <div class="fade-in" style="width: 50%; margin:auto;">
             <LoadingBar />
@@ -16,7 +16,9 @@
     {:else}
         <ListItemCreate itemType={collection_name} isSelected={"create" == selectedId} />
         {#each items as item (item.id)}
-            <ListItem itemType={collection_name} {item} isSelected={item.id == selectedId} />
+            <div>
+                <ListItem itemType={collection_name} {item} isSelected={item.id == selectedId} />
+            </div>
         {/each}
     {/if}
 </div>
