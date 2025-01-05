@@ -1,95 +1,89 @@
 <script>
-    import { run } from "svelte/legacy";
     import { page } from "$app/stores";
     import { global } from "$lib/global.svelte.js";
     import IsbnText from "../isbnText.svelte";
 
-    const defaultSelectedBookData = {};
-
-    let { selectedBookData = $bindable(defaultSelectedBookData), lending_mode = false } = $props();
-    let subjectLabel = $state("");
-    run(() => {
-        if (selectedBookData == undefined) {
-            selectedBookData = defaultSelectedBookData;
-        }
-    });
+    let { selectedBookData, lending_mode = false } = $props();
+    let loaded = $derived(selectedBookData != null);
 </script>
 
-<div class="quick-buttons">
-    {#if lending_mode}
-        <button class="lend-button">
-            <div class="lend-text">Lend book to borrower</div>
-        </button>
-    {:else}
-        <div class="action-buttons">
-            <button class="return-button">
-                <span class="symbol">tab_close</span>
-                Return
+{#if loaded}
+    <div class="quick-buttons">
+        {#if lending_mode}
+            <button class="lend-button">
+                <div class="lend-text">Lend book to borrower</div>
             </button>
-            <button
-                class="edit-button"
-                onclick={() => {
-                    global.change_page("books/" + $page.params.id + "/edit");
-                }}
-            >
-                <span class="symbol">edit</span>
-                Edit
-            </button>
-        </div>
-    {/if}
-</div>
-<div class="display-panel-display">
-    <div class="book-general">
-        <div style="justify-content: center;">
-            <img class="book-cover" src={selectedBookData.preview_url_override || global.getRandomBookCover(selectedBookData.id)} alt="book cover" />
-        </div>
-        <div class="book-info">
-            <h1 class="book-title">{selectedBookData.title}</h1>
-            <div class="author-grid">
-                <div>by {selectedBookData.author}</div>
+        {:else}
+            <div class="action-buttons">
+                <button class="return-button">
+                    <span class="symbol">tab_close</span>
+                    Return
+                </button>
+                <button
+                    class="edit-button"
+                    onclick={() => {
+                        global.change_page("books/" + $page.params.id + "/edit");
+                    }}
+                >
+                    <span class="symbol">edit</span>
+                    Edit
+                </button>
             </div>
-            <div class="book-details">
-                <div>CLL: {selectedBookData.classification_label}</div>
-                <div>ISBN: <IsbnText isbn={selectedBookData.isbn} /></div>
-
-                <div>ID: {selectedBookData.id}</div>
-                {#if !selectedBookData.legacy_book_id?.includes("_")}
-                    <div>IDL: {selectedBookData.legacy_book_id}</div>
-                {/if}
-            </div>
-        </div>
-    </div>
-
-    <div class="description-section">
-        <div>Description</div>
-        <div class="description-box">{selectedBookData.description == "" ? "None" : selectedBookData.description}</div>
-    </div>
-
-    {#if selectedBookData.lost}
-        <div class="notice">
-            <span class="symbol warning-icon">warning</span>
-            Book marked as lost
-        </div>
-    {/if}
-
-    {#if selectedBookData.scrapped}
-        <div class="notice">
-            <span class="symbol warning-icon">warning</span>
-            Book marked as scrapped
-        </div>
-    {/if}
-
-    <div class="metadata">
-        <div>Price: {selectedBookData.price} EUR</div>
-        <div>Level: {selectedBookData.level}</div>
-        <div>Subject: {selectedBookData?.expand?.subject.n}</div>
-        <div>Updated: {selectedBookData.updated}</div>
-        {#if selectedBookData.legacy_date_entered !== ""}
-            <div>Legacy Created: {selectedBookData.legacy_date_entered}</div>
         {/if}
-        <div>Created: {selectedBookData.created}</div>
     </div>
-</div>
+    <div class="display-panel-display">
+        <div class="book-general">
+            <div style="justify-content: center;">
+                <img class="book-cover" src={selectedBookData.preview_url_override || global.getRandomBookCover(selectedBookData.id)} alt="book cover" />
+            </div>
+            <div class="book-info">
+                <h1 class="book-title">{selectedBookData.title}</h1>
+                <div class="author-grid">
+                    <div>by {selectedBookData.author}</div>
+                </div>
+                <div class="book-details">
+                    <div>CLL: {selectedBookData.classification_label}</div>
+                    <div>ISBN: <IsbnText isbn={selectedBookData.isbn} /></div>
+
+                    <div>ID: {selectedBookData.id}</div>
+                    {#if !selectedBookData.legacy_book_id?.includes("_")}
+                        <div>IDL: {selectedBookData.legacy_book_id}</div>
+                    {/if}
+                </div>
+            </div>
+        </div>
+
+        <div class="description-section">
+            <div>Description</div>
+            <div class="description-box">{selectedBookData.description == "" ? "None" : selectedBookData.description}</div>
+        </div>
+
+        {#if selectedBookData.lost}
+            <div class="notice">
+                <span class="symbol warning-icon">warning</span>
+                Book marked as lost
+            </div>
+        {/if}
+
+        {#if selectedBookData.scrapped}
+            <div class="notice">
+                <span class="symbol warning-icon">warning</span>
+                Book marked as scrapped
+            </div>
+        {/if}
+
+        <div class="metadata">
+            <div>Price: {selectedBookData.price} EUR</div>
+            <div>Level: {selectedBookData.level}</div>
+            <div>Subject: {selectedBookData?.expand?.subject.n}</div>
+            <div>Updated: {selectedBookData.updated}</div>
+            {#if selectedBookData.legacy_date_entered !== ""}
+                <div>Legacy Created: {selectedBookData.legacy_date_entered}</div>
+            {/if}
+            <div>Created: {selectedBookData.created}</div>
+        </div>
+    </div>
+{/if}
 
 <style>
     .symbol {
@@ -178,9 +172,6 @@
         font-family: var(--the-font);
         justify-content: center;
         height: 100%;
-    }
-
-    .description-section {
     }
 
     .description-box {

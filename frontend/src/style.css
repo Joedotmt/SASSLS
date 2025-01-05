@@ -44,6 +44,7 @@ body {
     padding: 0;
     background-color: var(---surface-3) !important;
     gap: 0 !important;
+    overflow-y: auto;
 }
 @font-face {
     font-family: "Material Symbols Outlined";
@@ -224,7 +225,7 @@ body.hasHover .delete-forever-button:hover {
 .container-scroller {
     overflow-x: auto;
     overflow-y: hidden;
-    height: 100%;
+    min-height: max-content;
 }
 dialog::backdrop {
     background-color: rgb(0 0 0 / 0);
@@ -333,7 +334,6 @@ button:active {
     height: 100%;
     flex-direction: row;
     width: auto;
-    margin-right: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
 }
@@ -345,6 +345,7 @@ button:active {
     background-color: var(---background);
     border-radius: var(--global-radius);
     transition: translate 0.1s linear, opacity 0.1s linear, background 225ms;
+    min-height: 100vh;
 }
 .search-area {
     padding: 0;

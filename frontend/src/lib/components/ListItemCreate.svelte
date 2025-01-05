@@ -8,7 +8,7 @@
     import { global } from "$lib/global.svelte.js";
     function handleClick() {
         isSelected = true;
-        global.change_page(`${itemType}/create`);
+        global.change_page(`${itemType}/create/edit`);
     }
 </script>
 
