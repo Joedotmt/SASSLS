@@ -9,8 +9,8 @@
     let localData = $state(null);
 
     // BOOK SPESIFIC //
-    let collection_name = "books";
-    let item_name = "book";
+    const collection_name = "books";
+    const item_name = "book";
     let legacy_book = $derived(localData.legacy_book_id[0] == "_");
 
     let loaded = $state(false);

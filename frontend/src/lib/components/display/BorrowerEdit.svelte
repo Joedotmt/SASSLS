@@ -9,8 +9,8 @@
     let localData = $state(null);
 
     // BORROWER SPESIFIC //
-    let collection_name = "borrowers";
-    let item_name = "borrower";
+    const collection_name = "borrowers";
+    const item_name = "borrower";
 
     let loaded = $state(false);
     let isCreation = $derived(localData.id == undefined);

@@ -2,12 +2,18 @@
     import { onDestroy } from "svelte";
     import pb from "$lib/pocketbase";
     import ListItem from "./ListItem.svelte";
-    import { browser } from "$app/environment";
     import LoadingBar from "./LoadingBar.svelte";
     import ListItemCreate from "./ListItemCreate.svelte";
     import { page } from "$app/stores";
 
     let { searchState = {} } = $props();
+
+    // BORROWER ONLY
+    const collection_name = "borrowers";
+    const item_name = "borrower";
+    const search_fields = "name, surname, group, id";
+    const lazyFields = ["name", "surname", "group"];
+    const exactFields = ["id"];
 
     let items = $state([]);
     let isLoading = $state(true);
@@ -19,15 +25,13 @@
     function createPbFilter(state) {
         let extra = [];
 
-        const borrowerLazyFields = ["name", "surname", "group"];
-        const borrowerExactFields = ["id"];
         let filter = state.query
             .split(" ")
             .map((token) => token.trim())
             .filter((token) => token !== "")
             .map((cleanToken) => {
-                const lazyConditions = borrowerLazyFields.map((field) => `${field} ~ "%${cleanToken}%"`).join(" || ");
-                const exactConditions = borrowerExactFields.map((field) => `${field} = "${cleanToken}"`).join(" || ");
+                const lazyConditions = lazyFields.map((field) => `${field} ~ "%${cleanToken}%"`).join(" || ");
+                const exactConditions = exactFields.map((field) => `${field} = "${cleanToken}"`).join(" || ");
                 return `(${lazyConditions}${exactConditions ? " || " + exactConditions : ""})`;
             })
             .join(" && ");
@@ -44,54 +48,58 @@
         return filter;
     }
 
-    async function fetchBorrowers(filter, sort) {
-        if (browser) {
-            isLoading = true;
-            error = null;
-            try {
-                const records = await pb.collection("borrowers").getList(1, 10, {
-                    filter: filter,
-                    sort: sort,
-                    requestKey: null,
-                });
-                items = records.items;
-            } catch (err) {
-                console.error("Error fetching borrowers:", err);
-                error = "Failed to fetch borrowers. Please try again.";
-            } finally {
-                isLoading = false;
-            }
+    async function fetchItems(filter, sort, fields, page = 1, pageSize = 10) {
+        isLoading = true;
+        error = null;
 
-            items.forEach((borrower) => {
-                let t = pb.collection("borrowers").subscribe(borrower.id, (e) => {
+        try {
+            const startTime = performance.now();
+
+            const records = await pb.collection(collection_name).getList(page, pageSize, {
+                filter,
+                sort,
+                fields,
+            });
+
+            const endTime = performance.now();
+            console.log(`Request duration: ${(endTime - startTime).toFixed(2)} ms`);
+
+            items = records.items;
+
+            // Subscribe to the entire collection
+            pb.collection(collection_name).subscribe("*", (e) => {
+                document.startViewTransition(() => {
                     switch (e.action) {
                         case "create":
-                            items = [...items, e.record];
+                            items = [e.record, ...items];
                             break;
                         case "update":
-                            items = items.map((borrower) => (borrower.id === e.record.id ? e.record : borrower));
+                            items = items.map((item) => (item.id === e.record.id ? e.record : item));
                             break;
                         case "delete":
-                            items = items.filter((borrower) => borrower.id !== e.record.id);
+                            items = items.filter((item) => item.id !== e.record.id);
                             break;
                     }
                 });
             });
+        } catch (err) {
+            console.error(`Error fetching ${collection_name}:`, err);
+            error = `Failed to fetch ${item_name}: ${err.message}`;
+        } finally {
+            isLoading = false;
         }
     }
 
     onDestroy(() => {
-        pb.collection("borrowers").unsubscribe();
+        pb.collection(collection_name).unsubscribe();
     });
 
     $effect(() => {
-        fetchBorrowers(createPbFilter(searchState), createPbSort(searchState));
+        fetchItems(createPbFilter(searchState), createPbSort(searchState), search_fields);
     });
 </script>
 
-<div
-    style="overflow-y: auto; border-radius: 0.6em; height: 100%;"
->
+<div style="overflow-y: auto; border-radius: 0.6em; height: 100%;">
     {#if isLoading}
         <div class="fade-in" style="width: 50%; margin:auto;">
             <LoadingBar />

@@ -8,6 +8,13 @@
 
     let { searchState = {} } = $props();
 
+    //BOOK ONLY
+    const collection_name = "books";
+    const item_name = "book";
+    const search_fields = "title, author, legacy_book_id, id, preview_url_override";
+    const lazyFields = ["title", "isbn"];
+    const exactFields = ["legacy_book_id", "id"];
+
     let items = $state([]);
     let isLoading = $state(true);
     let error = $state(null);
@@ -38,9 +45,6 @@
             extra.push(`legacy_book_id ~ '_'`);
         }
 
-        const lazyFields = ["title", "isbn"];
-        const exactFields = ["legacy_book_id", "id"];
-
         let filter = state.query
             .split(" ")
             .map((token) => token.trim())
@@ -64,17 +68,17 @@
         return filter;
     }
 
-    async function fetchBooks(filter, sort, page = 1, pageSize = 10) {
+    async function fetchItems(filter, sort, fields, page = 1, pageSize = 10) {
         isLoading = true;
         error = null;
 
         try {
             const startTime = performance.now();
 
-            const records = await pb.collection("books").getList(page, pageSize, {
+            const records = await pb.collection(collection_name).getList(page, pageSize, {
                 filter,
                 sort,
-                fields: "title, author, legacy_book_id, id, preview_url_override",
+                fields,
             });
 
             const endTime = performance.now();
@@ -83,41 +87,39 @@
             items = records.items;
 
             // Subscribe to the entire collection
-            pb.collection("books").subscribe("*", (e) => {
+            pb.collection(collection_name).subscribe("*", (e) => {
                 document.startViewTransition(() => {
                     switch (e.action) {
                         case "create":
                             items = [e.record, ...items];
                             break;
                         case "update":
-                            items = items.map((book) => (book.id === e.record.id ? e.record : book));
+                            items = items.map((item) => (item.id === e.record.id ? e.record : item));
                             break;
                         case "delete":
-                            items = items.filter((book) => book.id !== e.record.id);
+                            items = items.filter((item) => item.id !== e.record.id);
                             break;
                     }
                 });
             });
         } catch (err) {
-            console.error("Error fetching books:", err);
-            error = `Failed to fetch books: ${err.message}`;
+            console.error(`Error fetching ${collection_name}:`, err);
+            error = `Failed to fetch ${item_name}: ${err.message}`;
         } finally {
             isLoading = false;
         }
     }
 
     onDestroy(() => {
-        pb.collection("books").unsubscribe();
+        pb.collection(collection_name).unsubscribe();
     });
 
     $effect(() => {
-        fetchBooks(createPbFilter(searchState), createPbSort(searchState));
+        fetchItems(createPbFilter(searchState), createPbSort(searchState), search_fields);
     });
 </script>
 
-<div
-    style="overflow:hidden; overflow-y: auto; border-radius: 0.6em; height: 100%;"
->
+<div style="overflow:hidden; overflow-y: auto; border-radius: 0.6em; height: 100%;">
     {#if isLoading}
         <div class="fade-in" style="width: 50%; margin:auto;">
             <LoadingBar />
