@@ -123,7 +123,7 @@
                 </button>
                 <div style="text-wrap: nowrap; font-size: 1.2em; margin-left: 0.3em;">Lend book to borrower</div>
             </div>
-            {#if dialog_open}
+            {#if false && dialog_open}
                 <div class="container-scroller">
                     <div class="container">
                         <SearchPanel bind:searchState />
@@ -134,23 +134,23 @@
             {/if}
         </div>
     </dialog>
-    <div class="display-panel-display">
-        <div class="quick-buttons">
-            <button style="border:none; margin: 5px; margin-right: 5px; height: 40px;">
-                <span class="symbol" style="margin-right: 0.5em;">tab_close</span>
-                Return All
-            </button>
+    <div class="quick-buttons">
+        <button style="border:none; margin: 5px; margin-right: 5px; height: 40px;">
+            <span class="symbol" style="margin-right: 0.5em;">tab_close</span>
+            Return All
+        </button>
 
-            <button
-                onclick={() => {
-                    global.change_page("borrowers/" + page.params.id + "/edit");
-                }}
-                style="margin: 5px; margin-right: 5px; height: 40px;"
-            >
-                <span class="symbol" style="margin-right: 0.5em;"> edit </span>
-                Edit
-            </button>
-        </div>
+        <button
+            onclick={() => {
+                global.change_page("borrowers/" + page.params.id + "/edit");
+            }}
+            style="margin: 5px; margin-right: 5px; height: 40px;"
+        >
+            <span class="symbol" style="margin-right: 0.5em;"> edit </span>
+            Edit
+        </button>
+    </div>
+    <div class="display-panel-display">
         <div style="margin: 1em;" id="display_panel_details_borrower">
             <div style="display: flex; font-size: 2em; font-weight: bold;">
                 <div>
