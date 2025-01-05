@@ -29,6 +29,10 @@
         });
     });
 
+    import { page } from "$app/state";
+    $inspect(page.route.id.split("/")[1]);
+    //document.body.className;
+
     let { children } = $props();
     import "../themes.css";
     import "../style.css";

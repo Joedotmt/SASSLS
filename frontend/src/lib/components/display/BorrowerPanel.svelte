@@ -1,12 +1,17 @@
 <script>
-    import BorrowerDisplay from "./BorrowerDisplay.svelte";
-    import BorrowerEdit from "./BorrowerEdit.svelte";
     import pb from "$lib/pocketbase";
     import { global, objects, constants } from "$lib/global.svelte.js";
-    import { untrack } from "svelte";
     import { page } from "$app/state";
-
+    import { untrack } from "svelte";
     //let {} = $props();
+
+    // ITEM SPESIFIC
+    import Display from "./BorrowerDisplay.svelte";
+    import Edit from "./BorrowerEdit.svelte";
+    const collection_name = "borrowers";
+    const item_type = "borrower";
+    const defaultItem = $derived(constants.borrower.defaultItem);
+    const request_options = {};
 
     let selectedId = $derived(page.params.id);
     let display_mode = $derived(page.params.display_mode);
@@ -17,13 +22,13 @@
     $effect(async () => {
         loaded = false;
         if (selectedId) {
+            if (display_mode) {
+            }
+            await untrack(async () => {
+                await update_kollox();
+                loaded = true;
+            });
         }
-        if (display_mode) {
-        }
-        await untrack(async () => {
-            await update_kollox();
-            loaded = true;
-        });
     });
 
     async function update_kollox() {
@@ -32,31 +37,29 @@
             return;
         }
         if (selectedId == "create") {
-            selectedData = constants.borrowers.defaultItem;
+            selectedData = defaultItem;
             global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
-                // TODO
-                //objects.searchPanel.minimized = true;
+                objects.searchPanel.minimized = true;
             }
             visible = true;
             return;
         }
         try {
-            selectedData = await pb.collection("borrowers").getOne(selectedId);
+            selectedData = await pb.collection(collection_name).getOne(selectedId, request_options);
             global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
-                // TODO
-                //objects.searchPanel.minimized = true;
+                objects.searchPanel.minimized = true;
             }
             visible = true;
         } catch (error) {
-            console.log("Error with selected borrower data " + selectedData);
-            global.change_page("borrowers");
+            console.log(`Error with selected ${item_type} data ` + selectedData);
+            global.change_page(collection_name);
         }
     }
 
     function unselect_item() {
-        global.change_page("borrowers");
+        global.change_page(collection_name);
     }
 </script>
 
@@ -69,9 +72,9 @@
         {#if loaded}
             <div style="translate: 0 -3.2em;">
                 {#if display_mode == "edit"}
-                    <BorrowerEdit {selectedData} />
+                    <Edit {selectedData} />
                 {:else if display_mode == "" || display_mode == undefined}
-                    <BorrowerDisplay style="opacity:1" {selectedData} />
+                    <Display style="opacity:1" {selectedData} />
                 {/if}
             </div>
         {/if}
