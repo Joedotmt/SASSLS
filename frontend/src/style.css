@@ -194,7 +194,6 @@ body.hasHover .copy-icon:hover {
 }
 dialog[open] {
     opacity: 1;
-    transform: scale(1);
 }
 .bigdialog[open]::backdrop {
     animation: 0.5s ease-in-out dialog-show;
@@ -209,12 +208,10 @@ dialog[open] {
 }
 dialog {
     z-index: 1;
-    transform: scale(0.99);
     opacity: 0;
     background-color: var(---surface-5);
     border-radius: 20px;
     padding: 0;
-    scale: 0.2 ease-in-out;
     border: 0;
 }
 input[type="radio"] {

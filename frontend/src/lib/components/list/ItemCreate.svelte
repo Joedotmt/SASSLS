@@ -8,8 +8,8 @@
     import { global } from "$lib/global.svelte.js";
     function handleClick() {
         isSelected = true;
-        pageParams.selectedId = "create";
-        pageParams.display_mode = "edit";
+        pageParams.setSelectedId("create");
+        pageParams.setDisplay_mode("edit");
     }
 </script>
 

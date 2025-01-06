@@ -21,7 +21,7 @@
                 <button
                     class="edit-button"
                     onclick={() => {
-                        pageParams.display_mode = "edit";
+                        pageParams.setDisplay_mode("edit");
                     }}
                 >
                     <span class="symbol">edit</span>

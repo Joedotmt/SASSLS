@@ -34,8 +34,8 @@
         } else {
             updatedRecord = await updateItem(localData);
         }
-        pageParams.display_mode = "";
-        pageParams.selectedId = updatedRecord.id;
+        pageParams.setDisplay_mode("");
+        pageParams.setSelectedId(updatedRecord.id);
     }
 
     let errorMessage = $state("");
@@ -85,7 +85,7 @@
         try {
             await pb.collection(collection_name).delete(id);
             setTimeout(() => {
-                pageParams.selectedId = "";
+                pageParams.setSelectedId("");
             }, 500);
         } catch (error) {
             alert(`Error deleting ${item_name} record: ` + error.message);
@@ -101,11 +101,11 @@
                 <button
                     onclick={() => {
                         if (isCreation) {
-                            pageParams.selectedId = "";
-                            pageParams.display_mode = "";
+                            pageParams.setSelectedId("");
+                            pageParams.setDisplay_mode("");
                             return;
                         }
-                        pageParams.display_mode = "";
+                        pageParams.setDisplay_mode("");
                     }}
                     style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"
                 >

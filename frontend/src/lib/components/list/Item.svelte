@@ -23,8 +23,8 @@
         if (!isSelected) {
             global.loading_items.add(item.id);
         }
-        pageParams.selectedId = item.id;
-        pageParams.display_mode = "";
+        pageParams.setSelectedId(item.id);
+        pageParams.setDisplay_mode("");
     }
 </script>
 

@@ -15,41 +15,6 @@
 	%sveltekit.head%
 </head>
 <body class="blue-dark" data-sveltekit-preload-data="hover">
-	<!-- <script>
-		const transitionManager = () =>
-		{
-			// Create HTML style element with CSS selector that targets all
-			// elements and applies CSS to disable transitions
-			const style = document.createElement("style");
-			const css = document.createTextNode(`* {
-	                transition: none !important;
-	            }`);
-			style.appendChild(css);
-
-			// Create functions for adding and remove the style element from
-			// the page <head> tag
-			const enable = () => document.head.removeChild(style);
-			const disable = () => document.head.appendChild(style);
-			return { enable, disable, style };
-		};
-
-
-		let currentTheme = JSON.parse(localStorage.getItem("theme")) || {
-			mode: "dark",
-			books: "blue",
-			borrowers: "green",
-			transactions: "red"
-		};
-
-		const transitions = transitionManager();
-		transitions.disable();
-
-		document.body.className = `${currentTheme[window.location.pathname.split("/")[1]] || "blue"}-${currentTheme.mode}`;
-
-		window.getComputedStyle(transitions.style).opacity;
-
-		transitions.enable();
-	</script> -->
 	<div style="display: contents">%sveltekit.body%</div>
 </body>
 </html>

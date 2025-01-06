@@ -53,14 +53,14 @@
             visible = true;
         } catch (error) {
             console.log(`Error with selected ${item_type} data ` + selectedData);
-            pageParams.display_mode = "";
-            pageParams.selectedId = "";
+            pageParams.setDisplay_mode("");
+            pageParams.setSelectedId("");
         }
     }
 
     function unselect_item() {
-        pageParams.display_mode = "";
-        pageParams.selectedId = "";
+        pageParams.setDisplay_mode("");
+        pageParams.setSelectedId("");
     }
 </script>
 
