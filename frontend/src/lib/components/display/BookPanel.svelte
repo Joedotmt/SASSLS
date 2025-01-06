@@ -72,7 +72,7 @@
         </div>
         {#if loaded}
             <div style="translate: 0 -3.2em;">
-                {#if display_mode == "edit"}
+                {#if display_mode == "edit" && !pageParams.isLending}
                     <Edit bind:pageParams {selectedData} />
                 {:else if display_mode == ""}
                     <Display bind:pageParams style="opacity:1" {selectedData} />

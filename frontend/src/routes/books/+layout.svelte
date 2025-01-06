@@ -27,6 +27,10 @@
         propogate_page: true,
         display_mode: "",
         selectedId: "",
+        isLending: false,
+        lend: () => {
+            return;
+        },
         setSelectedId: (id, skip_confirmation = false) => {
             const navigate = () => {
                 global.unsaved_changes = false;

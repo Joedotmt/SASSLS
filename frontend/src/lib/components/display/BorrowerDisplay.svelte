@@ -27,8 +27,8 @@
 
     function keydown_dialog(e) {
         if (dialog_open) {
-            e.preventDefault();
             if (e.key == "Escape") {
+                e.preventDefault();
                 close_dialog();
             }
         }
@@ -90,42 +90,18 @@
     import { untrack } from "svelte";
 
     let pageParams = $state({
-        propogate_page: false,
+        propogate_page: true,
         display_mode: "",
         selectedId: "",
-        setSelectedId: (id, skip_confirmation = false) => {
-            const navigate = () => {
-                global.unsaved_changes = false;
-                pageParams.selectedId = id;
-                if (pageParams.propogate_page) {
-                    goto(`${base}/books${id ? "/" : ""}${id}/${id ? pageParams.display_mode : ""}`);
-                }
-            };
-
-            if (!global.unsaved_changes || skip_confirmation) {
-                navigate();
-                return;
-            }
-
-            confirmationDialog.dialog.showModal();
-            confirmationDialog.confirm = navigate;
+        isLending: true,
+        lend: () => {
+            return;
         },
-        setDisplay_mode: (mode, skip_confirmation = false) => {
-            const navigate = () => {
-                global.unsaved_changes = false;
-                pageParams.display_mode = mode;
-                if (pageParams.propogate_page) {
-                    goto(`${base}/books/${pageParams.selectedId}/${mode}`);
-                }
-            };
-
-            if (!global.unsaved_changes || skip_confirmation) {
-                navigate();
-                return;
-            }
-
-            confirmationDialog.dialog.showModal();
-            confirmationDialog.confirm = navigate;
+        setSelectedId: (id) => {
+            pageParams.selectedId = id;
+        },
+        setDisplay_mode: (mode) => {
+            pageParams.display_mode = mode;
         },
     });
 </script>

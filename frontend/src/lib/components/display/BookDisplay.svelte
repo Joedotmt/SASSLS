@@ -12,7 +12,7 @@
             <button class="lend-button">
                 <div class="lend-text">Lend book to borrower</div>
             </button>
-        {:else}
+        {:else if !pageParams.isLending}
             <div class="action-buttons">
                 <button class="return-button">
                     <span class="symbol">tab_close</span>
@@ -27,6 +27,10 @@
                     <span class="symbol">edit</span>
                     Edit
                 </button>
+            </div>
+        {:else if pageParams.isLending}
+            <div class="action-buttons">
+                <button class="lend-button" onclick={pageParams.lend}> Lend book to borrower </button>
             </div>
         {/if}
     </div>
@@ -95,11 +99,12 @@
     }
 
     .lend-button {
-        margin: 5px;
+        margin: 5.5px;
+        height: 40px;
         border: none;
-        background-color: var(---primary);
+        --bg: var(---primary-30);
         width: 100%;
-        padding: 0 1.1em;
+        padding: 0em 1em;
     }
 
     .lend-text {
