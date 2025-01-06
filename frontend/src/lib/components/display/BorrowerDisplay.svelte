@@ -22,93 +22,66 @@
 
     onMount(() => {
         document.body.appendChild(fake_lend_button);
+        document.body.addEventListener("keydown", keydown_dialog);
     });
 
-    function click_lend_button() {
+    function keydown_dialog(e) {
+        if (dialog_open) {
+            e.preventDefault();
+            if (e.key == "Escape") {
+                close_dialog();
+            }
+        }
+    }
+
+    function click_lend_button(close = false) {
+        function transition_start() {
+            dialog_open = true;
+            lend_dialog.showModal();
+            const style = `width: ${btn.width}px; height: ${btn.height}px; left: ${btn.x}px; top: ${btn.y}px; display: flex;`;
+            fake_lend_button.style.cssText = style;
+            fake_button_div.style.scale = "1 1";
+            lend_dialog.style.cssText = `${style} opacity: 0;`;
+        }
+
+        function transition_end() {
+            const scale = `${target.width / btn.width} ${target.height / btn.height}`;
+            fake_button_div.style.scale = scale;
+            const style = `width: ${finalWidth}px; height: ${finalHeight}px; left: ${margin}px; top: ${margin}px; display: flex; border-radius: 15px;`;
+            fake_lend_button.style.cssText = style;
+            lend_dialog.style.cssText = `transition: 0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97); ${style} opacity: 1;`;
+        }
+
+        function transition_close() {
+            const style = `transition: 0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97); width: ${btn.width}px; height: ${btn.height}px; left: ${btn.x}px; top: ${btn.y}px; display: flex;`;
+            fake_lend_button.style.cssText = `${style} border-radius: 20px; --lend-dialog-opacity: 0`;
+            fake_button_div.style.scale = "1 1";
+            lend_dialog.style.cssText = `${style} opacity: 0; --lend-dialog-opacity: 0;`;
+            setTimeout(() => {
+                fake_lend_button.style.cssText = "";
+                lend_dialog.close();
+                dialog_open = false;
+            }, 700);
+        }
+
         const margin = 20;
-        document.body.style.setProperty("--lend-dialog-opacity", "1");
-        fake_button_div.style.opacity = "1";
-        lend_dialog.style = null;
-        lend_dialog.style.display = "flex";
-        lend_dialog.showModal();
-        dialog_open = true;
+        const finalWidth = window.innerWidth - 40;
+        const finalHeight = window.innerHeight - 40;
+        const target = document.body.getBoundingClientRect();
+        const btn = lend_button.getBoundingClientRect();
+        btn.y += 0.1; // Idk man
 
-        var real_button_rect = lend_button.getBoundingClientRect();
+        if (close === true) {
+            transition_close();
+            return;
+        }
 
-        lend_dialog.style.width = `calc(100% - ${margin * 2}px)`;
-        lend_dialog.style.height = `calc(100% - ${margin * 2}px)`;
-
-        let finaltargetWidth = lend_dialog.getBoundingClientRect().width;
-        let finaltargetHeight = lend_dialog.getBoundingClientRect().height;
-
-        fake_lend_button.style.display = "flex";
-        fake_lend_button.style.width = real_button_rect.width + "px";
-        fake_lend_button.style.height = real_button_rect.height + "px";
-        fake_lend_button.style.left = real_button_rect.left + "px";
-        fake_lend_button.style.top = real_button_rect.top + 0.1 + "px";
-
-        lend_dialog.style.transition = "0s";
-        lend_dialog.style.display = "flex";
-        lend_dialog.style.width = real_button_rect.width + "px";
-        lend_dialog.style.height = real_button_rect.height + "px";
-        lend_dialog.style.left = real_button_rect.left + "px";
-        lend_dialog.style.top = real_button_rect.top + "px";
-        lend_dialog.style.opacity = "0";
-
-        requestAnimationFrame(() => {
-            lend_dialog.style.transition = "0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97)";
-            fake_button_div.style.transition = "0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97)";
-            fake_lend_button.style.display = "flex";
-            fake_button_div.style.scale = `${finaltargetWidth / real_button_rect.width} ${finaltargetHeight / real_button_rect.height}`;
-            fake_lend_button.style.width = finaltargetWidth + "px";
-            fake_lend_button.style.height = finaltargetHeight + "px";
-
-            fake_lend_button.style.width = `calc(100% - ${margin * 2}px)`;
-            fake_lend_button.style.height = `calc(100% - ${margin * 2}px)`;
-            fake_lend_button.style.left = margin + "px";
-            fake_lend_button.style.top = margin + "px";
-
-            fake_lend_button.style.borderRadius = "15px";
-
-            lend_dialog.style.width = `calc(100% - ${margin * 2}px)`;
-            lend_dialog.style.height = `calc(100% - ${margin * 2}px)`;
-            lend_dialog.style.left = margin + "px";
-            lend_dialog.style.top = margin + "px";
-
-            lend_dialog.style.borderRadius = "15px";
-        });
-
-        setTimeout(() => {
-            fake_button_div.style.transition = "0.1s";
-            fake_button_div.style.opacity = "0";
-            lend_dialog.style.opacity = "1";
-        }, 150);
-
-        setTimeout(() => {
-            fake_lend_button.style = null;
-            fake_button_div.style.opacity = "1";
-        }, 1000);
+        transition_start();
+        requestAnimationFrame(transition_end);
     }
 
     function close_dialog() {
-        fake_lend_button.style = null;
-        fake_button_div.style.scale = "1 1";
-        fake_button_div.style.opacity = "1";
-        lend_dialog.style.transitionDuration = "0.4s";
-        lend_dialog.style.opacity = "0";
-        lend_dialog.style.width = "0";
-        lend_dialog.style.height = "0";
-        let animate_opacity = 1;
-        let interval = setInterval(() => {
-            document.body.style.setProperty("--lend-dialog-opacity", animate_opacity);
-            animate_opacity -= 0.05;
-        }, 10);
-        lend_dialog.style.transformOrigin = "center";
-        setTimeout(() => {
-            lend_dialog.close();
-            lend_dialog.style.display = "none";
-            clearInterval(interval);
-        }, 500);
+        click_lend_button(true);
     }
 
     import { goto } from "$app/navigation";
@@ -159,12 +132,12 @@
 
 {#if loaded}
     <button bind:this={fake_lend_button} class="fake-button">
-        <div bind:this={fake_button_div} style="transform: scaleX(1) scaleY(1); display: flex; transition: 0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97); flex-direction: row; align-items: center;">
+        <div bind:this={fake_button_div} class="fake-button-div">
             <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="button-icon symbol"> library_add </span>
             <div style="align-content: space-around; text-wrap: nowrap;">Lend book</div>
         </div>
     </button>
-    <dialog bind:this={lend_dialog} class="lend-dialog bigdialog">
+    <dialog bind:this={lend_dialog} class="lend-dialog bigdialog {dialog_open ? `` : `display-none`}">
         <div style="display: flex; height: 100%; width: 100%; flex-direction: column;" id="lend_dialog_container">
             <div style="display: flex; margin-top: 0.4em; align-items: center; flex-direction: row;">
                 <button onclick={close_dialog} style="width: 40px; height: 40px; border: 0;" class="button-circle">
@@ -233,13 +206,12 @@
 {/if}
 
 <style>
-    :global(body) {
-        --lend-dialog-opacity: 1;
+    .display-none {
+        display: none !important;
     }
     .fake-button {
-        background: var(---surface-0);
+        background-color: var(---surface-0) !important;
         transform-origin: 0 0;
-        pointer-events: none;
         display: none;
         position: fixed;
         z-index: 10;
@@ -250,18 +222,25 @@
         border-radius: 7px;
         margin: auto;
     }
+    .fake-button-div {
+        scale: 1 1;
+        transition: 0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97);
+        flex-direction: row;
+        align-items: center;
+    }
     .lend-dialog {
         max-width: none;
         max-height: none;
         box-sizing: border-box;
         border: 1.2px solid var(---utility-outline);
         padding: 0 0.5em 0.5em 0.5em;
-        border-radius: 7px;
         margin: 0;
         position: fixed;
+        --lend-dialog-opacity: 1;
     }
 
     .lend-dialog::backdrop {
         opacity: var(--lend-dialog-opacity);
+        transition: 0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97);
     }
 </style>
