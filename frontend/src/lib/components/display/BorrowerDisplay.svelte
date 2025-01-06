@@ -55,7 +55,7 @@
         lend_dialog.style.top = real_button_rect.top + "px";
         lend_dialog.style.opacity = "0";
 
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             lend_dialog.style.transition = "0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97)";
             fake_button_div.style.transition = "0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97)";
             fake_lend_button.style.display = "flex";
@@ -76,7 +76,7 @@
             lend_dialog.style.top = margin + "px";
 
             lend_dialog.style.borderRadius = "15px";
-        }, 1);
+        });
 
         setTimeout(() => {
             fake_button_div.style.transition = "0.1s";
