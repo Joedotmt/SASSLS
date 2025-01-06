@@ -15,7 +15,7 @@
     let subjectChips = $state([]);
     let resourceSubjectChips = $state([]);
 
-    let { searchState = $bindable() } = $props();
+    let { pageParams = $bindable() } = $props();
 
     function mapToChips(records) {
         const mapToChips = (subject) => ({
@@ -58,20 +58,14 @@
         });
     });
 
-    let selectedIds_id_type = $state(["both"]);
-
-    $effect(() => {
-        searchState.showingIdType = selectedIds_id_type[0];
-    });
-
     function reset_filters() {
-        searchState = {
+        pageParams.searchState = {
             query: "",
             subjects: [],
             levels: [],
             sortType: "created",
             sortAscending: "true",
-            showingIdType: "both",
+            idType: "both",
         };
     }
 </script>
@@ -89,7 +83,7 @@
     </div>
     {#if objects.searchPanel.minimized}
         <div style="position: absolute; left: 0; top: 3.3em;">
-            <SortButton bind:isAscending={searchState.sortAscending} class="button-circle" style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;" />
+            <SortButton bind:isAscending={pageParams.searchState.sortAscending} class="button-circle" style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;" />
             <button in:receive out:send onclick={reset_filters} class="button-circle" style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;"><span class="symbol">reset_settings</span></button>
         </div>
     {/if}
@@ -106,7 +100,7 @@
             {#snippet details()}
                 <div style="flex-direction: row; display:flex; justify-content: space-between;">
                     <ChipGroup
-                        bind:selectedIds={searchState.sortType}
+                        bind:selectedIds={pageParams.searchState.sortType}
                         multiple={false}
                         optional={false}
                         defaultId={"created"}
@@ -118,7 +112,7 @@
                             { id: "price", label: "Price" },
                         ]}
                     />
-                    <SortButton bind:isAscending={searchState.sortAscending} style="margin:0.5em; width:100px" />
+                    <SortButton bind:isAscending={pageParams.searchState.sortAscending} style="margin:0.5em; width:100px" />
                 </div>
             {/snippet}
         </Accordion>
@@ -131,10 +125,10 @@
                     <TabSelector bind:currentTab />
                     <TabView bind:currentTab>
                         {#snippet content1()}
-                            <ChipGroup bind:selectedIds={searchState.subjects} items={subjects} />
+                            <ChipGroup bind:selectedIds={pageParams.searchState.subjects} items={subjects} />
                         {/snippet}
                         {#snippet content2()}
-                            <ChipGroup bind:selectedIds={searchState.subjects} items={resources} />
+                            <ChipGroup bind:selectedIds={pageParams.searchState.subjects} items={resources} />
                         {/snippet}
                     </TabView>
                 </div>
@@ -146,7 +140,7 @@
             {/snippet}
             {#snippet details()}
                 <div>
-                    <ChipGroup bind:selectedIds={searchState.levels} items={constants.books.levels} />
+                    <ChipGroup bind:selectedIds={pageParams.searchState.levels} items={constants.books.levels} />
                 </div>
             {/snippet}
         </Accordion>
@@ -157,7 +151,7 @@
             {#snippet details()}
                 <div style="flex-direction: row; display:flex; justify-content: space-between;">
                     <ChipGroup
-                        bind:selectedIds={selectedIds_id_type}
+                        bind:selectedIds={pageParams.searchState.idType}
                         multiple={false}
                         optional={false}
                         defaultId={"both"}

@@ -6,19 +6,20 @@
 
     let { children } = $props();
 
-    let searchState = $state({
-        query: "",
-        sortType: "created",
-        sortAscending: true,
-    });
     import { goto } from "$app/navigation";
     import { base } from "$app/paths";
     import { page } from "$app/state";
     import { untrack } from "svelte";
     let pageParams = $state({
+        searchState: {
+            query: "",
+            sortType: "created",
+            sortAscending: true,
+        },
         propogate_page: true,
         display_mode: "",
         selectedId: "",
+        minimized: false,
         setSelectedId: (id, skip_confirmation = false) => {
             const navigate = () => {
                 global.unsaved_changes = false;
@@ -73,7 +74,7 @@
 {@render children()}
 <div class="container-scroller">
     <div class="container">
-        <ListPanel bind:pageParams bind:searchState collection="borrowers" />
+        <ListPanel bind:pageParams collection="borrowers" />
         <BorrowerPanel bind:pageParams />
     </div>
 </div>

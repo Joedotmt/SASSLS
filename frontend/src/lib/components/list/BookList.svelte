@@ -4,7 +4,7 @@
     import { page } from "$app/state";
     import List from "./List.svelte";
 
-    let { searchState = {}, pageParams = $bindable() } = $props();
+    let { pageParams = $bindable() } = $props();
 
     //BOOK ONLY
     const collection_name = "books";
@@ -119,7 +119,7 @@
     });
 
     $effect(() => {
-        fetchItems(createPbFilter(searchState), createPbSort(searchState), search_fields);
+        fetchItems(createPbFilter(pageParams.searchState), createPbSort(pageParams.searchState), search_fields);
     });
 </script>
 

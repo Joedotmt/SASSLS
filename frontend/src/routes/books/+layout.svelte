@@ -25,6 +25,7 @@
             sortAscending: true,
             idType: "both",
         },
+        minimized: false,
         propogate_page: true,
         display_mode: "",
         selectedId: "",
@@ -86,8 +87,8 @@
 {@render children()}
 <div class="container-scroller">
     <div class="container">
-        <SearchPanel bind:searchState={pageParams.searchState} />
-        <ListPanel bind:searchState={pageParams.searchState} bind:pageParams collection="books" />
+        <SearchPanel bind:pageParams />
+        <ListPanel bind:pageParams collection="books" />
         <BookPanel bind:pageParams />
     </div>
 </div>
