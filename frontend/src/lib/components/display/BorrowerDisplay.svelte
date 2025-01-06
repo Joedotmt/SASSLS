@@ -11,13 +11,6 @@
     let fake_lend_button = $state();
     let lend_button = $state();
     let fake_button_div = $state();
-    let searchState = $state({
-        query: "",
-        subjects: [],
-        levels: [],
-        sortType: "created",
-        sortAscending: true,
-    });
     let dialog_open = $state(false);
 
     onMount(() => {
@@ -90,6 +83,14 @@
     import { untrack } from "svelte";
 
     let pageParams = $state({
+        searchState: {
+            query: "",
+            subjects: [],
+            levels: [],
+            sortType: "created",
+            sortAscending: true,
+            idType: "both",
+        },
         propogate_page: true,
         display_mode: "",
         selectedId: "",
@@ -124,8 +125,8 @@
             {#if dialog_open}
                 <div class="container-scroller">
                     <div class="container">
-                        <SearchPanel bind:searchState />
-                        <ListPanel bind:searchState bind:pageParams collection="books" />
+                        <SearchPanel bind:searchState={pageParams.searchState} />
+                        <ListPanel bind:searchState={pageParams.searchState} bind:pageParams collection="books" />
                         <BookPanel bind:pageParams />
                     </div>
                 </div>

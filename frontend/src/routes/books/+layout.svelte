@@ -7,13 +7,6 @@
 
     let { children } = $props();
 
-    let searchState = $state({
-        query: "",
-        subjects: [],
-        levels: [],
-        sortType: "created",
-        sortAscending: true,
-    });
     onMount(() => {
         global.fetchSubjects();
     });
@@ -24,6 +17,14 @@
     import { untrack } from "svelte";
 
     let pageParams = $state({
+        searchState: {
+            query: "",
+            subjects: [],
+            levels: [],
+            sortType: "created",
+            sortAscending: true,
+            idType: "both",
+        },
         propogate_page: true,
         display_mode: "",
         selectedId: "",
@@ -85,8 +86,8 @@
 {@render children()}
 <div class="container-scroller">
     <div class="container">
-        <SearchPanel bind:searchState />
-        <ListPanel bind:searchState bind:pageParams collection="books" />
+        <SearchPanel bind:searchState={pageParams.searchState} />
+        <ListPanel bind:searchState={pageParams.searchState} bind:pageParams collection="books" />
         <BookPanel bind:pageParams />
     </div>
 </div>
