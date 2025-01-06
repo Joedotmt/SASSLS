@@ -6,7 +6,7 @@
     import BookPanel from "$lib/components/display/BookPanel.svelte";
     import ListPanel from "$lib/components/list/ListPanel.svelte";
 
-    let { selectedData } = $props();
+    let { selectedData, pageParams = $bindable() } = $props();
     let loaded = $derived(selectedData != null && selectedData.id != undefined);
     let add_book_to_borrow_dialog = $state();
     let dpdb_add_button_FAKE = $state();
@@ -123,9 +123,7 @@
                 </button>
                 <div style="text-wrap: nowrap; font-size: 1.2em; margin-left: 0.3em;">Lend book to borrower</div>
             </div>
-            {#if dialog_open}
-                <embed title="books" width="1000" height="1000" src="/books" />
-            {/if}
+            {#if dialog_open}{/if}
         </div>
     </dialog>
     <div class="quick-buttons">
@@ -136,7 +134,7 @@
 
         <button
             onclick={() => {
-                global.change_page("borrowers/" + page.params.id + "/edit");
+                pageParams.display_mode = "edit";
             }}
             style="margin: 5px; margin-right: 5px; height: 40px;"
         >

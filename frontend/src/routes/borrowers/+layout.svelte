@@ -9,12 +9,33 @@
         sortType: "created",
         sortAscending: true,
     });
+    let pageParams = $state({
+        display_mode: "",
+        selectedId: "",
+    });
+    $effect(() => {
+        if (page.params.id) {
+            untrack(() => {
+                pageParams.selectedId = page.params.id;
+            });
+        }
+    });
+    $effect(() => {
+        if (page.params.display_mode) {
+            untrack(() => {
+                pageParams.display_mode = page.params.display_mode;
+            });
+        }
+    });
+    $effect(() => {
+        global.change_page(`borrowers/${pageParams.selectedId}${pageParams.selectedId ? `/${pageParams.display_mode}` : ""}`);
+    });
 </script>
 
 {@render children()}
 <div class="container-scroller">
     <div class="container">
-        <ListPanel bind:searchState collection="borrowers" />
-        <BorrowerPanel />
+        <ListPanel bind:pageParams bind:searchState collection="borrowers" />
+        <BorrowerPanel bind:pageParams />
     </div>
 </div>

@@ -1,5 +1,5 @@
 <script>
-    let { itemType, item, isSelected = $bindable() } = $props();
+    let { itemType, item, isSelected = $bindable(), pageParams = $bindable() } = $props();
 
     import LoadingBar from "$lib/components/LoadingBar.svelte";
 
@@ -23,7 +23,8 @@
         if (!isSelected) {
             global.loading_items.add(item.id);
         }
-        global.change_page(`${itemType}/${item.id}`);
+        pageParams.selectedId = item.id;
+        pageParams.display_mode = "";
     }
 </script>
 

@@ -1,9 +1,8 @@
 <script>
-    import { page } from "$app/state";
     import { global } from "$lib/global.svelte.js";
     import IsbnText from "../isbnText.svelte";
 
-    let { selectedData, lending_mode = false } = $props();
+    let { selectedData, lending_mode = false, pageParams = $bindable() } = $props();
     let loaded = $derived(selectedData != null && selectedData.id != undefined);
 </script>
 
@@ -22,7 +21,7 @@
                 <button
                     class="edit-button"
                     onclick={() => {
-                        global.change_page("books/" + page.params.id + "/edit");
+                        pageParams.display_mode = "edit";
                     }}
                 >
                     <span class="symbol">edit</span>

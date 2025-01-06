@@ -3,7 +3,7 @@
     import { global, objects, constants } from "$lib/global.svelte.js";
     import { page } from "$app/state";
     import { untrack } from "svelte";
-    //let {} = $props();
+    let { pageParams = $bindable() } = $props();
 
     // ITEM SPESIFIC
     import Display from "./BorrowerDisplay.svelte";
@@ -13,8 +13,10 @@
     const defaultItem = $derived(constants.borrowers.defaultItem);
     const request_options = {};
 
-    let selectedId = $derived(page.params.id);
-    let display_mode = $derived(page.params.display_mode);
+    let selectedId = $derived(pageParams.selectedId);
+    let display_mode = $derived(pageParams.display_mode);
+
+    $inspect(pageParams.display_mode);
 
     let selectedData = $state(null);
     let visible = $state(true);
@@ -54,16 +56,18 @@
             visible = true;
         } catch (error) {
             console.log(`Error with selected ${item_type} data ` + selectedData);
-            global.change_page(collection_name);
+            pageParams.selectedId = "";
+            pageParams.display_mode = "";
         }
     }
 
     function unselect_item() {
-        global.change_page(collection_name);
+        pageParams.selectedId = "";
+        pageParams.display_mode = "";
     }
 </script>
 
-{#if page.params.id != undefined && visible}
+{#if pageParams.selectedId != "" && visible}
     <div id="display_area" class="panel">
         <div style="flex-direction: row; border-bottom: 1px solid var(---surface-5); min-height: 50px; width: 100%; display: flex; align-items: center;">
             <button onclick={unselect_item} class="button-circle" style="border:none; width:40px; height:40px; margin:5px; z-index: 6;"><span class="symbol">close</span></button>

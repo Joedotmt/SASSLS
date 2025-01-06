@@ -3,7 +3,7 @@
     import BookList from "./BookList.svelte";
     import BorrowerList from "./BorrowerList.svelte";
 
-    let { searchState = $bindable(), collection } = $props();
+    let { searchState = $bindable(), collection, pageParams = $bindable() } = $props();
 
     function handleSearchKeyDown(event) {
         if (event.key === "Enter") {
@@ -26,8 +26,8 @@
         </div>
     </div>
     {#if collection == "books"}
-        <BookList {searchState} />
+        <BookList {searchState} bind:pageParams />
     {:else if collection == "borrowers"}
-        <BorrowerList {searchState} />
+        <BorrowerList {searchState} bind:pageParams />
     {/if}
 </div>

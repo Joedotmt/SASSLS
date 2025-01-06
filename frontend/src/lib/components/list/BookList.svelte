@@ -4,7 +4,7 @@
     import { page } from "$app/state";
     import List from "./List.svelte";
 
-    let { searchState = {} } = $props();
+    let { searchState = {}, pageParams = $bindable() } = $props();
 
     //BOOK ONLY
     const collection_name = "books";
@@ -123,4 +123,4 @@
     });
 </script>
 
-<List {collection_name} {isLoading} {error} selectedId={page.params.id} {items}></List>
+<List {collection_name} {isLoading} {error} selectedId={pageParams.selectedId} {items} bind:pageParams></List>

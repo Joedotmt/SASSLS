@@ -1,5 +1,5 @@
 <script>
-    let { itemType, item = $bindable(), isSelected = $bindable() } = $props();
+    let { itemType, item = $bindable(), isSelected = $bindable(), pageParams = $bindable() } = $props();
 
     item = {
         id: "create",
@@ -8,7 +8,8 @@
     import { global } from "$lib/global.svelte.js";
     function handleClick() {
         isSelected = true;
-        global.change_page(`${itemType}/create/edit`);
+        pageParams.selectedId = "create";
+        pageParams.display_mode = "edit";
     }
 </script>
 

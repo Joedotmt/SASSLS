@@ -3,9 +3,9 @@
     import pb from "$lib/pocketbase";
     import { global, constants } from "$lib/global.svelte.js";
     import { slide } from "svelte/transition";
-    import { page } from "$app/state";
+    import { onMount } from "svelte";
 
-    let { selectedData } = $props();
+    let { selectedData, pageParams = $bindable() } = $props();
     let localData = $state(null);
 
     // BORROWER SPESIFIC //
@@ -16,6 +16,8 @@
     let isCreation = $derived(localData.id == undefined);
 
     ////////////////////////////////////////////////////////////////////////////////////////
+
+    global.unsaved_changes = true;
 
     $effect(() => {
         if (selectedData !== null && !loaded) {
@@ -31,7 +33,8 @@
         } else {
             updatedRecord = await updateItem(localData);
         }
-        global.change_page(collection_name + "/" + updatedRecord.id, true);
+        pageParams.display_mode = "";
+        pageParams.selectedId = updatedRecord.id;
     }
 
     let errorMessage = $state("");
@@ -81,7 +84,7 @@
         try {
             await pb.collection(collection_name).delete(id);
             setTimeout(() => {
-                global.change_page(collection_name, true);
+                pageParams.selectedId = "";
             }, 500);
         } catch (error) {
             alert(`Error deleting ${item_name} record: ` + error.message);
@@ -97,10 +100,11 @@
                 <button
                     onclick={() => {
                         if (isCreation) {
-                            global.change_page(collection_name + "/", true);
+                            pageParams.selectedId = "";
+                            pageParams.display_mode = "";
                             return;
                         }
-                        global.change_page(collection_name + "/" + page.params.id, true);
+                        pageParams.display_mode = "";
                     }}
                     style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"
                 >
