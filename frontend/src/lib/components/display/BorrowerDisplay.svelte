@@ -77,11 +77,6 @@
         click_lend_button(true);
     }
 
-    import { goto } from "$app/navigation";
-    import { base } from "$app/paths";
-    import { page } from "$app/state";
-    import { untrack } from "svelte";
-
     let env = $state({
         searchState: {
             query: "",
