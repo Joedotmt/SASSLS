@@ -2,7 +2,7 @@
     import pb from "$lib/pocketbase";
     import { global, objects, constants } from "$lib/global.svelte.js";
     import { untrack } from "svelte";
-    let { pageParams = $bindable() } = $props();
+    let { env = $bindable() } = $props();
 
     // ITEM SPESIFIC
     import Display from "./BorrowerDisplay.svelte";
@@ -12,8 +12,8 @@
     const defaultItem = $derived(constants.borrowers.defaultItem);
     const request_options = {};
 
-    let selectedId = $derived(pageParams.selectedId);
-    let display_mode = $derived(pageParams.display_mode);
+    let selectedId = $derived(env.selectedId);
+    let display_mode = $derived(env.display_mode);
 
     let selectedData = $state(null);
     let visible = $state(true);
@@ -53,18 +53,18 @@
             visible = true;
         } catch (error) {
             console.log(`Error with selected ${item_type} data ` + selectedData);
-            pageParams.setDisplay_mode("");
-            pageParams.setSelectedId("");
+            env.setDisplay_mode("");
+            env.setSelectedId("");
         }
     }
 
     function unselect_item() {
-        pageParams.setDisplay_mode("");
-        pageParams.setSelectedId("");
+        env.setDisplay_mode("");
+        env.setSelectedId("");
     }
 </script>
 
-{#if pageParams.selectedId != "" && visible}
+{#if env.selectedId != "" && visible}
     <div id="display_area" class="panel">
         <div style="flex-direction: row; border-bottom: 1px solid var(---surface-5); min-height: 50px; width: 100%; display: flex; align-items: center;">
             <button onclick={unselect_item} class="button-circle" style="border:none; width:40px; height:40px; margin:5px; z-index: 6;"><span class="symbol">close</span></button>
@@ -73,9 +73,9 @@
         {#if loaded}
             <div style="translate: 0 -3.2em;">
                 {#if display_mode == "edit"}
-                    <Edit bind:pageParams {selectedData} />
+                    <Edit bind:env {selectedData} />
                 {:else if display_mode == ""}
-                    <Display bind:pageParams style="opacity:1" {selectedData} />
+                    <Display bind:env style="opacity:1" {selectedData} />
                 {/if}
             </div>
         {/if}

@@ -10,7 +10,7 @@
     import { base } from "$app/paths";
     import { page } from "$app/state";
     import { untrack } from "svelte";
-    let pageParams = $state({
+    let env = $state({
         searchState: {
             query: "",
             sortType: "created",
@@ -23,9 +23,9 @@
         setSelectedId: (id, skip_confirmation = false) => {
             const navigate = () => {
                 global.unsaved_changes = false;
-                pageParams.selectedId = id;
-                if (pageParams.propogate_page) {
-                    goto(`${base}/books${id ? "/" : ""}${id}/${id ? pageParams.display_mode : ""}`);
+                env.selectedId = id;
+                if (env.propogate_page) {
+                    goto(`${base}/books${id ? "/" : ""}${id}/${id ? env.display_mode : ""}`);
                 }
             };
 
@@ -40,9 +40,9 @@
         setDisplay_mode: (mode, skip_confirmation = false) => {
             const navigate = () => {
                 global.unsaved_changes = false;
-                pageParams.display_mode = mode;
-                if (pageParams.propogate_page) {
-                    goto(`${base}/borrowers/${pageParams.selectedId}/${mode}`);
+                env.display_mode = mode;
+                if (env.propogate_page) {
+                    goto(`${base}/borrowers/${env.selectedId}/${mode}`);
                 }
             };
 
@@ -58,14 +58,14 @@
     $effect(() => {
         if (page.params.id) {
             untrack(() => {
-                pageParams.selectedId = page.params.id;
+                env.selectedId = page.params.id;
             });
         }
     });
     $effect(() => {
         if (page.params.display_mode) {
             untrack(() => {
-                pageParams.display_mode = page.params.display_mode;
+                env.display_mode = page.params.display_mode;
             });
         }
     });
@@ -74,7 +74,7 @@
 {@render children()}
 <div class="container-scroller">
     <div class="container">
-        <ListPanel bind:pageParams collection="borrowers" />
-        <BorrowerPanel bind:pageParams />
+        <ListPanel bind:env collection="borrowers" />
+        <BorrowerPanel bind:env />
     </div>
 </div>

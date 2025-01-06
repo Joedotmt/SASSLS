@@ -5,7 +5,7 @@
     import { slide } from "svelte/transition";
     import { onMount } from "svelte";
 
-    let { selectedData, pageParams = $bindable() } = $props();
+    let { selectedData, env = $bindable() } = $props();
     let localData = $state(null);
 
     // BOOK SPESIFIC //
@@ -34,8 +34,8 @@
         } else {
             updatedRecord = await updateItem(localData);
         }
-        pageParams.setDisplay_mode("");
-        pageParams.setSelectedId(updatedRecord.id);
+        env.setDisplay_mode("");
+        env.setSelectedId(updatedRecord.id);
     }
 
     let errorMessage = $state("");
@@ -85,7 +85,7 @@
         try {
             await pb.collection(collection_name).delete(id);
             setTimeout(() => {
-                pageParams.setSelectedId("");
+                env.setSelectedId("");
             }, 500);
         } catch (error) {
             alert(`Error deleting ${item_name} record: ` + error.message);
@@ -101,11 +101,11 @@
                 <button
                     onclick={() => {
                         if (isCreation) {
-                            pageParams.setSelectedId("");
-                            pageParams.setDisplay_mode("");
+                            env.setSelectedId("");
+                            env.setDisplay_mode("");
                             return;
                         }
-                        pageParams.setDisplay_mode("");
+                        env.setDisplay_mode("");
                     }}
                     style="border: 0; margin: 5px; margin-right: 0; margin-left: auto;"
                 >

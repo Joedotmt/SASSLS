@@ -2,7 +2,7 @@
     import { global } from "$lib/global.svelte.js";
     import IsbnText from "../isbnText.svelte";
 
-    let { selectedData, lending_mode = false, pageParams = $bindable() } = $props();
+    let { selectedData, lending_mode = false, env = $bindable() } = $props();
     let loaded = $derived(selectedData != null && selectedData.id != undefined);
 </script>
 
@@ -12,7 +12,7 @@
             <button class="lend-button">
                 <div class="lend-text">Lend book to borrower</div>
             </button>
-        {:else if !pageParams.isLending}
+        {:else if !env.isLending}
             <div class="action-buttons">
                 <button class="return-button">
                     <span class="symbol">tab_close</span>
@@ -21,16 +21,16 @@
                 <button
                     class="edit-button"
                     onclick={() => {
-                        pageParams.setDisplay_mode("edit");
+                        env.setDisplay_mode("edit");
                     }}
                 >
                     <span class="symbol">edit</span>
                     Edit
                 </button>
             </div>
-        {:else if pageParams.isLending}
+        {:else if env.isLending}
             <div class="action-buttons">
-                <button class="lend-button" onclick={pageParams.lend}> Lend book to borrower </button>
+                <button class="lend-button" onclick={env.lend}> Lend book to borrower </button>
             </div>
         {/if}
     </div>

@@ -2,7 +2,7 @@
     import LoadingBar from "$lib/components/LoadingBar.svelte";
     import Item from "$lib/components/list/Item.svelte";
     import ItemCreate from "$lib/components/list/ItemCreate.svelte";
-    let { collection_name, isLoading, error, selectedId, items, pageParams = $bindable() } = $props();
+    let { collection_name, isLoading, error, selectedId, items, env = $bindable() } = $props();
 </script>
 
 <div style="overflow:hidden; overflow-y: auto; border-radius: 0.6em; height: 100%;">
@@ -15,11 +15,11 @@
         <p style="color: red;">{error}</p>
     {:else}
         <div>
-            <ItemCreate itemType={collection_name} isSelected={"create" == selectedId} bind:pageParams />
+            <ItemCreate itemType={collection_name} isSelected={"create" == selectedId} bind:env />
         </div>
         {#each items as item (item.id)}
             <div>
-                <Item itemType={collection_name} {item} isSelected={item.id == selectedId} bind:pageParams />
+                <Item itemType={collection_name} {item} isSelected={item.id == selectedId} bind:env />
             </div>
         {/each}
     {/if}

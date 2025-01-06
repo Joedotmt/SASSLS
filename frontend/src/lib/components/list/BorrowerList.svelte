@@ -4,7 +4,7 @@
     import { page } from "$app/state";
     import List from "./List.svelte";
 
-    let { pageParams = $bindable() } = $props();
+    let { env = $bindable() } = $props();
 
     // BORROWER ONLY
     const collection_name = "borrowers";
@@ -97,8 +97,8 @@
     });
 
     $effect(() => {
-        fetchItems(createPbFilter(pageParams.searchState), createPbSort(pageParams.searchState), search_fields);
+        fetchItems(createPbFilter(env.searchState), createPbSort(env.searchState), search_fields);
     });
 </script>
 
-<List {collection_name} {isLoading} {error} selectedId={pageParams.selectedId} {items} bind:pageParams></List>
+<List {collection_name} {isLoading} {error} selectedId={env.selectedId} {items} bind:env></List>

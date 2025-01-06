@@ -5,7 +5,7 @@
     import BookPanel from "$lib/components/display/BookPanel.svelte";
     import ListPanel from "$lib/components/list/ListPanel.svelte";
 
-    let { selectedData, pageParams: borrowerPageParams = $bindable() } = $props();
+    let { selectedData, env: borrowerenv = $bindable() } = $props();
     let loaded = $derived(selectedData != null && selectedData.id != undefined);
     let lend_dialog = $state();
     let fake_lend_button = $state();
@@ -82,7 +82,7 @@
     import { page } from "$app/state";
     import { untrack } from "svelte";
 
-    let pageParams = $state({
+    let env = $state({
         searchState: {
             query: "",
             subjects: [],
@@ -99,10 +99,10 @@
             return;
         },
         setSelectedId: (id) => {
-            pageParams.selectedId = id;
+            env.selectedId = id;
         },
         setDisplay_mode: (mode) => {
-            pageParams.display_mode = mode;
+            env.display_mode = mode;
         },
     });
 </script>
@@ -125,9 +125,9 @@
             {#if dialog_open}
                 <div class="container-scroller">
                     <div class="container">
-                        <SearchPanel bind:pageParams />
-                        <ListPanel bind:pageParams collection="books" />
-                        <BookPanel bind:pageParams />
+                        <SearchPanel bind:env />
+                        <ListPanel bind:env collection="books" />
+                        <BookPanel bind:env />
                     </div>
                 </div>
             {/if}
@@ -141,7 +141,7 @@
 
         <button
             onclick={() => {
-                borrowerPageParams.setDisplay_mode("edit");
+                borrowerenv.setDisplay_mode("edit");
             }}
             style="margin: 5px; margin-right: 5px; height: 40px;"
         >
