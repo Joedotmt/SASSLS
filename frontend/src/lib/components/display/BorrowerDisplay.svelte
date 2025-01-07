@@ -99,6 +99,7 @@
             };
             console.log("TRANSACTION CREATION: ", data);
             await pb.collection("transactions").create(data);
+            close_dialog();
         },
         setSelectedId: (id) => {
             env.selectedId = id;
@@ -165,7 +166,7 @@
                     ID: {selectedData.id}
                 </div>
             </div>
-            <div style="font-size: 1.3em; font-weight: bold; margin-top: 0.5em;">Currently borrowing books:</div>
+            <div style="font-size: 1.3em; font-weight: bold; margin-top: 0.5em; margin-bottom: 0.1em;">Currently borrowing books:</div>
             <div id="borrower_currently_borrowing_books"><LendingList id={selectedData.id} /></div>
             <div style="border-top: solid var(---surface-5) 2px; display: flex; width: 100%;">
                 <button bind:this={lend_button} onclick={click_lend_button} style="width: fit-content; height: 2.6em; padding: 1.2em; margin-top: 0.4em; view-transition-name: lend-button;">
@@ -216,6 +217,8 @@
         margin: 0;
         position: fixed;
         --lend-dialog-opacity: 1;
+        view-transition-name: lend-dialog;
+        z-index: 50;
     }
 
     .lend-dialog::backdrop {

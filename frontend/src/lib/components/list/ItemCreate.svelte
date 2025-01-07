@@ -5,7 +5,6 @@
         id: "create",
     };
 
-    import { global } from "$lib/global.svelte.js";
     function handleClick() {
         isSelected = true;
         env.setSelectedId("create");
@@ -13,6 +12,6 @@
     }
 </script>
 
-<button class="list-button list-item {isSelected ? 'selected' : ''}" onclick={handleClick} style="view-transition-name: id-{item.id}; margin-top:0 !important;">
+<button class="list-button list-item {isSelected ? 'selected' : ''}" onclick={handleClick} style="view-transition-name: id-{itemType}{item.id}; margin-top:0 !important;">
     + Create {itemType.slice(0, -1)}
 </button>

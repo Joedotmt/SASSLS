@@ -50,7 +50,7 @@
         return [];
     }
 
-    async function fetchItems(filter, sort, fields, page = 1, pageSize = 10) {
+    async function fetchItems(filter, sort, fields, page = 1, pageSize = 10, expand = "") {
         isLoading = true;
         error = null;
 
@@ -61,6 +61,7 @@
                 filter,
                 sort,
                 fields,
+                expand,
             });
 
             const endTime = performance.now();

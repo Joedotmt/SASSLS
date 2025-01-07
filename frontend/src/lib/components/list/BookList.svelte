@@ -72,18 +72,14 @@
         return extra;
     }
 
-    async function fetchItems(filter, sort, fields, page = 1, pageSize = 10) {
+    async function fetchItems(pbOptions = {}, page = 1, pageSize = 10) {
         isLoading = true;
         error = null;
 
         try {
             const startTime = performance.now();
 
-            const records = await pb.collection(collection_name).getList(page, pageSize, {
-                filter,
-                sort,
-                fields,
-            });
+            const records = await pb.collection(collection_name).getList(page, pageSize, pbOptions);
 
             const endTime = performance.now();
             console.log(`Request duration: ${(endTime - startTime).toFixed(2)} ms`);
@@ -119,7 +115,7 @@
     });
 
     $effect(() => {
-        fetchItems(createPbFilter(env.searchState), createPbSort(env.searchState), search_fields);
+        fetchItems({ filter: createPbFilter(env.searchState), sort: createPbSort(env.searchState), fields: search_fields });
     });
 </script>
 
