@@ -11,6 +11,7 @@
     let lend_dialog = $state();
     let fake_lend_button = $state();
     let lend_button = $state();
+    let lend_button_text = $state();
     let fake_button_div = $state();
     let dialog_open = $state(false);
 
@@ -36,6 +37,7 @@
             fake_lend_button.style.cssText = style;
             fake_button_div.style.scale = "1 1";
             lend_dialog.style.cssText = `${style} opacity: 0;`;
+            lend_button_text.style.opacity = 1;
         }
 
         function transition_end() {
@@ -44,18 +46,21 @@
             const style = `width: ${finalWidth}px; height: ${finalHeight}px; left: ${margin}px; top: ${margin}px; display: flex; border-radius: 15px;`;
             fake_lend_button.style.cssText = style;
             lend_dialog.style.cssText = `transition: 0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97); ${style} opacity: 1;`;
+            lend_button_text.style.opacity = 0;
         }
 
         function transition_close() {
-            const style = `transition: 0.7s cubic-bezier(0.36, 0.01, 0.27, 0.97); width: ${btn.width}px; height: ${btn.height}px; left: ${btn.x}px; top: ${btn.y}px; display: flex;`;
+            const style = `transition: 0.4s cubic-bezier(0.36, 0.01, 0.27, 0.97); width: ${btn.width}px; height: ${btn.height}px; left: ${btn.x}px; top: ${btn.y}px; display: flex;`;
             fake_lend_button.style.cssText = `${style} border-radius: 20px; --lend-dialog-opacity: 0`;
-            fake_button_div.style.scale = "1 1";
+            fake_button_div.style.cssText = "scale:1; transition: 0.4s cubic-bezier(0.36, 0.01, 0.27, 0.97);";
             lend_dialog.style.cssText = `${style} opacity: 0; --lend-dialog-opacity: 0;`;
+            lend_button_text.style.opacity = 1;
             setTimeout(() => {
                 fake_lend_button.style.cssText = "";
                 lend_dialog.close();
                 dialog_open = false;
-            }, 700);
+                env.selectedId = "";
+            }, 400);
         }
 
         const margin = 20;
@@ -113,8 +118,10 @@
 {#if loaded}
     <button bind:this={fake_lend_button} class="fake-button {dialog_open ? `` : `display-none`}">
         <div bind:this={fake_button_div} class="fake-button-div">
-            <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="button-icon symbol"> library_add </span>
-            <div style="align-content: space-around; text-wrap: nowrap;">Lend book</div>
+            <div bind:this={lend_button_text} style="flex-direction: row; align-items: center; transition: 0.2s cubic-bezier(0.36, 0.01, 0.27, 0.97);">
+                <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="button-icon symbol"> library_add </span>
+                <div style="align-content: space-around; text-wrap: nowrap;">Lend book</div>
+            </div>
         </div>
     </button>
     <dialog bind:this={lend_dialog} class="lend-dialog bigdialog {dialog_open ? `` : `display-none`}">

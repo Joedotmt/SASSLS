@@ -2,6 +2,8 @@
     import { onMount } from "svelte";
     import pb from "$lib/pocketbase";
     import { global } from "$lib/global.svelte.js";
+    import { flip } from "svelte/animate";
+    import { expoOut } from "svelte/easing";
 
     let { id } = $props();
 
@@ -69,8 +71,8 @@
 </script>
 
 {#if !isLoading}
-    {#each items as transaction}
-        <div class="book_view" style="view-transition-name: id-{transaction.id};">
+    {#each items as transaction (transaction.id)}
+        <div class="book_view" animate:flip={{ duration: 500, easing: expoOut }} style="view-transition-name: id-{transaction.id};">
             <div style="display: flex; flex-direction: row; border-top: solid var(---surface-5) 2px;">
                 <div style="margin-top: 0.5em;">
                     <img style="object-fit: cover; padding: 0.2em; width: 6em; height: calc(100% - 1em); background-color: var(---inverse-surface); border-radius: 0.6em;" src={transaction.expand.book.preview_url_override || global.getRandomBookCover(transaction.expand.book.id)} />
@@ -101,3 +103,10 @@
         <div style="display: flex; flex-direction: row; border-top: solid var(---surface-5) 2px; padding: 1em;">Not borrowing any books</div>
     {/if}
 {/if}
+
+<style>
+    .book_view {
+        background: var(---background);
+        z-index: 5;
+    }
+</style>
