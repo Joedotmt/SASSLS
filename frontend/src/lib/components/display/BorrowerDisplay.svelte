@@ -1,9 +1,10 @@
 <script>
-    import { global } from "$lib/global.svelte.js";
     import { onMount } from "svelte";
     import SearchPanel from "$lib/components/BookSearchPanel.svelte";
     import BookPanel from "$lib/components/display/BookPanel.svelte";
     import ListPanel from "$lib/components/list/ListPanel.svelte";
+    import pb from "$lib/pocketbase";
+    import LendingList from "$lib/components/display/LendingList.svelte";
 
     let { selectedData, env: borrowerenv = $bindable() } = $props();
     let loaded = $derived(selectedData != null && selectedData.id != undefined);
@@ -90,8 +91,14 @@
         display_mode: "",
         selectedId: "",
         isLending: true,
-        lend: () => {
-            return;
+        lend: async () => {
+            const data = {
+                person: borrowerenv.selectedId,
+                book: env.selectedId,
+                returned: false,
+            };
+            console.log("TRANSACTION CREATION: ", data);
+            await pb.collection("transactions").create(data);
         },
         setSelectedId: (id) => {
             env.selectedId = id;
@@ -103,7 +110,7 @@
 </script>
 
 {#if loaded}
-    <button bind:this={fake_lend_button} class="fake-button">
+    <button bind:this={fake_lend_button} class="fake-button {dialog_open ? `` : `display-none`}">
         <div bind:this={fake_button_div} class="fake-button-div">
             <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="button-icon symbol"> library_add </span>
             <div style="align-content: space-around; text-wrap: nowrap;">Lend book</div>
@@ -159,7 +166,7 @@
                 </div>
             </div>
             <div style="font-size: 1.3em; font-weight: bold; margin-top: 0.5em;">Currently borrowing books:</div>
-            <div id="borrower_currently_borrowing_books"></div>
+            <div id="borrower_currently_borrowing_books"><LendingList id={selectedData.id} /></div>
             <div style="border-top: solid var(---surface-5) 2px; display: flex; width: 100%;">
                 <button bind:this={lend_button} onclick={click_lend_button} style="width: fit-content; height: 2.6em; padding: 1.2em; margin-top: 0.4em; view-transition-name: lend-button;">
                     <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="button-icon symbol"> library_add </span>
