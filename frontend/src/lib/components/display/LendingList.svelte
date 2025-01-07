@@ -33,19 +33,17 @@
             pb.collection(collection_name).subscribe(
                 "*",
                 (e) => {
-                    document.startViewTransition(() => {
-                        switch (e.action) {
-                            case "create":
-                                items = [e.record, ...items];
-                                break;
-                            case "update":
-                                items = items.map((item) => (item.id === e.record.id ? e.record : item)).filter((item) => !item.returned);
-                                break;
-                            case "delete":
-                                items = items.filter((item) => item.id !== e.record.id);
-                                break;
-                        }
-                    });
+                    switch (e.action) {
+                        case "create":
+                            items = [e.record, ...items];
+                            break;
+                        case "update":
+                            items = items.map((item) => (item.id === e.record.id ? e.record : item)).filter((item) => !item.returned);
+                            break;
+                        case "delete":
+                            items = items.filter((item) => item.id !== e.record.id);
+                            break;
+                    }
                 },
                 { expand: pbOptions.expand },
             );
