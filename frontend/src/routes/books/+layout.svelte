@@ -26,7 +26,7 @@
             idType: "both",
         },
         minimized: false,
-        propogate_page: true,
+        propogate_page: false,
         display_mode: "",
         selectedId: "",
         isLending: false,

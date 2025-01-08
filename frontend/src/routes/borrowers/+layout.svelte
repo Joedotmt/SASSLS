@@ -16,7 +16,7 @@
             sortType: "created",
             sortAscending: true,
         },
-        propogate_page: true,
+        propogate_page: false,
         display_mode: "",
         selectedId: "",
         minimized: false,
