@@ -70,26 +70,26 @@
     }
 </script>
 
-<div class="search-area panel {objects.searchPanel.minimized ? 'minimized' : ''}">
+<div class="search-area panel {env.minimized ? 'minimized' : ''}">
     <div style="flex-direction: row; border-bottom: 1px solid var(---surface-5); width: 100%; display: flex; align-items: center;">
         <button
             onclick={() => {
-                objects.searchPanel.minimized = !objects.searchPanel.minimized;
+                env.minimized = !env.minimized;
             }}
             class="button-circle"
-            style="border:none; width:40px; height:40px; margin:5px"><span class="symbol">{objects.searchPanel.minimized ? "left_panel_open" : "left_panel_close"}</span></button
+            style="border:none; width:40px; height:40px; margin:5px"><span class="symbol">{env.minimized ? "left_panel_open" : "left_panel_close"}</span></button
         >
         <span style="margin: 0em 0em;">Filters</span>
     </div>
-    {#if objects.searchPanel.minimized}
+    {#if env.minimized}
         <div style="position: absolute; left: 0; top: 3.3em;">
             <SortButton bind:isAscending={env.searchState.sortAscending} class="button-circle" style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;" />
             <button in:receive out:send onclick={reset_filters} class="button-circle" style="width:40px; height:40px; margin:5px; border:none; border-radius: 100px;"><span class="symbol">reset_settings</span></button>
         </div>
     {/if}
 
-    <div style="padding: 1em {!objects.searchPanel.minimized * 1 + objects.searchPanel.minimized * 5}em; overflow-y: auto; overflow-x:hidden; transition: padding 0.2s cubic-bezier(0.4, 0, 0, 1); gap:0.3em; display: flex; flex-direction: column;" inert={objects.searchPanel.minimized ? "inert" : ""}>
-        {#if !objects.searchPanel.minimized}
+    <div style="padding: 1em {env.minimized ? 5 : 1}em; overflow-y: auto; overflow-x:hidden; transition: padding 0.2s cubic-bezier(0.4, 0, 0, 1); gap:0.3em; display: flex; flex-direction: column;" inert={env.minimized ? "inert" : ""}>
+        {#if !env.minimized}
             <button in:receive out:send onclick={reset_filters} style="flex-shrink: 0; justify-content:center;margin:auto; margin-bottom:0.6em; padding: 0.5em 1em; width: calc(100% - 2em); border:none;"><span style="margin-right: 0.5em;" class="symbol">reset_settings</span>Reset Filters</button>
         {/if}
 

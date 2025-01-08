@@ -39,7 +39,7 @@
             selectedData = defaultItem;
             global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
-                objects.searchPanel.minimized = true;
+                env.minimized = true;
             }
             visible = true;
             return;
@@ -48,7 +48,7 @@
             selectedData = await pb.collection(collection_name).getOne(selectedId, request_options);
             global.loading_items.delete(selectedId);
             if (window.innerWidth < 1100) {
-                objects.searchPanel.minimized = true;
+                env.minimized = true;
             }
             visible = true;
         } catch (error) {

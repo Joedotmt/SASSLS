@@ -15,7 +15,7 @@
     }
 </script>
 
-<div class="list-area panel" style="border-top-left-radius:{objects.searchPanel.minimized ? 0 : ''}; border-bottom-left-radius:{objects.searchPanel.minimized ? 0 : ''}">
+<div class="list-area panel" style="border-top-left-radius:{env.minimized ? 0 : ''}; border-bottom-left-radius:{env.minimized ? 0 : ''}">
     <div style="flex-direction: row; border-bottom: 1px solid var(---surface-5); min-height: 50px; width: 100%; display: flex; align-items: center;">
         <span style="margin: 0em 1em;">Search</span>
     </div>
