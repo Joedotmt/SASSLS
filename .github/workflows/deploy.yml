@@ -18,8 +18,9 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        working-directory: ./frontend
-        run: npm install
+        run: |
+          cd frontend
+          npm install
 
       - name: Build the SvelteKit site
         working-directory: ./frontend
