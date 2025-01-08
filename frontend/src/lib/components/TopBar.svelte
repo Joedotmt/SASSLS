@@ -1,10 +1,9 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import { global, config } from "$lib/global.svelte.js";
+    import { pb, currentUser } from "$lib/pocketbase.svelte.js";
 
     const dispatch = createEventDispatcher();
-
-    import { pb, currentUser } from "$lib/pocketbase.svelte.js";
 
     getLogo(pb);
     async function getLogo(pb) {

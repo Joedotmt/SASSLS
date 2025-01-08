@@ -7,6 +7,8 @@
     import { objects, constants } from "$lib/global.svelte.js";
     import { browser } from "$app/environment";
     import { crossfade } from "svelte/transition";
+    import { untrack } from "svelte";
+
     let [send, receive] = crossfade({
         duration: 100,
         fallback: null,
@@ -36,8 +38,6 @@
 
     let subjects = $state([]);
     let resources = $state([]);
-
-    import { untrack } from "svelte";
 
     $effect(() => {
         untrack(() => {

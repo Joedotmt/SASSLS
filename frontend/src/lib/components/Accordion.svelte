@@ -1,7 +1,8 @@
 <!-- @migration-task Error while migrating Svelte code: Unexpected token -->
 <script>
-    let { open = false, expandedHeight = null, overflowy = "auto", head, style = "", details } = $props();
     import { slide } from "svelte/transition";
+    let { open = false, expandedHeight = null, overflowy = "auto", head, style = "", details } = $props();
+
     const handleClick = () => {
         open = !open;
         setHeight();

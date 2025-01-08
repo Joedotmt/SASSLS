@@ -6,6 +6,8 @@
     import ConfirmationDialog from "$lib/components/ConfirmationDialog.svelte";
     import { confirmationDialog } from "$lib/global.svelte.js";
     import { pb, currentUser } from "$lib/pocketbase.svelte.js";
+    import { page } from "$app/state";
+    import { theme } from "$lib/global.svelte.js";
     if (currentUser.user != null) {
         pb.collection("users").authRefresh();
     }
@@ -33,8 +35,6 @@
         });
     });
 
-    import { page } from "$app/state";
-    import { theme } from "$lib/global.svelte.js";
     $effect(() => {
         let current_collection = page.route.id.split("/")[1];
         document.body.className = `${theme.currentTheme[current_collection] || "blue"}-${theme.currentTheme.mode}`;

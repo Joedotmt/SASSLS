@@ -4,17 +4,16 @@
     import BookPanel from "$lib/components/display/BookPanel.svelte";
     import ListPanel from "$lib/components/list/ListPanel.svelte";
     import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
+    import { base } from "$app/paths";
+    import { page } from "$app/state";
+    import { untrack } from "svelte";
 
     let { children } = $props();
 
     onMount(() => {
         global.fetchSubjects();
     });
-
-    import { goto } from "$app/navigation";
-    import { base } from "$app/paths";
-    import { page } from "$app/state";
-    import { untrack } from "svelte";
 
     let env = $state({
         searchState: {
