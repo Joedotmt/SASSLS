@@ -28,7 +28,7 @@ jobs:
 
       - name: build
         env:
-          BASE_PATH: '/counter'
+          BASE_PATH: '/SASSLS/frontend'
         run: |
           npm run build
           touch build/.nojekyll
