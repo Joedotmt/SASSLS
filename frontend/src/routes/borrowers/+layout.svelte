@@ -24,7 +24,7 @@
                 global.unsaved_changes = false;
                 env.selectedId = id;
                 if (env.propogate_page) {
-                    goto(`${base}/borrowers${id ? "/#" : ""}${id}/${id ? env.display_mode : ""}`);
+                    goto(`${base}/borrowers${id ? "/" : ""}${id}/${id ? env.display_mode : ""}`);
                 }
             };
 
@@ -41,7 +41,7 @@
                 global.unsaved_changes = false;
                 env.display_mode = mode;
                 if (env.propogate_page) {
-                    goto(`${base}/borrowers/#${env.selectedId}/${mode}`);
+                    goto(`${base}/borrowers/${env.selectedId}/${mode}`);
                 }
             };
 
@@ -55,11 +55,17 @@
         },
     });
     $effect(() => {
-        const hashParams = page.url.hash.slice(1).split("/");
+        console.log(page.params.id);
+        console.log(page.params.display_mode);
+        untrack(() => {
+            env.selectedId = page.params.id || "";
+            env.display_mode = page.params.display_mode || "";
+        });
+        /*const hashParams = page.url.hash.slice(1).split("/");
         untrack(() => {
             env.selectedId = hashParams[0];
             env.display_mode = hashParams[1];
-        });
+        });*/
     });
 </script>
 
