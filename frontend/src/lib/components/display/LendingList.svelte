@@ -5,7 +5,15 @@
     import { flip } from "svelte/animate";
     import { expoOut } from "svelte/easing";
 
-    let { id } = $props();
+    let { id, returnAll = $bindable() } = $props();
+
+    returnAll = async () => {
+        const batch = pb.createBatch();
+        items.forEach((transaction) => {
+            batch.collection("transactions").update(transaction.id, { returned: true });
+        });
+        await batch.send();
+    };
 
     let items = $state([]);
     let isLoading = $state(true);

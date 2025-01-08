@@ -4,13 +4,13 @@
 
     const dispatch = createEventDispatcher();
 
-    import { pb } from "$lib/pocketbase.svelte.js";
+    import { pb, currentUser } from "$lib/pocketbase.svelte.js";
 
     getLogo(pb);
     async function getLogo(pb) {
         try {
             const record = await pb.collection("config").getOne("config");
-            config.logo = pb.files.getUrl(record, record.logo);
+            config.logo = pb.files.getURL(record, record.logo);
             config.email_domain = record.email_domain;
         } catch (error) {
             console.log("%cSomething went wrong getting the 'config' collection or record.\n\nDid you set up the config?", "color: pink; font-weight: bold; font-size:2em");
@@ -53,8 +53,8 @@
         </div>
     </div>
     <div style="flex-direction: row; align-items: center; margin-left: auto;">
-        <button style="width: 7em; height: 2em;" onclick={() => global.change_page("books")}> Books </button>
-        <button style="margin-right: 0.2em; margin-left: 0.2em; width: 7em; height: 2em" onclick={() => global.change_page("borrowers")}> Borrowers </button>
+        {#if currentUser.canViewBorrowers}<button style="width: 7em; height: 2em;" onclick={() => global.change_page("books")}> Books </button>
+            <button style="margin-right: 0.2em; margin-left: 0.2em; width: 7em; height: 2em" onclick={() => global.change_page("borrowers")}> Borrowers </button>{/if}
         <button class="button-circle" id="account_button" onclick={openAccountDialog} style="padding: 0; border-width: 0;">
             <span class="symbol" style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"> account_circle </span>
         </button>

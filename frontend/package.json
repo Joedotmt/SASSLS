@@ -18,7 +18,7 @@
 	"type": "module",
 	"dependencies": {
 		"kit-monorepo": "github:sveltejs/kit",
-		"pocketbase": "^0.21.5",
+		"pocketbase": "^0.25.0",
 		"sse-client": "^0.0.10"
 	}
 }

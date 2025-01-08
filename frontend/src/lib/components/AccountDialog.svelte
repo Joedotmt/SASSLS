@@ -116,8 +116,8 @@
         <span class="symbol">close</span>
     </button>
     <div style="background: var(---surface-1); border-radius: 1.5em; margin: 0.5em; overflow: hidden; height: 18em;">
-        <button class="list-button">
-            <span class="button-icon symbol">settings</span> account settings
+        <button style="margin-bottom: 0.3em;" class="list-button">
+            <span class="button-icon symbol">settings</span> Account Settings
         </button>
         {#if signed_in}
             <button onclick={signOutUser} style="--bg: var(---primary-80); border-color: transparent; margin-left: auto; color: black; margin-right: auto; width: 8em;">

@@ -6,15 +6,9 @@
     import ConfirmationDialog from "$lib/components/ConfirmationDialog.svelte";
     import { confirmationDialog } from "$lib/global.svelte.js";
     import { pb, currentUser } from "$lib/pocketbase.svelte.js";
-    async function authRefresh() {
-        try {
-            await pb.collection("users").authRefresh();
-        } catch (error) {
-            console.log(error);
-        }
+    if (currentUser.user != null) {
+        pb.collection("users").authRefresh();
     }
-    authRefresh();
-    $inspect(currentUser);
 
     let isDialogOpen = $state(false);
 

@@ -1,5 +1,5 @@
 <script>
-    import { pb } from "$lib/pocketbase.svelte.js";
+    import { pb, currentUser } from "$lib/pocketbase.svelte.js";
     import { global, objects, constants } from "$lib/global.svelte.js";
     import { untrack } from "svelte";
     let { env = $bindable() } = $props();
@@ -72,10 +72,10 @@
         </div>
         {#if loaded}
             <div style="translate: 0 -3.2em;">
-                {#if display_mode == "edit" && !env.isLending}
+                {#if display_mode == "edit" && !env.isLending && currentUser.canEdit}
                     <Edit bind:env {selectedData} />
                 {:else if display_mode == ""}
-                    <Display bind:env style="opacity:1" {selectedData} />
+                    <Display canEdit={currentUser.canEdit} bind:env style="opacity:1" {selectedData} />
                 {/if}
             </div>
         {/if}

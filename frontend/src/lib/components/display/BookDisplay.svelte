@@ -2,7 +2,7 @@
     import { global } from "$lib/global.svelte.js";
     import IsbnText from "../isbnText.svelte";
 
-    let { selectedData, lending_mode = false, env = $bindable() } = $props();
+    let { canEdit, selectedData, lending_mode = false, env = $bindable() } = $props();
     let loaded = $derived(selectedData != null && selectedData.id != undefined);
 </script>
 
@@ -14,19 +14,19 @@
             </button>
         {:else if !env.isLending}
             <div class="action-buttons">
-                <button class="return-button">
-                    <span class="symbol">tab_close</span>
-                    Return
-                </button>
-                <button
-                    class="edit-button"
-                    onclick={() => {
-                        env.setDisplay_mode("edit");
-                    }}
-                >
-                    <span class="symbol">edit</span>
-                    Edit
-                </button>
+                {#if canEdit}
+                    <button
+                        class="edit-button"
+                        onclick={() => {
+                            env.setDisplay_mode("edit");
+                        }}
+                    >
+                        <span class="symbol">edit</span>
+                        Edit
+                    </button>
+                {:else}
+                    <button style="max-width: 0; pointer-events: none; scale: 0; visibility: hidden;" class="edit-button"> Edit </button>
+                {/if}
             </div>
         {:else if env.isLending}
             <div class="action-buttons">

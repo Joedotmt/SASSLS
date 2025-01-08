@@ -120,4 +120,4 @@
     });
 </script>
 
-<List {collection_name} {isLoading} {error} selectedId={env.selectedId} {items} bind:env></List>
+<List canCreate={currentUser.canCreate} {collection_name} {isLoading} {error} selectedId={env.selectedId} {items} bind:env></List>

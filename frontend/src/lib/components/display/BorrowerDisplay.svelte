@@ -113,6 +113,12 @@
             env.display_mode = mode;
         },
     });
+
+    let returnAllTransactionsChild = $state();
+
+    function returnAllTransactions() {
+        returnAllTransactionsChild();
+    }
 </script>
 
 {#if loaded}
@@ -144,7 +150,7 @@
         </div>
     </dialog>
     <div class="quick-buttons">
-        <button style="border:none; margin: 5px; margin-right: 5px; height: 40px;">
+        <button onclick={returnAllTransactions} style="border:none; margin: 5px; margin-right: 5px; height: 40px;">
             <span class="symbol" style="margin-right: 0.5em;">tab_close</span>
             Return All
         </button>
@@ -174,7 +180,7 @@
                 </div>
             </div>
             <div style="font-size: 1.3em; font-weight: bold; margin-top: 0.5em; margin-bottom: 0.1em;">Currently borrowing books:</div>
-            <div id="borrower_currently_borrowing_books"><LendingList id={selectedData.id} /></div>
+            <div id="borrower_currently_borrowing_books"><LendingList bind:returnAll={returnAllTransactionsChild} id={selectedData.id} /></div>
             <div style="border-top: solid var(---surface-5) 2px; display: flex; width: 100%;">
                 <button bind:this={lend_button} onclick={click_lend_button} style="width: fit-content; height: 2.6em; padding: 1.2em; margin-top: 0.4em; view-transition-name: lend-button;">
                     <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="button-icon symbol"> library_add </span>
