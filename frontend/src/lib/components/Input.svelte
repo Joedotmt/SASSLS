@@ -17,10 +17,10 @@
 </script>
 
 {#if type == "textarea"}
-    <div style="{style} align-items: normal;" class="input-container">
+    <div style="align-items: normal; {style}" class="input-container">
         <textarea style="resize: none; font-size: 1em; height: 100px; {input_style}" type="text" bind:this={inputElement} bind:value {placeholder} class="input-google {placeholder.length >= 1 ? 'force-up' : ''}"></textarea>
 
-        <label style="--translateamount: -1.15em; {label_style}" class="input-placeholder">{label}</label>
+        <label style="{label_style ? '' : '--translate-y: -17px'}{label_style}" class="input-placeholder">{label}</label>
     </div>
 {:else if type == "select"}
     <div {style} class="input-container">

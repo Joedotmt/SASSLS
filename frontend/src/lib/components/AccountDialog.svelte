@@ -7,7 +7,6 @@
 
     let { isOpen = $bindable(false) } = $props();
 
-    let isDarkMode = $state(true);
     let sign_in_dialog = $state();
     let account_dialog = $state();
     let signed_in = $derived(currentUser.user != null);
@@ -51,14 +50,11 @@
     }
 
     function changeDarkLightTheme() {
-        isDarkMode = !isDarkMode;
-
-        theme.currentTheme.mode = isDarkMode ? "dark" : "light";
+        theme.currentTheme.mode = theme.currentTheme.mode == "light" ? "dark" : "light";
     }
 
     onMount(() => {
         window.addEventListener("mousedown", handleOutsideClick);
-        isDarkMode = theme.currentTheme.mode;
     });
 
     $effect(() => {
@@ -135,8 +131,8 @@
     <button onclick={navigateToBookMigration} class="list-button">
         <span class="button-icon symbol">book</span> Book Migration
     </button>
-    <button class="button-circle" onclick={changeDarkLightTheme}>
-        <span class="symbol">{isDarkMode ? "light_mode" : "dark_mode"}</span>
+    <button style="margin: auto; width: 20em;" class="button-circle" onclick={changeDarkLightTheme}>
+        <span class="symbol">{theme.currentTheme.mode == "light" ? "dark" : "light"}_mode</span>
     </button>
 </dialog>
 

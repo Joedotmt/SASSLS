@@ -37,7 +37,7 @@
                 global.unsaved_changes = false;
                 env.selectedId = id;
                 if (env.propogate_page) {
-                    goto(`${base}/books${id ? "/" : ""}${id}/${id ? env.display_mode : ""}`);
+                    goto(`${base}/books${id ? "/#" : ""}${id}/${id ? env.display_mode : ""}`);
                 }
             };
 
@@ -54,7 +54,7 @@
                 global.unsaved_changes = false;
                 env.display_mode = mode;
                 if (env.propogate_page) {
-                    goto(`${base}/books/${env.selectedId}/${mode}`);
+                    goto(`${base}/books/#${env.selectedId}/${mode}`);
                 }
             };
 
@@ -68,13 +68,14 @@
         },
     });
     $effect(() => {
-        if (page.params.id) {
+        if (window.location.hash) {
             untrack(() => {
                 env.selectedId = page.params.id;
             });
         }
     });
     $effect(() => {
+        //console.log(page.url.hash.substring(1, page.url.hash.length - 1));
         if (page.params.display_mode) {
             untrack(() => {
                 env.display_mode = page.params.display_mode;

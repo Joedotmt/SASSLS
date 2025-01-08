@@ -49,7 +49,7 @@
                     <div>ISBN: <IsbnText isbn={selectedData.isbn} /></div>
 
                     <div>ID: {selectedData.id}</div>
-                    {#if selectedData.legacy_book_id != "" && !selectedData.legacy_book_id[0] == "_"}
+                    {#if selectedData.legacy_book_id != "" && selectedData.legacy_book_id[0] != "_"}
                         <div>IDL: {selectedData.legacy_book_id}</div>
                     {/if}
                 </div>

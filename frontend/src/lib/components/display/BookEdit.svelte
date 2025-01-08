@@ -3,6 +3,7 @@
     import { pb } from "$lib/pocketbase.svelte.js";
     import { global, constants } from "$lib/global.svelte.js";
     import { slide } from "svelte/transition";
+    import ConfirmationDialog from "$lib/components/ConfirmationDialog.svelte";
 
     let { selectedData, env = $bindable() } = $props();
     let localData = $state(null);
@@ -33,6 +34,7 @@
         } else {
             updatedRecord = await updateItem(localData);
         }
+        global.unsaved_changes = false;
         env.setDisplay_mode("");
         env.setSelectedId(updatedRecord.id);
     }
@@ -80,6 +82,7 @@
         }
     }
 
+    let errorDialog = $state();
     async function deleteItem(id) {
         try {
             await pb.collection(collection_name).delete(id);
@@ -87,7 +90,11 @@
                 env.setSelectedId("");
             }, 500);
         } catch (error) {
-            alert(`Error deleting ${item_name} record: ` + error.message);
+            if (error.response.message == "Failed to delete record. Make sure that the record is not part of a required relation reference.") {
+                errorDialog.showModal();
+            } else {
+                alert(`Error deleting ${item_name} record: ` + error.message);
+            }
             throw error;
         }
     }
@@ -181,7 +188,11 @@
             <Input style="margin-bottom:1em" label="Price (EUR)" type="number" min="0" bind:value={localData.price} />
             <Input style="margin-bottom:1em" label="Cover Image URL" placeholder="Automatic" bind:value={localData.preview_url_override} />
             {#if !isCreation}
-                <button onclick={() => deleteItem(localData.id)}>Delete Book Forever</button>
+                <button onclick={() => deleteItem(localData.id)} class="delete-forever-button no-ripple" style="border: 0; padding: 0.5em 1em;">
+                    <span class="button-icon symbol"> delete_forever </span>
+                    <div>Delete {item_name[0].toUpperCase() + item_name.slice(1)} Forever</div>
+                </button>
+                <ConfirmationDialog style="max-width: 30em;" message="Books that were used in transactions can't be deleted." confirmText="OK" bind:dialog={errorDialog}></ConfirmationDialog>
             {/if}
         </div>
     </div>

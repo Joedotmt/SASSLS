@@ -33,6 +33,7 @@
         } else {
             updatedRecord = await updateItem(localData);
         }
+        global.unsaved_changes = false;
         env.setDisplay_mode("");
         env.setSelectedId(updatedRecord.id);
     }
@@ -143,7 +144,7 @@
             {#if !isCreation}
                 <button onclick={() => deleteItem(localData.id)} class="delete-forever-button no-ripple" style="border-radius: 100em; border: 0; width: fit-content; padding: 0.5em 1em;">
                     <span class="button-icon symbol"> delete_forever </span>
-                    <div>Delete Record</div>
+                    <div>Delete {item_name[0].toUpperCase() + item_name.slice(1)} Forever</div>
                 </button>
             {/if}
         </div>
