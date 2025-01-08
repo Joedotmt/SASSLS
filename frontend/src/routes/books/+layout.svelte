@@ -25,7 +25,7 @@
             idType: "both",
         },
         minimized: false,
-        propogate_page: false,
+        propogate_page: true,
         display_mode: "",
         selectedId: "",
         isLending: false,
@@ -68,19 +68,11 @@
         },
     });
     $effect(() => {
-        if (window.location.hash) {
-            untrack(() => {
-                env.selectedId = page.params.id;
-            });
-        }
-    });
-    $effect(() => {
-        //console.log(page.url.hash.substring(1, page.url.hash.length - 1));
-        if (page.params.display_mode) {
-            untrack(() => {
-                env.display_mode = page.params.display_mode;
-            });
-        }
+        const hashParams = page.url.hash.slice(1).split("/");
+        untrack(() => {
+            env.selectedId = hashParams[0];
+            env.display_mode = hashParams[1];
+        });
     });
 </script>
 

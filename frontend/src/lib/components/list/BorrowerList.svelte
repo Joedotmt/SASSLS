@@ -49,7 +49,7 @@
         return [];
     }
 
-    async function fetchItems(pbOptions = {}, page = 1, pageSize = 10) {
+    async function fetchItems(pbOptions = {}, page = 1, pageSize = 100) {
         isLoading = true;
         error = null;
 

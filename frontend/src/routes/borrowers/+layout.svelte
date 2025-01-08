@@ -15,7 +15,7 @@
             sortType: "created",
             sortAscending: true,
         },
-        propogate_page: false,
+        propogate_page: true,
         display_mode: "",
         selectedId: "",
         minimized: false,
@@ -24,7 +24,7 @@
                 global.unsaved_changes = false;
                 env.selectedId = id;
                 if (env.propogate_page) {
-                    goto(`${base}/books${id ? "/" : ""}${id}/${id ? env.display_mode : ""}`);
+                    goto(`${base}/borrowers${id ? "/#" : ""}${id}/${id ? env.display_mode : ""}`);
                 }
             };
 
@@ -41,7 +41,7 @@
                 global.unsaved_changes = false;
                 env.display_mode = mode;
                 if (env.propogate_page) {
-                    goto(`${base}/borrowers/${env.selectedId}/${mode}`);
+                    goto(`${base}/borrowers/#${env.selectedId}/${mode}`);
                 }
             };
 
@@ -55,18 +55,11 @@
         },
     });
     $effect(() => {
-        if (page.params.id) {
-            untrack(() => {
-                env.selectedId = page.params.id;
-            });
-        }
-    });
-    $effect(() => {
-        if (page.params.display_mode) {
-            untrack(() => {
-                env.display_mode = page.params.display_mode;
-            });
-        }
+        const hashParams = page.url.hash.slice(1).split("/");
+        untrack(() => {
+            env.selectedId = hashParams[0];
+            env.display_mode = hashParams[1];
+        });
     });
 </script>
 
