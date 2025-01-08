@@ -11,28 +11,28 @@
      */
 
     /** @type {Props} */
-    let { label = "label", placeholder = "", value = $bindable(""), style = "", min = "0", autocomplete = "off", type = "text", children, error } = $props();
+    let { input_style = "", style = "", label = "label", placeholder = "", value = $bindable(""), label_style = "", min = "0", autocomplete = "off", type = "text", children, error } = $props();
 
     let inputElement = $state(null);
 </script>
 
 {#if type == "textarea"}
-    <div style="margin-bottom: 1em; align-items: normal;" class="input-container">
-        <textarea style="resize: none; font-size: 1em; height: 100px;" type="text" bind:this={inputElement} bind:value {placeholder} class="input-google {placeholder.length >= 1 ? 'force-up' : ''}"></textarea>
+    <div style="{style} align-items: normal;" class="input-container">
+        <textarea style="resize: none; font-size: 1em; height: 100px; {input_style}" type="text" bind:this={inputElement} bind:value {placeholder} class="input-google {placeholder.length >= 1 ? 'force-up' : ''}"></textarea>
 
-        <label style="--translateamount: -1.15em;" class="input-placeholder">{label}</label>
+        <label style="--translateamount: -1.15em; {label_style}" class="input-placeholder">{label}</label>
     </div>
 {:else if type == "select"}
     <div {style} class="input-container">
-        <select bind:this={inputElement} bind:value class="input-google force-up">
+        <select style={input_style} bind:this={inputElement} bind:value class="input-google force-up">
             {@render children()}
         </select>
-        <label class="input-placeholder">{label}</label>
+        <label style={label_style} class="input-placeholder">{label}</label>
     </div>
 {:else}
     <div {style} class="input-container">
-        <input {placeholder} bind:this={inputElement} bind:value class="input-google {placeholder.length >= 1 ? 'force-up' : ''} {error ? 'error' : ''}" />
-        <label class="input-placeholder {error ? 'error' : ''}">{label}</label>
+        <input {type} style={input_style} {placeholder} bind:this={inputElement} bind:value class="input-google {placeholder.length >= 1 ? 'force-up' : ''} {error ? 'error' : ''}" />
+        <label style={label_style} class="input-placeholder {error ? 'error' : ''}">{label}</label>
     </div>
 {/if}
 
@@ -55,7 +55,7 @@
 
     .input-container .input-google:is(:focus, :not(:placeholder-shown), .force-up) + .input-placeholder {
         font-size: 13px;
-        translate: 0px -20px;
+        translate: 0px var(--translate-y);
         background-color: var(---surface-0);
         opacity: 1;
         transition-delay: 0s;
@@ -65,13 +65,15 @@
     /* When focused */
     .input-container .input-google:focus + .input-placeholder {
         /* turn blue */
-        font-size: 15px;
+        font-size: var(--tiny-size);
         color: var(---primary-80);
     }
 
     .input-placeholder {
         position: absolute;
         margin: 6px;
+        --tiny-size: 15px;
+        --translate-y: -20px;
         font-size: 1.3rem;
         opacity: 0.8;
         pointer-events: none;

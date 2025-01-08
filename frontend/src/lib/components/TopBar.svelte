@@ -1,10 +1,21 @@
 <script>
     import { createEventDispatcher } from "svelte";
-    import { global } from "$lib/global.svelte.js";
+    import { global, config } from "$lib/global.svelte.js";
 
     const dispatch = createEventDispatcher();
 
-    import logo from "$lib/MAIN_LOGO.png";
+    import { pb } from "$lib/pocketbase";
+
+    getLogo(pb);
+    async function getLogo(pb) {
+        try {
+            const record = await pb.collection("config").getOne("config");
+            config.logo = pb.files.getUrl(record, record.logo);
+            config.email_domain = record.email_domain;
+        } catch (error) {
+            console.log("%cSomething went wrong getting the 'config' collection or record.\n\nDid you set up the config?", "color: pink; font-weight: bold; font-size:2em");
+        }
+    }
 
     let logoText = "Library";
     let fontWeight = $state(600);
@@ -20,9 +31,11 @@
 
 <div class="top-bar panel">
     <div class="site-logo">
-        <button class="button-circle" onclick={logoEasterEgg} style="padding: 0; height: auto; width: auto; border-width: 0;">
-            <img src={logo} class="logo-image" style="height: 2.7em; width: 2.7em; opacity: 0.8;" alt="Main Logo" />
-        </button>
+        {#if config.logo}
+            <button class="button-circle" onclick={logoEasterEgg} style="padding: 0; height: auto; width: auto; border-width: 0;">
+                <img src={config.logo} class="logo-image" style="height: 2.7em; width: 2.7em; opacity: 0.8;" alt="Main Logo" />
+            </button>
+        {/if}
 
         <div class="logo-text" style="font-weight: {fontWeight};">
             {#if fontWeight > 900}
@@ -41,7 +54,7 @@
     </div>
     <div style="flex-direction: row; align-items: center; margin-left: auto;">
         <button style="width: 7em; height: 2em;" onclick={() => global.change_page("books")}> Books </button>
-        <button style="margin-right: 1em; margin-left: 0.2em; width: 7em; height: 2em" onclick={() => global.change_page("borrowers")}> Borrowers </button>
+        <button style="margin-right: 0.2em; margin-left: 0.2em; width: 7em; height: 2em" onclick={() => global.change_page("borrowers")}> Borrowers </button>
         <button class="button-circle" id="account_button" onclick={openAccountDialog} style="padding: 0; border-width: 0;">
             <span class="symbol" style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"> account_circle </span>
         </button>

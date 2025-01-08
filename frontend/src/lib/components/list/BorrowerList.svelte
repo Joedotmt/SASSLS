@@ -1,6 +1,6 @@
 <script>
     import { onDestroy } from "svelte";
-    import pb from "$lib/pocketbase";
+    import { pb } from "$lib/pocketbase";
     import { page } from "$app/state";
     import List from "./List.svelte";
 

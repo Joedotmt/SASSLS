@@ -134,6 +134,7 @@ body, html {
     --bg: var(---primary);
     color: var(---background);
     border: 0;
+    width: 7em;
 }
 .account-dialog, button, dialog, input, option, select, textarea {
     color: var(---on-background);
