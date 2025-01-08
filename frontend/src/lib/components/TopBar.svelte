@@ -4,7 +4,7 @@
 
     const dispatch = createEventDispatcher();
 
-    import { pb } from "$lib/pocketbase";
+    import { pb } from "$lib/pocketbase.svelte.js";
 
     getLogo(pb);
     async function getLogo(pb) {

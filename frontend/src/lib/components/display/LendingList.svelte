@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import { pb } from "$lib/pocketbase";
+    import { pb } from "$lib/pocketbase.svelte.js";
     import { global } from "$lib/global.svelte.js";
     import { flip } from "svelte/animate";
     import { expoOut } from "svelte/easing";

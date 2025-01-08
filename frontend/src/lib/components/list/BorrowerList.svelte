@@ -1,7 +1,6 @@
 <script>
     import { onDestroy } from "svelte";
-    import { pb } from "$lib/pocketbase";
-    import { page } from "$app/state";
+    import { pb } from "$lib/pocketbase.svelte.js";
     import List from "./List.svelte";
 
     let { env = $bindable() } = $props();
@@ -98,6 +97,8 @@
     });
 
     $effect(() => {
+        if (currentUser.user) {
+        }
         fetchItems(createPbFilter(env.searchState), createPbSort(env.searchState), search_fields);
     });
 </script>

@@ -1,5 +1,5 @@
 <script>
-    import { pb } from "$lib/pocketbase";
+    import { pb } from "$lib/pocketbase.svelte.js";
     import { global, objects, constants } from "$lib/global.svelte.js";
     import { untrack } from "svelte";
     let { env = $bindable() } = $props();

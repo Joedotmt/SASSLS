@@ -1,7 +1,7 @@
 import { goto } from "$app/navigation";
 import { base } from "$app/paths";
 import { SvelteSet } from "svelte/reactivity";
-import { pb } from "$lib/pocketbase";
+import { pb } from "$lib/pocketbase.svelte.js";
 
 export const config = $state({
     logo: "",

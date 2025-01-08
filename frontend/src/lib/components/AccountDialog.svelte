@@ -3,15 +3,18 @@
     import { theme } from "$lib/global.svelte.js";
     import { config } from "$lib/global.svelte.js";
     import Input from "$lib/components/Input.svelte";
-    import { pb } from "$lib/pocketbase";
+    import { pb, currentUser } from "$lib/pocketbase.svelte.js";
 
     let { isOpen = $bindable(false) } = $props();
 
     let isDarkMode = $state(true);
     let sign_in_dialog = $state();
     let account_dialog = $state();
-    let signed_in = $state(false);
+    let signed_in = $derived(currentUser.user != null);
 
+    function signOutUser() {
+        pb.authStore.clear();
+    }
     function closeDialog() {
         isOpen = false;
     }
@@ -24,8 +27,8 @@
 
         if (password != "" && email != "@sanandrea.edu.mt" && email != "") {
             try {
+                console.log("signing in");
                 await pb.collection("users").authWithPassword(email, password);
-                signed_in = true;
             } catch (error) {
                 window.alert("Wrong username/password" + "\n\n" + error);
                 return;
@@ -117,7 +120,7 @@
             <span class="button-icon symbol">settings</span> account settings
         </button>
         {#if signed_in}
-            <button onclick={showSignInDialog} style="--bg: var(---primary-80); border-color: transparent; margin-left: auto; color: black; margin-right: auto; width: 8em;">
+            <button onclick={signOutUser} style="--bg: var(---primary-80); border-color: transparent; margin-left: auto; color: black; margin-right: auto; width: 8em;">
                 <span class="button-icon symbol">logout</span> Sign Out
             </button>
         {:else}

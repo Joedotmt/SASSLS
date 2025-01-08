@@ -3,7 +3,7 @@
     import SearchPanel from "$lib/components/BookSearchPanel.svelte";
     import BookPanel from "$lib/components/display/BookPanel.svelte";
     import ListPanel from "$lib/components/list/ListPanel.svelte";
-    import { pb } from "$lib/pocketbase";
+    import { pb } from "$lib/pocketbase.svelte.js";
     import LendingList from "$lib/components/display/LendingList.svelte";
 
     let { selectedData, env: borrowerenv = $bindable() } = $props();

@@ -1,6 +1,6 @@
 <script>
     import Input from "../Input.svelte";
-    import { pb } from "$lib/pocketbase";
+    import { pb } from "$lib/pocketbase.svelte.js";
     import { global, constants } from "$lib/global.svelte.js";
     import { slide } from "svelte/transition";
     import { onMount } from "svelte";
