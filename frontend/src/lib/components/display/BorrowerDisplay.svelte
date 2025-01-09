@@ -180,7 +180,7 @@
                 </div>
             </div>
             <div style="font-size: 1.3em; font-weight: bold; margin-top: 0.5em; margin-bottom: 0.1em;">Currently borrowing books:</div>
-            <div id="borrower_currently_borrowing_books"><LendingList bind:returnAll={returnAllTransactionsChild} id={selectedData.id} idType="borrower" /></div>
+            <div id="borrower_currently_borrowing_books"><LendingList bind:returnAll={returnAllTransactionsChild} id={selectedData.id} thisCollection="borrowers" otherCollection="books" /></div>
             <div style="border-top: solid var(---surface-5) 2px; display: flex; width: 100%;">
                 <button bind:this={lend_button} onclick={click_lend_button} style="width: fit-content; height: 2.6em; padding: 1.2em; margin-top: 0.4em; view-transition-name: lend-button;">
                     <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="button-icon symbol"> library_add </span>

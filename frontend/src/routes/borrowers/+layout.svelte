@@ -61,11 +61,6 @@
             env.selectedId = page.params.id || "";
             env.display_mode = page.params.display_mode || "";
         });
-        /*const hashParams = page.url.hash.slice(1).split("/");
-        untrack(() => {
-            env.selectedId = hashParams[0];
-            env.display_mode = hashParams[1];
-        });*/
     });
 </script>
 

@@ -8,6 +8,7 @@
     let loaded = $derived(selectedData != null && selectedData.id != undefined);
 
     let returnAll = $state();
+    let listLength = $state();
     function return_button() {
         returnAll();
     }
@@ -21,11 +22,13 @@
             </button>
         {:else if !env.isLending}
             <div class="action-buttons">
-                <button onclick={return_button} class="return-button">
-                    <span class="symbol">tab_close</span>
-                    Return
-                </button>
                 {#if canEdit}
+                    {#if listLength != 0}
+                        <button onclick={return_button} class="return-button">
+                            <span class="symbol">tab_close</span>
+                            Return
+                        </button>
+                    {/if}
                     <button
                         class="edit-button"
                         onclick={() => {
@@ -48,7 +51,7 @@
         {/if}
     </div>
     <div class="display-panel-display">
-        <LendingList bind:returnAll id={selectedData.id} idType="book" />
+        <LendingList bind:listLength bind:returnAll id={selectedData.id} thisCollection="books" otherCollection="borrowers" />
         <div class="book-general">
             <div style="justify-content: center;">
                 <img class="book-cover" src={selectedData.preview_url_override || global.getRandomBookCover(selectedData.id)} alt="book cover" />

@@ -6,7 +6,7 @@
     import { expoOut } from "svelte/easing";
     import Item from "$lib/components/list/Item.svelte";
 
-    let { id, returnAll = $bindable(), idType } = $props();
+    let { id, returnAll = $bindable(), thisCollection, otherCollection, listLength = $bindable() } = $props();
 
     returnAll = async () => {
         const batch = pb.createBatch();
@@ -23,8 +23,8 @@
     const collection_name = "transactions";
     const item_name = "transaction";
 
-    async function updateBorrowerBooks(id, collection) {
-        fetchItems({ filter: `${collection}.id = "${id}" && returned = false`, expand: `book, borrower` });
+    async function updateList(id) {
+        fetchItems({ filter: `${thisCollection.slice(0, -1)}.id = "${id}" && returned = false`, expand: otherCollection.slice(0, -1) });
     }
     async function fetchItems(pbOptions = {}) {
         isLoading = true;
@@ -33,12 +33,14 @@
         try {
             const startTime = performance.now();
 
+            console.log(pbOptions);
             const records = await pb.collection(collection_name).getFullList(pbOptions);
 
             const endTime = performance.now();
             console.log(`Request duration: ${(endTime - startTime).toFixed(2)} ms`);
 
             items = records; // different since it's getFullList not getList
+            listLength = records.length;
 
             // Subscribe to the entire collection
             pb.collection(collection_name).subscribe(
@@ -70,17 +72,18 @@
         await pb.collection("transactions").update(id, { returned: true });
     }
 
+    import { goto } from "$app/navigation";
     function displayInIsolation(id) {
-        // Implement the display in isolation functionality
+        goto(`/${otherCollection}/${id}`);
     }
 
     onMount(() => {
-        updateBorrowerBooks(id, idType);
+        updateList(id);
     });
 </script>
 
 {#if !isLoading}
-    {#if idType == "borrower"}
+    {#if thisCollection == "borrowers"}
         {#each items as transaction (transaction.id)}
             <div class="book_view" animate:flip={{ duration: 500, easing: expoOut }} style="view-transition-name: id-{transaction.id};">
                 <div style="display: flex; flex-direction: row; border-top: solid var(---surface-5) 2px;">
@@ -109,19 +112,21 @@
                 </div>
             </div>
         {/each}
+        {#if items.length == 0}
+            <div style="display: flex; flex-direction: row; border-top: solid var(---surface-5) 2px; padding: 1em;">Not borrowing any books</div>
+        {/if}
     {:else}
-        Book is being lent by:
+        {#if items.length != 0}
+            Book is being lent by:
+        {/if}
         {#each items as transaction (transaction.id)}
             <button
                 style="width: auto;"
                 onclick={() => {
-                    displayInIsolation(transaction.expand.book.id);
+                    displayInIsolation(transaction.expand.borrower.id);
                 }}><Item itemType="borrowers" item={transaction.expand.borrower} interactable={false} /></button
             >
         {/each}
-    {/if}
-    {#if items.length == 0}
-        <div style="display: flex; flex-direction: row; border-top: solid var(---surface-5) 2px; padding: 1em;">Not borrowing any {idType}s</div>
     {/if}
 {/if}
 
