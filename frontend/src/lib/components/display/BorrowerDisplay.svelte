@@ -90,7 +90,7 @@
             levels: [],
             sortType: "created",
             sortAscending: true,
-            idType: "both",
+            idType: "Both",
         },
         propogate_page: true,
         display_mode: "",

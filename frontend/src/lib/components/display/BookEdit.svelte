@@ -164,14 +164,14 @@
             <Input style="margin-bottom:1em" label="Classification Label" bind:value={localData.classification_label} />
 
             <Input style="margin-bottom:1em" label="Level" type="select" bind:value={localData.level}>
-                {#each constants.books.levels as { label, id }}
-                    <option value={id}>{label}</option>
+                {#each constants.books.levels as level}
+                    <option value={level}>{level}</option>
                 {/each}
             </Input>
 
             <Input style="margin-bottom:1em" label="Subject" type="select" bind:value={localData.subject}>
-                {#each constants.books.subjects as { subject, id }}
-                    <option value={id}>{subject}</option>
+                {#each constants.books.subjects as subject}
+                    <option value={subject}>{subject}</option>
                 {/each}
             </Input>
 

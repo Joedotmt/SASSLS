@@ -1,5 +1,6 @@
 <script>
     import ListPanel from "$lib/components/list/ListPanel.svelte";
+    import SearchPanel from "$lib/components/BorrowerSearchPanel.svelte";
     import BorrowerPanel from "$lib/components/display/BorrowerPanel.svelte";
     import { global, confirmationDialog } from "$lib/global.svelte.js";
     import { goto } from "$app/navigation";
@@ -13,6 +14,7 @@
         searchState: {
             query: "",
             sortType: "created",
+            group: "",
             sortAscending: true,
         },
         propogate_page: true,
@@ -55,8 +57,6 @@
         },
     });
     $effect(() => {
-        console.log(page.params.id);
-        console.log(page.params.display_mode);
         untrack(() => {
             env.selectedId = page.params.id || "";
             env.display_mode = page.params.display_mode || "";
@@ -67,6 +67,7 @@
 {@render children()}
 <div class="container-scroller">
     <div class="container">
+        <SearchPanel bind:env />
         <ListPanel bind:env collection="borrowers" />
         <BorrowerPanel bind:env />
     </div>

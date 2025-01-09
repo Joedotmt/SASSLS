@@ -1,53 +1,46 @@
 <script>
-    import { createEventDispatcher, onMount } from "svelte";
+    import { onMount } from "svelte";
     import Chip from "$lib/components/Chip.svelte";
 
-    let { style = "", items = [], selectedIds = $bindable([]), multiple = true, optional = true, defaultId = null } = $props();
+    let { style = "", items = [], selected = $bindable([]), multiple = true, optional = true, defaultIndex = null } = $props();
 
-    const dispatch = createEventDispatcher();
-
-    // Set the default selected chip on component mount
-    onMount(() => {
-        if (defaultId && !selectedIds.includes(defaultId)) {
-            if (selectedIds == []) {
-                selectedIds = [defaultId];
-            }
-        }
-    });
+    // onMount(()=>{
+    //     handleChipChange()
+    // })
 
     function handleChipChange(id, checked) {
-        let updatedSelectedIds;
+        let updatedSelected;
         if (multiple) {
             // Multiple selection allowed
             if (checked) {
-                updatedSelectedIds = [...selectedIds, id];
+                updatedSelected = [...selected, id];
             } else {
                 // If optional is false and it's the last selected chip, prevent deselecting
-                if (!optional && selectedIds.length === 1) return;
-                updatedSelectedIds = selectedIds.filter((item) => item !== id);
+                if (!optional && selected.length === 1) return;
+                updatedSelected = selected.filter((item) => item !== id);
             }
         } else {
             // Only one selection allowed
             if (checked) {
-                updatedSelectedIds = [id]; // Deselect all others and select the new one
+                updatedSelected = [id]; // Deselect all others and select the new one
             } else {
                 if (optional) {
-                    updatedSelectedIds = [];
+                    updatedSelected = [];
                 } else {
-                    updatedSelectedIds = [id]; // Prevent deselection if optional is false
+                    updatedSelected = [id]; // Prevent deselection if optional is false
                 }
             }
         }
 
-        // Update selectedIds and dispatch event
-        selectedIds = updatedSelectedIds;
+        // Update selected and dispatch event
+        selected = updatedSelected;
     }
 </script>
 
 <div {style} class="chip-group">
-    {#each items as item (item.id)}
-        <Chip checked={selectedIds.includes(item.id)} clicked={(checked) => handleChipChange(item.id, checked)}>
-            {item.label}
+    {#each items as item (item)}
+        <Chip checked={selected.includes(item)} clicked={(checked) => handleChipChange(item, checked)}>
+            {item}
         </Chip>
     {/each}
 </div>

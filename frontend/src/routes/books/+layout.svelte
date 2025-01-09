@@ -22,7 +22,7 @@
             levels: [],
             sortType: "created",
             sortAscending: true,
-            idType: "both",
+            idType: "Both",
         },
         minimized: false,
         propogate_page: true,
@@ -68,8 +68,10 @@
         },
     });
     $effect(() => {
-        console.log(page.params.id);
-        console.log(page.params.display_mode);
+        if (page.params.id) {
+        }
+        if (page.params.display_mode) {
+        }
         untrack(() => {
             env.selectedId = page.params.id || "";
             env.display_mode = page.params.display_mode || "";

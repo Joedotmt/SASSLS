@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy } from "svelte";
+    import { onDestroy, untrack } from "svelte";
     import { pb, currentUser } from "$lib/pocketbase.svelte.js";
     import List from "./List.svelte";
 
@@ -13,11 +13,11 @@
     const exactFields = ["legacy_book_id", "id"];
 
     let items = $state([]);
-    let isLoading = $state(true);
+    let isLoading = $state(false);
     let error = $state(null);
 
     function createPbSort(state) {
-        return (state.sortAscending ? "-" : "+") + state.sortType;
+        return (state.sortAscending ? "-" : "+") + state.sortType.toLowerCase();
     }
     function createPbFilter(state) {
         let extra = create_extra(state);
@@ -50,7 +50,7 @@
         let levelFilter = "";
 
         if (state.subjects.length >= 1) {
-            subjectFilter = state.subjects.map((subject) => `subject.id='${subject}'`).join(" || ");
+            subjectFilter = state.subjects.map((subject) => `subject.id='${subject.id}'`).join(" || ");
             subjectFilter = `(${subjectFilter})`;
         }
 
@@ -70,42 +70,42 @@
 
         return extra;
     }
-
     async function fetchItems(pbOptions = {}, page = 1, pageSize = 100) {
-        isLoading = true;
-        error = null;
+        if (!isLoading) {
+            try {
+                error = null;
+                isLoading = true;
+                const startTime = performance.now();
 
-        try {
-            const startTime = performance.now();
+                const records = await pb.collection(collection_name).getList(page, pageSize, pbOptions);
 
-            const records = await pb.collection(collection_name).getList(page, pageSize, pbOptions);
+                const endTime = performance.now();
+                console.log(`Request ${collection_name} duration: ${(endTime - startTime).toFixed(2)} ms`);
 
-            const endTime = performance.now();
-            console.log(`Request duration: ${(endTime - startTime).toFixed(2)} ms`);
+                items = records.items;
 
-            items = records.items;
-
-            // Subscribe to the entire collection
-            pb.collection(collection_name).subscribe("*", (e) => {
-                document.startViewTransition(() => {
-                    switch (e.action) {
-                        case "create":
-                            items = [e.record, ...items];
-                            break;
-                        case "update":
-                            items = items.map((item) => (item.id === e.record.id ? e.record : item));
-                            break;
-                        case "delete":
-                            items = items.filter((item) => item.id !== e.record.id);
-                            break;
-                    }
+                // Subscribe to the entire collection
+                pb.collection(collection_name).subscribe("*", (e) => {
+                    document.startViewTransition(() => {
+                        switch (e.action) {
+                            case "create":
+                                items = [e.record, ...items];
+                                break;
+                            case "update":
+                                items = items.map((item) => (item.id === e.record.id ? e.record : item));
+                                break;
+                            case "delete":
+                                items = items.filter((item) => item.id !== e.record.id);
+                                break;
+                        }
+                    });
                 });
-            });
-        } catch (err) {
-            console.error(`Error fetching ${collection_name}:`, err);
-            error = `Failed to fetch ${item_name}: ${err.message}`;
-        } finally {
-            isLoading = false;
+            } catch (err) {
+                console.error(`Error fetching ${collection_name}:`, err);
+                error = `Failed to fetch ${item_name}: ${err.message}`;
+            } finally {
+                isLoading = false;
+            }
         }
     }
 
@@ -116,7 +116,10 @@
     $effect(() => {
         if (currentUser.user) {
         }
-        fetchItems({ filter: createPbFilter(env.searchState), sort: createPbSort(env.searchState), fields: search_fields });
+        const data = { filter: createPbFilter(env.searchState), sort: createPbSort(env.searchState), fields: search_fields };
+        untrack(() => {
+            fetchItems(data);
+        });
     });
 </script>
 

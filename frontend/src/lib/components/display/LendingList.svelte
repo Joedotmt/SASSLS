@@ -33,11 +33,10 @@
         try {
             const startTime = performance.now();
 
-            console.log(pbOptions);
             const records = await pb.collection(collection_name).getFullList(pbOptions);
 
             const endTime = performance.now();
-            console.log(`Request duration: ${(endTime - startTime).toFixed(2)} ms`);
+            console.log(`Request ${collection_name} duration: ${(endTime - startTime).toFixed(2)} ms`);
 
             items = records; // different since it's getFullList not getList
             listLength = records.length;

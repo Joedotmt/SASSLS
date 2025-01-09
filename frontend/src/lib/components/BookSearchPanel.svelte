@@ -29,7 +29,7 @@
     }
 
     let currentTab = $state(0);
-    // Subscribe to the store and reactively update when it changes
+
     $effect(() => {
         if (browser && constants.books.subjects != null) {
             mapToChips(constants.books.subjects);
@@ -46,13 +46,10 @@
         });
         constants.books.subjects.forEach((item) => {
             untrack(() => {
-                if (item.endsWith("RES")) {
-                    resources.push({
-                        id: item,
-                        label: item.replace(" RES", ""),
-                    });
+                if (item.n.endsWith("RES")) {
+                    resources.push(item.n.replace(" RES", ""));
                 } else {
-                    subjects.push({ id: item, label: item });
+                    subjects.push(item.n);
                 }
             });
         });
@@ -65,7 +62,7 @@
             levels: [],
             sortType: "created",
             sortAscending: "true",
-            idType: "both",
+            idType: "Both",
         };
     }
 </script>
@@ -99,19 +96,7 @@
             {/snippet}
             {#snippet details()}
                 <div style="flex-direction: row; display:flex; justify-content: space-between;">
-                    <ChipGroup
-                        bind:selectedIds={env.searchState.sortType}
-                        multiple={false}
-                        optional={false}
-                        defaultId={"created"}
-                        style="width: fit-content"
-                        items={[
-                            { id: "created", label: "Created" },
-                            { id: "updated", label: "Updated" },
-                            { id: "title", label: "Title" },
-                            { id: "price", label: "Price" },
-                        ]}
-                    />
+                    <ChipGroup bind:selected={env.searchState.sortType} multiple={false} optional={false} defaultIndex={0} style="width: fit-content" items={["Created", "Updated", "Title", "Price"]} />
                     <SortButton bind:isAscending={env.searchState.sortAscending} style="margin:0.5em; width:100px" />
                 </div>
             {/snippet}
@@ -125,10 +110,10 @@
                     <TabSelector bind:currentTab />
                     <TabView bind:currentTab>
                         {#snippet content1()}
-                            <ChipGroup bind:selectedIds={env.searchState.subjects} items={subjects} />
+                            <ChipGroup bind:selected={env.searchState.subjects} items={subjects} />
                         {/snippet}
                         {#snippet content2()}
-                            <ChipGroup bind:selectedIds={env.searchState.subjects} items={resources} />
+                            <ChipGroup bind:selected={env.searchState.subjects} items={resources} />
                         {/snippet}
                     </TabView>
                 </div>
@@ -140,7 +125,7 @@
             {/snippet}
             {#snippet details()}
                 <div>
-                    <ChipGroup bind:selectedIds={env.searchState.levels} items={constants.books.levels} />
+                    <ChipGroup bind:selected={env.searchState.levels} items={constants.books.levels} />
                 </div>
             {/snippet}
         </Accordion>
@@ -150,18 +135,7 @@
             {/snippet}
             {#snippet details()}
                 <div style="flex-direction: row; display:flex; justify-content: space-between;">
-                    <ChipGroup
-                        bind:selectedIds={env.searchState.idType}
-                        multiple={false}
-                        optional={false}
-                        defaultId={"both"}
-                        style="width: fit-content"
-                        items={[
-                            { id: "both", label: "Both" },
-                            { id: "old", label: "Old" },
-                            { id: "new", label: "New" },
-                        ]}
-                    />
+                    <ChipGroup bind:selected={env.searchState.idType} multiple={false} optional={false} defaultIndex={0} style="width: fit-content" items={["Both", "Old", "New"]} />
                 </div>
             {/snippet}
         </Accordion>

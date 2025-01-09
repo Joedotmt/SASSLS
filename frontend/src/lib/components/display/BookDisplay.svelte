@@ -8,7 +8,7 @@
     let loaded = $derived(selectedData != null && selectedData.id != undefined);
 
     let returnAll = $state();
-    let listLength = $state();
+    let listLength = $state(0);
     function return_button() {
         returnAll();
     }

@@ -15,7 +15,11 @@ export const global = $state({
         const navigate = () =>
         {
             global.unsaved_changes = false;
-            goto(`${base}/${page}`);
+            document.startViewTransition(() =>
+            {
+                goto(`${base}/${page}`);
+                document.body.querySelector(".container-scroller").style.display = "none";
+            });
         };
 
         if (!global.unsaved_changes || skip_confirmation)
@@ -33,13 +37,10 @@ export const global = $state({
     {
         try
         {
-            const subjects = await pb.collection("books_subjects").getFullList({
+            constants.books.subjects = await pb.collection("books_subjects").getFullList({
                 sort: "+n",
-                fields: "n",
+                fields: "n,id",
             });
-
-            // turns it into an array
-            constants.books.subjects = subjects.map(i => i.n);
         } catch (err)
         {
             console.error("Error fetching subjects:", err);
@@ -79,13 +80,7 @@ export const constants = $state({
         groups: ["Teacher", "Admin", "Maintenance", "LSE", "8.1", "8.2", "8.3", "8.4", "9.1", "9.2", "9.3", "9.4", "10.1", "10.2", "10.3", "10.4", "11.1", "11.2", "11.3", "11.4", "12.1", "12.2", "12.3", "12.4", "Other"]
     },
     books: {
-        levels: [
-            { label: "Brown", id: "Brown" },
-            { label: "Yellow", id: "Yellow" },
-            { label: "Blue", id: "Blue" },
-            { label: "Green", id: "Green" },
-            { label: "Red", id: "Red" }
-        ],
+        levels: ["Brown", "Yellow", "Blue", "Green", "Red"],
         subjects: [],
         defaultItem: {
             legacy_book_id: "_",
