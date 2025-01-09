@@ -4,8 +4,9 @@
     import { global } from "$lib/global.svelte.js";
     import { flip } from "svelte/animate";
     import { expoOut } from "svelte/easing";
+    import Item from "$lib/components/list/Item.svelte";
 
-    let { id, returnAll = $bindable() } = $props();
+    let { id, returnAll = $bindable(), idType } = $props();
 
     returnAll = async () => {
         const batch = pb.createBatch();
@@ -22,8 +23,8 @@
     const collection_name = "transactions";
     const item_name = "transaction";
 
-    async function updateBorrowerBooks(id) {
-        fetchItems({ filter: `person.id = "${id}" && returned = false`, expand: `book` });
+    async function updateBorrowerBooks(id, collection) {
+        fetchItems({ filter: `${collection}.id = "${id}" && returned = false`, expand: `book, borrower` });
     }
     async function fetchItems(pbOptions = {}) {
         isLoading = true;
@@ -69,46 +70,58 @@
         await pb.collection("transactions").update(id, { returned: true });
     }
 
-    function displayInIsolation(bookId) {
+    function displayInIsolation(id) {
         // Implement the display in isolation functionality
     }
 
     onMount(() => {
-        updateBorrowerBooks(id);
+        updateBorrowerBooks(id, idType);
     });
 </script>
 
 {#if !isLoading}
-    {#each items as transaction (transaction.id)}
-        <div class="book_view" animate:flip={{ duration: 500, easing: expoOut }} style="view-transition-name: id-{transaction.id};">
-            <div style="display: flex; flex-direction: row; border-top: solid var(---surface-5) 2px;">
-                <div style="margin-top: 0.5em;">
-                    <img style="object-fit: cover; padding: 0.2em; width: 6em; height: calc(100% - 1em); background-color: var(---inverse-surface); border-radius: 0.6em;" src={transaction.expand.book.preview_url_override || global.getRandomBookCover(transaction.expand.book.id)} />
-                </div>
-                <div style="margin-bottom: 0.5em; margin-top: 0.5em; display: flex; align-items: center; width: 100%; justify-content: left; margin-left: 1em;">
-                    <div style="width: 100%">
-                        <div style="font-weight: bold; font-size: xx-large; text-wrap: wrap;">
-                            {transaction.expand.book.title}
-                        </div>
-                        <div style="margin-bottom: 0.3em; padding: 0.3em; border-radius: 0.3em; font-size: 1.1em; background-color: var(---surface-3);">
-                            <label style="font-family:var(--the-robo-font)">ID: {transaction.expand.book.id}</label>
-                            <label style="font-family:var(--the-robo-font)">ISBN: {transaction.expand.book.isbn || "None"}</label>
-                        </div>
-                        <div style="display: flex; flex-direction: row; justify-content: end;">
-                            <button onclick={() => returnTransaction(transaction.id)} class="button-circle">
-                                <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="symbol">tab_close</span>
-                            </button>
-                            <button onclick={() => displayInIsolation(transaction.expand.book.id)} style="margin-left: 0.3em;" class="button-circle">
-                                <span class="symbol">open_in_new</span>
-                            </button>
+    {#if idType == "borrower"}
+        {#each items as transaction (transaction.id)}
+            <div class="book_view" animate:flip={{ duration: 500, easing: expoOut }} style="view-transition-name: id-{transaction.id};">
+                <div style="display: flex; flex-direction: row; border-top: solid var(---surface-5) 2px;">
+                    <div style="margin-top: 0.5em;">
+                        <img style="object-fit: cover; padding: 0.2em; width: 6em; height: calc(100% - 1em); background-color: var(---inverse-surface); border-radius: 0.6em;" src={transaction.expand.book.preview_url_override || global.getRandomBookCover(transaction.expand.book.id)} />
+                    </div>
+                    <div style="margin-bottom: 0.5em; margin-top: 0.5em; display: flex; align-items: center; width: 100%; justify-content: left; margin-left: 1em;">
+                        <div style="width: 100%">
+                            <div style="font-weight: bold; font-size: xx-large; text-wrap: wrap;">
+                                {transaction.expand.book.title}
+                            </div>
+                            <div style="margin-bottom: 0.3em; padding: 0.3em; border-radius: 0.3em; font-size: 1.1em; background-color: var(---surface-3);">
+                                <label style="font-family:var(--the-robo-font)">ID: {transaction.expand.book.id}</label>
+                                <label style="font-family:var(--the-robo-font)">ISBN: {transaction.expand.book.isbn || "None"}</label>
+                            </div>
+                            <div style="display: flex; flex-direction: row; justify-content: end;">
+                                <button onclick={() => returnTransaction(transaction.id)} class="button-circle">
+                                    <span style="user-select: none; font-size: 1.5em; margin: 0.2em;" class="symbol">tab_close</span>
+                                </button>
+                                <button onclick={() => displayInIsolation(transaction.expand.book.id)} style="margin-left: 0.3em;" class="button-circle">
+                                    <span class="symbol">open_in_new</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {/each}
+        {/each}
+    {:else}
+        Book is being lent by:
+        {#each items as transaction (transaction.id)}
+            <button
+                style="width: auto;"
+                onclick={() => {
+                    displayInIsolation(transaction.expand.book.id);
+                }}><Item itemType="borrowers" item={transaction.expand.borrower} interactable={false} /></button
+            >
+        {/each}
+    {/if}
     {#if items.length == 0}
-        <div style="display: flex; flex-direction: row; border-top: solid var(---surface-5) 2px; padding: 1em;">Not borrowing any books</div>
+        <div style="display: flex; flex-direction: row; border-top: solid var(---surface-5) 2px; padding: 1em;">Not borrowing any {idType}s</div>
     {/if}
 {/if}
 

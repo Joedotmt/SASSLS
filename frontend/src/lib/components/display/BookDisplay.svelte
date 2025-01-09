@@ -1,9 +1,16 @@
 <script>
     import { global } from "$lib/global.svelte.js";
     import IsbnText from "../isbnText.svelte";
+    import { pb } from "$lib/pocketbase.svelte.js";
+    import LendingList from "./LendingList.svelte";
 
     let { canEdit, selectedData, lending_mode = false, env = $bindable() } = $props();
     let loaded = $derived(selectedData != null && selectedData.id != undefined);
+
+    let returnAll = $state();
+    function return_button() {
+        returnAll();
+    }
 </script>
 
 {#if loaded}
@@ -14,11 +21,17 @@
             </button>
         {:else if !env.isLending}
             <div class="action-buttons">
+                <button onclick={return_button} class="return-button">
+                    <span class="symbol">tab_close</span>
+                    Return
+                </button>
                 {#if canEdit}
                     <button
                         class="edit-button"
                         onclick={() => {
-                            env.setDisplay_mode("edit");
+                            document.startViewTransition(() => {
+                                env.setDisplay_mode("edit");
+                            });
                         }}
                     >
                         <span class="symbol">edit</span>
@@ -35,6 +48,7 @@
         {/if}
     </div>
     <div class="display-panel-display">
+        <LendingList bind:returnAll id={selectedData.id} idType="book" />
         <div class="book-general">
             <div style="justify-content: center;">
                 <img class="book-cover" src={selectedData.preview_url_override || global.getRandomBookCover(selectedData.id)} alt="book cover" />

@@ -2,7 +2,7 @@
     import LoadingBar from "$lib/components/LoadingBar.svelte";
     import { global } from "$lib/global.svelte.js";
 
-    let { itemType, item, isSelected = $bindable(), env = $bindable() } = $props();
+    let { itemType, item, isSelected = $bindable(false), env = $bindable(), interactable = true } = $props();
 
     let IDL = $derived(itemType === "books" && item.legacy_book_id[0] != "_" ? item.legacy_book_id : "");
     let line_1 = $derived(itemType === "books" ? item.title : `${item.name} ${item.surname}`);
@@ -19,6 +19,9 @@
     }
 
     function handleClick() {
+        if (!interactable) {
+            return;
+        }
         if (!isSelected) {
             global.loading_items.add(item.id);
         }
