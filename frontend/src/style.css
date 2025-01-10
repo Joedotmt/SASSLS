@@ -294,7 +294,7 @@ button {
     flex-direction: row;
     align-items: center;
     margin: 0;
-    border: 1.2px solid var(---utility-outline);
+    border: 1px solid var(---utility-outline);
     border-radius: 20px;
     font-size: min(5vw, 16px);
     background: var(--bg);
@@ -306,11 +306,19 @@ button {
     justify-content: space-around;
     padding: 0.5em;
     width: fit-content;
-    transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition:
+        0.2s cubic-bezier(0.075, 0.82, 0.165, 1),
+        1s box-shadow cubic-bezier(0.075, 0.82, 0.165, 1);
     text-wrap: nowrap;
+    box-shadow: none;
 }
 body.hasHover button:hover {
     background: color-mix(in srgb, var(--bg), var(---on-surface) 10%);
+}
+.elevated-button:hover {
+    box-shadow:
+        0 2px 3px 0 rgba(0, 0, 0, 0.3),
+        0 6px 10px 4px rgba(0, 0, 0, 0.15);
 }
 button.text {
     border: 0;

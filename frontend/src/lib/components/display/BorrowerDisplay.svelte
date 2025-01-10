@@ -88,7 +88,7 @@
             query: "",
             subjects: [],
             levels: [],
-            sortType: "created",
+            sortType: "Created",
             sortAscending: true,
             idType: "Both",
         },

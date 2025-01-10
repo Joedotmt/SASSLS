@@ -8,6 +8,7 @@
     let { isOpen = $bindable(false) } = $props();
 
     let sign_in_dialog = $state();
+    let databaseDialog = $state();
     let account_dialog = $state();
     let signed_in = $derived(currentUser.user != null);
 
@@ -41,6 +42,9 @@
 
     function showSignInDialog() {
         sign_in_dialog.showModal();
+    }
+    function showDbAddressDialog {
+        databaseDialog.showModal();
     }
 
     function showThemePickerModal() {}
@@ -76,6 +80,8 @@
     let email_input = $state("");
     let password_input = $state("");
 </script>
+
+<dialog bind:this={databaseDialog}></dialog>
 
 <dialog bind:this={sign_in_dialog} style="height: fit-content; width: min(93vw, 60em); margin: auto; padding: 1vw;">
     <div style="margin: min(3vw, 1em);">
@@ -113,7 +119,10 @@
     </button>
     <div style="background: var(---surface-1); border-radius: 1.5em; margin: 0.5em; overflow: hidden; height: 18em;">
         <button style="margin-bottom: 0.3em;" class="list-button">
-            <span class="button-icon symbol">settings</span> Account Settings
+            <span class="button-icon symbol">manage_accounts</span> Account Settings
+        </button>
+        <button onclick={showDbAddressDialog} style="margin-bottom: 0.3em;" class="list-button">
+            <span class="button-icon symbol">settings_ethernet</span> Database Address
         </button>
         {#if signed_in}
             <button onclick={signOutUser} style="--bg: var(---primary-80); border-color: transparent; margin-left: auto; color: black; margin-right: auto; width: 8em;">

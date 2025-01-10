@@ -52,8 +52,10 @@
         </div>
     </div>
     <div style="flex-direction: row; align-items: center; margin-left: auto;">
-        {#if currentUser.canViewBorrowers}<button style="width: 7em; height: 2em;" onclick={() => global.change_page("books")}> Books </button>
-            <button style="margin-right: 0.2em; margin-left: 0.2em; width: 7em; height: 2em" onclick={() => global.change_page("borrowers")}> Borrowers </button>{/if}
+        {#if currentUser.canViewBorrowers}
+            <button class="elevated-button" style="width: 7em; height: 2em;" onclick={() => global.change_page("books")}> Books </button>
+            <button class="elevated-button" style="margin-right: 0.2em; margin-left: 0.2em; width: 7em; height: 2em" onclick={() => global.change_page("borrowers")}> Borrowers </button>
+        {/if}
         <button class="button-circle" id="account_button" onclick={openAccountDialog} style="padding: 0; border-width: 0;">
             <span class="symbol" style="font-size: 2.8em; z-index: 1; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"> account_circle </span>
         </button>

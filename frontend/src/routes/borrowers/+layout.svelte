@@ -13,7 +13,7 @@
     let env = $state({
         searchState: {
             query: "",
-            sortType: "created",
+            sortType: "Created",
             group: "",
             sortAscending: true,
         },

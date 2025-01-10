@@ -11,6 +11,7 @@
     const search_fields = "title, author, legacy_book_id, id, preview_url_override";
     const lazyFields = ["title", "isbn"];
     const exactFields = ["legacy_book_id", "id"];
+    $inspect(env.searchState);
 
     let items = $state([]);
     let isLoading = $state(false);
@@ -62,9 +63,9 @@
 
         let extra = [subjectFilter, levelFilter].filter(Boolean);
 
-        if (state.showingIdType === "old") {
+        if (state.idType == "Old") {
             extra.push(`legacy_book_id !~ '_'`);
-        } else if (state.showingIdType === "new") {
+        } else if (state.idType == "New") {
             extra.push(`legacy_book_id ~ '_'`);
         }
 

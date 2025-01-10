@@ -1,11 +1,10 @@
 <script>
-    let { checked = $bindable(false), disabled = false, ariaLabel = "Toggle", clicked, children } = $props();
+    let { checked = false, disabled = false, ariaLabel = "Toggle", clicked, children } = $props();
 
     let data = $state();
 
     function handleClick() {
         if (!disabled) {
-            checked = !checked;
             clicked(checked);
         }
     }

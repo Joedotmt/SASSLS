@@ -1,12 +1,7 @@
 <script>
-    import { onMount } from "svelte";
     import Chip from "$lib/components/Chip.svelte";
 
-    let { style = "", items = [], selected = $bindable([]), multiple = true, optional = true, defaultIndex = null } = $props();
-
-    // onMount(()=>{
-    //     handleChipChange()
-    // })
+    let { style = "", items = [], selected = $bindable([]), multiple = true, optional = true } = $props();
 
     function handleChipChange(id, checked) {
         let updatedSelected;
@@ -32,14 +27,13 @@
             }
         }
 
-        // Update selected and dispatch event
-        selected = updatedSelected;
+        selected = multiple ? updatedSelected : updatedSelected[0];
     }
 </script>
 
 <div {style} class="chip-group">
     {#each items as item (item)}
-        <Chip checked={selected.includes(item)} clicked={(checked) => handleChipChange(item, checked)}>
+        <Chip checked={multiple ? selected.includes(item) : selected == item} clicked={(checked) => handleChipChange(item, checked)}>
             {item}
         </Chip>
     {/each}
