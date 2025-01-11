@@ -17,7 +17,7 @@
             padding-top: 2em;
             padding-left: 0;
             display: flex;
-            width: 100%;
+            width: max-content;
             border-radius: 0.5em;
         }
 
@@ -105,12 +105,60 @@
             {
                 const div = document.createElement('div');
                 div.classList.add('prop');
+                div.dataset.id = item.trim();
                 div.innerHTML = `<div class="connec">•</div><div style="padding-right:0.5em;">${item}</div><div class="connec2">•</div>`;
                 props.appendChild(div);
             });
-            data["Relationships Found"].forEach(item =>
+            requestAnimationFrame(() =>
             {
+                data["Relationships Found"].forEach(item =>
+                {
+                    try
+                    {
+                        const first = props.querySelector(`.prop[data-id="${item.variable.trim()}"]`);
+                        const second = ele.querySelector(`.component[data-id="${item.component.trim()}.svelte"]`).querySelector(`.prop[data-id="${item.prop}"]`);
+                        console.log("##############");
+                        console.log(item);
+                        console.log(first);
+                        console.log(second);
 
+                        const firstRect = first.getBoundingClientRect();
+                        const secondRect = second.getBoundingClientRect();
+
+                        // Create an SVG for the S-shaped line
+                        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                        svg.style.position = 'absolute';
+                        svg.style.left = '0';
+                        svg.style.top = '0';
+                        svg.style.width = '100%';
+                        svg.style.height = Math.max(secondRect.bottom, firstRect.bottom);
+                        svg.style.pointerEvents = 'none';
+
+                        // Calculate positions
+                        const x1 = firstRect.right - 15;
+                        const y1 = firstRect.top + firstRect.height / 2;
+                        const x2 = secondRect.left + 15;
+                        const y2 = secondRect.top + secondRect.height / 2;
+
+                        // Create the S-shaped path
+                        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                        path.setAttribute("fill", "none");
+                        path.setAttribute("stroke", "#007bff");
+                        path.setAttribute("stroke-width", "2");
+
+                        // Adjust the curve to go left first, then down
+                        const offsetX = (x1 - x2) / 2;
+                        const d = `M ${x1},${y1} C ${x1 - offsetX},${y1} ${x2 + offsetX},${y2} ${x2},${y2}`;
+                        path.setAttribute("d", d);
+
+                        svg.appendChild(path);
+                        document.body.appendChild(svg);
+                    } catch (error)
+                    {
+
+                    }
+
+                });
             });
 
 

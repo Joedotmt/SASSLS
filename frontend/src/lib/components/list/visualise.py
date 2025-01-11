@@ -47,13 +47,13 @@ def analyze_svelte_component(file_path, scanned_files=None):
     for match in re.finditer(component_pattern, content):
         component_name, attributes, _ = match.groups()
         if component_name in child_components:
-            print(f"Raw attributes found: {attributes}")  # Debug line
+            print(f"Attributes for {component_name}: {attributes}")
 
-            # Handle bind: syntax with word boundaries
-            bind_matches = re.finditer(r'\bbind:(\w+)=\{([^}]+)\}', attributes)
+            # Handle bind: syntax
+            bind_matches = re.finditer(r'bind:(\w+)(?:=\{([^}]+)\})?', attributes)
             for bind_match in bind_matches:
                 prop = bind_match.group(1)
-                variable = bind_match.group(2)
+                variable = bind_match.group(2) if bind_match.group(2) else prop
                 relationships.append({
                     'component': component_name,
                     'prop': prop,
@@ -61,19 +61,17 @@ def analyze_svelte_component(file_path, scanned_files=None):
                     'type': 'bind'
                 })
 
-            # Handle regular props with strict negative lookbehind
-            prop_pattern = r'(?<!\bbind:)\b(\w+)=\{([^}]+)\}'
-            prop_matches = re.finditer(prop_pattern, attributes)
+            # Handle regular props (exclude bind: prefixed attributes)
+            prop_matches = re.finditer(r'(?<!bind:)(\w+)=\{([^}]+)\}', attributes)
             for prop_match in prop_matches:
                 prop = prop_match.group(1)
                 variable = prop_match.group(2)
-                if not any(r['prop'] == prop and r['component'] == component_name for r in relationships):
-                    relationships.append({
-                        'component': component_name,
-                        'prop': prop,
-                        'variable': variable,
-                        'type': 'prop'
-                    })
+                relationships.append({
+                    'component': component_name,
+                    'prop': prop,
+                    'variable': variable,
+                    'type': 'prop'
+                })
 
     print(f"Relationships Found: {relationships}")
 

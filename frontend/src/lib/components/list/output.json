@@ -2,7 +2,7 @@
     "File Name": "ListPanel.svelte",
     "Top-Level Props": [
         "collection",
-        "env: enve "
+        "env "
     ],
     "Child Components": [
         {
@@ -23,6 +23,17 @@
                         "env "
                     ],
                     "Child Components": [
+                        {
+                            "File Name": "ItemCreate.svelte",
+                            "Top-Level Props": [
+                                "itemType",
+                                "item ",
+                                "isSelected ",
+                                "env "
+                            ],
+                            "Child Components": [],
+                            "Relationships Found": []
+                        },
                         {
                             "File Name": "LoadingBar.svelte (not found)",
                             "Top-Level Props": [],
@@ -47,20 +58,15 @@
                                 }
                             ],
                             "Relationships Found": []
-                        },
-                        {
-                            "File Name": "ItemCreate.svelte",
-                            "Top-Level Props": [
-                                "itemType",
-                                "item ",
-                                "isSelected ",
-                                "env "
-                            ],
-                            "Child Components": [],
-                            "Relationships Found": []
                         }
                     ],
                     "Relationships Found": [
+                        {
+                            "component": "ItemCreate",
+                            "prop": "env",
+                            "variable": "env",
+                            "type": "bind"
+                        },
                         {
                             "component": "ItemCreate",
                             "prop": "itemType",
@@ -72,6 +78,12 @@
                             "prop": "isSelected",
                             "variable": "\"create\" == selectedId",
                             "type": "prop"
+                        },
+                        {
+                            "component": "Item",
+                            "prop": "env",
+                            "variable": "env",
+                            "type": "bind"
                         },
                         {
                             "component": "Item",
@@ -89,6 +101,12 @@
                 }
             ],
             "Relationships Found": [
+                {
+                    "component": "List",
+                    "prop": "env",
+                    "variable": "env",
+                    "type": "bind"
+                },
                 {
                     "component": "List",
                     "prop": "canCreate",
@@ -119,6 +137,12 @@
             "Relationships Found": [
                 {
                     "component": "List",
+                    "prop": "env",
+                    "variable": "env",
+                    "type": "bind"
+                },
+                {
+                    "component": "List",
                     "prop": "canCreate",
                     "variable": "currentUser.canCreate",
                     "type": "prop"
@@ -136,13 +160,13 @@
         {
             "component": "BookList",
             "prop": "env",
-            "variable": "enve",
+            "variable": "env",
             "type": "bind"
         },
         {
             "component": "BorrowerList",
             "prop": "env",
-            "variable": "enve",
+            "variable": "env",
             "type": "bind"
         }
     ]
