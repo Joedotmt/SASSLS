@@ -1,7 +1,7 @@
 <script>
     import { objects } from "$lib/global.svelte.js";
     import BookList from "./BookList.svelte";
-    import BorrowerList from "./BorrowerList.svelte";
+    import BorrowerList from "$lib/components/list/BorrowerList.svelte";
 
     let { collection, env = $bindable() } = $props();
 

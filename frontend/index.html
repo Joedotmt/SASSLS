@@ -99,6 +99,7 @@
             // Loop through the array and create a div for each item
             data["Child Components"].forEach(item =>
             {
+                console.log(item);
                 createComponent(item, children);
             });
             data["Top-Level Props"].forEach(item =>

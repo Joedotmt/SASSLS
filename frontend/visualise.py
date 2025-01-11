@@ -45,7 +45,11 @@ def analyze_svelte_component(file_path, scanned_files=None):
 
     print(f"Top-Level Props Found: {props}")
 
-    # Step 2: Identify child components
+    # Step 2: Identify child components and their import paths
+    import_pattern = r'import\s+([A-Za-z0-9_]+)\s+from\s+[\'"]([^\'"]+)[\'"]'
+    imports = re.findall(import_pattern, content)
+    import_dict = {name: path for name, path in imports}
+
     child_components = re.findall(r'<([A-Z][A-Za-z0-9]*)[^>]*>', content)
     child_components = set(child_components)  # Remove duplicates
     print(f"Child Components Found: {child_components}")
@@ -103,9 +107,22 @@ def analyze_svelte_component(file_path, scanned_files=None):
         "Relationships Found": relationships
     }
 
+    
+
     # Recursively scan children for nested data
     for child in child_components:
-        child_path = os.path.join(os.path.dirname(file_path), f"{child}.svelte")
+        if child in import_dict:
+            print()
+            if (import_dict[child].startswith("$lib")):
+                child_path = os.path.abspath(source_dir + import_dict[child][1:])
+            else:
+                child_path = os.path.abspath(os.path.join(os.path.dirname(file_path), import_dict[child]))
+
+            if not child_path.endswith('.svelte'):
+                child_path += '.svelte'
+        else:
+            child_path = os.path.join(os.path.dirname(file_path), f"{child}.svelte")
+
         if os.path.exists(child_path) and child_path:
             child_data = analyze_svelte_component(child_path, scanned_files)
             # Child info is appended as a dict
@@ -123,7 +140,9 @@ def analyze_svelte_component(file_path, scanned_files=None):
 
 # After defining the function, call it once and write a single JSON file:
 if __name__ == "__main__": 
-    result = analyze_svelte_component("./ListPanel.svelte")
+    source_dir = "./src/"
+    #result = analyze_svelte_component("./src/routes/+layout.svelte")
+    result = analyze_svelte_component("./src/lib/components/list/ListPanel.svelte")
     output_file = "./output.json"
     with open(output_file, "w") as f:
         json.dump(result, f, indent=4)

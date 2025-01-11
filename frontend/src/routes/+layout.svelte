@@ -8,6 +8,8 @@
     import { pb, currentUser } from "$lib/pocketbase.svelte.js";
     import { page } from "$app/state";
     import { theme } from "$lib/global.svelte.js";
+    let { children } = $props();
+
     if (currentUser.user != null) {
         pb.collection("users").authRefresh();
     }
@@ -41,7 +43,6 @@
         localStorage.setItem("theme", JSON.stringify(theme.currentTheme));
     });
 
-    let { children } = $props();
     import "../themes.css";
     import "../style.css";
 </script>
