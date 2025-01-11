@@ -11,7 +11,6 @@
     const search_fields = "title, author, legacy_book_id, id, preview_url_override";
     const lazyFields = ["title", "isbn"];
     const exactFields = ["legacy_book_id", "id"];
-    $inspect(env.searchState);
 
     let items = $state([]);
     let isLoading = $state(false);

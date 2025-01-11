@@ -30,7 +30,16 @@ def analyze_svelte_component(file_path, scanned_files=None):
     props_pattern = r'let\s*{([^}]*)}\s*=\s*\$props\(\)'
     props_match = re.search(props_pattern, content)
     if props_match:
-        props = [prop.strip().split('=')[0] for prop in props_match.group(1).split(',')]
+        raw_props = props_match.group(1).split(',')
+        props = []
+        for prop in raw_props:
+            prop = prop.strip()
+            if '=' in prop:
+                prop = prop.split('=')[0].strip()
+            if ':' in prop:
+                prop = prop.split(':')[1].strip()
+            if prop:  # Only add non-empty props
+                props.append(prop)
     else:
         props = []
 
@@ -97,7 +106,7 @@ def analyze_svelte_component(file_path, scanned_files=None):
     # Recursively scan children for nested data
     for child in child_components:
         child_path = os.path.join(os.path.dirname(file_path), f"{child}.svelte")
-        if os.path.exists(child_path) and child_path not in scanned_files:
+        if os.path.exists(child_path) and child_path:
             child_data = analyze_svelte_component(child_path, scanned_files)
             # Child info is appended as a dict
             data["Child Components"].append(child_data)
