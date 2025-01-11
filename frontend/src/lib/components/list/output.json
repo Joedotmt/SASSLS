@@ -1,0 +1,149 @@
+{
+    "File Name": "ListPanel.svelte",
+    "Top-Level Props": [
+        "collection",
+        "env: enve "
+    ],
+    "Child Components": [
+        {
+            "File Name": "BorrowerList.svelte",
+            "Top-Level Props": [
+                "env "
+            ],
+            "Child Components": [
+                {
+                    "File Name": "List.svelte",
+                    "Top-Level Props": [
+                        "canCreate",
+                        "collection_name",
+                        "isLoading",
+                        "error",
+                        "selectedId",
+                        "items",
+                        "env "
+                    ],
+                    "Child Components": [
+                        {
+                            "File Name": "LoadingBar.svelte (not found)",
+                            "Top-Level Props": [],
+                            "Child Components": [],
+                            "Relationships Found": []
+                        },
+                        {
+                            "File Name": "Item.svelte",
+                            "Top-Level Props": [
+                                "itemType",
+                                "item",
+                                "isSelected ",
+                                "env ",
+                                "interactable "
+                            ],
+                            "Child Components": [
+                                {
+                                    "File Name": "LoadingBar.svelte (not found)",
+                                    "Top-Level Props": [],
+                                    "Child Components": [],
+                                    "Relationships Found": []
+                                }
+                            ],
+                            "Relationships Found": []
+                        },
+                        {
+                            "File Name": "ItemCreate.svelte",
+                            "Top-Level Props": [
+                                "itemType",
+                                "item ",
+                                "isSelected ",
+                                "env "
+                            ],
+                            "Child Components": [],
+                            "Relationships Found": []
+                        }
+                    ],
+                    "Relationships Found": [
+                        {
+                            "component": "ItemCreate",
+                            "prop": "itemType",
+                            "variable": "collection_name",
+                            "type": "prop"
+                        },
+                        {
+                            "component": "ItemCreate",
+                            "prop": "isSelected",
+                            "variable": "\"create\" == selectedId",
+                            "type": "prop"
+                        },
+                        {
+                            "component": "Item",
+                            "prop": "itemType",
+                            "variable": "collection_name",
+                            "type": "prop"
+                        },
+                        {
+                            "component": "Item",
+                            "prop": "isSelected",
+                            "variable": "item.id == selectedId",
+                            "type": "prop"
+                        }
+                    ]
+                }
+            ],
+            "Relationships Found": [
+                {
+                    "component": "List",
+                    "prop": "canCreate",
+                    "variable": "currentUser.canCreate",
+                    "type": "prop"
+                },
+                {
+                    "component": "List",
+                    "prop": "selectedId",
+                    "variable": "env.selectedId",
+                    "type": "prop"
+                }
+            ]
+        },
+        {
+            "File Name": "BookList.svelte",
+            "Top-Level Props": [
+                "env "
+            ],
+            "Child Components": [
+                {
+                    "File Name": "List.svelte (not found)",
+                    "Top-Level Props": [],
+                    "Child Components": [],
+                    "Relationships Found": []
+                }
+            ],
+            "Relationships Found": [
+                {
+                    "component": "List",
+                    "prop": "canCreate",
+                    "variable": "currentUser.canCreate",
+                    "type": "prop"
+                },
+                {
+                    "component": "List",
+                    "prop": "selectedId",
+                    "variable": "env.selectedId",
+                    "type": "prop"
+                }
+            ]
+        }
+    ],
+    "Relationships Found": [
+        {
+            "component": "BookList",
+            "prop": "env",
+            "variable": "enve",
+            "type": "bind"
+        },
+        {
+            "component": "BorrowerList",
+            "prop": "env",
+            "variable": "enve",
+            "type": "bind"
+        }
+    ]
+}
