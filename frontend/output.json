@@ -1,238 +1,126 @@
 {
-    "File Name": "ListPanel.svelte",
+    "File Name": "+layout.svelte",
     "Top-Level Props": [
-        "collection",
-        "env"
+        "children",
+        "isDialogOpen",
+        "page",
+        "theme",
+        "openDialog",
+        "current_collection",
+        "pb",
+        "barcode_string",
+        "onMount",
+        "confirmationDialog",
+        "currentUser",
+        "detectTouch",
+        "closeDialog"
     ],
     "Child Components": [
         {
-            "File Name": "BorrowerList.svelte",
+            "File Name": "ConfirmationDialog.svelte",
             "Top-Level Props": [
-                "env"
+                "message",
+                "confirmText",
+                "cancelText",
+                "dialog",
+                "confirm",
+                "cancel",
+                "style"
             ],
-            "Child Components": [
-                {
-                    "File Name": "List.svelte",
-                    "Top-Level Props": [
-                        "canCreate",
-                        "collection_name",
-                        "isLoading",
-                        "error",
-                        "selectedId",
-                        "items",
-                        "env"
-                    ],
-                    "Child Components": [
-                        {
-                            "File Name": "Item.svelte",
-                            "Top-Level Props": [
-                                "itemType",
-                                "item",
-                                "isSelected",
-                                "env",
-                                "interactable"
-                            ],
-                            "Child Components": [
-                                {
-                                    "File Name": "LoadingBar.svelte",
-                                    "Top-Level Props": [],
-                                    "Child Components": [],
-                                    "Relationships Found": []
-                                }
-                            ],
-                            "Relationships Found": []
-                        },
-                        {
-                            "File Name": "LoadingBar.svelte",
-                            "Top-Level Props": [],
-                            "Child Components": [],
-                            "Relationships Found": []
-                        },
-                        {
-                            "File Name": "ItemCreate.svelte",
-                            "Top-Level Props": [
-                                "itemType",
-                                "item",
-                                "isSelected",
-                                "env"
-                            ],
-                            "Child Components": [],
-                            "Relationships Found": []
-                        }
-                    ],
-                    "Relationships Found": [
-                        {
-                            "component": "ItemCreate",
-                            "prop": "env",
-                            "variable": "env",
-                            "type": "bind"
-                        },
-                        {
-                            "component": "ItemCreate",
-                            "prop": "itemType",
-                            "variable": "collection_name",
-                            "type": "prop"
-                        },
-                        {
-                            "component": "ItemCreate",
-                            "prop": "isSelected",
-                            "variable": "\"create\" == selectedId",
-                            "type": "prop"
-                        },
-                        {
-                            "component": "Item",
-                            "prop": "env",
-                            "variable": "env",
-                            "type": "bind"
-                        },
-                        {
-                            "component": "Item",
-                            "prop": "itemType",
-                            "variable": "collection_name",
-                            "type": "prop"
-                        },
-                        {
-                            "component": "Item",
-                            "prop": "isSelected",
-                            "variable": "item.id == selectedId",
-                            "type": "prop"
-                        }
-                    ]
-                }
-            ],
-            "Relationships Found": [
-                {
-                    "component": "List",
-                    "prop": "env",
-                    "variable": "env",
-                    "type": "bind"
-                },
-                {
-                    "component": "List",
-                    "prop": "canCreate",
-                    "variable": "currentUser.canCreate",
-                    "type": "prop"
-                },
-                {
-                    "component": "List",
-                    "prop": "selectedId",
-                    "variable": "env.selectedId",
-                    "type": "prop"
-                }
-            ]
+            "Child Components": [],
+            "Relationships Found": []
         },
         {
-            "File Name": "BookList.svelte",
+            "File Name": "TopBar.svelte",
             "Top-Level Props": [
-                "env"
+                "accBtnPress",
+                "getLogo",
+                "openAccountDialog",
+                "logoText",
+                "fontWeight",
+                "config",
+                "pb",
+                "logoEasterEgg",
+                "currentUser",
+                "record",
+                "global"
+            ],
+            "Child Components": [],
+            "Relationships Found": []
+        },
+        {
+            "File Name": "AccountDialog.svelte",
+            "Top-Level Props": [
+                "isOpen",
+                "email_input",
+                "theme",
+                "acceptSigninModal",
+                "signed_in",
+                "showThemePickerModal",
+                "databaseDialog",
+                "sign_in_dialog",
+                "onMount",
+                "cancel_sign_in",
+                "config",
+                "pb",
+                "showDbAddressDialog",
+                "rect",
+                "navigateToBookMigration",
+                "signOutUser",
+                "password",
+                "closeDialog",
+                "email",
+                "handleOutsideClick",
+                "account_dialog",
+                "currentUser",
+                "password_input",
+                "showSignInDialog",
+                "changeDarkLightTheme"
             ],
             "Child Components": [
                 {
-                    "File Name": "List.svelte",
+                    "File Name": "Input.svelte",
                     "Top-Level Props": [
-                        "canCreate",
-                        "collection_name",
-                        "isLoading",
+                        "input_style",
+                        "style",
+                        "label",
+                        "placeholder",
+                        "value",
+                        "label_style",
+                        "min",
+                        "autocomplete",
+                        "type",
+                        "children",
                         "error",
-                        "selectedId",
-                        "items",
-                        "env"
+                        "inputElement"
                     ],
-                    "Child Components": [
-                        {
-                            "File Name": "Item.svelte",
-                            "Top-Level Props": [
-                                "itemType",
-                                "item",
-                                "isSelected",
-                                "env",
-                                "interactable"
-                            ],
-                            "Child Components": [
-                                {
-                                    "File Name": "LoadingBar.svelte",
-                                    "Top-Level Props": [],
-                                    "Child Components": [],
-                                    "Relationships Found": []
-                                }
-                            ],
-                            "Relationships Found": []
-                        },
-                        {
-                            "File Name": "LoadingBar.svelte",
-                            "Top-Level Props": [],
-                            "Child Components": [],
-                            "Relationships Found": []
-                        },
-                        {
-                            "File Name": "ItemCreate.svelte",
-                            "Top-Level Props": [
-                                "itemType",
-                                "item",
-                                "isSelected",
-                                "env"
-                            ],
-                            "Child Components": [],
-                            "Relationships Found": []
-                        }
-                    ],
-                    "Relationships Found": [
-                        {
-                            "component": "ItemCreate",
-                            "prop": "env",
-                            "variable": "env",
-                            "type": "bind"
-                        },
-                        {
-                            "component": "ItemCreate",
-                            "prop": "itemType",
-                            "variable": "collection_name",
-                            "type": "prop"
-                        },
-                        {
-                            "component": "ItemCreate",
-                            "prop": "isSelected",
-                            "variable": "\"create\" == selectedId",
-                            "type": "prop"
-                        },
-                        {
-                            "component": "Item",
-                            "prop": "env",
-                            "variable": "env",
-                            "type": "bind"
-                        },
-                        {
-                            "component": "Item",
-                            "prop": "itemType",
-                            "variable": "collection_name",
-                            "type": "prop"
-                        },
-                        {
-                            "component": "Item",
-                            "prop": "isSelected",
-                            "variable": "item.id == selectedId",
-                            "type": "prop"
-                        }
-                    ]
+                    "Child Components": [],
+                    "Relationships Found": []
                 }
             ],
             "Relationships Found": [
                 {
-                    "component": "List",
-                    "prop": "env",
-                    "variable": "env",
+                    "component": "Input",
+                    "prop": "value",
+                    "variable": "email_input",
                     "type": "bind"
                 },
                 {
-                    "component": "List",
-                    "prop": "canCreate",
-                    "variable": "currentUser.canCreate",
+                    "component": "Input",
+                    "prop": "alue",
+                    "variable": "email_input",
                     "type": "prop"
                 },
                 {
-                    "component": "List",
-                    "prop": "selectedId",
-                    "variable": "env.selectedId",
+                    "component": "Input",
+                    "prop": "value",
+                    "variable": "password_input",
+                    "type": "bind"
+                },
+                {
+                    "component": "Input",
+                    "prop": "alue",
+                    "variable": "password_input",
                     "type": "prop"
                 }
             ]
@@ -240,16 +128,52 @@
     ],
     "Relationships Found": [
         {
-            "component": "BookList",
-            "prop": "env",
-            "variable": "env",
+            "component": "TopBar",
+            "prop": "accBtnPress",
+            "variable": "openDialog",
+            "type": "prop"
+        },
+        {
+            "component": "AccountDialog",
+            "prop": "isOpen",
+            "variable": "isDialogOpen",
             "type": "bind"
         },
         {
-            "component": "BorrowerList",
-            "prop": "env",
-            "variable": "env",
+            "component": "AccountDialog",
+            "prop": "sOpen",
+            "variable": "isDialogOpen",
+            "type": "prop"
+        },
+        {
+            "component": "AccountDialog",
+            "prop": "onclose",
+            "variable": "closeDialog",
+            "type": "prop"
+        },
+        {
+            "component": "ConfirmationDialog",
+            "prop": "dialog",
+            "variable": "confirmationDialog.dialog",
             "type": "bind"
+        },
+        {
+            "component": "ConfirmationDialog",
+            "prop": "confirm",
+            "variable": "confirmationDialog.confirm",
+            "type": "prop"
+        },
+        {
+            "component": "ConfirmationDialog",
+            "prop": "cancel",
+            "variable": "confirmationDialog.cancel",
+            "type": "prop"
+        },
+        {
+            "component": "ConfirmationDialog",
+            "prop": "ialog",
+            "variable": "confirmationDialog.dialog",
+            "type": "prop"
         }
     ]
 }

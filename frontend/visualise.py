@@ -91,6 +91,12 @@ def analyze_svelte_component(file_path, scanned_files=None):
     # Convert sets to lists
     if isinstance(props, set):
         props = list(props)
+
+    additional_globals = parse_global_vars(file_path)
+    for gv in additional_globals:
+        if gv not in props:
+            props.append(gv)
+
     child_components = [
         list(item) if isinstance(item, set) else item 
         for item in child_components
@@ -138,11 +144,44 @@ def analyze_svelte_component(file_path, scanned_files=None):
 
     return data
 
+def parse_global_vars(file_path):
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    script_pattern = r'<script[^>]*>(.*?)</script>'
+    scripts = re.findall(script_pattern, content, re.DOTALL)
+    global_vars = set()
+
+    for script in scripts:
+        # Let/const declarations
+        let_vars = re.findall(r'(?m)^\s*let\s+(\w+)\s*[=;]', script)
+        const_vars = re.findall(r'(?m)^\s*const\s+(\w+)\s*[=;]', script)
+        
+        # Function definitions
+        functions = re.findall(r'(?m)^\s*(?:async\s+)?function\s+(\w+)', script)
+        arrow_funcs = re.findall(r'(?m)^\s*const\s+(\w+)\s*=\s*(?:async\s+)?\([^)]*\)\s*=>', script)
+        
+        # Imports
+        imports = re.findall(r'import\s*{\s*([^}]+)\s*}', script)
+        imported_vars = [var.strip() for import_str in imports for var in import_str.split(',')]
+        
+        # Reactive declarations
+        reactive_vars = re.findall(r'\$:\s*(\w+)\s*=', script)
+        
+        # Exclude exports
+        exports = re.findall(r'export\s+(?:let|const|function)\s+(\w+)', script)
+
+        # Combine all found variables
+        all_vars = set(let_vars + const_vars + functions + arrow_funcs + imported_vars + reactive_vars)
+        global_vars.update(var for var in all_vars if var not in exports)
+
+    return list(global_vars)
+
 # After defining the function, call it once and write a single JSON file:
 if __name__ == "__main__": 
     source_dir = "./src/"
-    #result = analyze_svelte_component("./src/routes/+layout.svelte")
-    result = analyze_svelte_component("./src/lib/components/list/ListPanel.svelte")
+    result = analyze_svelte_component("./src/routes/+layout.svelte")
+    #result = analyze_svelte_component("./src/lib/components/list/ListPanel.svelte")
     output_file = "./output.json"
     with open(output_file, "w") as f:
         json.dump(result, f, indent=4)

@@ -49,7 +49,7 @@
 
 <div style="position: fixed; z-index:2; right:50%; scale:0.3; opacity:0.3"></div>
 
-<TopBar on:accBtnPress={openDialog} />
+<TopBar accBtnPress={openDialog} />
 
 <AccountDialog bind:isOpen={isDialogOpen} onclose={closeDialog} />
 

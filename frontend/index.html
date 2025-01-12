@@ -65,6 +65,10 @@
             margin-left: auto;
             padding-left: 0.5em;
         }
+
+        .prop:not([data-connected="true"]) {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -99,9 +103,9 @@
             // Loop through the array and create a div for each item
             data["Child Components"].forEach(item =>
             {
-                console.log(item);
                 createComponent(item, children);
             });
+
             data["Top-Level Props"].forEach(item =>
             {
                 const div = document.createElement('div');
@@ -110,6 +114,18 @@
                 div.innerHTML = `<div class="connec">•</div><div style="padding-right:0.5em;">${item}</div><div class="connec2">•</div>`;
                 props.appendChild(div);
             });
+
+            data["Relationships Found"].forEach(item =>
+            {
+                const div = document.createElement('div');
+                div.classList.add('prop');
+                div.dataset.id = item.variable.trim();
+                div.innerHTML = `<div class="connec">•</div><div style="padding-right:0.5em;">${item.variable}</div><div class="connec2">•</div>`;
+                props.appendChild(div);
+            });
+
+            parent.appendChild(ele);
+
             requestAnimationFrame(() =>
             {
                 data["Relationships Found"].forEach(item =>
@@ -118,48 +134,50 @@
                     {
                         const first = props.querySelector(`.prop[data-id="${item.variable.trim()}"]`);
                         const second = ele.querySelector(`.component[data-id="${item.component.trim()}.svelte"]`).querySelector(`.prop[data-id="${item.prop}"]`);
+                        first.dataset.connected = true;
+                        second.dataset.connected = true;
+                        console.log(second);
+                        requestAnimationFrame(() =>
+                        {
+                            const firstRect = first.getBoundingClientRect();
+                            const secondRect = second.getBoundingClientRect();
 
-                        const firstRect = first.getBoundingClientRect();
-                        const secondRect = second.getBoundingClientRect();
+                            // Create an SVG for the S-shaped line
+                            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                            svg.style.position = 'absolute';
+                            svg.style.left = '0';
+                            svg.style.top = '0';
+                            svg.style.width = '100%';
+                            svg.style.height = Math.max(secondRect.bottom, firstRect.bottom);
+                            svg.style.pointerEvents = 'none';
 
-                        // Create an SVG for the S-shaped line
-                        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                        svg.style.position = 'absolute';
-                        svg.style.left = '0';
-                        svg.style.top = '0';
-                        svg.style.width = '100%';
-                        svg.style.height = Math.max(secondRect.bottom, firstRect.bottom);
-                        svg.style.pointerEvents = 'none';
+                            // Calculate positions
+                            const x1 = firstRect.right - 15;
+                            const y1 = firstRect.top + firstRect.height / 2;
+                            const x2 = secondRect.left + 15;
+                            const y2 = secondRect.top + secondRect.height / 2;
 
-                        // Calculate positions
-                        const x1 = firstRect.right - 15;
-                        const y1 = firstRect.top + firstRect.height / 2;
-                        const x2 = secondRect.left + 15;
-                        const y2 = secondRect.top + secondRect.height / 2;
+                            // Create the S-shaped path
+                            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                            path.setAttribute("fill", "none");
+                            path.setAttribute("stroke", "#007bff");
+                            path.setAttribute("stroke-width", "2");
 
-                        // Create the S-shaped path
-                        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                        path.setAttribute("fill", "none");
-                        path.setAttribute("stroke", "#007bff");
-                        path.setAttribute("stroke-width", "2");
+                            // Adjust the curve to go left first, then down
+                            const offsetX = (x1 - x2) / 2;
+                            const d = `M ${x1},${y1} C ${x1 - offsetX},${y1} ${x2 + offsetX},${y2} ${x2},${y2}`;
+                            path.setAttribute("d", d);
 
-                        // Adjust the curve to go left first, then down
-                        const offsetX = (x1 - x2) / 2;
-                        const d = `M ${x1},${y1} C ${x1 - offsetX},${y1} ${x2 + offsetX},${y2} ${x2},${y2}`;
-                        path.setAttribute("d", d);
+                            svg.appendChild(path);
+                            document.body.appendChild(svg);
+                        });
 
-                        svg.appendChild(path);
-                        document.body.appendChild(svg);
                     } catch (error)
                     {
                         console.log(error);
                     }
                 });
             });
-
-
-
-            parent.appendChild(ele);
         }
 
         function handleFileSelect(event)

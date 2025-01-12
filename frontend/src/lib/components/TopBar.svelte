@@ -1,9 +1,8 @@
 <script>
-    import { createEventDispatcher } from "svelte";
     import { global, config } from "$lib/global.svelte.js";
     import { pb, currentUser } from "$lib/pocketbase.svelte.js";
 
-    const dispatch = createEventDispatcher();
+    let { accBtnPress } = $props();
 
     getLogo(pb);
     async function getLogo(pb) {
@@ -24,7 +23,7 @@
     }
 
     function openAccountDialog() {
-        dispatch("accBtnPress");
+        accBtnPress();
     }
 </script>
 
