@@ -25,7 +25,7 @@
         let email = email_input + "@" + config.email_domain;
         let password = password_input;
 
-        if (password != "" && email != "@sanandrea.edu.mt" && email != "") {
+        if (password != "" && email_input != "" && email != "") {
             try {
                 console.log("signing in");
                 await pb.collection("users").authWithPassword(email, password);
@@ -47,7 +47,9 @@
         databaseDialog.showModal();
     }
 
-    function showThemePickerModal() {}
+    function showThemePickerModal() {
+        databaseDialog.showModal();
+    }
 
     function navigateToBookMigration() {
         window.location.href = "/book_migration.html";
@@ -81,7 +83,7 @@
     let password_input = $state("");
 </script>
 
-<dialog bind:this={databaseDialog}></dialog>
+<dialog bind:this={databaseDialog} style="padding: 1em; font-size: 2em;">UNIMPLEMENTED</dialog>
 
 <dialog bind:this={sign_in_dialog} style="height: fit-content; width: min(93vw, 60em); margin: auto; padding: 1vw;">
     <div style="margin: min(3vw, 1em);">
@@ -118,7 +120,7 @@
         <span class="symbol">close</span>
     </button>
     <div style="background: var(---surface-1); border-radius: 1.5em; margin: 0.5em; overflow: hidden; height: 18em;">
-        <button style="margin-bottom: 0.3em;" class="list-button">
+        <button onclick={showDbAddressDialog} style="margin-bottom: 0.3em;" class="list-button">
             <span class="button-icon symbol">manage_accounts</span> Account Settings
         </button>
         <button onclick={showDbAddressDialog} style="margin-bottom: 0.3em;" class="list-button">

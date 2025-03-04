@@ -48,18 +48,14 @@
     function create_extra(state) {
         let subjectFilter = "";
         let levelFilter = "";
+
         if (state.subjects.length >= 1) {
             subjectFilter = state.subjects.map((subject) => `subject.n='${subject}'`).join(" || ");
-            subjectFilter = `(${subjectFilter})`;
-        }
-        if (state.subjects.length >= 1) {
-            subjectFilter = state.subjects.map((subject) => `subject.n='${subject + " RES"}'`).join(" || ");
             subjectFilter = `(${subjectFilter})`;
         }
 
         if (state.levels.length >= 1) {
             levelFilter = state.levels.map((label) => `level='${label}'`).join(" || ");
-
             levelFilter = `(${levelFilter})`;
         }
 

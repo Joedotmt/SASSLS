@@ -103,7 +103,7 @@ export const theme = $state({
     currentTheme: JSON.parse(localStorage.getItem("theme")) || {
         mode: "dark",
         books: "blue",
-        borrowers: "green",
-        transactions: "red",
+        borrowers: "red",
+        transactions: "green",
     }
 });

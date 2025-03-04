@@ -47,7 +47,7 @@
         constants.books.subjects.forEach((item) => {
             untrack(() => {
                 if (item.n.endsWith("RES")) {
-                    resources.push(item.n.replace(" RES", ""));
+                    resources.push(item.n.replace(" ReES", ""));
                 } else {
                     subjects.push(item.n);
                 }
