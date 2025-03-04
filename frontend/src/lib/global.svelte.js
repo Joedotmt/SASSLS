@@ -57,7 +57,7 @@ export const global = $state({
 
         // Use the hash to determine the index
         const index = (hash % 5) + 1; // Modulus ensures the index is between 1 and 5
-        return `/book_placeholder_covers/book_placeholder_${index}.png`;
+        return `./book_placeholder_covers/book_placeholder_${index}.png`;
     },
 });
 export let confirmationDialog = $state({
