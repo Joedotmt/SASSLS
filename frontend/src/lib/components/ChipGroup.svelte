@@ -7,7 +7,7 @@
         let updatedSelected;
         if (multiple) {
             // Multiple selection allowed
-            if (checked) {
+            if (!checked) {
                 updatedSelected = [...selected, id];
             } else {
                 // If optional is false and it's the last selected chip, prevent deselecting
@@ -16,7 +16,7 @@
             }
         } else {
             // Only one selection allowed
-            if (checked) {
+            if (!checked) {
                 updatedSelected = [id]; // Deselect all others and select the new one
             } else {
                 if (optional) {

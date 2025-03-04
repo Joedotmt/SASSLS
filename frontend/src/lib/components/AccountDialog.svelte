@@ -43,7 +43,7 @@
     function showSignInDialog() {
         sign_in_dialog.showModal();
     }
-    function showDbAddressDialog {
+    function showDbAddressDialog() {
         databaseDialog.showModal();
     }
 

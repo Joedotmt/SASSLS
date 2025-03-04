@@ -171,7 +171,7 @@
 
             <Input style="margin-bottom:1em" label="Subject" type="select" bind:value={localData.subject}>
                 {#each constants.books.subjects as subject}
-                    <option value={subject}>{subject}</option>
+                    <option value={subject.id}>{subject.n}</option>
                 {/each}
             </Input>
 
@@ -192,7 +192,7 @@
                     <span class="button-icon symbol"> delete_forever </span>
                     <div>Delete {item_name[0].toUpperCase() + item_name.slice(1)} Forever</div>
                 </button>
-                <ConfirmationDialog style="max-width: 30em;" message="Books that were used in transactions can't be deleted." confirmText="OK" bind:dialog={errorDialog}></ConfirmationDialog>
+                <ConfirmationDialog style="max-width: 30em;" message="Books that were ever borrowed can't be deleted. Scrap the book instead." confirmText="OK" bind:dialog={errorDialog}></ConfirmationDialog>
             {/if}
         </div>
     </div>

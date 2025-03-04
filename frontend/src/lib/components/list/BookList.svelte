@@ -48,9 +48,12 @@
     function create_extra(state) {
         let subjectFilter = "";
         let levelFilter = "";
-
         if (state.subjects.length >= 1) {
-            subjectFilter = state.subjects.map((subject) => `subject.id='${subject.id}'`).join(" || ");
+            subjectFilter = state.subjects.map((subject) => `subject.n='${subject}'`).join(" || ");
+            subjectFilter = `(${subjectFilter})`;
+        }
+        if (state.subjects.length >= 1) {
+            subjectFilter = state.subjects.map((subject) => `subject.n='${subject + " RES"}'`).join(" || ");
             subjectFilter = `(${subjectFilter})`;
         }
 

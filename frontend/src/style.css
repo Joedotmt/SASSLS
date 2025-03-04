@@ -224,10 +224,12 @@ input[type="radio"] {
     box-shadow: 0 0 0 0 rgb(255 76 76);
 }
 body.hasHover .delete-forever-button:hover {
+    color: white;
     --bg: rgb(100, 7, 7);
     box-shadow: 0 0 0 0.5em rgb(255 76 76);
 }
 .delete-forever-button.ririirriire {
+    color: white;
     --bg: rgb(100, 7, 7);
     transition: 7s linear;
     box-shadow: 700px 0 0 100vw rgb(255 76 76);

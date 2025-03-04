@@ -45,6 +45,9 @@
 
     import "../themes.css";
     import "../style.css";
+
+    import ChipGroup from "$lib/components/ChipGroup.svelte";
+    let selected = $state([]);
 </script>
 
 <div style="position: fixed; z-index:2; right:50%; scale:0.3; opacity:0.3"></div>
