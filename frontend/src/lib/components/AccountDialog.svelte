@@ -59,8 +59,19 @@
         theme.currentTheme.mode = theme.currentTheme.mode == "light" ? "dark" : "light";
     }
 
+    function handleKeyDown(event) {
+        if (sign_in_dialog.open) {
+            if (event.key === "Enter") {
+                acceptSigninModal(event);
+            } else if (event.key === "Escape") {
+                cancel_sign_in();
+            }
+        }
+    }
+
     onMount(() => {
         window.addEventListener("mousedown", handleOutsideClick);
+        window.addEventListener("keydown", handleKeyDown);
     });
 
     $effect(() => {
