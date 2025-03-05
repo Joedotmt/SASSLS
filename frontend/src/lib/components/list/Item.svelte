@@ -1,6 +1,7 @@
 <script>
     import LoadingBar from "$lib/components/LoadingBar.svelte";
     import { global } from "$lib/global.svelte.js";
+    import { base } from "$app/paths";
 
     let { itemType, item, isSelected = $bindable(false), env = $bindable(), interactable = true } = $props();
 
@@ -10,12 +11,12 @@
 
     function getBorrowerImageGroup(group) {
         const imageGroups = {
-            Teacher: "/borrower_image/figure_one_purple.png",
-            Admin: "/borrower_image/figure_one_green.png",
-            LSE: "/borrower_image/figure_one_red.png",
-            Maintenance: "/borrower_image/figure_one_white.png",
+            Teacher: base + "/borrower_image/figure_one_purple.png",
+            Admin: base + "/borrower_image/figure_one_green.png",
+            LSE: base + "/borrower_image/figure_one_red.png",
+            Maintenance: base + "/borrower_image/figure_one_white.png",
         };
-        return imageGroups[group] || "/borrower_image/figure_one_blue.png";
+        return imageGroups[group] || base + "/borrower_image/figure_one_blue.png";
     }
 
     function handleClick() {
