@@ -114,18 +114,21 @@
         {#if items.length == 0}
             <div style="display: flex; flex-direction: row; border-top: solid var(---surface-5) 2px; padding: 1em;">Not borrowing any books</div>
         {/if}
-    {:else}
-        {#if items.length != 0}
+    {:else if items.length != 0}
+        {#if items[0].expand.borrower}
             Book is being lent by:
+
+            {#each items as transaction (transaction.id)}
+                <button
+                    style="width: auto;"
+                    onclick={() => {
+                        displayInIsolation(transaction.expand.borrower.id);
+                    }}><Item itemType="borrowers" item={transaction.expand.borrower} interactable={false} /></button
+                >
+            {/each}
+        {:else}
+            This book is currently being lent
         {/if}
-        {#each items as transaction (transaction.id)}
-            <button
-                style="width: auto;"
-                onclick={() => {
-                    displayInIsolation(transaction.expand.borrower.id);
-                }}><Item itemType="borrowers" item={transaction.expand.borrower} interactable={false} /></button
-            >
-        {/each}
     {/if}
 {/if}
 
