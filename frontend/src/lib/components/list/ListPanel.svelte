@@ -1,28 +1,16 @@
 <script>
-    import { objects } from "$lib/global.svelte.js";
     import BookList from "./BookList.svelte";
     import SearchPanel from "$lib/components/BookSearchPanel.svelte";
     import BorrowerList from "$lib/components/list/BorrowerList.svelte";
-
-    function customTransition(node, { duration = 500 }) {
-        const height = node.scrollHeight;
-
-        return {
-            duration,
-            css: (t) => `
-                opacity: ${t};
-                transform: translateY(${(1 - t) * -1}em) scale(${0.95 + 0.05 * t});
-                height: ${t * height}px;
-                overflow: hidden;
-            `,
-        };
-    }
 
     let { collection, env = $bindable() } = $props();
 
     function handleSearchKeyDown(event) {
         if (event.key === "Enter") {
             searchBarChanged(event);
+        } else if (event.key === "Escape") {
+            searching = false;
+            document.activeElement.blur();
         }
     }
     function searchBarChanged(event) {
@@ -39,6 +27,9 @@
     <div class="list-area-search">
         <div class="search-input-wrapper">
             <input
+                onpointerdown={() => {
+                    searching = true;
+                }}
                 onfocus={() => {
                     searching = true;
                 }}
@@ -52,7 +43,7 @@
 
             <button
                 onclick={() => {
-                    searching = false;
+                    searching = !searching;
                 }}
                 class="button-circle search-icon"><span class="symbol">{searching ? "close" : "search"}</span></button
             >
