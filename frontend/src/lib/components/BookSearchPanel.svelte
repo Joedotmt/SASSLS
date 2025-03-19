@@ -67,12 +67,12 @@
         };
     }
 
-    let panelMode = true;
+    let panelMode = false;
 
     let minimized = $derived(env.minimized && panelMode);
 </script>
 
-<div class="search-area panel {minimized ? 'minimized' : ''}" style={!panelMode ? "min-width: 100%; min-height: fit-content;" : ""}>
+<div class="search-area panel {minimized ? 'minimized' : ''}" style={!panelMode ? "min-width: 100%; min-height: fit-content; border-radius:0;" : ""}>
     {#if panelMode}
         <div style="flex-direction: row; border-bottom: 1px solid var(---surface-5); width: 100%; display: flex; align-items: center;">
             <button
@@ -213,8 +213,9 @@
         flex-direction: row;
         gap: 0.5em;
         overflow-x: scroll;
-        padding-top: 1em;
+        padding-top: 0em;
         padding-bottom: 0.7em;
+        background: var(---surface-1);
     }
     ::-webkit-scrollbar {
         height: 15px;

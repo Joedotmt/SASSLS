@@ -4,6 +4,20 @@
     import SearchPanel from "$lib/components/BookSearchPanel.svelte";
     import BorrowerList from "$lib/components/list/BorrowerList.svelte";
 
+    function customTransition(node, { duration = 500 }) {
+        const height = node.scrollHeight;
+
+        return {
+            duration,
+            css: (t) => `
+                opacity: ${t};
+                transform: translateY(${(1 - t) * -1}em) scale(${0.95 + 0.05 * t});
+                height: ${t * height}px;
+                overflow: hidden;
+            `,
+        };
+    }
+
     let { collection, env = $bindable() } = $props();
 
     function handleSearchKeyDown(event) {
@@ -24,14 +38,30 @@
     </div> -->
     <div class="list-area-search">
         <div class="search-input-wrapper">
-            <input onfocus={(searching = true)} onblur={(searching = false)} type="text" data-searching={searching} class="main-search-bar" placeholder="Search Books" onchange={searchBarChanged} onkeydown={handleSearchKeyDown} />
-            <span class="symbol search-icon">search</span>
+            <input
+                onfocus={() => {
+                    searching = true;
+                }}
+                type="text"
+                data-searching={searching}
+                class="main-search-bar"
+                placeholder="Search Books"
+                onchange={searchBarChanged}
+                onkeydown={handleSearchKeyDown}
+            />
+
+            <button
+                onclick={() => {
+                    searching = false;
+                }}
+                class="button-circle search-icon"><span class="symbol">{searching ? "close" : "search"}</span></button
+            >
         </div>
     </div>
     {#if collection == "books"}
-        {#if searching}
-            <!-- <SearchPanel bind:env /> -->
-        {/if}
+        <div style="display: {searching ? '' : 'none'};" data-searching={searching} class="crop-transition">
+            <SearchPanel bind:env />
+        </div>
         <BookList bind:env />
     {:else if collection == "borrowers"}
         <BorrowerList bind:env />
@@ -59,24 +89,51 @@
         box-shadow:
             inset 0 0 0 0px var(---background),
             0 0 0px 0px var(---neutral-variant60);
-        border-bottom: 1px solid var(---neutral-variant60);
+        /* border-bottom: 1px solid var(---neutral-variant60); */
         background-color: var(---surface-1);
         height: 0.8em;
-        padding: 1em 0.6em 1em 2em;
+        padding: 1em 0.6em 1em 2.5em;
         border-radius: 0em;
         font-size: 1.2em;
-
-        margin-bottom: 8px;
     }
     .search-icon {
         position: absolute;
         left: 0.8em;
-        top: 0.75em;
+        top: 0.78em;
         opacity: 0.7;
+        rotate: 0deg;
         transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        border: 0;
+        width: 32px;
+        height: 32px;
     }
     .main-search-bar[data-searching="true"] + .search-icon {
-        left: 0.4em;
+        left: 0.5em;
         top: 0.65em;
+        rotate: 180deg;
+    }
+    .crop-transition {
+        transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+        transition-behavior: allow-discrete;
+
+        height: 0;
+        scale: 0.8;
+        translate: 0em -3.3em;
+        opacity: 0;
+    }
+    .crop-transition[data-searching="true"] {
+        height: fit-content;
+        scale: 1;
+        opacity: 1;
+        translate: 0em 0em;
+    }
+
+    @starting-style {
+        .crop-transition[data-searching="true"] {
+            height: 0;
+            scale: 0.95;
+            opacity: 1;
+            translate: 0em -1em;
+        }
     }
 </style>

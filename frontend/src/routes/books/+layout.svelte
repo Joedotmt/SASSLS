@@ -82,7 +82,7 @@
 {@render children()}
 <div class="container-scroller">
     <div class="container">
-        <SearchPanel bind:env />
+        <!-- <SearchPanel bind:env /> -->
         <ListPanel bind:env collection="books" />
         <BookPanel bind:env />
     </div>
